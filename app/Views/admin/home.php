@@ -29,7 +29,6 @@
     <div class="container">
         <div class="table-responsive">
             <div class="table-wrapper">
-
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-5">
@@ -143,7 +142,6 @@
                 var user_id = $(this).parent().data('id');
                 $("#companions_" + user_id).html('');
                 $("#overlay_"+user_id).fadeIn(200);
-
                 $.ajax({
                     url: '<?php echo base_url('admin/companions'); ?>',
                     type: 'POST',
