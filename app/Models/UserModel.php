@@ -48,5 +48,12 @@ class UserModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-
+    
+    public function getCompanionsWithUserNames()
+    {
+        // Join tbl_users with tbl_companions
+        return $this->select('tbl_users.id, tbl_users.name, tbl_users.will_attend, tbl_users.will_not_attend, tbl_users.date, tbl_users.name as user_name','tbl_users.invite_id')
+                ->join('tbl_companions', 'tbl_users.id = tbl_companions.user_id', 'inner')
+                ->findAll();
+    }
 }

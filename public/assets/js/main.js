@@ -48,7 +48,7 @@
       $('#rsvp_confirm_yes').click(function(){
         var rsvp_id = $("#invite_id").val().trim()
         $.ajax({
-          url: 'http://localhost/rsvp-php/public/confirm',
+          url: 'http://localhost/wedding-rsvp-2k24/public/confirm',
           headers:{'X-Requested-With':'XMLHttpRequest'},
           data:{ rsvp_id: rsvp_id, confirm: '1' },
           type: 'POST',
