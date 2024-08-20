@@ -31,8 +31,29 @@ class AdminController extends BaseController
         
         // Optionally, you can use `json_decode` to convert the object to an array
         return $this->response->setJSON($getCompanions);
-        
 
+    }
+    public function addInvitee(){
+        // Check if the request is AJAX and POST
+        if ($this->request->isAJAX() && $this->request->getMethod() === 'POST') {
+            $name = $this->request->getPost('name');
+            // You can now validate and save the data
+            $model = new UserModel();
+            $data = [
+                'name' => $name,
+                'will_attend' => NULL,
+                'will_not_attend' => NULL,
+                'invite_id' => rand(10,99999999999),
+            ];
 
+            if ($model->save($data)) {
+                return $this->response->setJSON(['status' => 'success', 'message' => 'Data saved successfully!']);
+            } else {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to save data.']);
+            }
+        } else {
+            // Handle invalid request
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request.']);
+        }
     }
 }

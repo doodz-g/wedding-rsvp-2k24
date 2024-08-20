@@ -19,87 +19,87 @@
         "hideMethod": "fadeOut"
     };
 
-     $('#btn-play-music1,#btn-play-music2,#btn-play-music3').click(function(){
-          var music = document.getElementById("bgmusic");
-            music.play();
-            $(".btn-play").hide();
-     });
-     $( document ).ready(function() {
-          var inviteID = $("#invite_id").val();
-          if(inviteID.trim().length > 0){
-              $("#confirmationModal").modal('show');
-          }
-          $( "#entourage-link" ).on( "click", function() {
-              $("#m-prin").find("p").addClass("animate__animated animate__lightSpeedInLeft  animate__delay-2s");
-              $("#f-prin").find("p").addClass("animate__animated animate__lightSpeedInRight  animate__delay-2s");
-          } );
-     });
-   
-     $(document).ajaxSend(function() {
-        $("#overlay").fadeIn(300);　
-     });
+    $('#btn-play-music1,#btn-play-music2,#btn-play-music3').click(function () {
+        var music = document.getElementById("bgmusic");
+        music.play();
+        $(".btn-play").hide();
+    });
+    $(document).ready(function () {
+        var inviteID = $("#invite_id").val();
+        if (inviteID.trim().length > 0) {
+            $("#confirmationModal").modal('show');
+        }
+        $("#entourage-link").on("click", function () {
+            $("#m-prin").find("p").addClass("animate__animated animate__lightSpeedInLeft  animate__delay-2s");
+            $("#f-prin").find("p").addClass("animate__animated animate__lightSpeedInRight  animate__delay-2s");
+        });
+    });
 
-    $('#btnConfirmAttendance').click(function(){
+    $(document).ajaxSend(function () {
+        $("#overlay").fadeIn(300);
+    });
+
+    $('#btnConfirmAttendance').click(function () {
         $("#confirmationModal").modal('show');
     });
-        
-      $('#rsvp_confirm_yes').click(function(){
+
+    $('#rsvp_confirm_yes').click(function () {
         var rsvp_id = $("#invite_id").val().trim()
         $.ajax({
-          url: 'https://celebratewithus.site/confirm',
-          headers:{'X-Requested-With':'XMLHttpRequest'},
-          data:{ rsvp_id: rsvp_id, confirm: '1' },
-          type: 'POST',
+            url: 'https://celebratewithus.site/confirm',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            data: { rsvp_id: rsvp_id, confirm: '1' },
+            type: 'POST',
 
-          success: function(data){
-            if(data.confirm ==1){
-                setTimeout(function(){
-                     toastr.success('Thank you for your confirmation!');
-                },1000);
+            success: function (data) {
+                if (data.confirm == 1) {
+                    setTimeout(function () {
+                        toastr.success('Thank you for your confirmation!');
+                    }, 1000);
+                }
+                $("#rsvp").hide();
+                $("#rsvp-nav").hide();
             }
-            $("#rsvp").hide();
-            $("#rsvp-nav").hide();
-          }
-        }).done(function() {
-          setTimeout(function(){
-            $("#overlay").fadeOut(300);
-          },500);
-          setTimeout(function(){
-            $("#confirmationModal").modal("hide");
-          },900);
-         
-        });
-      });	
+        }).done(function () {
+            setTimeout(function () {
+                $("#overlay").fadeOut(300);
+            }, 500);
+            setTimeout(function () {
+                $("#confirmationModal").modal("hide");
+            }, 900);
 
-            
-      $('#rsvp_confirm_no').click(function(){
+        });
+    });
+
+
+    $('#rsvp_confirm_no').click(function () {
         var rsvp_id = $("#invite_id").val().trim()
         $.ajax({
-          url: 'https://celebratewithus.site/confirm',
-          headers:{'X-Requested-With':'XMLHttpRequest'},
-          data:{ rsvp_id: rsvp_id, confirm: '0' },
-          type: 'POST',
+            url: 'https://celebratewithus.site/confirm',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            data: { rsvp_id: rsvp_id, confirm: '0' },
+            type: 'POST',
 
-          success: function(data){
-            if(data.confirm ==0 ){
-                setTimeout(function(){
-                    toastr.success('Thank you for your confirmation!');
-               },1000);
+            success: function (data) {
+                if (data.confirm == 0) {
+                    setTimeout(function () {
+                        toastr.success('Thank you for your confirmation!');
+                    }, 1000);
 
-               $("#rsvp").hide();
-               $("#rsvp-nav").hide();
+                    $("#rsvp").hide();
+                    $("#rsvp-nav").hide();
+                }
             }
-          }
-        }).done(function() {
-          setTimeout(function(){
-            $("#overlay").fadeOut(300);
-          },500);
-          setTimeout(function(){
-            $("#confirmationModal").modal("hide");
-          },900);
-         
+        }).done(function () {
+            setTimeout(function () {
+                $("#overlay").fadeOut(300);
+            }, 500);
+            setTimeout(function () {
+                $("#confirmationModal").modal("hide");
+            }, 900);
+
         });
-      });	
+    });
 
     // Navbar on scrolling
     $(window).scroll(function () {
@@ -115,11 +115,11 @@
     $(".navbar-nav a").on('click', function (event) {
         if (this.hash !== "") {
             event.preventDefault();
-            
+
             $('html, body').animate({
                 scrollTop: $(this.hash).offset().top - 45
             }, 1500, 'easeInOutExpo');
-            
+
             if ($(this).parents('.navbar-nav').length) {
                 $('.navbar-nav .active').removeClass('active');
                 $(this).closest('a').addClass('active');
@@ -146,10 +146,10 @@
         $("#portfolio-flters li").removeClass('active');
         $(this).addClass('active');
 
-        portfolioIsotope.isotope({filter: $(this).data('filter')});
+        portfolioIsotope.isotope({ filter: $(this).data('filter') });
     });
-    
-    
+
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 200) {
@@ -159,7 +159,7 @@
         }
     });
     $('.back-to-top').click(function () {
-        $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
+        $('html, body').animate({ scrollTop: 0 }, 1500, 'easeInOutExpo');
         return false;
     });
 
@@ -170,29 +170,29 @@
         smartSpeed: 1500,
         dots: false,
         loop: true,
-        nav : true,
-        navText : [
+        nav: true,
+        navText: [
             '<i class="fa fa-angle-left" aria-hidden="true"></i>',
             '<i class="fa fa-angle-right" aria-hidden="true"></i>'
         ],
         responsive: {
-            0:{
-                items:1
+            0: {
+                items: 1
             },
-            576:{
-                items:2
+            576: {
+                items: 2
             },
-            768:{
-                items:3
+            768: {
+                items: 3
             },
-            992:{
-                items:4
+            992: {
+                items: 4
             },
-            1200:{
-                items:5
+            1200: {
+                items: 5
             }
         }
     });
-    
+
 })(jQuery);
 

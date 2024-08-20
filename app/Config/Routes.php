@@ -14,3 +14,4 @@ $routes->post('/confirm', 'UserController::confirmRSVP');
 $routes->get('/admin', 'AdminController::index');
 $routes->post('/admin/companions', 'AdminController::getCompanions');
 $routes->get('/admin/export', 'ExportController::export');
+$routes->post('admin/submit', 'AdminController::addInvitee');
