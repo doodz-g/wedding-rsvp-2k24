@@ -77,7 +77,7 @@
                                 </tr>
                                 <tr class="fold">
                                     <td colspan="6">
-                                        <div id="overlay_<?php echo $c->id ?>" style="display:contents;">
+                                        <div id="overlay_<?php echo $c->id ?>">
                                             <div class="cv-spinner"><span class="spinner"></span></div>
                                         </div>
                                         <div class="fold-content" id="companions_<?php echo $c->id ?>">
