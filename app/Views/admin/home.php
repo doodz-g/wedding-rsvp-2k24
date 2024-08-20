@@ -284,8 +284,8 @@ $(document).ready(function(){
                             <td><?php echo $c->invite_id ?></td>
                             <td><?php echo $c->name ?></td>
                             <td><?php echo $c->date ?></td>                        
-                            <td><?php echo ($c->will_attend == NULL ? 'Invitation not yet sent ': $c->will_attend == 'Yes') ? 'Will attend':'Will not attend'?></td>
-                            <td><?php echo $c->will_attend == NULL ? '<a class="invite-link" href="'.base_url('rsvp/'.$c->invite_id.'').'">Click to Copy link</a>' : 'N/A' ?> </td>
+                            <td><?php echo ($c->will_attend === NULL ? 'Invitation not yet sent ': $c->will_attend == 'Yes') ? 'Will attend':'Will not attend'?></td>
+                            <td><?php echo $c->will_attend === NULL ? '<a class="invite-link" href="'.base_url('rsvp/'.$c->invite_id.'').'">Click to Copy link</a>' : 'N/A' ?> </td>
                             <td>
                                 <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
                                 <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
