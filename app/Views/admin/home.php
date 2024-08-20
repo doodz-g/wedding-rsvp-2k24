@@ -141,7 +141,7 @@
             $('.fold-table').on('click', 'td', function () {
                 var user_id = $(this).parent().data('id');
                 $("#companions_" + user_id).html('');
-                $("#overlay_"+user_id).fadeIn(200);
+                $("#overlay_" + user_id).fadeIn(200);
                 $.ajax({
                     url: '<?php echo base_url('admin/companions'); ?>',
                     type: 'POST',
@@ -153,11 +153,11 @@
                             console.log('Response is an empty array.');
                             $("#companions_" + user_id).html('');
                             $("#companions_" + user_id).html('<p>No companions found.</p>');
-                            $("#overlay_"+user_id).fadeOut(200);
+                            $("#overlay_" + user_id).fadeOut(200);
                         } else if (typeof response === 'object' && Object.keys(response).length === 0) {
                             // Check if the response is an object and if it's empty
                             console.log('Response is an empty object.');
-                           
+
                             $("#companions_" + user_id).html('<p>No companions found.</p>');
                         } else {
                             // Handle non-empty response
@@ -170,7 +170,7 @@
                             html += '</ul>';
 
                             setTimeout(function () {
-                                $("#overlay_"+user_id).fadeOut(200);
+                                $("#overlay_" + user_id).fadeOut(200);
                             }, 300);
                             setTimeout(function () {
                                 $("#companions_" + user_id).html(html);
