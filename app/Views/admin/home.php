@@ -358,7 +358,7 @@ $(document).ready(function(){
 $('.fold-table').on('click', 'td', function() {
         var user_id = $(this).parent().data('id');  
         $.ajax({
-        url: 'http://localhost/wedding-rsvp-2k24/public/admin/companions',
+        url: '<?php echo base_url('admin/companions');?>',
         type: 'POST',
         data: { user_id: user_id },
         dataType: 'json',
