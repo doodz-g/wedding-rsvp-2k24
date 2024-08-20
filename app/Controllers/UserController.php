@@ -11,10 +11,11 @@ class UserController extends BaseController
 
 {
 
-    public function getInviteeData($rsvp_id){
+    public function getinviteedata($rsvp_id){
 
         try {
-            $google_map_key = "https://www.google.com/maps/embed/v1/place?q=place_id:ChIJKdlbGeTBlzMRbQxZm8-_ZKQ&key=AIzaSyAc-QXWB4_dbvPDqQU3acosp8InF45vhVs";
+            $google_map_key1 = "https://www.google.com/maps/embed/v1/place?q=place_id:ChIJKdlbGeTBlzMRbQxZm8-_ZKQ&key=AIzaSyAc-QXWB4_dbvPDqQU3acosp8InF45vhVs";
+            $google_map_key2 = "https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ5fHDdqTHlzMRP8lnCcMPMok&key=AIzaSyAc-QXWB4_dbvPDqQU3acosp8InF45vhVs";
             $userModel = model(UserModel::class);
             $companionsModel = model(CompanionsModel::class);
             $getUserDetails = $userModel->where('invite_id', $rsvp_id)->where('will_attend',NULL)->first();
@@ -22,8 +23,8 @@ class UserController extends BaseController
                 $allUsers = $companionsModel->where('user_id', $getUserDetails->id)->findAll();
                 $countCompanions=count($allUsers);
                 $data = [
-        
-                    'google_map_key'=> $google_map_key,
+                    'google_map_key1'=> $google_map_key1,
+                    'google_map_key2'=> $google_map_key2,
                     'companions' => $allUsers,
                     'main_invitee' => $getUserDetails->name,
                     'invite_id' => $getUserDetails->invite_id,
@@ -31,7 +32,8 @@ class UserController extends BaseController
                 ];
             }else{
                 $data = [
-                    'google_map_key'=> $google_map_key,
+                    'google_map_key1'=> $google_map_key1,
+                    'google_map_key2'=> $google_map_key2,
                 ];
             }
             $dataObject = json_decode(json_encode($data));
@@ -42,7 +44,7 @@ class UserController extends BaseController
         }
     }
 
-    public function confirmRSVP()
+    public function confirmrsvp()
     {  
         try {
             $rsvp_id = $this->request->getPost('rsvp_id');
@@ -76,7 +78,7 @@ class UserController extends BaseController
         }
     }
 
-    public function inviteIDGenerator(){
+    public function inviteidgenerator(){
         // Invite id auto generator
        
         $userModel = model(UserModel::class);

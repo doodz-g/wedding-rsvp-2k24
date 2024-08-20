@@ -7,7 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link rel="icon" href="<?php echo base_url('public/assets/img/favicon-32x32.png'); ?>?v=2" sizes="192x192" type="image/png">
 
    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
@@ -20,12 +20,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link rel="stylesheet" href="<?php echo base_url('assets/lib/owlcarousel/assets/owl.carousel.min.css'); ?>"/>
-    <link rel="stylesheet" href="<?php echo base_url('assets/lib/lightbox/css/lightbox.min.css'); ?>"/>
+    <link rel="stylesheet" href="<?php echo base_url('public/assets/lib/owlcarousel/assets/owl.carousel.min.css'); ?>"/>
+    <link rel="stylesheet" href="<?php echo base_url('public/assets/lib/lightbox/css/lightbox.min.css'); ?>"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css'); ?>"/>
+    <link rel="stylesheet" href="<?php echo base_url('public/assets/css/style.css'); ?>"/>
 </head>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="51">
@@ -52,21 +52,17 @@
                 <a href="#gallery" class="nav-item nav-link">Gallery</a>
                 <!-- <a href="#family" class="nav-item nav-link">Family</a> -->
                 <a href="#event" class="nav-item nav-link">Event</a>
-                <a href="#rsvp" class="nav-item nav-link">RSVP</a>
+                <a href="#rsvp" id="rsvp-nav" style="<?php echo empty($data->main_invitee) ? 'display:none;':'display:block;'?>" class="nav-item nav-link">RSVP</a>
             </div>
         </div>
     </nav>
     <!-- Navbar End -->
-    <audio id="bgmusic" controls loop>
-        <source src=" <?php echo base_url('assets/audio/music.mp4'); ?>" type="audio/mp4">
-      Your browser does not support the audio element.
-    </audio>
     <!-- Carousel Start -->
-    <div class="container-fluid p-0 mb-5 pb-5" id="home">
+    <div class="container-fluid p-0" id="home">
         <div id="header-carousel" class="carousel slide carousel-fade" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item position-relative active" style="height: 100vh; min-height: 400px;">
-                    <img class="position-absolute w-100 h-153" src="<?php echo base_url('assets/img/carousel-2.JPG'); ?>" style="object-fit: cover;">
+                    <img class="position-absolute w-100 h-153" src="<?php echo base_url('public/assets/img/carousel-2.JPG');?>" loading="lazy" style="object-fit: cover;">
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <div class="p-3" style="max-width: 900px;">
                             <h1 class="animate__animated animate__wobble display-1 font-secondary text-white mt-n3 mb-md-4">Doodz & Akiss</h1>
@@ -74,7 +70,7 @@
                                 <h3 class="text-uppercase font-weight-normal text-white m-0" style="letter-spacing: 2px;">December 10 2024</h3>
                             </div>
                             <div class="animate__animated animate__slideInUp">
-                                <button type="button" class="btn-play mx-auto emerald-border-left" onclick="playmusic()" alt="Turn on the music">
+                                <button type="button" class="btn-play mx-auto emerald-border-left" id="btn-play-music1" alt="Turn on the music">
                                     <span></span>
                                 </button>
                             </div>
@@ -82,7 +78,7 @@
                     </div>
                 </div>
                 <div class="carousel-item position-relative" style="height: 100vh; min-height: 400px;">
-                    <img class="position-absolute w-100 h-153" src="<?php echo base_url('assets/img/carousel-1.JPG'); ?>" style="object-fit: cover;">
+                    <img class="position-absolute w-100 h-153" src="<?php echo base_url('public/assets/img/carousel-1.JPG'); ?>" loading="lazy" style="object-fit: cover;">
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <div class="p-3" style="max-width: 900px;">
                             <h1 class="animate__animated animate__bounceIn animate__delay-1s display-1 font-secondary text-white mt-n3 mb-md-4">Doodz & Akiss</h1>
@@ -90,7 +86,7 @@
                                 <h3 class="text-uppercase animate__animated animate__bounceIn animate__delay-1s font-weight-normal text-white m-0" style="letter-spacing: 2px;">December 10 2024</h3>
                             </div>
                             <div class="animate__animated animate__bounceIn animate__delay-1s">
-                                <button type="button" class="btn-play mx-auto emerald-border-left" onclick="playmusic()" alt="Turn on the music">
+                                <button type="button" class="btn-play mx-auto emerald-border-left" id="btn-play-music2" alt="Turn on the music">
                                     <span></span>
                                 </button>
                             </div>
@@ -98,14 +94,14 @@
                     </div>
                 </div>
                 <div class="carousel-item position-relative" style="height: 100vh; min-height: 400px;">
-                    <img class="position-absolute w-100 h-153" src="<?php echo base_url('assets/img/carousel-3.JPG'); ?>" style="object-fit: cover;">
+                    <img class="position-absolute w-100 h-153" src="<?php echo base_url('public/assets/img/carousel-3.JPG'); ?>" loading="lazy" style="object-fit: cover;">
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <div class="p-3" style="max-width: 900px;">
                             <h1 class="display-1 font-secondary text-white mt-n3 mb-md-4">Doodz & Akiss</h1>
                             <div class="d-inline-block border-top border-bottom border-light py-3 px-4">
                                 <h3 class="text-uppercase font-weight-normal text-white m-0" style="letter-spacing: 2px;">We're getting married</h3>
                             </div>
-                            <button type="button" class="btn-play mx-auto emerald-border-left" onclick="playmusic()" alt="Turn on the music">
+                            <button type="button" class="btn-play mx-auto emerald-border-left" id="btn-play-music3" alt="Turn on the music">
                                 <span></span>
                             </button>
                         </div>
@@ -125,55 +121,6 @@
         </div>
     </div>
     <!-- Carousel End -->
-   
-    <!-- About Start -->
-    <!-- <div class="container-fluid py-5" id="about">
-        <div class="container py-5">
-            <div class="section-title position-relative text-center">
-                <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">About</h6>
-                <h1 class="font-secondary display-4">Groom & Bride</h1>
-                <i class="far fa-heart text-dark"></i>
-            </div>
-            <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0">
-                <div class="col-md-6 p-0 text-center text-md-right">
-                    <div class="h-100 d-flex flex-column justify-content-center bg-secondary p-5">
-                        <h3 class="mb-3">The Groom</h3>
-                        <p>Lorem elitr magna stet rebum dolores sed. Est stet labore est lorem lorem at amet sea, eos tempor rebum, labore amet ipsum sea lorem, stet rebum eirmod amet. Kasd clita kasd stet amet est dolor elitr.</p>
-                        <h3 class="font-secondary font-weight-normal text-muted mb-3"><i class="fa fa-male text-primary pr-3"></i>Jack</h3>
-                        <div class="position-relative">
-                            <a class="btn btn-outline-primary btn-square mr-1" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-outline-primary btn-square mr-1" href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-primary btn-square mr-1" href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a class="btn btn-outline-primary btn-square" href="#"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 p-0" style="min-height: 400px;">
-                    <img class="position-absolute w-100 h-100" src="img/about-1.jpg" style="object-fit: cover;">
-                </div>
-            </div>
-            <div class="row m-0">
-                <div class="col-md-6 p-0" style="min-height: 400px;">
-                    <img class="position-absolute w-100 h-100" src="img/about-2.jpg" style="object-fit: cover;">
-                </div>
-                <div class="col-md-6 p-0 text-center text-md-left">
-                    <div class="h-100 d-flex flex-column justify-content-center bg-secondary p-5">
-                        <h3 class="mb-3">The Bride</h3>
-                        <p>Lorem elitr magna stet rebum dolores sed. Est stet labore est lorem lorem at amet sea, eos tempor rebum, labore amet ipsum sea lorem, stet rebum eirmod amet. Kasd clita kasd stet amet est dolor elitr.</p>
-                        <h3 class="font-secondary font-weight-normal text-muted mb-3"><i class="fa fa-female text-primary pr-3"></i>Rose</h3>
-                        <div class="position-relative">
-                            <a class="btn btn-outline-primary btn-square mr-1" href="#"><i class="fab fa-instagram"></i></a>
-                            <a class="btn btn-outline-primary btn-square mr-1" href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-primary btn-square mr-1" href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a class="btn btn-outline-primary btn-square" href="#"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- About End -->
-
     <!-- Story Start -->
     <div class="container-fluid py-5" id="story">
         <div class="container pt-5 pb-3">
@@ -184,7 +131,7 @@
             </div>
                 <div class="row">
                     <div class="col-md-12 col-lg-12 col-md-12 col-xs-12 text-muted">
-                        <div class="h-100 d-flex flex-column justify-content-center bg-secondary p-4 ml-md-3">
+                        <div class="h-100 d-flex flex-column justify-content-center bg-secondary p-4 ml-md-3" style="border-radius:31px;">
                             <p class="m-0">Three years ago, amidst the vast expanse of the internet, a chance encounter brought a boy and a girl together. What began as a simple exchange of words in a chatroom or perhaps through a shared interest on social media, quickly grew into a meaningful connection. They discovered common interests, shared dreams, and a mutual sense of humor that bridged the miles between them.
 
 
@@ -228,8 +175,19 @@
                 <i class="far fa-heart text-dark"></i>
             </div>
             <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
+                <div class="col-md-12 text-center font-secondary"><h3>Maid of Honor</h3></div>
+                <div class="col-6 p-0 text-md-right p-4" id="m-prin">
+                    <p>Mary Anne Monteverde</p>
+                    <p>Marie Bianca Monteverde</p>
+                </div>
+                <div class="col-6 p-0 text-md-left p-4" id="f-prin">
+                  <p>Marie Joyce Monteverde</p>
+                  <p>Marie Katrina Monteverde</p>
+                </div>
+            </div>
+            <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
                 <div class="col-md-12 text-center font-secondary"><h3>Principal Sponsors</h3></div>
-                <div class="col-md-6 col-sm-6 col-xs-6 p-0 text-md-right p-4" id="m-prin">
+                <div class="col-6 p-0 text-md-right p-4" id="m-prin">
                     <p>Edmond Cabading</p>
                     <p>Lino Dela Cruz</p>
                     <p>Arman Almirez</p>
@@ -238,7 +196,7 @@
                     <p>Dhon Conwi</p>
                     <p>Allan Dela Rosa</p>
                 </div>
-                <div class="col-md-6 col-sm-6 col-xs-6 p-0 text-md-left p-4" id="f-prin">
+                <div class="col-6 p-0 text-md-left p-4" id="f-prin">
                     <p>Marilou Kanda</p>
                     <p>Tita Vernz</p>
                     <p>Caroline Ofilanda</p>
@@ -250,36 +208,36 @@
             <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
                 <div class="col-md-12 text-center font-secondary pb-3"><h3>Secondary Sponsors</h3></div>
                 <div class="col-md-12 text-center font-secondary"><h4>Candles</h4></div>
-                <div class="col-md-6 p-0 text-center text-md-right p-4">
+                <div class="col-6 p-0 text-center text-md-right p-4">
                     <p>Carlo Bondoc</p>
                 </div>
-                <div class="col-md-6 p-0 text-center text-md-left p-4">
+                <div class="col-6 p-0 text-center text-md-left p-4">
                     <p>Joy Bondoc</p>
                 </div>
                 <div class="col-md-12 text-center font-secondary"><h4>Veil</h4></div>
-                <div class="col-md-6 p-0 text-center text-md-right p-4">
+                <div class="col-6 p-0 text-center text-md-right p-4">
                     <p>Frederick De Guzman</p>
                 </div>
-                <div class="col-md-6 p-0 text-center text-md-left p-4">
+                <div class="col-6 p-0 text-center text-md-left p-4">
                     <p>Beverly de Guzman</p>
                 </div>
                 <div class="col-md-12 text-center font-secondary"><h4>Cord</h4></div>
-                <div class="col-md-6 p-0 text-center text-md-right p-4">
+                <div class="col-6 p-0 text-center text-md-right p-4">
                     <p>Frank Oliver Monteverde</p>
                 </div>
-                <div class="col-md-6 p-0 text-center text-md-left p-4">
+                <div class="col-6 p-0 text-center text-md-left p-4">
                     <p>Richelle Monteverde</p>
                 </div>
             </div>
             <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
                 <div class="col-md-12 text-center font-secondary"><h3>Groomsmen  &  Bridesmaid</h3></div>
-                <div class="col-md-6 p-0 text-center text-md-right p-4">
+                <div class="col-6 p-0 text-center text-md-right p-4">
                     <p>Rachelle-Ann Ducay</p>
                     <p>Royward Castillo</p>
                     <p>Jayson Batac</p>
                     <p>Jerico Russell Mungcal</p>
                 </div>
-                <div class="col-md-6 p-0 text-center text-md-left p-4">
+                <div class="col-6 p-0 text-center text-md-left p-4">
                     <p>Mary Jane Cambaya</p>
                     <p>Daphne Ochoa</p>
                     <p>Cherry Mae Cabrera</p>
@@ -293,7 +251,7 @@
 
 
     <!-- Gallery Start -->
-    <div class="container-fluid" id="gallery" style="padding: 120px 0; margin: 90px 0;padding-bottom: 0; margin-bottom: 0;">
+    <div class="container-fluid" id="gallery" style="padding: 50px 0;padding-bottom: 0; margin-bottom: 0;">
         <div class="section-title position-relative text-center" style="margin-bottom: 120px;">
             <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">Gallery</h6>
             <h1 class="font-secondary display-4">Our Photo Gallery</h1>
@@ -301,38 +259,38 @@
         </div>
         <div class="owl-carousel gallery-carousel">
             <div class="gallery-item">
-                <img class="img-fluid w-100" src="<?php echo base_url('assets/img/gallery-new-1.JPG'); ?>" alt="">
-                <a href="<?php echo base_url('assets/img/gallery-new-1.JPG'); ?>" data-lightbox="gallery">
+                <img class="img-fluid w-100" src="<?php echo base_url('public/assets/img/gallery-new-1.JPG'); ?>" alt="">
+                <a href="<?php echo base_url('public/assets/img/gallery-new-1.JPG'); ?>" data-lightbox="gallery">
                     <i class="fa fa-2x fa-plus text-white"></i>
                 </a>
             </div>
             <div class="gallery-item">
-                <img class="img-fluid w-100" src="<?php echo base_url('assets/img/gallery-new-2.JPG'); ?>" alt="">
-                <a href="<?php echo base_url('assets/img/gallery-new-2.JPG'); ?>" data-lightbox="gallery">
+                <img class="img-fluid w-100" src="<?php echo base_url('public/assets/img/gallery-new-2.JPG'); ?>" alt="">
+                <a href="<?php echo base_url('public/assets/img/gallery-new-2.JPG'); ?>" data-lightbox="gallery">
                     <i class="fa fa-2x fa-plus text-white"></i>
                 </a>
             </div>
             <div class="gallery-item">
-                <img class="img-fluid w-100" src="<?php echo base_url('assets/img/gallery-new-3.JPG'); ?>" alt="">
-                <a href="i<?php echo base_url('assets/img/gallery-new-3.JPG'); ?>" data-lightbox="gallery">
+                <img class="img-fluid w-100" src="<?php echo base_url('public/assets/img/gallery-new-3.JPG'); ?>" alt="">
+                <a href="i<?php echo base_url('public/assets/img/gallery-new-3.JPG'); ?>" data-lightbox="gallery">
                     <i class="fa fa-2x fa-plus text-white"></i>
                 </a>
             </div>
             <div class="gallery-item">
-                <img class="img-fluid w-100" src="<?php echo base_url('assets/img/gallery-new-4.JPG'); ?>" alt="">
-                <a href="<?php echo base_url('assets/img/gallery-new-4.JPG'); ?>" data-lightbox="gallery">
+                <img class="img-fluid w-100" src="<?php echo base_url('public/assets/img/gallery-new-4.JPG'); ?>" alt="">
+                <a href="<?php echo base_url('public/assets/img/gallery-new-4.JPG'); ?>" data-lightbox="gallery">
                     <i class="fa fa-2x fa-plus text-white"></i>
                 </a>
             </div>
             <div class="gallery-item">
-                <img class="img-fluid w-100" src="<?php echo base_url('assets/img/gallery-new-5.JPG'); ?>" alt="">
-                <a href="<?php echo base_url('assets/img/gallery-new-5.JPG'); ?>" data-lightbox="gallery">
+                <img class="img-fluid w-100" src="<?php echo base_url('public/assets/img/gallery-new-5.JPG'); ?>" alt="">
+                <a href="<?php echo base_url('public/assets/img/gallery-new-5.JPG'); ?>" data-lightbox="gallery">
                     <i class="fa fa-2x fa-plus text-white"></i>
                 </a>
             </div>
             <div class="gallery-item">
-                <img class="img-fluid w-100" src="<?php echo base_url('assets/img/gallery-new-5.JPG'); ?>" alt="">
-                <a href="<?php echo base_url('assets/img/gallery-new-5.JPG'); ?>" data-lightbox="gallery">
+                <img class="img-fluid w-100" src="<?php echo base_url('public/assets/img/gallery-new-5.JPG'); ?>" alt="">
+                <a href="<?php echo base_url('public/assets/img/gallery-new-5.JPG'); ?>" data-lightbox="gallery">
                     <i class="fa fa-2x fa-plus text-white"></i>
                 </a>
             </div>
@@ -357,7 +315,7 @@
             <div class="row">
                 <div class="col-md-6 border-right border-primary">
                     <div class="text-center text-md-right mr-md-3 mb-4 mb-md-0">
-                        <iframe width="100%" height="100%" style="border:0" loading="lazy" allowfullscreen src="<?php echo $data->google_map_key?>"git ></iframe>
+                        <iframe width="100%" height="300px" style="border:0" loading="lazy" allowfullscreen src="<?php echo $data->google_map_key2?>"></iframe>
                         <h4 class="mb-3">The Wedding Venue</h4>
                         <p class="mb-2">St Joseph The Worker Parish</p>
                         <p class="mb-0">4:00 PM - 5:00PM</p>
@@ -365,7 +323,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="text-center text-md-left ml-md-3">
-                        <iframe width="100%" height="100%" style="border:0" loading="lazy" allowfullscreen src="<?php echo $data->google_map_key?>"></iframe>
+                        <iframe width="100%" height="300px" style="border:0" loading="lazy" allowfullscreen src="<?php echo $data->google_map_key1?>"></iframe>
                         <h4 class="mb-3">The Reception</h4>
                         <p class="mb-2">El Circulo Events Place</p>
                         <p class="mb-0">6:00 PM - 10:00 PM</p> 
@@ -373,126 +331,25 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Event End -->
-
-
-    <!-- Friends & Family Start -->
-    <!-- <div class="container-fluid py-5" id="family">
-        <div class="container pt-5 pb-3">
+        <div class="container py-5">
             <div class="section-title position-relative text-center">
-                <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">Friends & Family</h6>
-                <h1 class="font-secondary display-4">Groomsmen & Bridesmaid</h1>
+                <h1 class="font-secondary display-4">Attire</h1>
                 <i class="far fa-heart text-dark"></i>
             </div>
-            <div class="row">
-                <div class="col-12 text-center mb-2">
-                    <ul class="list-inline mb-4" id="portfolio-flters">
-                        <li class="btn btn-outline-primary font-weight-bold m-1 py-2 px-4" data-filter=".first">Groomsmen</li>
-                        <li class="btn btn-outline-primary font-weight-bold m-1 py-2 px-4" data-filter=".second">Bridesmaid</li>
-                    </ul>
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center">
+                    <h5 class="font-weight-normal text-muted mb-3 pb-3">Where Timeless Elegance Meets the Promise of Forever, Every Stitch Tells a Story of Love.</h5>
                 </div>
             </div>
-            <div class="row portfolio-container">
-                <div class="col-lg-4 col-md-6 mb-4 portfolio-item first">
-                    <div class="position-relative mb-2">
-                        <img class="img-fluid w-100" src="img/groomsmen-1.jpg" alt="">
-                        <div class="bg-secondary text-center p-4">
-                            <h4 class="mb-3">Full Name</h4>
-                            <p class="text-uppercase">Best Friend</p>
-                            <div class="d-inline-block">
-                                <a class="mx-2" href="#"><i class="fab fa-twitter"></i></a>
-                                <a class="mx-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a class="mx-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a class="mx-2" href="#"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4 portfolio-item second">
-                    <div class="position-relative mb-2">
-                        <img class="img-fluid w-100" src="img/bridesmaid-1.jpg" alt="">
-                        <div class="bg-secondary text-center p-4">
-                            <h4 class="mb-3">Full Name</h4>
-                            <p class="text-uppercase">Best Friend</p>
-                            <div class="d-inline-block">
-                                <a class="mx-2" href="#"><i class="fab fa-twitter"></i></a>
-                                <a class="mx-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a class="mx-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a class="mx-2" href="#"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4 portfolio-item first">
-                    <div class="position-relative mb-2">
-                        <img class="img-fluid w-100" src="img/groomsmen-2.jpg" alt="">
-                        <div class="bg-secondary text-center p-4">
-                            <h4 class="mb-3">Full Name</h4>
-                            <p class="text-uppercase">Best Friend</p>
-                            <div class="d-inline-block">
-                                <a class="mx-2" href="#"><i class="fab fa-twitter"></i></a>
-                                <a class="mx-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a class="mx-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a class="mx-2" href="#"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4 portfolio-item second">
-                    <div class="position-relative mb-2">
-                        <img class="img-fluid w-100" src="img/bridesmaid-2.jpg" alt="">
-                        <div class="bg-secondary text-center p-4">
-                            <h4 class="mb-3">Full Name</h4>
-                            <p class="text-uppercase">Best Friend</p>
-                            <div class="d-inline-block">
-                                <a class="mx-2" href="#"><i class="fab fa-twitter"></i></a>
-                                <a class="mx-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a class="mx-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a class="mx-2" href="#"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4 portfolio-item first">
-                    <div class="position-relative mb-2">
-                        <img class="img-fluid w-100" src="img/groomsmen-3.jpg" alt="">
-                        <div class="bg-secondary text-center p-4">
-                            <h4 class="mb-3">Full Name</h4>
-                            <p class="text-uppercase">Best Friend</p>
-                            <div class="d-inline-block">
-                                <a class="mx-2" href="#"><i class="fab fa-twitter"></i></a>
-                                <a class="mx-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a class="mx-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a class="mx-2" href="#"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4 portfolio-item second">
-                    <div class="position-relative mb-2">
-                        <img class="img-fluid w-100" src="img/bridesmaid-3.jpg" alt="">
-                        <div class="bg-secondary text-center p-4">
-                            <h4 class="mb-3">Full Name</h4>
-                            <p class="text-uppercase">Best Friend</p>
-                            <div class="d-inline-block">
-                                <a class="mx-2" href="#"><i class="fab fa-twitter"></i></a>
-                                <a class="mx-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a class="mx-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a class="mx-2" href="#"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="row justify-content-center">
+                <img src="<?php echo base_url('public/assets/img/attire.png'); ?>" class="img-fluid" alt="Responsive image">
             </div>
         </div>
-    </div> -->
-    <!-- Friends & Family End -->
-
-
+    </div>
+    <!-- Event End -->
     <!-- RSVP Start -->
     <div class="container-fluid py-5" id="rsvp" style="<?php  echo empty($data->main_invitee)  ? 'display:none;':'display:block;' ?>" >
-        <div class="container py-5">
+        <div class="container py-5 bg-secondary" style="border-radius:31px;">
             <div class="section-title position-relative text-center">
                 <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">RSVP</h6>
                 <h1 class="font-secondary display-4">Join Our Wedding</h1>
@@ -523,7 +380,7 @@
                                 ?>
                             </div>
                             <div style="margin-top:100px;">
-                                <button class="btn btn-primary font-weight-bold py-3 px-5" id="btnConfirmAttendance" type="button">Confirm Attendance</button>
+                                <button class="btn btn-primary font-weight-bold py-3 px-5" id="btnConfirmAttendance" type="button">Affirm your presence</button>
                             </div>
                     </div>
                 </div>
@@ -531,7 +388,10 @@
         </div>
     </div>
     <!-- RSVP End -->
-
+    <audio id="bgmusic" controls loop>
+        <source src=" <?php echo base_url('public/assets/audio/music.mp4'); ?>" type="audio/mp4">
+      Your browser does not support the audio element.
+    </audio>
     <!-- Modal -->
     <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -585,14 +445,14 @@
                     echo $data->companions_count >= 0 && !empty($data->companions_count)? 'We':'I'; ?> will attend</button>
                 <button type="button" class="btn btn-primary btn-danger" id="rsvp_confirm_no">Sorry, <?php 
                     echo $data->companions_count >= 0 && !empty($data->companions_count)? 'We':'I'; ?> will not be able to attend</button>
-                <?php }?> 
+                <?php } ?> 
             </div>
             </div>
         </div>
     </div>
     
     <!-- Footer Start -->
-    <div class="container-fluid bg-dark text-white py-5" id="contact" style="margin-top: 90px;">
+    <div class="container-fluid bg-dark text-white py-5" id="contact">
         <div class="container text-center py-5">
             <div class="section-title position-relative text-center">
                 <h1 class="font-secondary display-3 text-white">Thank You</h1>
@@ -625,20 +485,23 @@
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-
-    <script src="<?php echo base_url('assets/lib/easing/easing.min.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/lib/waypoints/waypoints.min.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/lib/owlcarousel/owl.carousel.min.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/lib/isotope/isotope.pkgd.min.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/lib/lightbox/js/lightbox.min.js'); ?>"></script>
+  
+    <script src="<?php echo base_url('public/assets/lib/easing/easing.min.js'); ?>"></script>
+    <script src="<?php echo base_url('public/assets/lib/waypoints/waypoints.min.js'); ?>"></script>
+    <script src="<?php echo base_url('public/assets/lib/owlcarousel/owl.carousel.min.js'); ?>"></script>
+    <script src="<?php echo base_url('public/assets/lib/isotope/isotope.pkgd.min.js'); ?>"></script>
+    <script src="<?php echo base_url('public/assets/lib/lightbox/js/lightbox.min.js'); ?>"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.js.map"></script>
     <!-- Template Javascript -->
-    <script src="<?php echo base_url('assets/lib/lightbox/js/lightbox.min.js'); ?>"></script>
+    <script src="<?php echo base_url('public/assets/lib/lightbox/js/lightbox.min.js'); ?>"></script>
 
-    <script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
+    <script src="<?php echo base_url('public/assets/js/main.js'); ?>"></script>
+    
+    
 </body>
 
 </html>

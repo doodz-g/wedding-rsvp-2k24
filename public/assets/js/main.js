@@ -18,15 +18,13 @@
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
     };
-    
-    var music = document.getElementById("bgmusic");
-     function playmusic(){
-      music.play();
-      $(".btn-play").hide();
-     }
 
+     $('#btn-play-music1,#btn-play-music2,#btn-play-music3').click(function(){
+          var music = document.getElementById("bgmusic");
+            music.play();
+            $(".btn-play").hide();
+     });
      $( document ).ready(function() {
-        
           var inviteID = $("#invite_id").val();
           if(inviteID.trim().length > 0){
               $("#confirmationModal").modal('show');
@@ -48,7 +46,7 @@
       $('#rsvp_confirm_yes').click(function(){
         var rsvp_id = $("#invite_id").val().trim()
         $.ajax({
-          url: 'http://localhost/wedding-rsvp-2k24/public/confirm',
+          url: 'https://celebratewithus.site/confirm',
           headers:{'X-Requested-With':'XMLHttpRequest'},
           data:{ rsvp_id: rsvp_id, confirm: '1' },
           type: 'POST',
@@ -60,6 +58,7 @@
                 },1000);
             }
             $("#rsvp").hide();
+            $("#rsvp-nav").hide();
           }
         }).done(function() {
           setTimeout(function(){
@@ -76,7 +75,7 @@
       $('#rsvp_confirm_no').click(function(){
         var rsvp_id = $("#invite_id").val().trim()
         $.ajax({
-          url: 'http://localhost/codeigniter/project-root/public/confirm',
+          url: 'https://celebratewithus.site/confirm',
           headers:{'X-Requested-With':'XMLHttpRequest'},
           data:{ rsvp_id: rsvp_id, confirm: '0' },
           type: 'POST',
@@ -88,6 +87,7 @@
                },1000);
 
                $("#rsvp").hide();
+               $("#rsvp-nav").hide();
             }
           }
         }).done(function() {
@@ -103,7 +103,7 @@
 
     // Navbar on scrolling
     $(window).scroll(function () {
-        if ($(this).scrollTop() > 200) {
+        if ($(this).scrollTop() > 100) {
             $('.navbar').fadeIn('slow').css('display', 'flex');
         } else {
             $('.navbar').fadeOut('slow').css('display', 'none');
