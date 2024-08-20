@@ -29,6 +29,7 @@
     <div class="container">
         <div class="table-responsive">
             <div class="table-wrapper">
+
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-5">
@@ -77,8 +78,10 @@
                                 </tr>
                                 <tr class="fold">
                                     <td colspan="6">
+                                        <div id="overlay_<?php echo $c->id ?>" style="display:contents;">
+                                            <div class="cv-spinner"><span class="spinner"></span></div>
+                                        </div>
                                         <div class="fold-content" id="companions_<?php echo $c->id ?>">
-                                            <p>Test</p>
                                         </div>
 
                                     </td>
@@ -138,6 +141,9 @@
         <script>
             $('.fold-table').on('click', 'td', function () {
                 var user_id = $(this).parent().data('id');
+                $("#companions_" + user_id).html('');
+                $("#overlay_"+user_id).fadeIn(200);
+
                 $.ajax({
                     url: '<?php echo base_url('admin/companions'); ?>',
                     type: 'POST',
@@ -147,22 +153,31 @@
                         // Check if the response is an array and if it's empty
                         if (Array.isArray(response) && response.length === 0) {
                             console.log('Response is an empty array.');
+                            $("#companions_" + user_id).html('');
                             $("#companions_" + user_id).html('<p>No companions found.</p>');
+                            $("#overlay_"+user_id).fadeOut(200);
                         } else if (typeof response === 'object' && Object.keys(response).length === 0) {
                             // Check if the response is an object and if it's empty
                             console.log('Response is an empty object.');
+                           
                             $("#companions_" + user_id).html('<p>No companions found.</p>');
                         } else {
                             // Handle non-empty response
                             console.log('Response:', response);
-
-                            var html = '<ul>';
+                            var html = "";
+                            html = '<ul>';
                             $.each(response, function (index, item) {
                                 html += '<li>Name: ' + item.name + '</li>';
                             });
                             html += '</ul>';
 
-                            $("#companions_" + user_id).html(html);
+                            setTimeout(function () {
+                                $("#overlay_"+user_id).fadeOut(200);
+                            }, 300);
+                            setTimeout(function () {
+                                $("#companions_" + user_id).html(html);
+                            }, 600);
+
                         }
                     },
                     error: function (xhr, status, error) {

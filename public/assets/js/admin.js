@@ -21,6 +21,7 @@
 
     $(document).ajaxSend(function () {
         $("#overlay").fadeIn(300);
+
     });
 
     $("#users-tbody").find('.invite-link').click(function (event) {
