@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Bootstrap User Management Data Table</title>
+    <title>Guest Management</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -26,13 +26,13 @@
 </head>
 
 <body>
-    <div class="container-lg">
+    <div class="container">
         <div class="table-responsive">
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-5">
-                            <h2>User <b>Management</b></h2>
+                            <h2>Guest <b>Management</b></h2>
                         </div>
                         <div class="col-sm-7">
                             <a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#add-user-modal"><i
@@ -113,7 +113,7 @@
                     <div class="cv-spinner"><span class="spinner"></span></div>
                 </div>
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Add Invitee</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add Guest</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

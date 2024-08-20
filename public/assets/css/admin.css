@@ -9,7 +9,7 @@ body {
     margin: 30px 0;
   }
   .table-wrapper {
-    min-width: 1000px;
+    max-width: 100%;
     background: #fff;
     padding: 20px 25px;
     border-radius: 3px;
@@ -17,7 +17,7 @@ body {
   }
   .table-title {
     padding-bottom: 15px;
-    background: #299be4;
+    background: forestgreen;
     color: #fff;
     padding: 16px 30px;
     margin: -20px -25px 10px;

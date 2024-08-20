@@ -9,24 +9,19 @@
     <!-- Favicon -->
     <link rel="icon" href="<?php echo base_url('public/assets/img/favicon-32x32.png'); ?>?v=2" sizes="192x192"
         type="image/png">
-
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
-
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&display=swap"
         rel="stylesheet">
-
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-
     <!-- Libraries Stylesheet -->
     <link rel="stylesheet"
         href="<?php echo base_url('public/assets/lib/owlcarousel/assets/owl.carousel.min.css'); ?>" />
     <link rel="stylesheet" href="<?php echo base_url('public/assets/lib/lightbox/css/lightbox.min.css'); ?>" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-
     <!-- Customized Bootstrap Stylesheet -->
     <link rel="stylesheet" href="<?php echo base_url('public/assets/css/style.css'); ?>" />
 </head>
@@ -583,8 +578,6 @@
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-outline-primary btn-lg-square back-to-top"><i
             class="fa fa-angle-double-up"></i></a>
-
-
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
@@ -605,5 +598,4 @@
 
 
 </body>
-
 </html>
