@@ -46,8 +46,9 @@
     $('#rsvp_confirm_yes').click(function () {
         var rsvp_id = $("#invite_id").val().trim()
         $.ajax({
-            url: 'https://celebratewithus.site/confirm',
+            url: 'http://localhost/wedding-rsvp-2k24/confirm',
             headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             data: { rsvp_id: rsvp_id, confirm: '1' },
             type: 'POST',
 
@@ -75,7 +76,7 @@
     $('#rsvp_confirm_no').click(function () {
         var rsvp_id = $("#invite_id").val().trim()
         $.ajax({
-            url: 'https://celebratewithus.site/confirm',
+            url: 'http://localhost/wedding-rsvp-2k24/confirm',
             headers: { 'X-Requested-With': 'XMLHttpRequest' },
             data: { rsvp_id: rsvp_id, confirm: '0' },
             type: 'POST',

@@ -36,6 +36,27 @@
             $(this).toggleClass("open").next(".fold").toggleClass("open");
         });
     });
+    // Initialize Pusher
+    var pusher = new Pusher('b012177f6ee3695e54b9', {
+        cluster: 'ap3',
+        forceTLS: true
+    });
+
+    // Subscribe to a channel
+    var channel = pusher.subscribe('rsvp-channel');
+
+    // Bind to an event
+    channel.bind('rsvp-updated', function (data) {
+        console.log('Received data:', data);
+        // You can update the UI or show a notification based on the data received
+        toastr.info(data.will_attend, 'Notification', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: 'toast-top-right',
+            timeOut: 5000
+        }); F
+
+    });
 
 })(jQuery);
 

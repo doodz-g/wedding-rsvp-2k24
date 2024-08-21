@@ -35,7 +35,7 @@
                             <h2>Guest <b>Management</b></h2>
                         </div>
                         <div class="col-sm-7">
-                            <a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#add-user-modal"><i
+                            <a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#"><i
                                     class="material-icons">&#xE147;</i> <span>Add New User</span></a>
                             <a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export to
                                     Excel</span></a>
@@ -69,9 +69,9 @@
                                     <td><?php echo $c->will_attend === NULL ? '<a class="invite-link" href="' . base_url('rsvp/' . $c->invite_id . '') . '">Click to Copy link</a>' : 'N/A' ?>
                                     </td>
                                     <td>
-                                        <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i
+                                        <a href="#" type="button" class="settings" title="Settings" data-toggle="tooltip"><i
                                                 class="material-icons">&#xE8B8;</i></a>
-                                        <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i
+                                        <a href="#" type="button" class="delete" title="Delete" data-toggle="tooltip"><i
                                                 class="material-icons">&#xE5C9;</i></a>
                                     </td>
                                 </tr>
@@ -107,8 +107,7 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="add-user-modal" tabindex="-1" role="dialog" aria-labelledby="add-user-modal"
-        aria-hidden="true">
+    <div class="modal fade" id="add-user-modal" tabindex="-1" role="dialog" aria-labelledby="#" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div id="overlay">
@@ -134,6 +133,7 @@
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.js.map"></script>
+        <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
         <!-- Template Javascript -->
         <script src="<?php echo base_url('public/assets/js/admin.js'); ?>"></script>
 
@@ -184,6 +184,8 @@
                 });
             });
             $('#submitButton').click(function () {
+                let baseURL = window.location.origin;
+                let rsvpURL = baseURL + '/wedding-rsvp-2k24/rsvp';
                 // Prepare data to be sent
                 var formData = {
                     name: $('#name').val()
@@ -205,6 +207,41 @@
                             $("#add-user-modal").modal('hide');
                         }, 900);
 
+                        $.ajax({
+                            url: '<?php echo base_url('admin/refresh') ?>',
+                            type: 'POST',
+                            success: function (response2) {
+                                console.log(response2);
+                                var html = $("#users-tbody").html('');
+                                $.each(response2, function (index, item) {
+                                    html += '<tr class="view" data-id="' + item.id + '">' +
+                                        '<td>' + item.id + '</td>' +
+                                        '<td>' + item.invite_id + '</td>' +
+                                        '<td>' + item.name + '</td>' +
+                                        '<td>' + item.date + '</td>' +
+                                        '<td>' + (item.will_attend === null ? 'Invitation not yet sent' : (item.will_attend === 'Yes' ? 'Will attend' : 'Will not attend')) + '</td>' +
+                                        '<td>' + (item.will_attend === null ? '<a class="invite-link" href="' + rsvpURL + '/' + item.invite_id + '">Click to Copy link</a>' : 'N/A') + '</td>' +
+                                        '<td>' +
+                                        '<a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>' +
+                                        '<a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>' +
+                                        '</td>' +
+                                        '</tr>' +
+                                        '<tr class="fold">' +
+                                        '<td colspan="6">' +
+                                        '<div id="overlay_' + item.id + '">' +
+                                        '<div class="cv-spinner"><span class="spinner"></span></div>' +
+                                        '</div>' +
+                                        '<div class="fold-content" id="companions_' + item.id + '">' +
+                                        '</div>' +
+                                        '</td>' +
+                                        '</tr>';
+                                });
+                                $("#users-tbody").html(html);
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('Error in second request:', error);
+                            }
+                        });
                     },
                     error: function (xhr, status, error) {
                         // Handle error
@@ -212,7 +249,10 @@
                     }
                 });
             });
-
+            $('.btn-secondary').click(function () {
+                $("#overlay").fadeOut(300);
+                $("#add-user-modal").modal("show");
+            });
         </script>
 </body>
 
