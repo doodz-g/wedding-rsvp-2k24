@@ -381,7 +381,7 @@
 
 
     <!-- Event Start -->
-    <div class="container-fluid pt-5 pb-5 parallax-window" data-parallax="scroll" data-image-src="<?php echo base_url('public/assets/img/entourage.jpg'); ?>" id="event">
+    <div class="container-fluid noPaddingBottom pt-5 pb-5 parallax-window" data-parallax="scroll" data-image-src="<?php echo base_url('public/assets/img/entourage.jpg'); ?>" id="event">
         <div class="container">
             <div class="section-title position-relative text-center">
                 <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">Event</h6>
@@ -416,7 +416,7 @@
                 </div>
             </div>
         </div>
-        <div class="container py-5">
+        <div class="container py-5 noPaddingBottom">
             <div class="section-title position-relative text-center">
                 <h1 class="font-secondary display-4">Attire</h1>
                 <i class="far fa-heart text-dark"></i>

@@ -9824,6 +9824,9 @@ audio{
 @media (min-width: 1024px) {
 .parallax-mirror img{width:100%!important;}
 }
+.noPaddingBottom{
+  padding-bottom: 0 !important;
+}
 .gallery-carousel .owl-nav {
   position: absolute;
   width: 135px;
