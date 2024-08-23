@@ -53,21 +53,42 @@
             type: 'POST',
 
             success: function (data) {
+
                 if (data.confirm == 1) {
                     setTimeout(function () {
                         toastr.success('Thank you for your confirmation!');
                     }, 1000);
+                    var html = '';
+                    html += '<p>We look forward to your presence, <b>' + data.main_invitee_name + ',</b></p>';
+                    if (data.companions.length > 0) {
+                        html += '<p>along with your accompanying family members:</p>';
+                        $.each(data.companions, function (index, companion) {
+                            console.log(companion.name);
+                            html += '<p><b>' + companion.name + '</b></p>';
+                        });
+                    }
+                    html += '<h3>Thank you!</h3><br>';
+                    html += "<button type='button' class='btn btn-primary font-weight-bold py-3 px-5' id='btn-show-qr'>Get your QR Pass</button>";
+
+                    $("#invitee-body").html(html);
                 }
+
+                $("#rsvp-confirm").show();
                 $("#rsvp").hide();
                 $("#rsvp-nav").hide();
             }
-        }).done(function () {
+        }).done(function (data) {
             setTimeout(function () {
                 $("#overlay").fadeOut(300);
             }, 500);
             setTimeout(function () {
                 $("#confirmationModal").modal("hide");
             }, 900);
+            $('#qr-code-image').attr('src', data.qrCodeUri);
+            setTimeout(function () {
+                $("#qrModal").modal("show");
+            }, 1200);
+
 
         });
     });
@@ -88,6 +109,7 @@
                     }, 1000);
 
                     $("#rsvp").hide();
+                    $("#rsvp-confirm").hide();
                     $("#rsvp-nav").hide();
                 }
             }
@@ -95,10 +117,35 @@
             setTimeout(function () {
                 $("#overlay").fadeOut(300);
             }, 500);
+
             setTimeout(function () {
                 $("#confirmationModal").modal("hide");
             }, 900);
 
+        });
+    });
+
+    $(document).on('click', '#btn-show-qr', function () {
+        $("#qrModal").modal("show");
+    });
+
+    $(document).ready(function () {
+        // Handle the save button click
+        $('#btn-save-qr').click(function () {
+            // Create a temporary download link
+            var base64Image = $('#qr-code-image').attr('src');
+            var link = document.createElement('a');
+            link.href = base64Image;
+            link.download = 'qrcode.png';
+
+            // Append link to the body (required for Firefox)
+            document.body.appendChild(link);
+
+            // Trigger the download
+            link.click();
+
+            // Remove the link from the document
+            document.body.removeChild(link);
         });
     });
 

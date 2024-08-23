@@ -9809,11 +9809,21 @@ audio{
 }
 
 .bg-entourage {
-  background: url(../img/entourage.jpg), no-repeat center center;
-  background-size: cover;
+  /* background: url(../img/entourage.jpg), no-repeat center center; */
+  /* background-size: cover; */
 }
 
-
+.parallax-window {
+  min-height: auto;
+  background: transparent;
+}
+.parallax-mirror,#vurtUnderlay{
+  width:100%!important;
+  padding:45% 0 0;    
+}
+@media (min-width: 1024px) {
+.parallax-mirror img{width:100%!important;}
+}
 .gallery-carousel .owl-nav {
   position: absolute;
   width: 135px;

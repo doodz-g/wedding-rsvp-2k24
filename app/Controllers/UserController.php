@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\UserModel;
 use App\Models\CompanionsModel;
 use App\Controllers\BaseController;
+use App\Services\QrCodeService;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class UserController extends BaseController
@@ -19,7 +20,22 @@ class UserController extends BaseController
             $userModel = model(UserModel::class);
             $companionsModel = model(CompanionsModel::class);
             $getUserDetails = $userModel->where('invite_id', $rsvp_id)->where('will_attend', NULL)->first();
-            if (!empty($getUserDetails)) {
+            $getUserDetailsConfirmRSVP = $userModel->where('invite_id', $rsvp_id)->where('will_attend', 'Yes')->first();
+
+            if(!empty($getUserDetailsConfirmRSVP)) {
+                $allCompanions = $companionsModel->where('user_id', $getUserDetailsConfirmRSVP->id)->findAll();
+                $countCompanions = count($allCompanions);
+                $data = [
+                    'google_map_key1' => $google_map_key1,
+                    'google_map_key2' => $google_map_key2,
+                    'confirm_rsvp' => 1,
+                    'confirm_companions' => $allCompanions,
+                    'confirm_invitee_qr' => $getUserDetailsConfirmRSVP->qr_code,
+                    'confirm_main_invitee' => $getUserDetailsConfirmRSVP->name,
+                    'confirm_invite_id' => $getUserDetailsConfirmRSVP->invite_id,
+                    'confirm_companions_count' => $countCompanions,
+                ];
+            } else if (!empty($getUserDetails)) {
                 $allUsers = $companionsModel->where('user_id', $getUserDetails->id)->findAll();
                 $countCompanions = count($allUsers);
                 $data = [
@@ -35,7 +51,7 @@ class UserController extends BaseController
                     'google_map_key1' => $google_map_key1,
                     'google_map_key2' => $google_map_key2,
                 ];
-            }
+            };
             $dataObject = json_decode(json_encode($data));
             return view('pages/home', ['data' => $dataObject]);
         } catch (\Exception $e) {
@@ -46,6 +62,9 @@ class UserController extends BaseController
 
     public function confirmrsvp()
     {
+        $qrCodeService = new QrCodeService();
+ 
+
         // Handle preflight request
         if ($this->request->getMethod() === 'options') {
             return $this->response
@@ -64,14 +83,17 @@ class UserController extends BaseController
             }
 
             $userModel = model(UserModel::class);
-            $allUsers = $userModel->where('invite_id', $rsvp_id)->first();
+            $companionsModel = model(CompanionsModel::class);
+            $getUser = $userModel->where('invite_id', $rsvp_id)->first();
+            $getCompanions = $companionsModel->where('user_id', $getUser->id)->findAll();
 
-            if ($allUsers) {
+
+            if ($getUser) {
                 $dataUpdated = [
                     'will_attend' => $confirm == 1 ? 'Yes' : 'No',
                 ];
 
-                $userModel->update($allUsers->id, $dataUpdated);
+                $userModel->update($getUser->id, $dataUpdated);
 
                 // Set up Pusher configuration
                 $options = [
@@ -88,15 +110,31 @@ class UserController extends BaseController
 
                 $pusherData = [
                     'message' => 'User RSVP status updated',
-                    'user_id' => $allUsers->id,
+                    'user_id' => $getUser->id,
                     'will_attend' => $dataUpdated['will_attend']
                 ];
+                
+                $text = 'https://www.example.com'; // Example text to encode
+                $qrCodeUri = $qrCodeService->generateQrCode($text);
 
+                $userModelQR = new UserModel();
+
+                if ($userModelQR) {
+                    $userModelQR->set('qr_code', $qrCodeUri);
+                    $userModelQR->where('will_attend', 'Yes');
+                    $userModelQR->where('invite_id', $rsvp_id);
+                    $userModelQR->update();
+    
+                }
+               
                 $pusher->trigger('rsvp-channel', 'rsvp-updated', $pusherData);
             }
 
             $data = [
-                'confirm' => $confirm
+                'confirm' => $confirm,
+                'main_invitee_name' => $getUser->name,
+                'companions' => $getCompanions,
+                'qrCodeUri' => $qrCodeUri
             ];
 
             // Add CORS headers to the response

@@ -228,7 +228,7 @@
     <!-- Story End -->
 
     <!-- Entourage Start -->
-    <div class="container-fluid bg-entourage py-5" id="entourage">
+    <div class="container-fluid bg-entourage py-5 parallax-window" data-parallax="scroll" data-image-src="<?php echo base_url('public/assets/img/entourage.jpg'); ?>" id="entourage">
         <div class="container py-5">
             <div class="section-title position-relative text-center">
                 <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">Entourage</h6>
@@ -381,8 +381,8 @@
 
 
     <!-- Event Start -->
-    <div class="container-fluid bg-entourage py-5" id="event">
-        <div class="container py-5">
+    <div class="container-fluid pt-5 pb-5 parallax-window" data-parallax="scroll" data-image-src="<?php echo base_url('public/assets/img/entourage.jpg'); ?>" id="event">
+        <div class="container">
             <div class="section-title position-relative text-center">
                 <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">Event</h6>
                 <h1 class="font-secondary display-4">Our Wedding Event</h1>
@@ -435,8 +435,7 @@
     </div>
     <!-- Event End -->
     <!-- RSVP Start -->
-    <div class="container-fluid py-5" id="rsvp"
-        style="<?php echo empty($data->main_invitee) ? 'display:none;' : 'display:block;' ?>">
+    <div class="container-fluid py-5" id="rsvp" style="<?php echo (!empty($data->confirm_rsvp) && $data->confirm_rsvp == 1 ) || (empty($data->main_invitee))? 'display:none;' : 'display:block;'?>">
         <div class="container py-5 bg-secondary" style="border-radius:31px;">
             <div class="section-title position-relative text-center">
                 <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">RSVP</h6>
@@ -460,14 +459,13 @@
                                     echo '<p><b>' . htmlspecialchars($companion->name) . "</b></p>";
                                 }
                                 echo "</br>";
-                                echo "</br>";
                                 echo "<h3>Thank you!</h3>";
                             } else {
                                 echo "<p>No companions found.</p>";
                             }
                             ?>
                         </div>
-                        <div style="margin-top:100px;">
+                        <div style="margin-top:20px;">
                             <button class="btn btn-primary font-weight-bold py-3 px-5" id="btnConfirmAttendance"
                                 type="button">Affirm your presence</button>
                         </div>
@@ -477,6 +475,47 @@
         </div>
     </div>
     <!-- RSVP End -->
+    <!-- RSVP Confirm Start -->
+    <div class="container-fluid py-5" id="rsvp-confirm" style="<?php echo !empty($data->confirm_rsvp) && $data->confirm_rsvp == 1 ? 'display:block;' : 'display:none;'?>">
+        <div class="container py-5 bg-secondary" style="border-radius:31px;">
+            <div class="section-title position-relative text-center">
+                <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">RSVP</h6>
+                <h1 class="font-secondary display-4">Your Presence is Highly Anticipated</h1>
+                <i class="far fa-heart text-dark"></i>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="text-center">
+                        <div class="text-center" id ="invitee-body">
+                            <?php
+                            // Check if each $companion is an object or associative array
+                            if (!empty($data->confirm_main_invitee)) {
+                                echo "<p>We look forward to your presence, <b>" . htmlspecialchars($data->confirm_main_invitee) . ",</b></p>";
+                                echo $data->confirm_companions_count >= 0 && !empty($data->confirm_companions_count) ? '<p> along with your accompanying family members:' : '</p>';
+                            }
+                            // Check if companions is not empty and is an array
+                            if (!empty($data->confirm_companions) && is_array($data->confirm_companions)) {
+                                // Iterate over the companions array
+                                foreach ($data->confirm_companions as $confirm_companions) {
+                                    echo '<p><b>' . htmlspecialchars($confirm_companions->name) . "</b></p>";
+                                }
+                                echo "</br>";
+                                echo "<h3>Thank you!</h3>";
+                               
+                            } else {
+                                echo "<p>No companions found.</p>";
+                            }
+                            echo "</br>";
+                            echo "<button type='button' class='btn btn-primary font-weight-bold py-3 px-5' id='btn-show-qr'>Get your QR Pass</button>";
+                            ?>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- RSVP Confirm End -->
     <audio id="bgmusic" controls loop>
         <source src=" <?php echo base_url('public/assets/audio/music.mp4'); ?>" type="audio/mp4">
         Your browser does not support the audio element.
@@ -543,7 +582,38 @@
             </div>
         </div>
     </div>
-
+    <div class="modal fade" id="qrModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div id="overlay">
+                    <div class="cv-spinner"><span class="spinner"></span></div>
+                </div>
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="exampleModalLabel">QR PASS</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <input type="hidden" value="
+                <?php
+                if (!empty($data->invite_id)) {
+                    echo $data->invite_id;
+                }
+                ?>" name="invite_id" id="invite_id">
+ 
+                <div id="qr-container">
+                    <p>Please save this QR code and present it to the guest liaison upon your arrival at the entrance.</p>
+                    <img src="<?php echo !empty($data->confirm_invitee_qr) ? $data->confirm_invitee_qr: '' ?>" id="qr-code-image" class="img-thumbnail">
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btn-save-qr">Save QR</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>                
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-white py-5" id="contact">
         <div class="container text-center py-5">
@@ -559,14 +629,6 @@
                         class="fab fa-linkedin-in"></i></a>
                 <a class="btn btn-lg btn-outline-light btn-lg-square" href="#"><i class="fab fa-instagram"></i></a>
             </div>
-            <div class="d-flex justify-content-center py-2">
-                <p class="text-white" href="#">atanacio@gmail.com</p>
-                <span class="px-3">|</span>
-                <p class="text-white" href="#">911</p>
-            </div>
-            <p class="m-0">&copy; <a class="text-primary" href="#">Google.com</a>. Powered by <a class="text-primary"
-                    href="#">Alaxan</a>
-            </p>
         </div>
     </div>
 
@@ -580,7 +642,8 @@
             class="fa fa-angle-double-up"></i></a>
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax.js/1.0/parallax.min.js" integrity="sha512-vS0dV6kxcESGshJ6anrXJFFNNtf9vXNZnsgnclUdV2tOzBZUsvGxnSj1NdKpgslLrsOe3ogFnQYHajyIH03Qcw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax.js/1.0/parallax.js" integrity="sha512-TncoRIrwqrLDndeZkHHHygoPf8+fiLgwGbefrwGruOXXhjFBvJwlPo4+nstmNIJDwZRAfUQEEEQcNkWSBMLYRg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>           
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 
     <script src="<?php echo base_url('public/assets/lib/easing/easing.min.js'); ?>"></script>
@@ -595,7 +658,11 @@
     <script src="<?php echo base_url('public/assets/lib/lightbox/js/lightbox.min.js'); ?>"></script>
 
     <script src="<?php echo base_url('public/assets/js/main.js'); ?>"></script>
-
+    <script>
+        $('.parallax-window').parallax({
+            imageSrc: '<?php echo base_url('public/assets/img/entourage.jpg'); ?>'
+        });
+    </script>
 
 </body>
 
