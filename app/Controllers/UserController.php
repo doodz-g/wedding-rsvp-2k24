@@ -22,7 +22,7 @@ class UserController extends BaseController
             $getUserDetails = $userModel->where('invite_id', $rsvp_id)->where('will_attend', NULL)->first();
             $getUserDetailsConfirmRSVP = $userModel->where('invite_id', $rsvp_id)->where('will_attend', 'Yes')->first();
 
-            if(!empty($getUserDetailsConfirmRSVP)) {
+            if (!empty($getUserDetailsConfirmRSVP)) {
                 $allCompanions = $companionsModel->where('user_id', $getUserDetailsConfirmRSVP->id)->findAll();
                 $countCompanions = count($allCompanions);
                 $data = [
@@ -51,7 +51,8 @@ class UserController extends BaseController
                     'google_map_key1' => $google_map_key1,
                     'google_map_key2' => $google_map_key2,
                 ];
-            };
+            }
+            ;
             $dataObject = json_decode(json_encode($data));
             return view('pages/home', ['data' => $dataObject]);
         } catch (\Exception $e) {
@@ -63,7 +64,7 @@ class UserController extends BaseController
     public function confirmrsvp()
     {
         $qrCodeService = new QrCodeService();
- 
+
 
         // Handle preflight request
         if ($this->request->getMethod() === 'options') {
@@ -113,8 +114,9 @@ class UserController extends BaseController
                     'user_id' => $getUser->id,
                     'will_attend' => $dataUpdated['will_attend']
                 ];
-                
-                $text = 'https://www.example.com'; // Example text to encode
+
+                $text = base_url('qr/') . $getUser->invite_id;
+
                 $qrCodeUri = $qrCodeService->generateQrCode($text);
 
                 $userModelQR = new UserModel();
@@ -124,9 +126,9 @@ class UserController extends BaseController
                     $userModelQR->where('will_attend', 'Yes');
                     $userModelQR->where('invite_id', $rsvp_id);
                     $userModelQR->update();
-    
+
                 }
-               
+
                 $pusher->trigger('rsvp-channel', 'rsvp-updated', $pusherData);
             }
 
@@ -167,6 +169,27 @@ class UserController extends BaseController
             $userModel->where('id', $u->id);
             $userModel->update();
         }
+
+    }
+    public function qrLanding($rsvp_id)
+    {
+        $userModel = model(UserModel::class);
+        $companionsModel = model(CompanionsModel::class);
+
+        if(isset($rsvp_id)){
+            $getUser = $userModel->where('invite_id', $rsvp_id)->first();
+            $getCompanions = $companionsModel->where('user_id', $getUser->id)->findAll();
+    
+            $data = [
+                'companions'=> $getCompanions,
+                'main_invitee'=> $getUser->name,
+    
+            ];
+        }
+       
+        $dataObject = json_decode(json_encode($data));
+
+        return view('pages/qr', ['data' => $dataObject]);
 
     }
 }

@@ -9,6 +9,7 @@ $routes->get('/', 'Home::index');
 $routes->get('rsvp/(:any)', 'UserController::getInviteeData/$1');
 $routes->get('/generate', 'UserController::inviteIDGenerator');
 $routes->post('/confirm', 'UserController::confirmRSVP');
+$routes->get('qr/(:any)', 'UserController::qrLanding/$1');
 
 
 $routes->get('/admin', 'AdminController::index');
