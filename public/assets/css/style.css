@@ -9817,13 +9817,16 @@ audio{
   min-height: auto;
   background: transparent;
 }
+
 .parallax-mirror,#vurtUnderlay{
   width:100%!important;
   padding:45% 0 0;    
 }
-@media (min-width: 1024px) {
+
+@media (min-width: 1768px) {
 .parallax-mirror img{width:100%!important;}
 }
+
 .noPaddingBottom{
   padding-bottom: 0 !important;
 }
@@ -9851,8 +9854,53 @@ audio{
   font-size: 30px;
 }
 
+.emerald-text{
+  color: #046307 !important;
+}
+
+.tiny-text{
+  size:10px !important;
+}
+
 @media (max-width: 767.98px) {
   #event .border-right {
     border-right: none !important;
+  }
+}
+
+#counter {
+  display: flex;
+  justify-content: center; /* Centers the content horizontally */
+  gap: 10px; /* Adds space between the divs */
+}
+
+.time-unit {
+  flex: 1 1 100px; /* Ensures each unit can shrink or grow, with a minimum width of 100px */
+  max-width: 100px;
+  height: auto;
+  text-align: center;
+}
+
+h3 {
+  margin: 0; /* Removes margin around the h3 element */
+}
+
+@media (max-width: 600px) {
+  .time-unit {
+      max-width: 80px; /* Smaller width on smaller screens */
+  }
+  
+  h3 {
+      font-size: 1.2rem; /* Smaller text size on smaller screens */
+  }
+}
+
+@media (max-width: 400px) {
+  .time-unit {
+      max-width: 60px; /* Even smaller width on very small screens */
+  }
+  
+  h3 {
+      font-size: 1rem; /* Further reduced text size */
   }
 }

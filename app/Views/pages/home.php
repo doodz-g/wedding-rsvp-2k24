@@ -96,7 +96,7 @@
                                 Doodz & Akiss</h1>
                             <div
                                 class="animate__animated animate__bounceIn animate__delay-1s border-top border-bottom border-light">
-                                <div class="py-3 px-4" style="white-space: nowrap;" id ="counter"></div>
+                                <div class="py-3 px-4 counter-container"  id ="counter"></div>
                             </div>
                             <div class="animate__animated animate__bounceIn animate__delay-1s">
                                 <button type="button" class="btn-play mx-auto emerald-border-left" id="btn-play-music2"
