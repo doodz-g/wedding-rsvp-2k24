@@ -6233,7 +6233,7 @@ button.bg-light:focus {
 }
 
 .bg-dark {
-  background-color: #121F38 !important;
+  background-color: #121212 !important;
 }
 
 a.bg-dark:hover, a.bg-dark:focus,
@@ -9868,7 +9868,7 @@ audio{
   }
 }
 
-#counter {
+.counter-container {
   display: flex;
   justify-content: center; /* Centers the content horizontally */
   gap: 10px; /* Adds space between the divs */
