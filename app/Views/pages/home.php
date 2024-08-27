@@ -339,14 +339,14 @@
                 </a>
             </div>
             <div class="gallery-item">
-                <img class="img-fluid w-100" src="<?php echo base_url('public/assets/img/gallery-new-2.JPG'); ?>"
+                <img class="img-fluid w-100" src="<?php echo strtolower(base_url('public/assets/img/gallery-new-2.JPG')); ?>"
                     alt="">
                 <a href="<?php echo strtolower(base_url('public/assets/img/gallery-new-2.JPG')); ?>" data-lightbox="gallery">
                     <i class="fa fa-2x fa-plus text-white"></i>
                 </a>
             </div>
             <div class="gallery-item">
-                <img class="img-fluid w-100" src="<?php echo base_url('public/assets/img/gallery-new-3.JPG'); ?>"
+                <img class="img-fluid w-100" src="<?php echo strtolower(base_url('public/assets/img/gallery-new-3.JPG')); ?>"
                     alt="">
                 <a href="i<?php echo strtolower(base_url('public/assets/img/gallery-new-3.JPG')); ?>" data-lightbox="gallery">
                     <i class="fa fa-2x fa-plus text-white"></i>
