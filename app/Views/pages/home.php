@@ -64,7 +64,7 @@
             <div class="carousel-inner">
                 <div class="carousel-item position-relative active" style="height: 100vh; min-height: 400px;">
                     <img class="position-absolute w-100 h-153"
-                        src="<?php echo base_url('public/assets/img/carousel-2.JPG'); ?>" loading="lazy"
+                        src="<?php echo strtolower(base_url('public/assets/img/carousel-2.JPG')); ?>" loading="lazy"
                         style="object-fit: cover;">
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <div class="p-3" style="max-width: 900px;">
@@ -87,7 +87,7 @@
                 </div>
                 <div class="carousel-item position-relative" style="height: 100vh; min-height: 400px;">
                     <img class="position-absolute w-100 h-153"
-                        src="<?php echo base_url('public/assets/img/carousel-1.JPG'); ?>" loading="lazy"
+                        src="<?php echo strtolower(base_url('public/assets/img/carousel-1.JPG')); ?>" loading="lazy"
                         style="object-fit: cover;">
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <div class="p-3" style="max-width: 900px;">
@@ -109,7 +109,7 @@
                 </div>
                 <div class="carousel-item position-relative" style="height: 100vh; min-height: 400px;">
                     <img class="position-absolute w-100 h-153"
-                        src="<?php echo base_url('public/assets/img/carousel-3.JPG'); ?>" loading="lazy"
+                        src="<?php echo strtolower(base_url('public/assets/img/carousel-3.JPG')); ?>" loading="lazy"
                         style="object-fit: cover;">
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <div class="p-3" style="max-width: 900px;">
@@ -126,13 +126,13 @@
                     </div>
                 </div>
             </div>
-            <a class="carousel-control-prev justify-content-start" style="" href="#header-carousel" data-slide="prev">
+            <a class="carousel-control-prev justify-content-start" style="visibility:hidden;" href="#header-carousel" data-slide="prev">
                 <div class="btn btn-primary bg-emerald-green border-color-emerald-green px-0"
                     style="width: 68px; height: 68px;">
                     <span class="carousel-control-prev-icon mt-3"></span>
                 </div>
             </a>
-            <a class="carousel-control-next justify-content-end" style="" href="#header-carousel" data-slide="next">
+            <a class="carousel-control-next justify-content-end" style="visibility:hidden;" href="#header-carousel" data-slide="next">
                 <div class="btn btn-primary bg-emerald-green border-color-emerald-green px-0"
                     style="width: 68px; height: 68px;">
                     <span class="carousel-control-next-icon mt-3"></span>
@@ -235,7 +235,7 @@
             </div>
             <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
                 <div class="col-md-12 text-center font-secondary">
-                    <h3>Maid of Honor</h3>
+                    <h3>Maids of Honor</h3>
                 </div>
                 <div class="col-6 p-0 text-md-right p-4" id="m-prin">
                     <p>Mary Anne Monteverde</p>
@@ -332,44 +332,44 @@
         </div>
         <div class="owl-carousel gallery-carousel">
             <div class="gallery-item">
-                <img class="img-fluid w-100" src="<?php echo base_url('public/assets/img/gallery-new-1.JPG'); ?>"
+                <img class="img-fluid w-100" src="<?php echo strtolower(base_url('public/assets/img/gallery-new-1.JPG')); ?>"
                     alt="">
-                <a href="<?php echo base_url('public/assets/img/gallery-new-1.JPG'); ?>" data-lightbox="gallery">
+                <a href="<?php echo strtolower(base_url('public/assets/img/gallery-new-1.JPG')); ?>" data-lightbox="gallery">
                     <i class="fa fa-2x fa-plus text-white"></i>
                 </a>
             </div>
             <div class="gallery-item">
                 <img class="img-fluid w-100" src="<?php echo base_url('public/assets/img/gallery-new-2.JPG'); ?>"
                     alt="">
-                <a href="<?php echo base_url('public/assets/img/gallery-new-2.JPG'); ?>" data-lightbox="gallery">
+                <a href="<?php echo strtolower(base_url('public/assets/img/gallery-new-2.JPG')); ?>" data-lightbox="gallery">
                     <i class="fa fa-2x fa-plus text-white"></i>
                 </a>
             </div>
             <div class="gallery-item">
                 <img class="img-fluid w-100" src="<?php echo base_url('public/assets/img/gallery-new-3.JPG'); ?>"
                     alt="">
-                <a href="i<?php echo base_url('public/assets/img/gallery-new-3.JPG'); ?>" data-lightbox="gallery">
+                <a href="i<?php echo strtolower(base_url('public/assets/img/gallery-new-3.JPG')); ?>" data-lightbox="gallery">
                     <i class="fa fa-2x fa-plus text-white"></i>
                 </a>
             </div>
             <div class="gallery-item">
-                <img class="img-fluid w-100" src="<?php echo base_url('public/assets/img/gallery-new-4.JPG'); ?>"
+                <img class="img-fluid w-100" src="<?php echo strtolower(base_url('public/assets/img/gallery-new-4.JPG')); ?>"
                     alt="">
-                <a href="<?php echo base_url('public/assets/img/gallery-new-4.JPG'); ?>" data-lightbox="gallery">
+                <a href="<?php echo strtolower(base_url('public/assets/img/gallery-new-4.JPG')); ?>" data-lightbox="gallery">
                     <i class="fa fa-2x fa-plus text-white"></i>
                 </a>
             </div>
             <div class="gallery-item">
-                <img class="img-fluid w-100" src="<?php echo base_url('public/assets/img/gallery-new-5.JPG'); ?>"
+                <img class="img-fluid w-100" src="<?php echo strtolower(base_url('public/assets/img/gallery-new-5.JPG')); ?>"
                     alt="">
-                <a href="<?php echo base_url('public/assets/img/gallery-new-5.JPG'); ?>" data-lightbox="gallery">
+                <a href="<?php echo strtolower(base_url('public/assets/img/gallery-new-5.JPG')); ?>" data-lightbox="gallery">
                     <i class="fa fa-2x fa-plus text-white"></i>
                 </a>
             </div>
             <div class="gallery-item">
-                <img class="img-fluid w-100" src="<?php echo base_url('public/assets/img/gallery-new-5.JPG'); ?>"
+                <img class="img-fluid w-100" src="<?php echo strtolower(base_url('public/assets/img/gallery-new-5.JPG')); ?>"
                     alt="">
-                <a href="<?php echo base_url('public/assets/img/gallery-new-5.JPG'); ?>" data-lightbox="gallery">
+                <a href="<?php echo strtolower(base_url('public/assets/img/gallery-new-5.JPG')); ?>" data-lightbox="gallery">
                     <i class="fa fa-2x fa-plus text-white"></i>
                 </a>
             </div>
