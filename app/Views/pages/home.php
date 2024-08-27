@@ -95,9 +95,8 @@
                                 class="animate__animated animate__bounceIn animate__delay-1s display-1 font-secondary text-white mt-n3 mb-md-4">
                                 Doodz & Akiss</h1>
                             <div
-                                class="animate__animated animate__bounceIn animate__delay-1s border-top border-bottom border-light py-3 px-4">
-                                <h3 class="text-uppercase animate__animated animate__bounceIn animate__delay-1s font-weight-normal text-white m-0"
-                                    style="letter-spacing: 2px;">December 10 2024</h3>
+                                class="animate__animated animate__bounceIn animate__delay-1s border-top border-bottom border-light">
+                                <div class="py-3 px-4" style="white-space: nowrap;" id ="counter"></div>
                             </div>
                             <div class="animate__animated animate__bounceIn animate__delay-1s">
                                 <button type="button" class="btn-play mx-auto emerald-border-left" id="btn-play-music2"
@@ -127,15 +126,13 @@
                     </div>
                 </div>
             </div>
-            <a class="carousel-control-prev justify-content-start" style="visibility: hidden;" href="#header-carousel"
-                data-slide="prev">
+            <a class="carousel-control-prev justify-content-start" style="" href="#header-carousel" data-slide="prev">
                 <div class="btn btn-primary bg-emerald-green border-color-emerald-green px-0"
                     style="width: 68px; height: 68px;">
                     <span class="carousel-control-prev-icon mt-3"></span>
                 </div>
             </a>
-            <a class="carousel-control-next justify-content-end" style="visibility: hidden;" href="#header-carousel"
-                data-slide="next">
+            <a class="carousel-control-next justify-content-end" style="" href="#header-carousel" data-slide="next">
                 <div class="btn btn-primary bg-emerald-green border-color-emerald-green px-0"
                     style="width: 68px; height: 68px;">
                     <span class="carousel-control-next-icon mt-3"></span>
@@ -228,7 +225,8 @@
     <!-- Story End -->
 
     <!-- Entourage Start -->
-    <div class="container-fluid bg-entourage py-5 parallax-window" data-parallax="scroll" data-image-src="<?php echo base_url('public/assets/img/entourage.jpg'); ?>" id="entourage">
+    <div class="container-fluid bg-entourage py-5 parallax-window" data-parallax="scroll"
+        data-image-src="<?php echo base_url('public/assets/img/entourage.jpg'); ?>" id="entourage">
         <div class="container py-5">
             <div class="section-title position-relative text-center">
                 <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">Entourage</h6>
@@ -381,7 +379,8 @@
 
 
     <!-- Event Start -->
-    <div class="container-fluid noPaddingBottom pt-5 pb-5 parallax-window" data-parallax="scroll" data-image-src="<?php echo base_url('public/assets/img/entourage.jpg'); ?>" id="event">
+    <div class="container-fluid noPaddingBottom pt-5 pb-5 parallax-window" data-parallax="scroll"
+        data-image-src="<?php echo base_url('public/assets/img/entourage.jpg'); ?>" id="event">
         <div class="container">
             <div class="section-title position-relative text-center">
                 <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">Event</h6>
@@ -435,7 +434,8 @@
     </div>
     <!-- Event End -->
     <!-- RSVP Start -->
-    <div class="container-fluid py-5" id="rsvp" style="<?php echo (!empty($data->confirm_rsvp) && $data->confirm_rsvp == 1 ) || (empty($data->main_invitee))? 'display:none;' : 'display:block;'?>">
+    <div class="container-fluid py-5" id="rsvp"
+        style="<?php echo (!empty($data->confirm_rsvp) && $data->confirm_rsvp == 1) || (empty($data->main_invitee)) ? 'display:none;' : 'display:block;' ?>">
         <div class="container py-5 bg-secondary" style="border-radius:31px;">
             <div class="section-title position-relative text-center">
                 <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">RSVP</h6>
@@ -476,7 +476,8 @@
     </div>
     <!-- RSVP End -->
     <!-- RSVP Confirm Start -->
-    <div class="container-fluid py-5" id="rsvp-confirm" style="<?php echo !empty($data->confirm_rsvp) && $data->confirm_rsvp == 1 ? 'display:block;' : 'display:none;'?>">
+    <div class="container-fluid py-5" id="rsvp-confirm"
+        style="<?php echo !empty($data->confirm_rsvp) && $data->confirm_rsvp == 1 ? 'display:block;' : 'display:none;' ?>">
         <div class="container py-5 bg-secondary" style="border-radius:31px;">
             <div class="section-title position-relative text-center">
                 <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">RSVP</h6>
@@ -486,7 +487,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-12">
                     <div class="text-center">
-                        <div class="text-center" id ="invitee-body">
+                        <div class="text-center" id="invitee-body">
                             <?php
                             // Check if each $companion is an object or associative array
                             if (!empty($data->confirm_main_invitee)) {
@@ -501,14 +502,14 @@
                                 }
                                 echo "</br>";
                                 echo "<h3>Thank you!</h3>";
-                               
+
                             } else {
                                 echo "<p>No companions found.</p>";
                             }
                             echo "</br>";
                             echo "<button type='button' class='btn btn-primary font-weight-bold py-3 px-5' id='btn-show-qr'>Get your QR Pass</button>";
                             ?>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -602,18 +603,20 @@
                     echo $data->invite_id;
                 }
                 ?>" name="invite_id" id="invite_id">
- 
-                <div id="qr-container">
-                    <p>Please save this QR code and present it to the guest liaison upon your arrival at the entrance.</p>
-                    <img src="<?php echo !empty($data->confirm_invitee_qr) ? $data->confirm_invitee_qr: '' ?>" id="qr-code-image" class="img-thumbnail">
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="btn-save-qr">Save QR</button>
-                </div>
+
+                    <div id="qr-container">
+                        <p>Please save this QR code and present it to the guest liaison upon your arrival at the
+                            entrance.</p>
+                        <img src="<?php echo !empty($data->confirm_invitee_qr) ? $data->confirm_invitee_qr : '' ?>"
+                            id="qr-code-image" class="img-thumbnail">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btn-save-qr">Save QR</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>                
+    </div>
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-white py-5" id="contact">
         <div class="container text-center py-5">
@@ -642,8 +645,12 @@
             class="fa fa-angle-double-up"></i></a>
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax.js/1.0/parallax.min.js" integrity="sha512-vS0dV6kxcESGshJ6anrXJFFNNtf9vXNZnsgnclUdV2tOzBZUsvGxnSj1NdKpgslLrsOe3ogFnQYHajyIH03Qcw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax.js/1.0/parallax.js" integrity="sha512-TncoRIrwqrLDndeZkHHHygoPf8+fiLgwGbefrwGruOXXhjFBvJwlPo4+nstmNIJDwZRAfUQEEEQcNkWSBMLYRg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>           
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax.js/1.0/parallax.min.js"
+        integrity="sha512-vS0dV6kxcESGshJ6anrXJFFNNtf9vXNZnsgnclUdV2tOzBZUsvGxnSj1NdKpgslLrsOe3ogFnQYHajyIH03Qcw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax.js/1.0/parallax.js"
+        integrity="sha512-TncoRIrwqrLDndeZkHHHygoPf8+fiLgwGbefrwGruOXXhjFBvJwlPo4+nstmNIJDwZRAfUQEEEQcNkWSBMLYRg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 
     <script src="<?php echo base_url('public/assets/lib/easing/easing.min.js'); ?>"></script>
@@ -656,6 +663,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.js.map"></script>
     <!-- Template Javascript -->
     <script src="<?php echo base_url('public/assets/lib/lightbox/js/lightbox.min.js'); ?>"></script>
+    <script src="<?php echo base_url('public/assets/js/counter.js'); ?>"></script>
 
     <script src="<?php echo base_url('public/assets/js/main.js'); ?>"></script>
     <script>
