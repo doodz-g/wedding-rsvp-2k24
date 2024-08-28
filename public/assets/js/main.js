@@ -19,10 +19,17 @@
         "hideMethod": "fadeOut"
     };
 
-    $('#btn-play-music1,#btn-play-music2,#btn-play-music3').click(function () {
-        var music = document.getElementById("bgmusic");
-        music.play();
-        $(".btn-play").hide();
+    $('#carousel-container').find(".btn-play-music").click(function () {
+        let music = document.getElementById("bgmusic");
+        if ($(this).hasClass("btn-play")) {
+            music.play();
+            $(".btn-play").addClass("d-none");
+            $(".btn-pause").removeClass("d-none");
+        } else {
+            music.pause();
+            $(".btn-play").removeClass("d-none");
+            $(".btn-pause").addClass("d-none");
+        }
     });
     $(document).ready(function () {
         var inviteID = $("#invite_id").val();

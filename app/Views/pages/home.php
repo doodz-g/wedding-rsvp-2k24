@@ -7,10 +7,11 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <!-- Favicon -->
-    <link rel="icon" href="<?php echo base_url('public/assets/img/favicon-32x32.png'); ?>?v=2" sizes="192x192"
-        type="image/png">
+    <link rel="icon" href="<?php echo base_url('public/assets/img/favicon.ico'); ?>" sizes="192x192"
+        type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&display=swap"
@@ -61,7 +62,7 @@
     <!-- Carousel Start -->
     <div class="container-fluid p-0" id="home">
         <div id="header-carousel" class="carousel slide carousel-fade" data-ride="carousel">
-            <div class="carousel-inner">
+            <div class="carousel-inner" id="carousel-container">
                 <div class="carousel-item position-relative active" style="height: 100vh; min-height: 400px;">
                     <img class="position-absolute w-100 h-153"
                         src="<?php echo strtolower(base_url('public/assets/img/carousel-2.JPG')); ?>" loading="lazy"
@@ -77,9 +78,13 @@
                                     style="letter-spacing: 2px;">December 10 2024</h3>
                             </div>
                             <div class="animate__animated animate__slideInUp">
-                                <button type="button" class="btn-play mx-auto emerald-border-left" id="btn-play-music1"
+                                <button type="button" class="btn-play mx-auto emerald-border-left btn-play-music"
                                     alt="Turn on the music">
                                     <span></span>
+                                </button>
+                                <button type="button" class="btn-pause mx-auto emerald-border-left btn-play-music d-none"
+                                    alt="Turn on the music">
+                                    <i class="fas fa-pause"></i>
                                 </button>
                             </div>
                         </div>
@@ -96,12 +101,16 @@
                                 Doodz & Akiss</h1>
                             <div
                                 class="animate__animated animate__bounceIn animate__delay-1s border-top border-bottom border-light">
-                                <div class="py-3 px-4 counter-container"  id ="counter"></div>
+                                <div class="py-3 px-4 counter-container" id ="counter"></div>
                             </div>
-                            <div class="animate__animated animate__bounceIn animate__delay-1s">
-                                <button type="button" class="btn-play mx-auto emerald-border-left" id="btn-play-music2"
+                            <div class="animate__animated animate__slideInUp">
+                                <button type="button" class="btn-play mx-auto emerald-border-left btn-play-music"
                                     alt="Turn on the music">
                                     <span></span>
+                                </button>
+                                <button type="button" class="btn-pause mx-auto emerald-border-left btn-play-music d-none"
+                                    alt="Turn on the music">
+                                    <i class="fas fa-pause"></i>
                                 </button>
                             </div>
                         </div>
@@ -118,10 +127,16 @@
                                 <h3 class="text-uppercase font-weight-normal text-white m-0"
                                     style="letter-spacing: 2px;">We're getting married</h3>
                             </div>
-                            <button type="button" class="btn-play mx-auto emerald-border-left" id="btn-play-music3"
-                                alt="Turn on the music">
-                                <span></span>
-                            </button>
+                            <div class="animate__animated animate__slideInUp">
+                                <button type="button" class="btn-play mx-auto emerald-border-left btn-play-music"
+                                    alt="Turn on the music">
+                                    <span></span>
+                                </button>
+                                <button type="button" class="btn-pause mx-auto emerald-border-left btn-play-music d-none"
+                                    alt="Turn on the music">
+                                    <i class="fas fa-pause"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -348,7 +363,7 @@
             <div class="gallery-item">
                 <img class="img-fluid w-100" src="<?php echo strtolower(base_url('public/assets/img/gallery-new-3.JPG')); ?>"
                     alt="">
-                <a href="i<?php echo strtolower(base_url('public/assets/img/gallery-new-3.JPG')); ?>" data-lightbox="gallery">
+                <a href="<?php echo strtolower(base_url('public/assets/img/gallery-new-3.JPG')); ?>" data-lightbox="gallery">
                     <i class="fa fa-2x fa-plus text-white"></i>
                 </a>
             </div>
@@ -517,7 +532,7 @@
         </div>
     </div>
     <!-- RSVP Confirm End -->
-    <audio id="bgmusic" controls loop>
+    <audio id="bgmusic" controls>
         <source src=" <?php echo base_url('public/assets/audio/music.mp4'); ?>" type="audio/mp4">
         Your browser does not support the audio element.
     </audio>

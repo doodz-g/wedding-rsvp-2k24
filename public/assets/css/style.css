@@ -9694,6 +9694,57 @@ audio{
   border-top: 11px solid transparent;
   border-bottom: 11px solid transparent;
 }
+.btn-pause {
+  position: relative;
+  margin-top: 50px;
+  display: block;
+  box-sizing: content-box;
+  width: 16px;
+  height: 26px;
+  border-radius: 100%;
+  border: none;
+  outline: none !important;
+  padding: 18px 20px 20px 28px;
+  background: #FFFFFF;
+}
+
+.btn-pause:before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  display: block;
+  width: 60px;
+  height: 60px;
+  background: #FFFFFF;
+  border-radius: 100%;
+  animation: pulse-border 1500ms ease-out infinite;
+}
+
+.btn-pause:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  display: block;
+  width: 60px;
+  height: 60px;
+  background: #FFFFFF;
+  border-radius: 100%;
+  transition: all 200ms;
+}
+
+.btn-pause .fa-pause {
+  display: block;
+  position: relative;
+  z-index: 5 !important;
+  margin-left: -6px;
+  color: #046307;
+}
 
 @keyframes pulse-border {
   0% {
