@@ -6,7 +6,7 @@
         "debug": false,
         "newestOnTop": false,
         "progressBar": false,
-        "positionClass": "toast-bottom-right",
+        "positionClass": "toast-custom toast-top-full-width", // Apply custom class here
         "preventDuplicates": false,
         "onclick": null,
         "showDuration": "300",

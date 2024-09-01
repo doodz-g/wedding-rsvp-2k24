@@ -1,203 +1,256 @@
-
 body {
-    color: #566787;
-    background: #f5f5f5;
-    font-family: 'Varela Round', sans-serif;
-    font-size: 13px;
-  }
-  .table-responsive {
-    margin: 30px 0;
-  }
-  .table-wrapper {
-    max-width: 100%;
-    background: #fff;
-    padding: 20px 25px;
-    border-radius: 3px;
-    box-shadow: 0 1px 1px rgba(0,0,0,.05);
-  }
-  .table-title {
-    padding-bottom: 15px;
-    background: forestgreen;
-    color: #fff;
-    padding: 16px 30px;
-    margin: -20px -25px 10px;
-    border-radius: 3px 3px 0 0;
-  }
-  .table-title h2 {
-    margin: 5px 0 0;
-    font-size: 24px;
-  }
-  .table-title .btn {
-    color: #566787;
-    float: right;
-    font-size: 13px;
-    background: #fff;
-    border: none;
-    min-width: 50px;
-    border-radius: 2px;
-    border: none;
-    outline: none !important;
-    margin-left: 10px;
-  }
-  .table-title .btn:hover, .table-title .btn:focus {
-    color: #566787;
-    background: #f2f2f2;
-  }
-  .table-title .btn i {
-    float: left;
-    font-size: 21px;
-    margin-right: 5px;
-  }
-  .table-title .btn span {
-    float: left;
-    margin-top: 2px;
-  }
-  table.table tr th, table.table tr td {
-    border-color: #e9e9e9;
-    padding: 12px 15px;
-    vertical-align: middle;
-  }
-  table.table tr th:first-child {
-    width: 60px;
-  }
-  table.table tr th:last-child {
-    width: 100px;
-  }
-  table.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #fcfcfc;
-  }
-  table.table-striped.table-hover tbody tr:hover {
-    background: #f5f5f5;
-  }
-  table.table th i {
-    font-size: 13px;
-    margin: 0 5px;
-    cursor: pointer;
-  }	
-  table.table td:last-child i {
-    opacity: 0.9;
-    font-size: 22px;
-    margin: 0 5px;
-  }
-  table.table td a {
-    font-weight: bold;
-    color: #566787;
-    display: inline-block;
-    text-decoration: none;
-  }
-  table.table td a:hover {
-    color: #2196F3;
-  }
-  table.table td a.settings {
-    color: #2196F3;
-  }
-  table.table td a.delete {
-    color: #F44336;
-  }
-  table.table td i {
-    font-size: 19px;
-  }
-  table.table .avatar {
-    border-radius: 50%;
-    vertical-align: middle;
-    margin-right: 10px;
-  }
-  .status {
-    font-size: 30px;
-    margin: 2px 2px 0 0;
-    display: inline-block;
-    vertical-align: middle;
-    line-height: 10px;
-  }
-  .text-success {
-    color: #10c469;
-  }
-  .text-info {
-    color: #62c9e8;
-  }
-  .text-warning {
-    color: #FFC107;
-  }
-  .text-danger {
-    color: #ff5b5b;
-  }
-  .pagination {
-    float: right;
-    margin: 0 0 5px;
-  }
-  .pagination li a {
-    border: none;
-    font-size: 13px;
-    min-width: 30px;
-    min-height: 30px;
-    color: #999;
-    margin: 0 2px;
-    line-height: 30px;
-    border-radius: 2px !important;
-    text-align: center;
-    padding: 0 6px;
-  }
-  .pagination li a:hover {
-    color: #666;
-  }	
-  .pagination li.active a, .pagination li.active a.page-link {
-    background: #03A9F4;
-  }
-  .pagination li.active a:hover {        
-    background: #0397d6;
-  }
-  .pagination li.disabled i {
-    color: #ccc;
-  }
-  .pagination li i {
-    font-size: 16px;
-    padding-top: 6px
-  }
-  .hint-text {
-    float: left;
-    margin-top: 10px;
-    font-size: 13px;
-  }
-  @import url('https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
-  
-  .pcs:after { content: " pcs"; }
-  .cur:before { content: "$"; }
-  .per:after { content: "%"; }
-  
-  * { box-sizing: border-box; }
-  body { padding: .2em 2em; }
-  
-  table {
+  color: #566787;
+  font-size: 13px;
+  z-index: 1;
+}
+ul.horizontal-list {
+  display: list-item;
+  flex-wrap: wrap; /* Optional: Allows wrapping to the next line if needed */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+ul.horizontal-list li {
+  margin-right: 15px; /* Adjust spacing between items */
+}
+ul.horizontal-list li:last-child {
+  margin-right: 0; /* Remove margin from the last item */
+}
+ul.horizontal-list li a {
+  display: block;
+  padding: 10px 15px; /* Adjust padding for better appearance */
+}
+.toast-custom {
+  position: absolute !important;
+  top: 286px !important; /* Adjust as needed */
+  left: 0;   /* Adjust as needed */
+  margin-left: 10px; /* Adjust as needed */
+}
+.notification-container {
+  position: relative;
+}
+.table-responsive {
+  margin: 30px 0;
+}
+.table-wrapper {
+  max-width: 100%;
+  background: #fff;
+  padding: 20px 25px;
+  border-radius: 3px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+.table-title {
+  padding-bottom: 15px;
+  background: #fff;
+  color: #fff;
+  padding: 16px 30px;
+  margin: -20px -25px 10px;
+  border-radius: 3px 3px 0 0;
+}
+.table-title h2 {
+  margin: 5px 0 0;
+  font-size: 24px;
+}
+.table-title .btn {
+  color: #566787;
+  float: right;
+  font-size: 13px;
+  background: #fff;
+  border: none;
+  min-width: 50px;
+  border-radius: 2px;
+  border: none;
+  outline: none !important;
+  margin-left: 10px;
+}
+.table-title .btn:hover,
+.table-title .btn:focus {
+  color: #566787;
+  background: #f2f2f2;
+}
+.table-title .btn i {
+  float: left;
+  font-size: 21px;
+  margin-right: 5px;
+}
+.table-title .btn span {
+  float: left;
+  margin-top: 2px;
+}
+table.table tr th,
+table.table tr td {
+  border-color: #e9e9e9;
+  padding: 12px 15px;
+  vertical-align: middle;
+}
+table.table tr th:first-child {
+  width: 60px;
+}
+table.table tr th:last-child {
+  width: 100px;
+}
+table.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #fcfcfc;
+}
+table.table-striped.table-hover tbody tr:hover {
+  background: #f5f5f5;
+}
+table.table th i {
+  font-size: 13px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+table.table td:last-child i {
+  opacity: 0.9;
+  font-size: 22px;
+  margin: 0 5px;
+}
+table.table td a {
+  font-weight: bold;
+  color: #566787;
+  display: inline-block;
+  text-decoration: none;
+}
+table.table td a:hover {
+  color: #2196f3;
+}
+table.table td a.settings {
+  color: #2196f3;
+}
+table.table td a.delete {
+  color: #f44336;
+}
+table.table td i {
+  font-size: 19px;
+}
+table.table .avatar {
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+.status {
+  font-size: 30px;
+  margin: 2px 2px 0 0;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 10px;
+}
+.text-success {
+  color: #10c469;
+}
+.text-info {
+  color: #62c9e8;
+}
+.text-warning {
+  color: #ffc107;
+}
+.text-danger {
+  color: #ff5b5b;
+}
+.pagination {
+  float: right;
+  margin: 0 0 5px;
+}
+.pagination li a {
+  border: none;
+  font-size: 13px;
+  min-width: 30px;
+  min-height: 30px;
+  color: #999;
+  margin: 0 2px;
+  line-height: 30px;
+  border-radius: 2px !important;
+  text-align: center;
+  padding: 0 6px;
+}
+.pagination li a:hover {
+  color: #666;
+}
+.pagination li.active a,
+.pagination li.active a.page-link {
+  background: #03a9f4;
+}
+.pagination li.active a:hover {
+  background: #0397d6;
+}
+.pagination li.disabled i {
+  color: #ccc;
+}
+.pagination li i {
+  font-size: 16px;
+  padding-top: 6px;
+}
+.hint-text {
+  float: left;
+  margin-top: 10px;
+  font-size: 13px;
+}
+@import url("https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
+
+.pcs:after {
+  content: " pcs";
+}
+.cur:before {
+  content: "$";
+}
+.per:after {
+  content: "%";
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  padding:0;
+}
+
+table {
   width: 100%;
-  th { text-align: left; border-bottom: 1px solid #ccc;}
-  th, td { padding: .4em; }
+  th {
+    text-align: left;
+    border-bottom: 1px solid #ccc;
   }
-  
-  table.fold-table {
+  th,
+  td {
+    padding: 0.4em;
+  }
+}
+
+table.fold-table {
   > tbody {
     > tr.view {
-      td, th {cursor: pointer;}
-      td:first-child, 
-      th:first-child { 
+      td,
+      th {
+        cursor: pointer;
+      }
+      td:first-child,
+      th:first-child {
         position: relative;
-        padding-left:20px;
+        padding-left: 20px;
         &:before {
           position: absolute;
-          top:50%; left:5px;
-          width: 9px; height: 16px;
+          top: 50%;
+          left: 5px;
+          width: 9px;
+          height: 16px;
           margin-top: -8px;
           font: 16px fontawesome;
           color: #999;
           content: "\f0d7";
-          transition: all .3s ease;
+          transition: all 0.3s ease;
         }
       }
-      &:nth-child(4n-1) { background: #eee; }
-      &:hover { background: gray; }
+      &:nth-child(4n-1) {
+        background: #eee;
+      }
+      &:hover {
+        background: gray;
+      }
       &.open {
         background: gray;
         color: white;
-        td:first-child, th:first-child {
+        td:first-child,
+        th:first-child {
           &:before {
             transform: rotate(-180deg);
             color: gray;
@@ -207,20 +260,32 @@ body {
     }
     > tr.fold {
       display: none;
-      &.open { display:table-row; }
-    }
-  }
-  
-  .fold-content {
-  padding: .5em;
-  h3 { margin-top:0; }
-  > table {
-    border: 2px solid #ccc;
-    > tbody {
-      tr:nth-child(even) {
-        background: #eee;
+      &.open {
+        display: table-row;
       }
     }
   }
+
+  .fold-content {
+    padding: 0.5em;
+    h3 {
+      margin-top: 0;
+    }
+    > table {
+      border: 2px solid #ccc;
+      > tbody {
+        tr:nth-child(even) {
+          background: #eee;
+        }
+      }
+    }
+  }
+  .toast {
+    width: 100% !important; /* Ensure width is 100% */
+    margin: 0 !important; /* Remove default margins */
+    left: 0 !important; /* Align to the left */
+    top: 0 !important; /* Align to the top */
+    position: fixed !important; /* Fixed positioning */
+    box-sizing: border-box; /* Include padding and border in width */
   }
 }

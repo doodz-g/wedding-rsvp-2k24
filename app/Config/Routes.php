@@ -17,3 +17,7 @@ $routes->post('/admin/companions', 'AdminController::getCompanions');
 $routes->get('/admin/export', 'ExportController::export');
 $routes->post('admin/submit', 'AdminController::addInvitee');
 $routes->post('admin/refresh', 'AdminController::getUsers');
+
+$routes->get('/login', 'LoginController::index');
+$routes->post('/login/authenticate', 'LoginController::authenticate');
+$routes->get('/logout', 'LoginController::logout');

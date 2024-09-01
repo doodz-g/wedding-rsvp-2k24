@@ -45,8 +45,11 @@ class AdminController extends BaseController
         // Check if the request is AJAX and POST
         if ($this->request->isAJAX() && $this->request->getMethod() === 'POST') {
             $name = $this->request->getPost('name');
+            $companion_name = $this->request->getPost('companion_name');
+            
             // You can now validate and save the data
-            $model = new UserModel();
+            $userModel = new UserModel();
+           
             $data = [
                 'name' => $name,
                 'will_attend' => NULL,
@@ -54,7 +57,19 @@ class AdminController extends BaseController
                 'invite_id' => rand(10, 99999999999),
             ];
 
-            if ($model->save($data)) {
+            if ($userModel->save($data)) {
+                $latestID = $userModel->insertID();
+                $companionsModel = model(CompanionsModel::class);
+                if($companion_name){
+                    foreach($companion_name as $c){
+                        $dataCompanion = [
+                            'name' => $c,
+                            'user_id' => $latestID
+                            
+                        ];
+                        $companionsModel->save($dataCompanion);
+                    }
+                }
                 return $this->response->setJSON(['status' => 'success', 'message' => 'Data saved successfully!']);
             } else {
                 return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to save data.']);

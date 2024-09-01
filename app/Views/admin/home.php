@@ -26,7 +26,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <div class="table-responsive">
             <div class="table-wrapper">
                 <div class="table-title">
@@ -34,11 +34,19 @@
                         <div class="col-sm-5">
                             <h2>Guest <b>Management</b></h2>
                         </div>
-                        <div class="col-sm-7">
-                            <a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#"><i
-                                    class="material-icons">&#xE147;</i> <span>Add New User</span></a>
-                            <a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export to
-                                    Excel</span></a>
+                        <div class="col-sm-7" style="padding-right:0;">
+                            <ul class="horizontal-list">
+                                <li><input type="text" class="form-control" placeholder="Search here.."></li>
+                                <li><a href="<?php echo base_url('logout'); ?>" class="btn btn-secondary"
+                                        data-target="#"><i class="material-icons">&#xe9ba;</i> <span>Log out</span></a>
+                                </li>
+                                <li><a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i>
+                                        <span>Export to
+                                            Excel</span></a></li>
+                                <li><a href="#" class="btn btn-secondary" id="btn-add-guest" data-toggle="modal"
+                                        data-target="#"><i class="material-icons">&#xE147;</i> <span>Add New
+                                            User</span></a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -120,9 +128,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="myForm">
+                    <form id="guest-form">
                         <label for="name">Name:</label>
-                        <input type="text" id="name" name="name">
+                        <input type="text" class="form-control" id="name" name="name">
+                        <label for="name">Companions:</label>
+                        <ul id="companion-container" style="line-height:3.5;list-style:none;">
+
+                        </ul>
+                        <button type="button" id="add_companion"><i class="fa fa-plus"></i> Add companion</button>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="button" id="submitButton" value="submit" class="btn btn-primary">Save</button>
@@ -138,7 +151,74 @@
         <script src="<?php echo base_url('public/assets/js/admin.js'); ?>"></script>
 
         <script>
-            $('.fold-table').on('click', 'td', function () {
+            $(document).ready(function () {
+                $('#submitButton').click(function () {
+                    let baseURL = window.location.origin;
+                    let rsvpURL = baseURL + '/wedding-rsvp-2k24/rsvp';
+                    var formData = $("#guest-form").serialize();
+                    console.log(formData);
+                    // Send AJAX POST request
+                    $.ajax({
+                        url: '<?php echo base_url('admin/submit') ?>', // URL to the controller method
+                        type: 'POST',
+                        data: formData,
+                        success: function (response) {
+                            // Handle success
+                            toastr.success(response.message);
+                            setTimeout(function () {
+                                $("#overlay").fadeOut(300);
+                            }, 500);
+                            setTimeout(function () {
+                                $("#add-user-modal").modal('hide');
+                            }, 900);
+
+                            $.ajax({
+                                url: '<?php echo base_url('admin/refresh') ?>',
+                                type: 'POST',
+                                success: function (response2) {
+                                    console.log(response2);
+                                    var html = $("#users-tbody").html('');
+                                    $.each(response2, function (index, item) {
+                                        html += '<tr class="view" data-id="' + item.id + '">' +
+                                            '<td>' + item.id + '</td>' +
+                                            '<td>' + item.invite_id + '</td>' +
+                                            '<td>' + item.name + '</td>' +
+                                            '<td>' + item.date + '</td>' +
+                                            '<td>' + (item.will_attend === null ? 'Invitation not yet sent' : (item.will_attend === 'Yes' ? 'Will attend' : 'Will not attend')) + '</td>' +
+                                            '<td>' + (item.will_attend === null ? '<a class="invite-link" href="' + rsvpURL + '/' + item.invite_id + '">Click to Copy link</a>' : 'N/A') + '</td>' +
+                                            '<td>' +
+                                            '<a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>' +
+                                            '<a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>' +
+                                            '</td>' +
+                                            '</tr>' +
+                                            '<tr class="fold">' +
+                                            '<td colspan="6">' +
+                                            '<div id="overlay_' + item.id + '">' +
+                                            '<div class="cv-spinner"><span class="spinner"></span></div>' +
+                                            '</div>' +
+                                            '<div class="fold-content" id="companions_' + item.id + '">' +
+                                            '</div>' +
+                                            '</td>' +
+                                            '</tr>';
+                                    });
+                                    $("#users-tbody").html(html);
+                                    $(".fold-table tr.view").on("click", function () {
+                                        $(this).toggleClass("open").next(".fold").toggleClass("open");
+                                    });
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error('Error in second request:', error);
+                                }
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            // Handle error
+                            toastr.warning('An error occurred: ' + error);
+                        }
+                    });
+                });
+            });
+            $(document).on('click', '.fold-table td', function () {
                 var user_id = $(this).parent().data('id');
                 $("#companions_" + user_id).html('');
                 $("#overlay_" + user_id).fadeIn(200);
@@ -183,75 +263,22 @@
                     }
                 });
             });
-            $('#submitButton').click(function () {
-                let baseURL = window.location.origin;
-                let rsvpURL = baseURL + '/wedding-rsvp-2k24/rsvp';
-                // Prepare data to be sent
-                var formData = {
-                    name: $('#name').val()
-                };
-                // Send AJAX POST request
-                $.ajax({
-                    url: '<?php echo base_url('admin/submit') ?>', // URL to the controller method
-                    type: 'POST',
-                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
-                    data: formData,
-                    dataType: 'json',
-                    success: function (response) {
-                        // Handle success
-                        toastr.success(response.message);
-                        setTimeout(function () {
-                            $("#overlay").fadeOut(300);
-                        }, 500);
-                        setTimeout(function () {
-                            $("#add-user-modal").modal('hide');
-                        }, 900);
-
-                        $.ajax({
-                            url: '<?php echo base_url('admin/refresh') ?>',
-                            type: 'POST',
-                            success: function (response2) {
-                                console.log(response2);
-                                var html = $("#users-tbody").html('');
-                                $.each(response2, function (index, item) {
-                                    html += '<tr class="view" data-id="' + item.id + '">' +
-                                        '<td>' + item.id + '</td>' +
-                                        '<td>' + item.invite_id + '</td>' +
-                                        '<td>' + item.name + '</td>' +
-                                        '<td>' + item.date + '</td>' +
-                                        '<td>' + (item.will_attend === null ? 'Invitation not yet sent' : (item.will_attend === 'Yes' ? 'Will attend' : 'Will not attend')) + '</td>' +
-                                        '<td>' + (item.will_attend === null ? '<a class="invite-link" href="' + rsvpURL + '/' + item.invite_id + '">Click to Copy link</a>' : 'N/A') + '</td>' +
-                                        '<td>' +
-                                        '<a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>' +
-                                        '<a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>' +
-                                        '</td>' +
-                                        '</tr>' +
-                                        '<tr class="fold">' +
-                                        '<td colspan="6">' +
-                                        '<div id="overlay_' + item.id + '">' +
-                                        '<div class="cv-spinner"><span class="spinner"></span></div>' +
-                                        '</div>' +
-                                        '<div class="fold-content" id="companions_' + item.id + '">' +
-                                        '</div>' +
-                                        '</td>' +
-                                        '</tr>';
-                                });
-                                $("#users-tbody").html(html);
-                            },
-                            error: function (xhr, status, error) {
-                                console.error('Error in second request:', error);
-                            }
-                        });
-                    },
-                    error: function (xhr, status, error) {
-                        // Handle error
-                        toastr.warning('An error occurred: ' + error);
-                    }
-                });
-            });
-            $('.btn-secondary').click(function () {
+            $('#btn-add-guest').click(function () {
                 $("#overlay").fadeOut(300);
                 $("#add-user-modal").modal("show");
+            });
+
+            var companionContainer = $("#companion-container");
+            companionContainer.html('<li> <input type="text" id="companion_name" name="companion_name[]" style="width: 90%; height: 38px; border: 2px solid #ced4da;"><span type="button" class="delete_companion" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
+            function addCompanion() {
+                companionContainer.append('<li> <input type="text" id="companion_name" name="companion_name[]" style="width: 90%; height: 38px; border: 2px solid #ced4da;"><span type="button" class="delete_companion" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
+            }
+
+            $('#add_companion').click(function () {
+                addCompanion();
+            });
+            $(document).on("click", ".delete_companion", function () {
+                $(this).closest("li").remove();
             });
         </script>
 </body>
