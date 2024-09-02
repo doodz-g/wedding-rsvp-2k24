@@ -67,7 +67,7 @@
                         if (!empty($data->all_users)) {
                             foreach ($data->all_users as $key => $c) {
                                 ?>
-                                <tr class="view" data-id="<?php echo $c->id; ?>">
+                                <tr class="view <?php echo $c->qr_code_status == 1 ? 'bg-success':''?>" data-id="<?php echo $c->id; ?>">
                                     <td><?php echo $c->id ?> </td>
                                     <td><?php echo $c->invite_id ?></td>
                                     <td><?php echo $c->name ?></td>
@@ -152,6 +152,7 @@
 
         <script>
             $(document).ready(function () {
+
                 $('#submitButton').click(function () {
                     let baseURL = window.location.origin;
                     let rsvpURL = baseURL + '/wedding-rsvp-2k24/rsvp';
@@ -279,6 +280,67 @@
             });
             $(document).on("click", ".delete_companion", function () {
                 $(this).closest("li").remove();
+            });
+            // Initialize Pusher
+            var pusher = new Pusher('b012177f6ee3695e54b9', {
+                cluster: 'ap3',
+                forceTLS: true
+            });
+           
+            // Subscribe to a channel
+            var channel = pusher.subscribe('rsvp-channel');
+
+            // Bind to an event
+            channel.bind('rsvp-updated', function (data) {
+                var baseURL = window.location.origin;
+                var rsvpURL = baseURL + '/wedding-rsvp-2k24/rsvp';
+
+                console.log('Received data:', data);
+                // You can update the UI or show a notification based on the data received
+                toastr.info(data.will_attend, 'Notification', {
+                    closeButton: true,
+                    progressBar: true,
+                    positionClass: 'toast-top-right',
+                    timeOut: 5000
+                });
+                $.ajax({
+                    url: '<?php echo base_url('admin/refresh') ?>',
+                    type: 'POST',
+                    success: function (response2) {
+                        console.log(response2);
+                        var html = $("#users-tbody").html('');
+                        $.each(response2, function (index, item) {
+                            html += '<tr class="view ' + (item.qr_code_status == 1 ? 'bg-success' : '') + '" data-id="' + item.id + '">' +
+                                '<td>' + item.id + '</td>' +
+                                '<td>' + item.invite_id + '</td>' +
+                                '<td>' + item.name + '</td>' +
+                                '<td>' + item.date + '</td>' +
+                                '<td>' + (item.will_attend === null ? 'Invitation not yet sent' : (item.will_attend === 'Yes' ? 'Will attend' : 'Will not attend')) + '</td>' +
+                                '<td>' + (item.will_attend === null ? '<a class="invite-link" href="' + rsvpURL + '/' + item.invite_id + '">Click to Copy link</a>' : 'N/A') + '</td>' +
+                                '<td>' +
+                                '<a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>' +
+                                '<a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>' +
+                                '</td>' +
+                                '</tr>' +
+                                '<tr class="fold">' +
+                                '<td colspan="6">' +
+                                '<div id="overlay_' + item.id + '">' +
+                                '<div class="cv-spinner"><span class="spinner"></span></div>' +
+                                '</div>' +
+                                '<div class="fold-content" id="companions_' + item.id + '">' +
+                                '</div>' +
+                                '</td>' +
+                                '</tr>';
+                        });
+                        $("#users-tbody").html(html);
+                        $(".fold-table tr.view").on("click", function () {
+                            $(this).toggleClass("open").next(".fold").toggleClass("open");
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error in second request:', error);
+                    }
+                });
             });
         </script>
 </body>

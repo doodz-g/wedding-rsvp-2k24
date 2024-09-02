@@ -28,12 +28,12 @@ class UserController extends BaseController
                 $data = [
                     'google_map_key1' => $google_map_key1,
                     'google_map_key2' => $google_map_key2,
-                    'confirm_rsvp' => 1,
-                    'confirm_companions' => $allCompanions,
-                    'confirm_invitee_qr' => $getUserDetailsConfirmRSVP->qr_code,
-                    'confirm_main_invitee' => $getUserDetailsConfirmRSVP->name,
-                    'confirm_invite_id' => $getUserDetailsConfirmRSVP->invite_id,
-                    'confirm_companions_count' => $countCompanions,
+                    'show_modal' => 0,
+                    'companions' => $allCompanions,
+                    'invitee_qr' => $getUserDetailsConfirmRSVP->qr_code,
+                    'main_invitee' => $getUserDetailsConfirmRSVP->name,
+                    'invite_id' => $getUserDetailsConfirmRSVP->invite_id,
+                    'companions_count' => $countCompanions,
                 ];
             } else if (!empty($getUserDetails)) {
                 $allUsers = $companionsModel->where('user_id', $getUserDetails->id)->findAll();
@@ -42,6 +42,8 @@ class UserController extends BaseController
                     'google_map_key1' => $google_map_key1,
                     'google_map_key2' => $google_map_key2,
                     'companions' => $allUsers,
+                    'show_modal' => 1,
+                    'confirm_rsvp' => 0,
                     'main_invitee' => $getUserDetails->name,
                     'invite_id' => $getUserDetails->invite_id,
                     'companions_count' => $countCompanions,
@@ -52,7 +54,6 @@ class UserController extends BaseController
                     'google_map_key2' => $google_map_key2,
                 ];
             }
-            ;
             $dataObject = json_decode(json_encode($data));
             return view('pages/home', ['data' => $dataObject]);
         } catch (\Exception $e) {
@@ -96,25 +97,6 @@ class UserController extends BaseController
 
                 $userModel->update($getUser->id, $dataUpdated);
 
-                // Set up Pusher configuration
-                $options = [
-                    'cluster' => 'ap3',  // Replace with your Pusher cluster
-                    'useTLS' => true,
-                ];
-
-                $pusher = new \Pusher\Pusher(
-                    'b012177f6ee3695e54b9',    // Replace with your Pusher app key
-                    '4904ff2acd898d494475', // Replace with your Pusher app secret
-                    '1852485',     // Replace with your Pusher app ID
-                    $options
-                );
-
-                $pusherData = [
-                    'message' => 'User RSVP status updated',
-                    'user_id' => $getUser->id,
-                    'will_attend' => $dataUpdated['will_attend']
-                ];
-
                 $text = base_url('qr/') . $getUser->invite_id;
 
                 $qrCodeUri = $qrCodeService->generateQrCode($text);
@@ -129,7 +111,6 @@ class UserController extends BaseController
 
                 }
 
-                $pusher->trigger('rsvp-channel', 'rsvp-updated', $pusherData);
             }
 
             $data = [
@@ -176,17 +157,41 @@ class UserController extends BaseController
         $userModel = model(UserModel::class);
         $companionsModel = model(CompanionsModel::class);
 
-        if(isset($rsvp_id)){
+        if (isset($rsvp_id)) {
             $getUser = $userModel->where('invite_id', $rsvp_id)->first();
             $getCompanions = $companionsModel->where('user_id', $getUser->id)->findAll();
-    
+            if ($getUser && $getUser->will_attend == "Yes") {
+
+                $userModel->where('invite_id', $rsvp_id);
+                $userModel->set('qr_code_status', 1);
+                $userModel->update();
+
+                // Set up Pusher configuration
+                $options = [
+                    'cluster' => 'ap3',  // Replace with your Pusher cluster
+                    'useTLS' => true,
+                ];
+
+                $pusher = new \Pusher\Pusher(
+                    'b012177f6ee3695e54b9',    // Replace with your Pusher app key
+                    '4904ff2acd898d494475', // Replace with your Pusher app secret
+                    '1852485',     // Replace with your Pusher app ID
+                    $options
+                );
+                $pusherData = [
+                    'message' => 'User RSVP status updated',
+                    'user_id' => $getUser->id,
+                ];
+                $pusher->trigger('rsvp-channel', 'rsvp-updated', $pusherData);
+            }
+
             $data = [
-                'companions'=> $getCompanions,
-                'main_invitee'=> $getUser->name,
-    
+                'companions' => $getCompanions,
+                'main_invitee' => $getUser->name,
+
             ];
         }
-       
+
         $dataObject = json_decode(json_encode($data));
 
         return view('pages/qr', ['data' => $dataObject]);

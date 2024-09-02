@@ -16,7 +16,6 @@ class AdminController extends BaseController
         $data = [
             'all_users' => $allUsers
         ];
-
         $dataObject = json_decode(json_encode($data));
         return view('admin/home', ['data' => $dataObject]);
     }

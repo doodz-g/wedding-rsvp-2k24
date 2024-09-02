@@ -30,26 +30,19 @@
             $(".btn-pause").addClass("d-none");
         }
     });
-
+    $("#entourage-link").on("click", function () {
+        $("#m-prin").find("p").addClass("animate__animated animate__lightSpeedInLeft  animate__delay-2s");
+        $("#f-prin").find("p").addClass("animate__animated animate__lightSpeedInRight  animate__delay-2s");
+    });
     music.addEventListener('ended', function() {
         console.log('The song has finished playing');
         $(".btn-play").removeClass("d-none");
         $(".btn-pause").addClass("d-none");
     });
 
-    $(document).ready(function () {
-        var inviteID = $("#invite_id").val();
-        if (inviteID.trim().length > 0) {
-            $("#confirmationModal").modal('show');
-        }
-        $("#entourage-link").on("click", function () {
-            $("#m-prin").find("p").addClass("animate__animated animate__lightSpeedInLeft  animate__delay-2s");
-            $("#f-prin").find("p").addClass("animate__animated animate__lightSpeedInRight  animate__delay-2s");
-        });
-    });
-
     $(document).ajaxSend(function () {
         $("#overlay").fadeIn(300);
+        
     });
 
     $('#btnConfirmAttendance').click(function () {

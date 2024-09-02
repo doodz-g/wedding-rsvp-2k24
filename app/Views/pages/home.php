@@ -52,9 +52,8 @@
                 <a href="#gallery" class="nav-item nav-link">Gallery</a>
                 <!-- <a href="#family" class="nav-item nav-link">Family</a> -->
                 <a href="#event" class="nav-item nav-link">Event</a>
-                <a href="#rsvp" id="rsvp-nav"
-                    style="<?php echo empty($data->main_invitee) ? 'display:none;' : 'display:block;' ?>"
-                    class="nav-item nav-link">RSVP</a>
+                <a href="#rsvp" id="rsvp-nav" class="nav-item nav-link <?php
+                echo empty($data->invite_id) ? 'd-none' : '' ?> ">RSVP</a>
             </div>
         </div>
     </nav>
@@ -82,7 +81,8 @@
                                     alt="Turn on the music">
                                     <span></span>
                                 </button>
-                                <button type="button" class="btn-pause mx-auto emerald-border-left btn-play-music d-none"
+                                <button type="button"
+                                    class="btn-pause mx-auto emerald-border-left btn-play-music d-none"
                                     alt="Turn on the music">
                                     <i class="fas fa-pause"></i>
                                 </button>
@@ -101,14 +101,15 @@
                                 Doodz & Akiss</h1>
                             <div
                                 class="animate__animated animate__bounceIn animate__delay-1s border-top border-bottom border-light">
-                                <div class="py-3 px-4 counter-container" id ="counter"></div>
+                                <div class="py-3 px-4 counter-container" id="counter"></div>
                             </div>
                             <div class="animate__animated animate__slideInUp">
                                 <button type="button" class="btn-play mx-auto emerald-border-left btn-play-music"
                                     alt="Turn on the music">
                                     <span></span>
                                 </button>
-                                <button type="button" class="btn-pause mx-auto emerald-border-left btn-play-music d-none"
+                                <button type="button"
+                                    class="btn-pause mx-auto emerald-border-left btn-play-music d-none"
                                     alt="Turn on the music">
                                     <i class="fas fa-pause"></i>
                                 </button>
@@ -132,7 +133,8 @@
                                     alt="Turn on the music">
                                     <span></span>
                                 </button>
-                                <button type="button" class="btn-pause mx-auto emerald-border-left btn-play-music d-none"
+                                <button type="button"
+                                    class="btn-pause mx-auto emerald-border-left btn-play-music d-none"
                                     alt="Turn on the music">
                                     <i class="fas fa-pause"></i>
                                 </button>
@@ -141,13 +143,15 @@
                     </div>
                 </div>
             </div>
-            <a class="carousel-control-prev justify-content-start" style="visibility:hidden;" href="#header-carousel" data-slide="prev">
+            <a class="carousel-control-prev justify-content-start" style="visibility:hidden;" href="#header-carousel"
+                data-slide="prev">
                 <div class="btn btn-primary bg-emerald-green border-color-emerald-green px-0"
                     style="width: 68px; height: 68px;">
                     <span class="carousel-control-prev-icon mt-3"></span>
                 </div>
             </a>
-            <a class="carousel-control-next justify-content-end" style="visibility:hidden;" href="#header-carousel" data-slide="next">
+            <a class="carousel-control-next justify-content-end" style="visibility:hidden;" href="#header-carousel"
+                data-slide="next">
                 <div class="btn btn-primary bg-emerald-green border-color-emerald-green px-0"
                     style="width: 68px; height: 68px;">
                     <span class="carousel-control-next-icon mt-3"></span>
@@ -347,44 +351,50 @@
         </div>
         <div class="owl-carousel gallery-carousel">
             <div class="gallery-item">
-                <img class="img-fluid w-100" src="<?php echo strtolower(base_url('public/assets/img/gallery-new-1.JPG')); ?>"
-                    alt="">
-                <a href="<?php echo strtolower(base_url('public/assets/img/gallery-new-1.JPG')); ?>" data-lightbox="gallery">
+                <img class="img-fluid w-100"
+                    src="<?php echo strtolower(base_url('public/assets/img/gallery-new-1.JPG')); ?>" alt="">
+                <a href="<?php echo strtolower(base_url('public/assets/img/gallery-new-1.JPG')); ?>"
+                    data-lightbox="gallery">
                     <i class="fa fa-2x fa-plus text-white"></i>
                 </a>
             </div>
             <div class="gallery-item">
-                <img class="img-fluid w-100" src="<?php echo strtolower(base_url('public/assets/img/gallery-new-2.JPG')); ?>"
-                    alt="">
-                <a href="<?php echo strtolower(base_url('public/assets/img/gallery-new-2.JPG')); ?>" data-lightbox="gallery">
+                <img class="img-fluid w-100"
+                    src="<?php echo strtolower(base_url('public/assets/img/gallery-new-2.JPG')); ?>" alt="">
+                <a href="<?php echo strtolower(base_url('public/assets/img/gallery-new-2.JPG')); ?>"
+                    data-lightbox="gallery">
                     <i class="fa fa-2x fa-plus text-white"></i>
                 </a>
             </div>
             <div class="gallery-item">
-                <img class="img-fluid w-100" src="<?php echo strtolower(base_url('public/assets/img/gallery-new-3.JPG')); ?>"
-                    alt="">
-                <a href="<?php echo strtolower(base_url('public/assets/img/gallery-new-3.JPG')); ?>" data-lightbox="gallery">
+                <img class="img-fluid w-100"
+                    src="<?php echo strtolower(base_url('public/assets/img/gallery-new-3.JPG')); ?>" alt="">
+                <a href="<?php echo strtolower(base_url('public/assets/img/gallery-new-3.JPG')); ?>"
+                    data-lightbox="gallery">
                     <i class="fa fa-2x fa-plus text-white"></i>
                 </a>
             </div>
             <div class="gallery-item">
-                <img class="img-fluid w-100" src="<?php echo strtolower(base_url('public/assets/img/gallery-new-4.JPG')); ?>"
-                    alt="">
-                <a href="<?php echo strtolower(base_url('public/assets/img/gallery-new-4.JPG')); ?>" data-lightbox="gallery">
+                <img class="img-fluid w-100"
+                    src="<?php echo strtolower(base_url('public/assets/img/gallery-new-4.JPG')); ?>" alt="">
+                <a href="<?php echo strtolower(base_url('public/assets/img/gallery-new-4.JPG')); ?>"
+                    data-lightbox="gallery">
                     <i class="fa fa-2x fa-plus text-white"></i>
                 </a>
             </div>
             <div class="gallery-item">
-                <img class="img-fluid w-100" src="<?php echo strtolower(base_url('public/assets/img/gallery-new-5.JPG')); ?>"
-                    alt="">
-                <a href="<?php echo strtolower(base_url('public/assets/img/gallery-new-5.JPG')); ?>" data-lightbox="gallery">
+                <img class="img-fluid w-100"
+                    src="<?php echo strtolower(base_url('public/assets/img/gallery-new-5.JPG')); ?>" alt="">
+                <a href="<?php echo strtolower(base_url('public/assets/img/gallery-new-5.JPG')); ?>"
+                    data-lightbox="gallery">
                     <i class="fa fa-2x fa-plus text-white"></i>
                 </a>
             </div>
             <div class="gallery-item">
-                <img class="img-fluid w-100" src="<?php echo strtolower(base_url('public/assets/img/gallery-new-5.JPG')); ?>"
-                    alt="">
-                <a href="<?php echo strtolower(base_url('public/assets/img/gallery-new-5.JPG')); ?>" data-lightbox="gallery">
+                <img class="img-fluid w-100"
+                    src="<?php echo strtolower(base_url('public/assets/img/gallery-new-5.JPG')); ?>" alt="">
+                <a href="<?php echo strtolower(base_url('public/assets/img/gallery-new-5.JPG')); ?>"
+                    data-lightbox="gallery">
                     <i class="fa fa-2x fa-plus text-white"></i>
                 </a>
             </div>
@@ -448,156 +458,159 @@
         </div>
     </div>
     <!-- Event End -->
-    <!-- RSVP Start -->
-    <div class="container-fluid py-5" id="rsvp"
-        style="<?php echo (!empty($data->confirm_rsvp) && $data->confirm_rsvp == 1) || (empty($data->main_invitee)) ? 'display:none;' : 'display:block;' ?>">
-        <div class="container py-5 bg-secondary" style="border-radius:31px;">
-            <div class="section-title position-relative text-center">
-                <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">RSVP</h6>
-                <h1 class="font-secondary display-4">Join Our Wedding</h1>
-                <i class="far fa-heart text-dark"></i>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="text-center">
+    <?php if (isset($data->show_modal)) { ?>
+        <!-- RSVP Start -->
+        <div class="container-fluid py-5" id="rsvp"
+            style="<?php echo (!empty($data->show_modal) && $data->show_modal == 0 ? 'display:none;' : 'display:block;') ?>">
+            <div class="container py-5 bg-secondary" style="border-radius:31px;">
+                <div class="section-title position-relative text-center">
+                    <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">RSVP</h6>
+                    <h1 class="font-secondary display-4">Join Our Wedding</h1>
+                    <i class="far fa-heart text-dark"></i>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-12">
                         <div class="text-center">
-                            <?php
-                            // Check if each $companion is an object or associative array
-                            if (!empty($data->main_invitee)) {
-                                echo "<p>Dear <b>" . htmlspecialchars($data->main_invitee) . ",</b></p></br>";
-                                echo $data->companions_count >= 0 && !empty($data->companions_count) ? '<p>Please confirm your attendance and list the accompanying family members:' : 'Please confirm your attendance' . '</p>';
-                            }
-                            // Check if companions is not empty and is an array
-                            if (!empty($data->companions) && is_array($data->companions)) {
-                                // Iterate over the companions array
-                                foreach ($data->companions as $companion) {
-                                    echo '<p><b>' . htmlspecialchars($companion->name) . "</b></p>";
+                            <div class="text-center">
+                                <?php
+                                // Check if each $companion is an object or associative array
+                                if (!empty($data->main_invitee)) {
+                                    echo "<p>Dear <b>" . htmlspecialchars($data->main_invitee) . ",</b></p></br>";
+                                    echo $data->companions_count >= 0 && !empty($data->companions_count) ? '<p>Please confirm your attendance and list the accompanying family members:' : 'Please confirm your attendance' . '</p>';
                                 }
-                                echo "</br>";
-                                echo "<h3>Thank you!</h3>";
-                            } else {
-                                echo "<p>No companions found.</p>";
-                            }
-                            ?>
-                        </div>
-                        <div style="margin-top:20px;">
-                            <button class="btn btn-primary font-weight-bold py-3 px-5" id="btnConfirmAttendance"
-                                type="button">Affirm your presence</button>
+                                // Check if companions is not empty and is an array
+                                if (!empty($data->companions) && is_array($data->companions)) {
+                                    // Iterate over the companions array
+                                    foreach ($data->companions as $companion) {
+                                        echo '<p><b>' . htmlspecialchars($companion->name) . "</b></p>";
+                                    }
+                                    echo "</br>";
+                                    echo "<h3>Thank you!</h3>";
+                                } else {
+                                    echo "<p>No companions found.</p>";
+                                }
+                                ?>
+                            </div>
+                            <div style="margin-top:20px;">
+                                <button class="btn btn-primary font-weight-bold py-3 px-5" id="btnConfirmAttendance"
+                                    type="button">Affirm your presence</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- RSVP End -->
-    <!-- RSVP Confirm Start -->
-    <div class="container-fluid py-5" id="rsvp-confirm"
-        style="<?php echo !empty($data->confirm_rsvp) && $data->confirm_rsvp == 1 ? 'display:block;' : 'display:none;' ?>">
-        <div class="container py-5 bg-secondary" style="border-radius:31px;">
-            <div class="section-title position-relative text-center">
-                <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">RSVP</h6>
-                <h1 class="font-secondary display-4">Your Presence is Highly Anticipated</h1>
-                <i class="far fa-heart text-dark"></i>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="text-center">
-                        <div class="text-center" id="invitee-body">
-                            <?php
-                            // Check if each $companion is an object or associative array
-                            if (!empty($data->confirm_main_invitee)) {
-                                echo "<p>We look forward to your presence, <b>" . htmlspecialchars($data->confirm_main_invitee) . ",</b></p>";
-                                echo $data->confirm_companions_count >= 0 && !empty($data->confirm_companions_count) ? '<p> along with your accompanying family members:' : '</p>';
-                            }
-                            // Check if companions is not empty and is an array
-                            if (!empty($data->confirm_companions) && is_array($data->confirm_companions)) {
-                                // Iterate over the companions array
-                                foreach ($data->confirm_companions as $confirm_companions) {
-                                    echo '<p><b>' . htmlspecialchars($confirm_companions->name) . "</b></p>";
+        <!-- RSVP End -->
+        <!-- RSVP Confirm Start -->
+        <div class="container-fluid py-5" id="rsvp-confirm"
+            style="<?php echo (!empty($data->show_modal) && $data->show_modal == 0 ? 'display:block;' : 'display:none;') ?>">
+            <div class="container py-5 bg-secondary" style="border-radius:31px;">
+                <div class="section-title position-relative text-center">
+                    <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">RSVP</h6>
+                    <h1 class="font-secondary display-4">Your Presence is Highly Anticipated</h1>
+                    <i class="far fa-heart text-dark"></i>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-12">
+                        <div class="text-center">
+                            <div class="text-center" id="invitee-body">
+                                <?php
+                                // Check if each $companion is an object or associative array
+                                if (!empty($data->main_invitee)) {
+                                    echo "<p>We look forward to your presence, <b>" . htmlspecialchars($data->main_invitee) . ",</b></p>";
+                                    echo $data->companions_count >= 0 && !empty($data->companions_count) ? '<p> along with your accompanying family members:' : '</p>';
+                                }
+                                // Check if companions is not empty and is an array
+                                if (!empty($data->companions) && is_array($data->companions)) {
+                                    // Iterate over the companions array
+                                    foreach ($data->companions as $confirm_companions) {
+                                        echo '<p><b>' . htmlspecialchars($confirm_companions->name) . "</b></p>";
+                                    }
+                                    echo "</br>";
+                                    echo "<h3>Thank you!</h3>";
+
+                                } else {
+                                    echo "<p>No companions found.</p>";
                                 }
                                 echo "</br>";
-                                echo "<h3>Thank you!</h3>";
+                                echo "<button type='button' class='btn btn-primary font-weight-bold py-3 px-5' id='btn-show-qr'>Get your QR Pass</button>";
+                                ?>
 
-                            } else {
-                                echo "<p>No companions found.</p>";
-                            }
-                            echo "</br>";
-                            echo "<button type='button' class='btn btn-primary font-weight-bold py-3 px-5' id='btn-show-qr'>Get your QR Pass</button>";
-                            ?>
-
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- RSVP Confirm End -->
-    <audio id="bgmusic" controls>
-        <source src=" <?php echo base_url('public/assets/audio/music.mp4'); ?>" type="audio/mp4">
-        Your browser does not support the audio element.
-    </audio>
-    <!-- Modal -->
-    <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div id="overlay">
-                    <div class="cv-spinner"><span class="spinner"></span></div>
-                </div>
-                <div class="modal-header">
-                    <h5 class="modal-title text-center" id="exampleModalLabel">RSVP</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body text-center">
-                    <input type="hidden" value="
+        <!-- RSVP Confirm End -->
+        <?php } ?>
+        <audio id="bgmusic" controls>
+            <source src=" <?php echo base_url('public/assets/audio/music.mp4'); ?>" type="audio/mp4">
+            Your browser does not support the audio element.
+        </audio>
+        <!-- Modal -->
+        <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div id="overlay">
+                        <div class="cv-spinner"><span class="spinner"></span></div>
+                    </div>
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center" id="exampleModalLabel">RSVP</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <input type="hidden" value="
                 <?php
                 if (!empty($data->invite_id)) {
                     echo $data->invite_id;
                 }
                 ?>" name="invite_id" id="invite_id">
-                    <?php
-                    // Check if each $companion is an object or associative array
-                    if (!empty($data->main_invitee)) {
-                        echo "Dear <b>" . htmlspecialchars($data->main_invitee) . "</b>,<br><br>";
-                        echo $data->companions_count >= 0 && !empty($data->companions_count) ? 'Please confirm your attendance and list the accompanying family members:<br><br>' : 'Please confirm your attendance<br><br>';
-                    }
-                    // Check if companions is not empty and is an array
-                    if (!empty($data->companions) && is_array($data->companions)) {
-                        // Iterate over the companions array
-                        foreach ($data->companions as $companion) {
-                            // Check if each $companion is an object or associative array
-                            if (is_object($companion)) {
-                                echo '<b>' . htmlspecialchars($companion->name) . "</b></br>";
-                            } elseif (is_array($companion)) {
-                                echo "Name: " . htmlspecialchars($companion['name']) . "<br>";
-                            } else {
-                                // For simple values
-                                echo "Name: " . htmlspecialchars($companion) . "<br>";
-                            }
+                        <?php
+                        // Check if each $companion is an object or associative array
+                        if (!empty($data->main_invitee)) {
+                            echo "Dear <b>" . htmlspecialchars($data->main_invitee) . "</b>,<br><br>";
+                            echo $data->companions_count >= 0 && !empty($data->companions_count) ? 'Please confirm your attendance and list the accompanying family members:<br><br>' : 'Please confirm your attendance<br><br>';
                         }
-                        echo "</br> Thank you!";
-                    } else {
-                        echo "No companions found.";
-                    }
-                    ?>
+                        // Check if companions is not empty and is an array
+                        if (!empty($data->companions) && is_array($data->companions)) {
+                            // Iterate over the companions array
+                            foreach ($data->companions as $companion) {
+                                // Check if each $companion is an object or associative array
+                                if (is_object($companion)) {
+                                    echo '<b>' . htmlspecialchars($companion->name) . "</b></br>";
+                                } elseif (is_array($companion)) {
+                                    echo "Name: " . htmlspecialchars($companion['name']) . "<br>";
+                                } else {
+                                    // For simple values
+                                    echo "Name: " . htmlspecialchars($companion) . "<br>";
+                                }
+                            }
+                            echo "</br> Thank you!";
+                        } else {
+                            echo "No companions found.";
+                        }
+                        ?>
 
-                </div>
-                <div class="modal-footer">
-                    <?php if (!empty($data->companions_count) || !empty($data->invite_id)) { ?>
-                        <button type="button" class="btn btn-primary" id="rsvp_confirm_yes">Ofcourse, <?php
-                        echo $data->companions_count >= 0 && !empty($data->companions_count) ? 'We' : 'I'; ?> will
-                            attend</button>
-                        <button type="button" class="btn btn-primary btn-danger" id="rsvp_confirm_no">Sorry, <?php
-                        echo $data->companions_count >= 0 && !empty($data->companions_count) ? 'We' : 'I'; ?> will not
-                            be able
-                            to attend</button>
-                    <?php } ?>
+                    </div>
+                    <div class="modal-footer">
+                        <?php if (!empty($data->companions_count) || !empty($data->invite_id)) { ?>
+                            <button type="button" class="btn btn-primary" id="rsvp_confirm_yes">Ofcourse, <?php
+                            echo $data->companions_count >= 0 && !empty($data->companions_count) ? 'We' : 'I'; ?> will
+                                attend</button>
+                            <button type="button" class="btn btn-primary btn-danger" id="rsvp_confirm_no">Sorry, <?php
+                            echo $data->companions_count >= 0 && !empty($data->companions_count) ? 'We' : 'I'; ?> will not
+                                be able
+                                to attend</button>
+                        <?php } ?>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+
     <div class="modal fade" id="qrModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -622,8 +635,8 @@
                     <div id="qr-container">
                         <p>Please save this QR code and present it to the guest liaison upon your arrival at the
                             entrance.</p>
-                        <img src="<?php echo !empty($data->confirm_invitee_qr) ? $data->confirm_invitee_qr : '' ?>"
-                            id="qr-code-image" class="img-thumbnail">
+                        <img src="<?php echo !empty($data->invitee_qr) ? $data->invitee_qr : '' ?>" id="qr-code-image"
+                            class="img-thumbnail">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="btn-save-qr">Save QR</button>
@@ -687,85 +700,91 @@
         });
 
         $('#rsvp_confirm_yes').click(function () {
-        var rsvp_id = $("#invite_id").val().trim()
-        $.ajax({
-            url: '<?php echo base_url('confirm'); ?>',
-            headers: { 'X-Requested-With': 'XMLHttpRequest' },
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            data: { rsvp_id: rsvp_id, confirm: '1' },
-            type: 'POST',
+            var rsvp_id = $("#invite_id").val().trim()
+            $.ajax({
+                url: '<?php echo base_url('confirm'); ?>',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data: { rsvp_id: rsvp_id, confirm: '1' },
+                type: 'POST',
 
-            success: function (data) {
+                success: function (data) {
 
-                if (data.confirm == 1) {
-                    setTimeout(function () {
-                        toastr.success('Thank you for your confirmation!');
-                    }, 1000);
-                    var html = '';
-                    html += '<p>We look forward to your presence, <b>' + data.main_invitee_name + ',</b></p>';
-                    if (data.companions.length > 0) {
-                        html += '<p>along with your accompanying family members:</p>';
-                        $.each(data.companions, function (index, companion) {
-                            console.log(companion.name);
-                            html += '<p><b>' + companion.name + '</b></p>';
-                        });
+                    if (data.confirm == 1) {
+                        $("#rsvp-nav").removeClass('d-none');
+                        setTimeout(function () {
+                            toastr.success('Thank you for your confirmation!');
+                        }, 1000);
+                        var html = '';
+                        html += '<p>We look forward to your presence, <b>' + data.main_invitee_name + ',</b></p>';
+                        if (data.companions.length > 0) {
+                            html += '<p>along with your accompanying family members:</p>';
+                            $.each(data.companions, function (index, companion) {
+                                console.log(companion.name);
+                                html += '<p><b>' + companion.name + '</b></p>';
+                            });
+                        }
+                        html += '<h3>Thank you!</h3><br>';
+                        html += "<button type='button' class='btn btn-primary font-weight-bold py-3 px-5' id='btn-show-qr'>Get your QR Pass</button>";
+
+                        $("#invitee-body").html(html);
                     }
-                    html += '<h3>Thank you!</h3><br>';
-                    html += "<button type='button' class='btn btn-primary font-weight-bold py-3 px-5' id='btn-show-qr'>Get your QR Pass</button>";
 
-                    $("#invitee-body").html(html);
-                }
-
-                $("#rsvp-confirm").show();
-                $("#rsvp").hide();
-                $("#rsvp-nav").hide();
-            }
-        }).done(function (data) {
-            setTimeout(function () {
-                $("#overlay").fadeOut(300);
-            }, 500);
-            setTimeout(function () {
-                $("#confirmationModal").modal("hide");
-            }, 900);
-            $('#qr-code-image').attr('src', data.qrCodeUri);
-            setTimeout(function () {
-                $("#qrModal").modal("show");
-            }, 1200);
-
-
-        });
-    });
-
-    $('#rsvp_confirm_no').click(function () {
-        var rsvp_id = $("#invite_id").val().trim()
-        $.ajax({
-            url: '<?php echo base_url('confirm'); ?>',
-            headers: { 'X-Requested-With': 'XMLHttpRequest' },
-            data: { rsvp_id: rsvp_id, confirm: '0' },
-            type: 'POST',
-
-            success: function (data) {
-                if (data.confirm == 0) {
-                    setTimeout(function () {
-                        toastr.success('Thank you for your confirmation!');
-                    }, 1000);
-
+                    $("#rsvp-confirm").show();
                     $("#rsvp").hide();
-                    $("#rsvp-confirm").hide();
-                    $("#rsvp-nav").hide();
                 }
-            }
-        }).done(function () {
-            setTimeout(function () {
-                $("#overlay").fadeOut(300);
-            }, 500);
+            }).done(function (data) {
+                setTimeout(function () {
+                    $("#overlay").fadeOut(300);
+                }, 500);
+                setTimeout(function () {
+                    $("#confirmationModal").modal("hide");
+                }, 900);
+                $('#qr-code-image').attr('src', data.qrCodeUri);
+                setTimeout(function () {
+                    $("#qrModal").modal("show");
+                }, 1200);
 
-            setTimeout(function () {
-                $("#confirmationModal").modal("hide");
-            }, 900);
 
+            });
         });
-    });
+
+        $('#rsvp_confirm_no').click(function () {
+            var rsvp_id = $("#invite_id").val().trim()
+            $.ajax({
+                url: '<?php echo base_url('confirm'); ?>',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                data: { rsvp_id: rsvp_id, confirm: '0' },
+                type: 'POST',
+
+                success: function (data) {
+                    if (data.confirm == 0) {
+                        setTimeout(function () {
+                            toastr.success('Thank you for your confirmation!');
+                        }, 1000);
+
+                        $("#rsvp").hide();
+                        $("#rsvp-confirm").hide();
+                        $("#rsvp-nav").hide();
+                    }
+                }
+            }).done(function () {
+                setTimeout(function () {
+                    $("#overlay").fadeOut(300);
+                }, 500);
+
+                setTimeout(function () {
+                    $("#confirmationModal").modal("hide");
+                }, 900);
+
+            });
+        });
+
+        <?php if (!empty($data->show_modal) && !is_null($data->show_modal) && $data->show_modal == 1) { ?>
+            $("#confirmationModal").modal('show');
+        <?php } ?>
+
+
     </script>
 
 </body>

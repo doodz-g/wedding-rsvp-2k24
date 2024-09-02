@@ -3,6 +3,9 @@ body {
   font-size: 13px;
   z-index: 1;
 }
+.bg-success{
+  background-color: #c2e9cb !important;
+}
 ul.horizontal-list {
   display: list-item;
   flex-wrap: wrap; /* Optional: Allows wrapping to the next line if needed */

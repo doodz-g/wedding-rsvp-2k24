@@ -14,7 +14,7 @@ class UserModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = false;
     protected $allowedFields    = [
-            'id', 'invite_id', 'will_attend','will_not_attend'
+            'id', 'invite_id', 'will_attend','will_not_attend','qr_code_status'
 
     ];
 
