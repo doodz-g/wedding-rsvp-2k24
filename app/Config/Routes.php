@@ -21,3 +21,4 @@ $routes->post('admin/refresh', 'AdminController::getUsers');
 $routes->get('/login', 'LoginController::index');
 $routes->post('/login/authenticate', 'LoginController::authenticate');
 $routes->get('/logout', 'LoginController::logout');
+$routes->get('/admin', 'LoginController::admin');

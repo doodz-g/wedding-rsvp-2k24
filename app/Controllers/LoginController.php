@@ -11,9 +11,14 @@ class LoginController extends BaseController
 {
     public function index()
     {
-        $password = password_hash('P@55w0rd1', PASSWORD_DEFAULT);
-        var_dump($password);
-        return view('admin/login');
+        $session = session();
+        // $password = password_hash('P@55w0rd1', PASSWORD_DEFAULT);
+        if ($session->has('logged_in') || $session->get('logged_in') == true) {
+            return redirect()->to('/admin');
+        } else {
+            return view('admin/login');
+        }
+
     }
 
     public function authenticate()
@@ -33,16 +38,7 @@ class LoginController extends BaseController
                     'username' => $user['username'],
                     'logged_in' => true
                 ]);
-
-                $userModel = model(UserModel::class);
-                $allUsers = $userModel->orderBy('date', 'DESC')->findAll();
-                $data = [
-                    'all_users' => $allUsers
-                ];
-
-                $dataObject = json_decode(json_encode($data));
-                
-                return view('admin/home', ['data' => $dataObject]);
+                return redirect()->to('/admin');
             } else {
                 $session->setFlashdata('error', 'Invalid password');
                 return view('admin/login');
@@ -57,5 +53,22 @@ class LoginController extends BaseController
     {
         session()->destroy();
         return view('admin/login');
+    }
+    public function admin()
+    {
+        $session = session();
+        if ($session->has('logged_in') || $session->get('logged_in') == true) {
+            $userModel = model(UserModel::class);
+            $allUsers = $userModel->orderBy('date', 'DESC')->findAll();
+            $data = [
+                'all_users' => $allUsers
+            ];
+            $dataObject = json_decode(json_encode($data));
+
+            return view('admin/home', ['data' => $dataObject]);
+
+        } else {
+            return view('admin/login');
+        }
     }
 }
