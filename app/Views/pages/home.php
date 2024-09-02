@@ -52,8 +52,14 @@
                 <a href="#gallery" class="nav-item nav-link">Gallery</a>
                 <!-- <a href="#family" class="nav-item nav-link">Family</a> -->
                 <a href="#event" class="nav-item nav-link">Event</a>
-                <a href="#rsvp" id="rsvp-nav" class="nav-item nav-link <?php
-                echo empty($data->invite_id) ? 'd-none' : '' ?> ">RSVP</a>
+                <?php if (isset($data->show_modal) && $data->show_modal == true) { ?>
+                    <a href="#rsvp" id="rsvp-nav" class="nav-item nav-link <?php
+                    echo empty($data->invite_id) ? 'd-none' : '' ?> ">RSVP</a>
+                <?php } else { ?>
+                    <a href="#rsvp-confirm" id="rsvp-nav" class="nav-item nav-link <?php
+                    echo empty($data->invite_id) ? 'd-none' : '' ?> ">RSVP</a>
+
+                <?php } ?>
             </div>
         </div>
     </nav>
@@ -458,10 +464,11 @@
         </div>
     </div>
     <!-- Event End -->
+
     <?php if (isset($data->show_modal)) { ?>
         <!-- RSVP Start -->
         <div class="container-fluid py-5" id="rsvp"
-            style="<?php echo (!empty($data->show_modal) && $data->show_modal == 0 ? 'display:none;' : 'display:block;') ?>">
+            style="<?php echo $data->show_modal ? 'display:block;' : 'display:none;' ?>">
             <div class="container py-5 bg-secondary" style="border-radius:31px;">
                 <div class="section-title position-relative text-center">
                     <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">RSVP</h6>
@@ -503,7 +510,7 @@
         <!-- RSVP End -->
         <!-- RSVP Confirm Start -->
         <div class="container-fluid py-5" id="rsvp-confirm"
-            style="<?php echo (!empty($data->show_modal) && $data->show_modal == 0 ? 'display:block;' : 'display:none;') ?>">
+            style="<?php echo $data->show_modal ? 'display:none;' : 'display:block;' ?>">
             <div class="container py-5 bg-secondary" style="border-radius:31px;">
                 <div class="section-title position-relative text-center">
                     <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">RSVP</h6>
@@ -543,73 +550,74 @@
             </div>
         </div>
         <!-- RSVP Confirm End -->
-        <?php } ?>
-        <audio id="bgmusic" controls>
-            <source src=" <?php echo base_url('public/assets/audio/music.mp4'); ?>" type="audio/mp4">
-            Your browser does not support the audio element.
-        </audio>
-        <!-- Modal -->
-        <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div id="overlay">
-                        <div class="cv-spinner"><span class="spinner"></span></div>
-                    </div>
-                    <div class="modal-header">
-                        <h5 class="modal-title text-center" id="exampleModalLabel">RSVP</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body text-center">
-                        <input type="hidden" value="
+    <?php } ?>
+    <audio id="bgmusic" controls>
+        <source src=" <?php echo base_url('public/assets/audio/music.mp4'); ?>" type="audio/mp4">
+        Your browser does not support the audio element.
+    </audio>
+    <!-- Modal -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div id="overlay">
+                    <div class="cv-spinner"><span class="spinner"></span></div>
+                </div>
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="exampleModalLabel">RSVP</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <input type="hidden" value="
                 <?php
                 if (!empty($data->invite_id)) {
                     echo $data->invite_id;
                 }
                 ?>" name="invite_id" id="invite_id">
-                        <?php
-                        // Check if each $companion is an object or associative array
-                        if (!empty($data->main_invitee)) {
-                            echo "Dear <b>" . htmlspecialchars($data->main_invitee) . "</b>,<br><br>";
-                            echo $data->companions_count >= 0 && !empty($data->companions_count) ? 'Please confirm your attendance and list the accompanying family members:<br><br>' : 'Please confirm your attendance<br><br>';
-                        }
-                        // Check if companions is not empty and is an array
-                        if (!empty($data->companions) && is_array($data->companions)) {
-                            // Iterate over the companions array
-                            foreach ($data->companions as $companion) {
-                                // Check if each $companion is an object or associative array
-                                if (is_object($companion)) {
-                                    echo '<b>' . htmlspecialchars($companion->name) . "</b></br>";
-                                } elseif (is_array($companion)) {
-                                    echo "Name: " . htmlspecialchars($companion['name']) . "<br>";
-                                } else {
-                                    // For simple values
-                                    echo "Name: " . htmlspecialchars($companion) . "<br>";
-                                }
+                    <?php
+                    // Check if each $companion is an object or associative array
+                    if (!empty($data->main_invitee)) {
+                        echo "Dear <b>" . htmlspecialchars($data->main_invitee) . "</b>,<br><br>";
+                        echo $data->companions_count >= 0 && !empty($data->companions_count) ? 'Please confirm your attendance and list the accompanying family members:<br><br>' : 'Please confirm your attendance<br><br>';
+                    }
+                    // Check if companions is not empty and is an array
+                    if (!empty($data->companions) && is_array($data->companions)) {
+                        // Iterate over the companions array
+                        foreach ($data->companions as $companion) {
+                            // Check if each $companion is an object or associative array
+                            if (is_object($companion)) {
+                                echo '<b>' . htmlspecialchars($companion->name) . "</b></br>";
+                            } elseif (is_array($companion)) {
+                                echo "Name: " . htmlspecialchars($companion['name']) . "<br>";
+                            } else {
+                                // For simple values
+                                echo "Name: " . htmlspecialchars($companion) . "<br>";
                             }
-                            echo "</br> Thank you!";
-                        } else {
-                            echo "No companions found.";
                         }
-                        ?>
+                        echo "</br> Thank you!";
+                    } else {
+                        echo "No companions found.";
+                    }
+                    ?>
 
-                    </div>
-                    <div class="modal-footer">
-                        <?php if (!empty($data->companions_count) || !empty($data->invite_id)) { ?>
-                            <button type="button" class="btn btn-primary" id="rsvp_confirm_yes">Ofcourse, <?php
-                            echo $data->companions_count >= 0 && !empty($data->companions_count) ? 'We' : 'I'; ?> will
-                                attend</button>
-                            <button type="button" class="btn btn-primary btn-danger" id="rsvp_confirm_no">Sorry, <?php
-                            echo $data->companions_count >= 0 && !empty($data->companions_count) ? 'We' : 'I'; ?> will not
-                                be able
-                                to attend</button>
-                        <?php } ?>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <?php if (!empty($data->companions_count) || !empty($data->invite_id)) { ?>
+                        <button type="button" class="btn btn-primary" id="rsvp_confirm_yes">Ofcourse, <?php
+                        echo $data->companions_count >= 0 && !empty($data->companions_count) ? 'We' : 'I'; ?> will
+                            attend</button>
+                        <button type="button" class="btn btn-primary btn-danger" id="rsvp_confirm_no">Sorry, <?php
+                        echo $data->companions_count >= 0 && !empty($data->companions_count) ? 'We' : 'I'; ?> will
+                            not
+                            be able
+                            to attend</button>
+                    <?php } ?>
                 </div>
             </div>
         </div>
+    </div>
 
     <div class="modal fade" id="qrModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -780,10 +788,9 @@
             });
         });
 
-        <?php if (!empty($data->show_modal) && !is_null($data->show_modal) && $data->show_modal == 1) { ?>
+        <?php if (!empty($data->show_modal) && !is_null($data->show_modal) && $data->show_modal == true) { ?>
             $("#confirmationModal").modal('show');
         <?php } ?>
-
 
     </script>
 

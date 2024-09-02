@@ -28,7 +28,7 @@ class UserController extends BaseController
                 $data = [
                     'google_map_key1' => $google_map_key1,
                     'google_map_key2' => $google_map_key2,
-                    'show_modal' => 0,
+                    'show_modal' => false,
                     'companions' => $allCompanions,
                     'invitee_qr' => $getUserDetailsConfirmRSVP->qr_code,
                     'main_invitee' => $getUserDetailsConfirmRSVP->name,
@@ -42,7 +42,7 @@ class UserController extends BaseController
                     'google_map_key1' => $google_map_key1,
                     'google_map_key2' => $google_map_key2,
                     'companions' => $allUsers,
-                    'show_modal' => 1,
+                    'show_modal' => true,
                     'confirm_rsvp' => 0,
                     'main_invitee' => $getUserDetails->name,
                     'invite_id' => $getUserDetails->invite_id,
@@ -54,6 +54,7 @@ class UserController extends BaseController
                     'google_map_key2' => $google_map_key2,
                 ];
             }
+    
             $dataObject = json_decode(json_encode($data));
             return view('pages/home', ['data' => $dataObject]);
         } catch (\Exception $e) {
