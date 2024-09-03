@@ -580,42 +580,48 @@
                 <i class="far fa-heart text-dark"></i>
                 <Ul>
             </div>
-            <div class="container py-5 bg-secondary pl-4 pr-4"
-                style="border-radius:31px;">
+            <div class="container py-5 bg-secondary pl-4 pr-4" style="border-radius:31px;">
                 <ul class="list-unstyled" style="line-height:36px;">
                     <li><b>What time do I need to be at the venue?</b></li>
-                    <li class="mb-2">Help us get the party started as scheduled! We recommend that you arrive 30 minutes before the
+                    <li class="mb-2">Help us get the party started as scheduled! We recommend that you arrive 30 minutes
+                        before the
                         start of the ceremony to make sure everyone is seated on time.</li>
 
                     <li><b>Can I bring a plus one?</b></li>
-                    <li class="mb-2">Unfortunately, we have a strict guest list to stay on budget. We are sadly unable to accomodate
+                    <li class="mb-2">Unfortunately, we have a strict guest list to stay on budget. We are sadly unable
+                        to accomodate
                         additional guests. We appreciate your understanding!</li>
 
                     <li><b>Can I sit anywhere at the reception?</b></li>
-                    <li class="mb-2">No, please. It took us a lot of effort to finalize the seating arrangement which is meant for
+                    <li class="mb-2">No, please. It took us a lot of effort to finalize the seating arrangement which is
+                        meant for
                         everyone’s convenience. Group familiarity and network preference were taken into consideration
                         to make sure you will be comfortable, so no need to worry.</li>
 
                     <li><b>If you reserved us two seats and only one can make it, can I bring someone else along with
                             me?</b></li>
-                    <li class="mb-2">No, unless we have personally confirmed this. We wanted to be surrounded by our families,
+                    <li class="mb-2">No, unless we have personally confirmed this. We wanted to be surrounded by our
+                        families,
                         friends, and super familiar faces, meaning we can only take in those who are invited.</li>
                     <li><b>What happens between ceremony and reception?</b></li>
 
-                    <li class="mb-2">After the ceremony, the wedding party will be taking pictures nearby for around an hour or so.
+                    <li class="mb-2">After the ceremony, the wedding party will be taking pictures nearby for around an
+                        hour or so.
                         Guests can head straight to the reception where we will be serving pastries and drinks during
                         cocktail hour.</li>
-                        
+
                     <li><b>RSVP Deadline:</b></li>
-                    <li class="mb-2"></li>Please remember to RSVP by the specified deadline so we can finalize our guest list and
-                        arrangements</li>
+                    <li class="mb-2"></li>Please remember to RSVP by the specified deadline so we can finalize our guest
+                    list and
+                    arrangements</li>
 
                     <li><b>Arrival Time:</b></li>
-                    <li class="mb-2">Aim to arrive a little early to avoid any last-minute rush and to ensure you don't miss any part
+                    <li class="mb-2">Aim to arrive a little early to avoid any last-minute rush and to ensure you don't
+                        miss any part
                         of the ceremony.</li>
 
                     <li><b>Have Fun!:</b></li>
-                    <li >Most importantly, relax, have fun, and celebrate with us! We can't wait to share this special
+                    <li>Most importantly, relax, have fun, and celebrate with us! We can't wait to share this special
                         day with all of our loved ones.</li>
                 </ul>
             </div>
@@ -775,7 +781,14 @@
             </div>
         </div>
     </div>
-
+    <!-- Full-Screen Overlay -->
+    <div class="overlay" id="fullOverlay">
+        <div class="overlay-content">
+            <h1 class="display-1 font-secondary text-white mt-n3 mb-md-4 animate__animated animate__backInDown">Doodz &
+                Akiss</h1>
+            <button class="btn btn-primary animate__animated animate__bounceIn" id="openBtn">Open Invitation</button>
+        </div>
+    </div>
     <div class="modal fade" id="qrModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -954,13 +967,11 @@
 
             });
         });
-
         <?php if (!empty($data->show_modal) && !is_null($data->show_modal) && $data->show_modal == true) { ?>
             $("#confirmationModal").modal('show');
         <?php } ?>
 
     </script>
-
 </body>
 
 </html>

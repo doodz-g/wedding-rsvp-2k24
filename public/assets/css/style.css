@@ -412,7 +412,6 @@ h1, h2, h3, h4, h5, h6,
   margin-bottom: 0.5rem;
   font-weight: 600;
   line-height: 1.2;
-  color: #121F38;
 }
 
 h1, .h1 {
@@ -2982,6 +2981,46 @@ fieldset:disabled a.btn {
   font-weight: 400;
   color: #E47A2E;
   text-decoration: none;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(12, 12, 12, 0.979); /* Semi-transparent black */
+  display: none; /* Hidden by default */
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  z-index: 9000; /* Ensure it's above other content */
+}
+
+.overlay-content {
+  text-align: center;
+}
+
+.overlay.active {
+  display: flex; /* Show the overlay when active */
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+ /* Disable scroll when overlay is active */
+body.no-scroll {
+  overflow: hidden;
 }
 
 .btn-link:hover {

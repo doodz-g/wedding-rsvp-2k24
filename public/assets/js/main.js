@@ -18,6 +18,13 @@
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
     };
+    $('#fullOverlay').addClass('active');
+    $('body').addClass('no-scroll');
+
+    $('#openBtn').click(function () {
+        $('#fullOverlay').removeClass('active');
+        $('body').removeClass('no-scroll');
+    });
 
     $('#carousel-container').find(".btn-play-music").click(function () {
         if ($(this).hasClass("btn-play")) {
