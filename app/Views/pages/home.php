@@ -784,7 +784,7 @@
         </div>
     </div>
     <!-- Full-Screen Overlay -->
-    <div class="overlay" id="fullOverlay">
+    <div class="overlay-cover" id="fullOverlay">
         <div class="overlay-content">
             <h1 class="display-1 font-secondary text-white mt-n3 mb-md-4 animate__animated animate__backInDown">Doodz &
                 Akiss</h1>
