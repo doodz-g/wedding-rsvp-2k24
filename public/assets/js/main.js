@@ -22,7 +22,10 @@
     $('body').addClass('no-scroll');
 
     $('#openBtn').click(function () {
-        $('#fullOverlay').removeClass('active');
+        setTimeout(function () {
+            $('#fullOverlay').removeClass('active');
+        }, 3000)
+        $('#fullOverlay').addClass('animate__animated animate__fadeOutUpBig');
         $('body').removeClass('no-scroll');
     });
 
