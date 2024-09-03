@@ -302,15 +302,17 @@
             </div>
             <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
                 <div class="col-md-12 text-center font-secondary">
-                    <h2>Maids of Honor</h2>
+                    <h2>Maids and Men of Honor</h2>
                 </div>
-                <div class="col-6 p-0 text-md-right p-4" style="padding-bottom:0 !important;" id="m-prin">
+                <div class="col-6 p-0 text-md-right p-4" id="m-prin">
                     <p>Ms. Mary Anne Monteverde</p>
                     <p>Ms. Marie Bianca Monteverde</p>
+                    <p>Mr. Andrew Jay B. Santos</p>
                 </div>
-                <div class="col-6 p-0 text-md-left p-4" style="padding-bottom:0 !important;" id="f-prin">
+                <div class="col-6 p-0 text-md-left p-4" id="f-prin">
                     <p>Ms. Marie Joyce Monteverde</p>
                     <p>Ms. Marie Katrina Monteverde</p>
+                    <p>Mr. Dom Villegas</p>
                 </div>
             </div>
             <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
@@ -379,8 +381,6 @@
                     <p>Mr. Royward Castillo</p>
                     <p>Mr. Jayson Anthony Batac</p>
                     <p>Mr. Jerico Russell Mungcal</p>
-                    <p>Mr. Andrew Jay B. Santos</p>
-                    <p>Mr. Dom Villegas</p>
                 </div>
                 <div class="col-6 p-0 text-center text-md-left p-4">
                     <p>Ms. Mary Jane Cambaya</p>
