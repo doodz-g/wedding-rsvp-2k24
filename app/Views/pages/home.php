@@ -283,13 +283,21 @@
             </div>
             <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
                 <div class="col-md-12 text-center font-secondary">
-                    <h2>Best Man </h2>
+                    <h2>Best Men </h2>
                 </div>
                 <div class="col-6 p-0 text-center text-md-right p-4">
                     <p>Mr. Erwin G. Garcia</p>
                 </div>
                 <div class="col-6 p-0 text-center text-md-left p-4">
                     <p>Mr. Carl Lucien L. Felicano</p>
+                </div>
+            </div>
+            <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
+                <div class="col-md-12 text-center font-secondary">
+                    <h2>Best Woman </h2>
+                </div>
+                <div class="col-12 p-0 text-center p-4">
+                    <p>Mr. Emily G. Garcia</p>
                 </div>
             </div>
             <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
@@ -303,9 +311,6 @@
                 <div class="col-6 p-0 text-md-left p-4" style="padding-bottom:0 !important;" id="f-prin">
                     <p>Ms. Marie Joyce Monteverde</p>
                     <p>Ms. Marie Katrina Monteverde</p>
-                </div>
-                <div class="col-12 p-0 text-center p-4" style="padding-top:0 !important;" id="f-prin">
-                    <p>Ms. Emily G. Garcia</p>
                 </div>
             </div>
             <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
@@ -404,7 +409,7 @@
                     <div class="col-md-12 text-center font-secondary">
                         <h4>Bible</h4>
                     </div>
-                    <div class="col-12 p-0 text-center p-4">
+                    <div class="col-12 p-0 text-center p-4" style="padding-bottom:0 !Important">
                         <p>Jareal Corbin R. Garcia</p>
                     </div>
                     <div class="col-12 p-0 text-center p-4" style="padding-top:0 !Important">
@@ -423,7 +428,7 @@
                     <div class="col-md-12 text-center font-secondary">
                         <h4>Ring</h4>
                     </div>
-                    <div class="col-12 p-0 text-center p-4">
+                    <div class="col-12 p-0 text-center p-4" style="padding-bottom:0 !Important">
                         <p>Adrien Xayne Santos</p>
                     </div>
                     <div class="col-12 p-0 text-center p-4" style="padding-top:0 !Important">
