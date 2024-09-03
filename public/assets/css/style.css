@@ -152,7 +152,7 @@ sup {
 }
 
 a {
-  color: #E47A2E;
+  color: white;
   text-decoration: none;
   background-color: transparent;
 }
@@ -7673,6 +7673,11 @@ button.bg-dark:focus {
   padding-bottom: 3rem !important;
 }
 
+.pb-6,
+.py-6 {
+  padding-bottom: 6rem !important;
+}
+
 .pl-5,
 .px-5 {
   padding-left: 3rem !important;
@@ -9857,11 +9862,6 @@ audio{
 .bg-gallery {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/gallery.jpg), no-repeat center center;
   background-size: cover;
-}
-
-.bg-entourage {
-  /* background: url(../img/entourage.jpg), no-repeat center center; */
-  /* background-size: cover; */
 }
 
 .parallax-window {

@@ -420,7 +420,7 @@
                     <div class="col-md-12 text-center font-secondary">
                         <h4>Coin</h4>
                     </div>
-                    <div class="col-12 p-0 text-center p-4" >
+                    <div class="col-12 p-0 text-center p-4">
                         <p>Javin Nash R. Garcia</p>
                     </div>
                 </div>
@@ -500,18 +500,16 @@
         </div>
     </div>
     <!-- Gallery End -->
-
-
     <!-- Event Start -->
-    <div class="container-fluid noPaddingBottom pt-5 pb-5 parallax-window" data-parallax="scroll"
+    <div class="container-fluid noPaddingBottom pt-5 pb-4 parallax-window" data-parallax="scroll"
         data-image-src="<?php echo base_url('public/assets/img/entourage.jpg'); ?>" id="event">
-        <div class="container">
+        <div class="container py-5">
             <div class="section-title position-relative text-center">
                 <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">Event</h6>
                 <h1 class="font-secondary display-4">Our Wedding Event</h1>
                 <i class="far fa-heart text-dark"></i>
             </div>
-            <div class="row justify-content-center">
+            <div class="row justify-content-center pb-3">
                 <div class="col-md-6 text-center">
                     <h5 class="font-weight-normal text-muted mb-3 pb-3">In a world full of fleeting moments, today
                         we
@@ -523,7 +521,7 @@
             <div class="row">
                 <div class="col-md-6 border-right border-primary">
                     <div class="text-center text-md-right mr-md-3 mb-4 mb-md-0">
-                        <iframe width="100%" height="300px" style="border:0" loading="lazy" allowfullscreen
+                        <iframe class="pb-3" width="100%" height="300px" style="border:0" loading="lazy" allowfullscreen
                             src="<?php echo $data->google_map_key2 ?>"></iframe>
                         <h4 class="mb-3">The Wedding Venue</h4>
                         <p class="mb-2">St Joseph The Worker Parish</p>
@@ -532,7 +530,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="text-center text-md-left ml-md-3">
-                        <iframe width="100%" height="300px" style="border:0" loading="lazy" allowfullscreen
+                        <iframe class="pb-3" width="100%" height="300px" style="border:0" loading="lazy" allowfullscreen
                             src="<?php echo $data->google_map_key1 ?>"></iframe>
                         <h4 class="mb-3">The Reception</h4>
                         <p class="mb-2">El Circulo Events Place</p>
@@ -540,9 +538,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="container py-5 noPaddingBottom">
-            <div class="section-title position-relative text-center">
+            <div class="section-title position-relative text-center pt-5">
                 <h1 class="font-secondary display-4">Attire Guide</h1>
                 <i class="far fa-heart text-dark"></i>
             </div>
@@ -556,9 +552,69 @@
                 <img src="<?php echo base_url('public/assets/img/attire.png'); ?>" class="img-fluid"
                     alt="Responsive image">
             </div>
+            <div class="section-title position-relative text-center">
+                <h1 class="font-secondary display-4">Gift Guide</h1>
+                <i class="far fa-heart text-dark"></i>
+            </div>
+            <div class="row justify-content-center" style="padding-bottom:4rem;">
+                <div class="col-md-6 text-center">
+                    <h5 class="font-weight-normal text-muted mb-3 pb-3">With all that we have, we've been truly blessed.
+                        Your presence and prayers are all that we request.
+                        But if your desired to give nonetheless,
+                        monetary gift is one we suggest.</h5>
+                </div>
+                <div class="col-md-12 text-center">
+                    <img src="<?php echo base_url('public/assets/img/qrcode.png'); ?>" class="img-fluid"
+                        alt="Responsive image">
+                </div>
+            </div>
         </div>
     </div>
     <!-- Event End -->
+    <!-- Faqs Start -->
+    <div class="container-fluid pt-5 pb-5" id="faqs">
+        <div class="container">
+            <div class="section-title position-relative text-center">
+                <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">FAQS</h6>
+                <h1 class="font-secondary display-4">Everything You Need to Know</h1>
+                <i class="far fa-heart text-dark"></i>
+                <Ul>
+            </div>
+            <div class="h-100 d-flex flex-column justify-content-center bg-secondary p-4 ml-md-3"
+                style="border-radius:31px;">
+                <ul class="list-unstyled" style="line-height:36px;">
+                    <li><b>What time do I need to be at the venue?</b></li>
+                    <li>Help us get the party started as scheduled! We recommend that you arrive 30 minutes before the
+                        start of the ceremony to make sure everyone is seated on time.</li>
+                    <li><b>Can I bring a plus one?</b></li>
+                    <li>Unfortunately, we have a strict guest list to stay on budget. We are sadly unable to accomodate
+                        additional guests. We appreciate your understanding!</li>
+                    <li><b>Can I sit anywhere at the reception?</b></li>
+                    <li>No, please. It took us a lot of effort to finalize the seating arrangement which is meant for
+                        everyone’s convenience. Group familiarity and network preference were taken into consideration
+                        to make sure you will be comfortable, so no need to worry.</li>
+                    <li><b>If you reserved us two seats and only one can make it, can I bring someone else along with
+                            me?</b></li>
+                    <li>No, unless we have personally confirmed this. We wanted to be surrounded by our families,
+                        friends, and super familiar faces, meaning we can only take in those who are invited.</li>
+                    <li><b>What happens between ceremony and reception?</b></li>
+                    <li>After the ceremony, the wedding party will be taking pictures nearby for around an hour or so.
+                        Guests can head straight to the reception where we will be serving pastries and drinks during
+                        cocktail hour.</li>
+                    <li><b>RSVP Deadline:</b></li>
+                    <li>Please remember to RSVP by the specified deadline so we can finalize our guest list and
+                        arrangements</li>
+                    <li><b>Arrival Time:</b></li>
+                    <li>Aim to arrive a little early to avoid any last-minute rush and to ensure you don't miss any part
+                        of the ceremony.</li>
+                    <li><b>Have Fun!:</b></li>
+                    <li>Most importantly, relax, have fun, and celebrate with us! We can't wait to share this special
+                        day with all of our loved ones.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Faqs End -->
     <?php if (isset($data->show_modal)) { ?>
         <!-- RSVP Start -->
         <div class="container-fluid py-5" id="rsvp"
@@ -748,20 +804,30 @@
         </div>
     </div>
     <!-- Footer Start -->
-    <div class="container-fluid bg-dark text-white py-5" id="contact">
+    <div class="container-fluid bg-dark text-white py-5" style="padding:0 !important;" id="contact">
         <div class="container text-center py-5">
             <div class="section-title position-relative text-center">
                 <h1 class="font-secondary display-3 text-white">Thank You</h1>
                 <i class="far fa-heart text-white"></i>
             </div>
+            <div class="row justify-content-center pb-3">
+                <div class="col-md-12 text-center">
+                    <h5 class="font-weight-normal mb-3 pb-3 text-white">Help us capture the moments!
+                        Share your photos with our wedding hashtag.</h5>
+                    <h5 class="text-white"><strong>#EDUSealedItWithAkiss</strong></h5>
+                </div>
+            </div>
             <div class="d-flex justify-content-center mb-4">
                 <a class="btn btn-lg btn-outline-light btn-lg-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
                 <a class="btn btn-lg btn-outline-light btn-lg-square mr-2" href="#"><i
                         class="fab fa-facebook-f"></i></a>
-                <a class="btn btn-lg btn-outline-light btn-lg-square mr-2" href="#"><i
-                        class="fab fa-linkedin-in"></i></a>
                 <a class="btn btn-lg btn-outline-light btn-lg-square" href="#"><i class="fab fa-instagram"></i></a>
             </div>
+            <footer class="text-center pt-5">
+                <p class-="text-white">&copy; <a href="#"> 2024 Doodz & Akiss Wedding</a>.</p>
+                <p>December 10, 2024</p>
+                <p>All rights reserved.</p>
+            </footer>
         </div>
     </div>
 
