@@ -297,7 +297,7 @@
                     <h2>Best Woman </h2>
                 </div>
                 <div class="col-12 p-0 text-center p-4">
-                    <p>Mr. Emily G. Garcia</p>
+                    <p>Mrs. Emily G. Garcia</p>
                 </div>
             </div>
             <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
