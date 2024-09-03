@@ -630,7 +630,8 @@
     <!-- Faqs End -->
     <?php if (isset($data->show_modal)) { ?>
         <!-- RSVP Start -->
-        <div class="container-fluid py-5" id="rsvp"
+        <div class="container-fluid py-5 parallax-window" data-parallax="scroll"
+        data-image-src="<?php echo base_url('public/assets/img/entourage.jpg'); ?>"  id="rsvp"
             style="<?php echo $data->show_modal ? 'display:block;' : 'display:none;' ?>">
             <div class="container py-5 bg-secondary" style="border-radius:31px;">
                 <div class="section-title position-relative text-center">
@@ -672,7 +673,8 @@
         </div>
         <!-- RSVP End -->
         <!-- RSVP Confirm Start -->
-        <div class="container-fluid py-5" id="rsvp-confirm"
+        <div class="container-fluid py-5 parallax-window" data-parallax="scroll"
+        data-image-src="<?php echo base_url('public/assets/img/entourage.jpg'); ?>" id="rsvp-confirm"
             style="<?php echo $data->show_modal ? 'display:none;' : 'display:block;' ?>">
             <div class="container py-5 bg-secondary" style="border-radius:31px;">
                 <div class="section-title position-relative text-center">
