@@ -52,6 +52,7 @@
                 <a href="#gallery" class="nav-item nav-link">Gallery</a>
                 <!-- <a href="#family" class="nav-item nav-link">Family</a> -->
                 <a href="#event" class="nav-item nav-link">Event</a>
+                <a href="#faqs" class="nav-item nav-link">Faqs</a>
                 <?php if (isset($data->show_modal) && $data->show_modal == true) { ?>
                     <a href="#rsvp" id="rsvp-nav" class="nav-item nav-link <?php
                     echo empty($data->invite_id) ? 'd-none' : '' ?> ">RSVP</a>
@@ -312,21 +313,24 @@
                     <h2>Principal Sponsors</h2>
                 </div>
                 <div class="col-6 p-0 text-md-right p-4" id="m-prin">
-                    <p>Edmond Cabading</p>
-                    <p>Lino Dela Cruz</p>
-                    <p>Arman Almirez</p>
-                    <p>Eduardo Leonor</p>
-                    <p>Rene</p>
-                    <p>Dhon Conwi</p>
-                    <p>Allan Dela Rosa</p>
+                    <p>Mr. Juan dela Cruz</p>
+                    <p>Mr. Eduardo Leonor</p>
+                    <p>Mr. Arman Almirez</p>
+                    <p>Mr. Dhon Conwi</p>
+                    <p>Mr. Allan Dela Rosa</p>
+                    <p>Mr. Philippe Mateo</p>
+                    <p>Mr. Rogelio Almirez</p>
+                    <p>Mr. Rene Superio</p>
+                    <p>Mr. Nanding Sadsad</p>
                 </div>
                 <div class="col-6 p-0 text-md-left p-4" id="f-prin">
-                    <p>Marilou Kanda</p>
-                    <p>Tita Vernz</p>
-                    <p>Caroline Ofilanda</p>
-                    <p>Erlyn Conwi</p>
-                    <p>Lyn A. Nishiya</p>
-                    <p>Lucette Dela Rosa</p>
+                    <p>Mrs. Marilou A. Kanda</p>
+                    <p>Mrs. Daisy Escudero</p>
+                    <p>Ms. Bernadeth Beliganio</p>
+                    <p>Mrs. Erlyn Conwi</p>
+                    <p>Mrs. Lucette Dela Rosa</p>
+                    <p>Mrs. Minerva Almirez</p>
+                    <p>Mrs. Inday Felizarta</p>
                 </div>
             </div>
             <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
