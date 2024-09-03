@@ -573,42 +573,49 @@
     <!-- Event End -->
     <!-- Faqs Start -->
     <div class="container-fluid pt-5 pb-5" id="faqs">
-        <div class="container">
+        <div class="container-fluid">
             <div class="section-title position-relative text-center">
                 <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">FAQS</h6>
                 <h1 class="font-secondary display-4">Everything You Need to Know</h1>
                 <i class="far fa-heart text-dark"></i>
                 <Ul>
             </div>
-            <div class="h-100 d-flex flex-column justify-content-center bg-secondary p-4 ml-md-3"
+            <div class="container py-5 bg-secondary pl-4 pr-4"
                 style="border-radius:31px;">
                 <ul class="list-unstyled" style="line-height:36px;">
                     <li><b>What time do I need to be at the venue?</b></li>
-                    <li>Help us get the party started as scheduled! We recommend that you arrive 30 minutes before the
+                    <li class="mb-2">Help us get the party started as scheduled! We recommend that you arrive 30 minutes before the
                         start of the ceremony to make sure everyone is seated on time.</li>
+
                     <li><b>Can I bring a plus one?</b></li>
-                    <li>Unfortunately, we have a strict guest list to stay on budget. We are sadly unable to accomodate
+                    <li class="mb-2">Unfortunately, we have a strict guest list to stay on budget. We are sadly unable to accomodate
                         additional guests. We appreciate your understanding!</li>
+
                     <li><b>Can I sit anywhere at the reception?</b></li>
-                    <li>No, please. It took us a lot of effort to finalize the seating arrangement which is meant for
+                    <li class="mb-2">No, please. It took us a lot of effort to finalize the seating arrangement which is meant for
                         everyone’s convenience. Group familiarity and network preference were taken into consideration
                         to make sure you will be comfortable, so no need to worry.</li>
+
                     <li><b>If you reserved us two seats and only one can make it, can I bring someone else along with
                             me?</b></li>
-                    <li>No, unless we have personally confirmed this. We wanted to be surrounded by our families,
+                    <li class="mb-2">No, unless we have personally confirmed this. We wanted to be surrounded by our families,
                         friends, and super familiar faces, meaning we can only take in those who are invited.</li>
                     <li><b>What happens between ceremony and reception?</b></li>
-                    <li>After the ceremony, the wedding party will be taking pictures nearby for around an hour or so.
+
+                    <li class="mb-2">After the ceremony, the wedding party will be taking pictures nearby for around an hour or so.
                         Guests can head straight to the reception where we will be serving pastries and drinks during
                         cocktail hour.</li>
+                        
                     <li><b>RSVP Deadline:</b></li>
-                    <li>Please remember to RSVP by the specified deadline so we can finalize our guest list and
+                    <li class="mb-2"></li>Please remember to RSVP by the specified deadline so we can finalize our guest list and
                         arrangements</li>
+
                     <li><b>Arrival Time:</b></li>
-                    <li>Aim to arrive a little early to avoid any last-minute rush and to ensure you don't miss any part
+                    <li class="mb-2">Aim to arrive a little early to avoid any last-minute rush and to ensure you don't miss any part
                         of the ceremony.</li>
+
                     <li><b>Have Fun!:</b></li>
-                    <li>Most importantly, relax, have fun, and celebrate with us! We can't wait to share this special
+                    <li >Most importantly, relax, have fun, and celebrate with us! We can't wait to share this special
                         day with all of our loved ones.</li>
                 </ul>
             </div>
