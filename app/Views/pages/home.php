@@ -260,20 +260,56 @@
             </div>
             <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
                 <div class="col-md-12 text-center font-secondary">
-                    <h3>Maids of Honor</h3>
+                    <h2>Groom's Parents</h2>
                 </div>
                 <div class="col-6 p-0 text-md-right p-4" id="m-prin">
-                    <p>Mary Anne Monteverde</p>
-                    <p>Marie Bianca Monteverde</p>
+                    <p><i class="fas fa-cross"></i>Mr. Marceliano L. Garcia</p>
+                    <p>Mr. Edmundo G. Garcia</p>
                 </div>
                 <div class="col-6 p-0 text-md-left p-4" id="f-prin">
-                    <p>Marie Joyce Monteverde</p>
-                    <p>Marie Katrina Monteverde</p>
+                    <p><i class="fas fa-cross"></i>Mrs. Gloria G. Garcia</p>
+                    <p>Mrs. Laila R. Garcia</p>
+                </div>
+                <div class="col-md-12 text-center font-secondary">
+                    <h2>Bride's Parents</h2>
+                </div>
+                <div class="col-6 p-0 text-md-right p-4" id="m-prin">
+                    <p>Mr. Teofilo Monteverde</p>
+                </div>
+                <div class="col-6 p-0 text-md-left p-4" id="f-prin">
+                    <p>Mrs. Marivic Monteverde</p>
                 </div>
             </div>
             <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
                 <div class="col-md-12 text-center font-secondary">
-                    <h3>Principal Sponsors</h3>
+                    <h2>Best Man </h2>
+                </div>
+                <div class="col-6 p-0 text-center text-md-right p-4">
+                    <p>Mr. Erwin G. Garcia</p>
+                </div>
+                <div class="col-6 p-0 text-center text-md-left p-4">
+                    <p>Mr. Carl Lucien L. Felicano</p>
+                </div>
+            </div>
+            <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
+                <div class="col-md-12 text-center font-secondary">
+                    <h2>Maids of Honor</h2>
+                </div>
+                <div class="col-6 p-0 text-md-right p-4" style="padding-bottom:0 !important;" id="m-prin">
+                    <p>Ms. Mary Anne Monteverde</p>
+                    <p>Ms. Marie Bianca Monteverde</p>
+                </div>
+                <div class="col-6 p-0 text-md-left p-4" style="padding-bottom:0 !important;" id="f-prin">
+                    <p>Ms. Marie Joyce Monteverde</p>
+                    <p>Ms. Marie Katrina Monteverde</p>
+                </div>
+                <div class="col-12 p-0 text-center p-4" style="padding-top:0 !important;" id="f-prin">
+                    <p>Ms. Emily G. Garcia</p>
+                </div>
+            </div>
+            <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
+                <div class="col-md-12 text-center font-secondary">
+                    <h2>Principal Sponsors</h2>
                 </div>
                 <div class="col-6 p-0 text-md-right p-4" id="m-prin">
                     <p>Edmond Cabading</p>
@@ -295,52 +331,100 @@
             </div>
             <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
                 <div class="col-md-12 text-center font-secondary pb-3">
-                    <h3>Secondary Sponsors</h3>
+                    <h2>Secondary Sponsors</h2>
                 </div>
                 <div class="col-md-12 text-center font-secondary">
                     <h4>Candles</h4>
                 </div>
                 <div class="col-6 p-0 text-center text-md-right p-4">
-                    <p>Carlo Bondoc</p>
+                    <p>Mr Joseph Carlo R. Bondoc</p>
                 </div>
                 <div class="col-6 p-0 text-center text-md-left p-4">
-                    <p>Joy Bondoc</p>
+                    <p>Mrs. Camella Joy P. Bondoc</p>
                 </div>
                 <div class="col-md-12 text-center font-secondary">
                     <h4>Veil</h4>
                 </div>
                 <div class="col-6 p-0 text-center text-md-right p-4">
-                    <p>Frederick De Guzman</p>
+                    <p>Mr. Frederick de Guzman</p>
                 </div>
                 <div class="col-6 p-0 text-center text-md-left p-4">
-                    <p>Beverly de Guzman</p>
+                    <p>Mrs. Beverly de Guzman</p>
                 </div>
                 <div class="col-md-12 text-center font-secondary">
                     <h4>Cord</h4>
                 </div>
                 <div class="col-6 p-0 text-center text-md-right p-4">
-                    <p>Frank Oliver Monteverde</p>
+                    <p>Mr. Frank Oliver Monteverde</p>
                 </div>
                 <div class="col-6 p-0 text-center text-md-left p-4">
-                    <p>Richelle Monteverde</p>
+                    <p>Mrs. Richelle Monteverde</p>
                 </div>
             </div>
             <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
                 <div class="col-md-12 text-center font-secondary">
-                    <h3>Groomsmen & Bridesmaid</h3>
+                    <h2>Groomsmen & Bridesmaid</h2>
                 </div>
                 <div class="col-6 p-0 text-center text-md-right p-4">
-                    <p>Rachelle-Ann Ducay</p>
-                    <p>Royward Castillo</p>
-                    <p>Jayson Batac</p>
-                    <p>Jerico Russell Mungcal</p>
+                    <p>Mr. Rachelle-Ann Ducay</p>
+                    <p>Mr. Royward Castillo</p>
+                    <p>Mr. Jayson Anthony Batac</p>
+                    <p>Mr. Jerico Russell Mungcal</p>
+                    <p>Mr. Andrew Jay B. Santos</p>
+                    <p>Mr. Dom Villegas</p>
                 </div>
                 <div class="col-6 p-0 text-center text-md-left p-4">
-                    <p>Mary Jane Cambaya</p>
-                    <p>Daphne Ochoa</p>
-                    <p>Cherry Mae Cabrera</p>
-                    <p>Dolly Jill Carmona</p>
-                    <p>Richelda Belza</p>
+                    <p>Ms. Mary Jane Cambaya</p>
+                    <p>Ms. Daphne Ochoa</p>
+                    <p>Ms. Cherry Mae Cabrera</p>
+                    <p>Ms. Dolly Jill Carmona</p>
+                    <p>Ms. Richelda Belza</p>
+                </div>
+            </div>
+            <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
+                <div class="col-md-12 text-center font-secondary">
+                    <h2>Flowergirls</h2>
+                </div>
+                <div class="col-6 p-0 text-center text-md-right p-4">
+                    <p>Mrs. Lydia Monteverde</p>
+                </div>
+                <div class="col-6 p-0 text-center text-md-left p-4">
+                    <p>Mrs. Victoria Almacen</p>
+                </div>
+            </div>
+            <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
+                <div class="col-md-12 text-center font-secondary pb-3">
+                    <h2>Bearers</h2>
+                </div>
+                <div class="col-md-4">
+                    <div class="col-md-12 text-center font-secondary">
+                        <h4>Bible</h4>
+                    </div>
+                    <div class="col-12 p-0 text-center p-4">
+                        <p>Jareal Corbin R. Garcia</p>
+                    </div>
+                    <div class="col-12 p-0 text-center p-4" style="padding-top:0 !Important">
+                        <p>Sandro A. Garcia</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="col-md-12 text-center font-secondary">
+                        <h4>Coin</h4>
+                    </div>
+                    <div class="col-12 p-0 text-center p-4" >
+                        <p>Javin Nash R. Garcia</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="col-md-12 text-center font-secondary">
+                        <h4>Ring</h4>
+                    </div>
+                    <div class="col-12 p-0 text-center p-4">
+                        <p>Adrien Xayne Santos</p>
+                    </div>
+                    <div class="col-12 p-0 text-center p-4" style="padding-top:0 !Important">
+                        <p>Sherwin A. Garcia</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -420,8 +504,10 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-md-6 text-center">
-                    <h5 class="font-weight-normal text-muted mb-3 pb-3">In a world full of fleeting moments, today we
-                        celebrate a love that will last a lifetime. Here's to the beginning of forever, where every day
+                    <h5 class="font-weight-normal text-muted mb-3 pb-3">In a world full of fleeting moments, today
+                        we
+                        celebrate a love that will last a lifetime. Here's to the beginning of forever, where every
+                        day
                         will be filled with love, laughter, and endless joy.</h5>
                 </div>
             </div>
@@ -448,7 +534,7 @@
         </div>
         <div class="container py-5 noPaddingBottom">
             <div class="section-title position-relative text-center">
-                <h1 class="font-secondary display-4">Attire</h1>
+                <h1 class="font-secondary display-4">Attire Guide</h1>
                 <i class="far fa-heart text-dark"></i>
             </div>
             <div class="row justify-content-center">
@@ -464,7 +550,6 @@
         </div>
     </div>
     <!-- Event End -->
-
     <?php if (isset($data->show_modal)) { ?>
         <!-- RSVP Start -->
         <div class="container-fluid py-5" id="rsvp"
