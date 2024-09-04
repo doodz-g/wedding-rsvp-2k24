@@ -783,14 +783,15 @@
             </div>
         </div>
     </div>
-    <!-- Full-Screen Overlay -->
+    <!-- Full-Screen Overlay Start -->
     <div class="overlay-cover" id="fullOverlay">
         <div class="overlay-content">
             <h1 class="display-1 font-secondary text-white mt-n3 mb-md-4 animate__animated animate__backInDown">Doodz &
                 Akiss</h1>
-            <button class="btn btn-primary animate__animated animate__bounceIn" id="openBtn">Open Invitation</button>
+            <button class="btn btn-primary animate__animated animate__bounceIn animate__pulse animate__infinite animate__slower" id="openBtn">Open Invitation</button>
         </div>
     </div>
+    <!-- Full-Screen Overlay End-->
     <div class="modal fade" id="qrModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
