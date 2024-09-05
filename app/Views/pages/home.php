@@ -548,9 +548,24 @@
                         Forever, Every Stitch Tells a Story of Love.</h5>
                 </div>
             </div>
-            <div class="row justify-content-center">
-                <img src="<?php echo base_url('public/assets/img/attire.png'); ?>" class="img-fluid"
-                    alt="Responsive image">
+            <div class="row no-gutters pb-3">
+                <div class="col-lg-6 col-md-6 col-sm-6 text-center">
+                    <img src="<?php echo base_url('public/assets/img/boy_attire_green.png'); ?>" id="boy-attire"
+                        class="img-fluid" style="max-width: 50%; !important: align" alt="Responsive image" height="100">
+                    <div class="color-swatch d-flex justify-content-center" style="margin-top: 10px;">
+                        <div class="swatch bc" style="background-color: #d9ba9e;" data-color="#d9ba9e"></div>
+                        <div class="swatch bc" style="background-color: #90a680;" data-color="#90a680"></div>
+                        <div class="swatch bc" style="background-color: #000000;" data-color="#000000"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 text-center">
+                    <img src="<?php echo base_url('public/assets/img/girl_attire_nude.png'); ?>" id="girl-attire"
+                        class="img-fluid" style="max-width: 50%;" alt="Responsive image" height="100">
+                    <div class="color-swatch d-flex justify-content-center" style="margin-top: 10px;">
+                        <div class="swatch gc" style="background-color: #d9ba9e;" data-color="#d9ba9e"></div>
+                        <div class="swatch gc" style="background-color: #90a680;" data-color="#90a680"></div>
+                    </div>
+                </div>
             </div>
             <div class="section-title position-relative text-center">
                 <h1 class="font-secondary display-4">Gift Guide</h1>
@@ -631,7 +646,7 @@
     <?php if (isset($data->show_modal)) { ?>
         <!-- RSVP Start -->
         <div class="container-fluid py-5 parallax-window" data-parallax="scroll"
-        data-image-src="<?php echo base_url('public/assets/img/entourage.jpg'); ?>"  id="rsvp"
+            data-image-src="<?php echo base_url('public/assets/img/entourage.jpg'); ?>" id="rsvp"
             style="<?php echo $data->show_modal ? 'display:block;' : 'display:none;' ?>">
             <div class="container py-5 bg-secondary" style="border-radius:31px;">
                 <div class="section-title position-relative text-center">
@@ -674,7 +689,7 @@
         <!-- RSVP End -->
         <!-- RSVP Confirm Start -->
         <div class="container-fluid py-5 parallax-window" data-parallax="scroll"
-        data-image-src="<?php echo base_url('public/assets/img/entourage.jpg'); ?>" id="rsvp-confirm"
+            data-image-src="<?php echo base_url('public/assets/img/entourage.jpg'); ?>" id="rsvp-confirm"
             style="<?php echo $data->show_modal ? 'display:none;' : 'display:block;' ?>">
             <div class="container py-5 bg-secondary" style="border-radius:31px;">
                 <div class="section-title position-relative text-center">
@@ -788,7 +803,9 @@
         <div class="overlay-content">
             <h1 class="display-1 font-secondary text-white mt-n3 mb-md-4 animate__animated animate__backInDown">Doodz &
                 Akiss</h1>
-            <button class="btn btn-primary animate__animated animate__bounceIn animate__pulse animate__infinite animate__slower" id="openBtn">Open Invitation</button>
+            <button
+                class="btn btn-primary animate__animated animate__bounceIn animate__pulse animate__infinite animate__slower"
+                id="openBtn">Open Invitation</button>
         </div>
     </div>
     <!-- Full-Screen Overlay End-->
@@ -973,7 +990,40 @@
         <?php if (!empty($data->show_modal) && !is_null($data->show_modal) && $data->show_modal == true) { ?>
             $("#confirmationModal").modal('show');
         <?php } ?>
+        $('.bc').on('click', function () {
+            // Get the color from the swatch's data attribute
+            var selectedColor = $(this).data('color');
 
+            // Change the background color of the color box
+            $('#color-box').css('background-color', selectedColor);
+
+            // Optionally, change the text color of the color box for better visibility
+            if (selectedColor === '#d9ba9e') {
+                $('#boy-attire').attr('src', '<?php echo base_url('public/assets/img/boy_attire_nude.png'); ?>');
+            } else if (selectedColor === '#90a680') {
+                $('#boy-attire').attr('src', '<?php echo base_url('public/assets/img/boy_attire_green.png'); ?>');
+            } else {
+                $('#boy-attire').attr('src', '<?php echo base_url('public/assets/img/boy_attire_black.png'); ?>');
+
+            }
+        });
+        $('.gc').on('click', function () {
+            // Get the color from the swatch's data attribute
+            var selectedColor = $(this).data('color');
+
+            // Change the background color of the color box
+            $('#color-box').css('background-color', selectedColor);
+
+            // Optionally, change the text color of the color box for better visibility
+            if (selectedColor === '#d9ba9e') {
+                $('#girl-attire').attr('src', '<?php echo base_url('public/assets/img/girl_attire_nude.png'); ?>');
+            } else if (selectedColor === '#90a680') {
+                $('#girl-attire').attr('src', '<?php echo base_url('public/assets/img/girl_attire_green.png'); ?>');
+            } else {
+                $('#girl-attire').attr('src', '<?php echo base_url('public/assets/img/girl_attire_nude.png'); ?>');
+
+            }
+        });
     </script>
 </body>
 
