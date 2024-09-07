@@ -378,7 +378,7 @@
                         <p>Mr Joseph Carlo R. Bondoc</p>
                     </div>
                     <div class="col-6 p-0 text-center text-md-left p-4 mr-container mf-size">
-                        <p>Mrs. Camella Joy P. Bondoc</p>
+                        <p>Mrs. Carmella Joy P. Bondoc</p>
                     </div>
                     <div class="col-md-12 text-center font-secondary fw-light text-primary">
                         <h3>Veil</h3>
