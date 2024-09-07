@@ -5,7 +5,7 @@
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-:root {
+ :root {
   --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -10464,7 +10464,12 @@ h3 {
   border-color: #046307;
 }
 
-@media (max-width: 481px) {
+.fw-light h2,h3,h4,h5{
+  font-weight: 300 !important;
+}
+
+/* Style to enhance mobile compatibility */
+@media only screen and (min-width: 320px) and (max-width: 801px) { 
   .ml-container {
     padding-left: 0 !important;
     padding-right: 0.5rem !important;
@@ -10481,6 +10486,6 @@ h3 {
 
   .mf-size {
     font-size:11px;
-    font-weight: 600;
+    font-weight: 500;
   }
 }

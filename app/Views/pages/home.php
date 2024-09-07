@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="<?php echo base_url('public/assets/lib/lightbox/css/lightbox.min.css'); ?>" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <!-- Customized Bootstrap Stylesheet -->
-    <link rel="stylesheet" href="<?php echo base_url('public/assets/css/style.css').'?v='.rand(); ?>" />
+    <link rel="stylesheet" href="<?php echo base_url('public/assets/css/style.css') . '?v=' . rand(); ?>" />
 </head>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="51">
@@ -40,411 +40,448 @@
     </div>
     <!-- Full-Screen Overlay End-->
     <div class="custom-container">
-    <!-- Navbar Start -->
-    <nav class="navbar fixed-top shadow-sm navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
-        <a href="#home" class="navbar-brand d-block d-lg-none">
-            <h1 class="font-secondary text-white mb-n2">Doodz <span class="text-primary emerald-green">&</span> Akiss
-            </h1>
-        </a>
-        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-            <div class="navbar-nav ml-auto py-0">
-                <a href="#home" class="nav-item nav-link active">Home</a>
-                <!-- <a href="#about" class="nav-item nav-link">About</a> -->
-                <a href="#story" class="nav-item nav-link">Story</a>
-                <a href="#entourage" id="entourage-link" class="nav-item nav-link">Entourage</a>
-
-            </div>
-            <a href="#home" class="navbar-brand mx-5 d-none d-lg-block">
-                <h1 class="font-secondary text-white mb-n2">Doodz <span class="text-primary">&</span> Akiss</h1>
+        <!-- Navbar Start -->
+        <nav class="navbar fixed-top shadow-sm navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
+            <a href="#home" class="navbar-brand d-block d-lg-none">
+                <h1 class="font-secondary text-white mb-n2">Doodz <span class="text-primary emerald-green">&</span>
+                    Akiss
+                </h1>
             </a>
-            <div class="navbar-nav mr-auto py-0">
-                <a href="#gallery" class="nav-item nav-link">Gallery</a>
-                <!-- <a href="#family" class="nav-item nav-link">Family</a> -->
-                <a href="#event" class="nav-item nav-link">Event</a>
-                <a href="#faqs" class="nav-item nav-link">Faqs</a>
-                <?php if (isset($data->show_modal) && $data->show_modal == true) { ?>
-                    <a href="#rsvp" id="rsvp-nav" class="nav-item nav-link <?php
-                    echo empty($data->invite_id) ? 'd-none' : '' ?> ">RSVP</a>
-                <?php } else { ?>
-                    <a href="#rsvp-confirm" id="rsvp-nav" class="nav-item nav-link <?php
-                    echo empty($data->invite_id) ? 'd-none' : '' ?> ">RSVP</a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav ml-auto py-0">
+                    <a href="#home" class="nav-item nav-link active">Home</a>
+                    <!-- <a href="#about" class="nav-item nav-link">About</a> -->
+                    <a href="#story" class="nav-item nav-link">Story</a>
+                    <a href="#entourage" id="entourage-link" class="nav-item nav-link">Entourage</a>
 
-                <?php } ?>
+                </div>
+                <a href="#home" class="navbar-brand mx-5 d-none d-lg-block">
+                    <h1 class="font-secondary text-white mb-n2">Doodz <span class="text-primary">&</span> Akiss</h1>
+                </a>
+                <div class="navbar-nav mr-auto py-0">
+                    <a href="#gallery" class="nav-item nav-link">Gallery</a>
+                    <!-- <a href="#family" class="nav-item nav-link">Family</a> -->
+                    <a href="#event" class="nav-item nav-link">Event</a>
+                    <a href="#faqs" class="nav-item nav-link">Faqs</a>
+                    <?php if (isset($data->show_modal) && $data->show_modal == true) { ?>
+                        <a href="#rsvp" id="rsvp-nav" class="nav-item nav-link <?php
+                        echo empty($data->invite_id) ? 'd-none' : '' ?> ">RSVP</a>
+                    <?php } else { ?>
+                        <a href="#rsvp-confirm" id="rsvp-nav" class="nav-item nav-link <?php
+                        echo empty($data->invite_id) ? 'd-none' : '' ?> ">RSVP</a>
+
+                    <?php } ?>
+                </div>
             </div>
-        </div>
-    </nav>
-    <!-- Navbar End -->
-    <!-- Carousel Start -->
-    <div class="container-fluid p-0" id="home">
-        <div id="header-carousel" class="carousel slide carousel-fade" data-ride="carousel">
-            <div class="carousel-inner" id="carousel-container">
-                <div class="carousel-item position-relative active" style="height: 100vh; min-height: 400px;">
-                    <img class="position-absolute w-100 h-153"
-                        src="<?php echo strtolower(base_url('public/assets/img/carousel-2.JPG')); ?>" loading="lazy"
-                        style="object-fit: cover;">
-                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                        <div class="p-3" style="max-width: 900px;">
-                            <h1
-                                class="animate__animated animate__wobble display-1 font-secondary text-white mt-n3 mb-md-4">
-                                Doodz & Akiss</h1>
-                            <div
-                                class="animate__animated animate__bounceInLeft d-inline-block border-top border-bottom border-light py-3 px-4">
-                                <h3 class="text-uppercase font-weight-normal text-white m-0"
-                                    style="letter-spacing: 2px;">December 10 2024</h3>
+        </nav>
+        <!-- Navbar End -->
+        <!-- Carousel Start -->
+        <div class="container-fluid p-0" id="home">
+            <div id="header-carousel" class="carousel slide carousel-fade" data-ride="carousel">
+                <div class="carousel-inner" id="carousel-container">
+                    <div class="carousel-item position-relative active" style="height: 100vh; min-height: 400px;">
+                        <img class="position-absolute w-100 h-153"
+                            src="<?php echo strtolower(base_url('public/assets/img/carousel-2.JPG')); ?>" loading="lazy"
+                            style="object-fit: cover;">
+                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                            <div class="p-3" style="max-width: 900px;">
+                                <h1
+                                    class="animate__animated animate__wobble display-1 font-secondary text-white mt-n3 mb-md-4">
+                                    Doodz & Akiss</h1>
+                                <div
+                                    class="animate__animated animate__bounceInLeft d-inline-block border-top border-bottom border-light py-3 px-4">
+                                    <h3 class="text-uppercase font-weight-normal text-white m-0"
+                                        style="letter-spacing: 2px;">December 10 2024</h3>
+                                </div>
+                                <div class="animate__animated animate__slideInUp">
+                                    <button type="button" class="btn-play mx-auto emerald-border-left btn-play-music"
+                                        alt="Turn on the music">
+                                        <span></span>
+                                    </button>
+                                    <button type="button"
+                                        class="btn-pause mx-auto emerald-border-left btn-play-music d-none"
+                                        alt="Turn on the music">
+                                        <i class="fas fa-pause"></i>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="animate__animated animate__slideInUp">
-                                <button type="button" class="btn-play mx-auto emerald-border-left btn-play-music"
-                                    alt="Turn on the music">
-                                    <span></span>
-                                </button>
-                                <button type="button"
-                                    class="btn-pause mx-auto emerald-border-left btn-play-music d-none"
-                                    alt="Turn on the music">
-                                    <i class="fas fa-pause"></i>
-                                </button>
+                        </div>
+                    </div>
+                    <div class="carousel-item position-relative" style="height: 100vh; min-height: 400px;">
+                        <img class="position-absolute w-100 h-153"
+                            src="<?php echo strtolower(base_url('public/assets/img/carousel-1.JPG')); ?>" loading="lazy"
+                            style="object-fit: cover;">
+                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                            <div class="p-3" style="max-width: 900px;">
+                                <h1
+                                    class="animate__animated animate__bounceIn animate__delay-1s display-1 font-secondary text-white mt-n3 mb-md-4">
+                                    Doodz & Akiss</h1>
+                                <div
+                                    class="animate__animated animate__bounceIn animate__delay-1s border-top border-bottom border-light">
+                                    <div class="py-3 px-4 counter-container" id="counter"></div>
+                                </div>
+                                <div class="animate__animated animate__slideInUp">
+                                    <button type="button" class="btn-play mx-auto emerald-border-left btn-play-music"
+                                        alt="Turn on the music">
+                                        <span></span>
+                                    </button>
+                                    <button type="button"
+                                        class="btn-pause mx-auto emerald-border-left btn-play-music d-none"
+                                        alt="Turn on the music">
+                                        <i class="fas fa-pause"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item position-relative" style="height: 100vh; min-height: 400px;">
+                        <img class="position-absolute w-100 h-153"
+                            src="<?php echo strtolower(base_url('public/assets/img/carousel-3.JPG')); ?>" loading="lazy"
+                            style="object-fit: cover;">
+                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                            <div class="p-3" style="max-width: 900px;">
+                                <h1 class="display-1 font-secondary text-white mt-n3 mb-md-4">Doodz & Akiss</h1>
+                                <div class="d-inline-block border-top border-bottom border-light py-3 px-4">
+                                    <h3 class="text-uppercase font-weight-normal text-white m-0"
+                                        style="letter-spacing: 2px;">We're getting married</h3>
+                                </div>
+                                <div class="animate__animated animate__slideInUp">
+                                    <button type="button" class="btn-play mx-auto emerald-border-left btn-play-music"
+                                        alt="Turn on the music">
+                                        <span></span>
+                                    </button>
+                                    <button type="button"
+                                        class="btn-pause mx-auto emerald-border-left btn-play-music d-none"
+                                        alt="Turn on the music">
+                                        <i class="fas fa-pause"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item position-relative" style="height: 100vh; min-height: 400px;">
-                    <img class="position-absolute w-100 h-153"
-                        src="<?php echo strtolower(base_url('public/assets/img/carousel-1.JPG')); ?>" loading="lazy"
-                        style="object-fit: cover;">
-                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                        <div class="p-3" style="max-width: 900px;">
-                            <h1
-                                class="animate__animated animate__bounceIn animate__delay-1s display-1 font-secondary text-white mt-n3 mb-md-4">
-                                Doodz & Akiss</h1>
-                            <div
-                                class="animate__animated animate__bounceIn animate__delay-1s border-top border-bottom border-light">
-                                <div class="py-3 px-4 counter-container" id="counter"></div>
-                            </div>
-                            <div class="animate__animated animate__slideInUp">
-                                <button type="button" class="btn-play mx-auto emerald-border-left btn-play-music"
-                                    alt="Turn on the music">
-                                    <span></span>
-                                </button>
-                                <button type="button"
-                                    class="btn-pause mx-auto emerald-border-left btn-play-music d-none"
-                                    alt="Turn on the music">
-                                    <i class="fas fa-pause"></i>
-                                </button>
-                            </div>
-                        </div>
+                <a class="carousel-control-prev justify-content-start" style="visibility:hidden;"
+                    href="#header-carousel" data-slide="prev">
+                    <div class="btn btn-primary bg-emerald-green border-color-emerald-green px-0"
+                        style="width: 68px; height: 68px;">
+                        <span class="carousel-control-prev-icon mt-3"></span>
                     </div>
-                </div>
-                <div class="carousel-item position-relative" style="height: 100vh; min-height: 400px;">
-                    <img class="position-absolute w-100 h-153"
-                        src="<?php echo strtolower(base_url('public/assets/img/carousel-3.JPG')); ?>" loading="lazy"
-                        style="object-fit: cover;">
-                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                        <div class="p-3" style="max-width: 900px;">
-                            <h1 class="display-1 font-secondary text-white mt-n3 mb-md-4">Doodz & Akiss</h1>
-                            <div class="d-inline-block border-top border-bottom border-light py-3 px-4">
-                                <h3 class="text-uppercase font-weight-normal text-white m-0"
-                                    style="letter-spacing: 2px;">We're getting married</h3>
-                            </div>
-                            <div class="animate__animated animate__slideInUp">
-                                <button type="button" class="btn-play mx-auto emerald-border-left btn-play-music"
-                                    alt="Turn on the music">
-                                    <span></span>
-                                </button>
-                                <button type="button"
-                                    class="btn-pause mx-auto emerald-border-left btn-play-music d-none"
-                                    alt="Turn on the music">
-                                    <i class="fas fa-pause"></i>
-                                </button>
-                            </div>
-                        </div>
+                </a>
+                <a class="carousel-control-next justify-content-end" style="visibility:hidden;" href="#header-carousel"
+                    data-slide="next">
+                    <div class="btn btn-primary bg-emerald-green border-color-emerald-green px-0"
+                        style="width: 68px; height: 68px;">
+                        <span class="carousel-control-next-icon mt-3"></span>
                     </div>
-                </div>
+                </a>
             </div>
-            <a class="carousel-control-prev justify-content-start" style="visibility:hidden;" href="#header-carousel"
-                data-slide="prev">
-                <div class="btn btn-primary bg-emerald-green border-color-emerald-green px-0"
-                    style="width: 68px; height: 68px;">
-                    <span class="carousel-control-prev-icon mt-3"></span>
-                </div>
-            </a>
-            <a class="carousel-control-next justify-content-end" style="visibility:hidden;" href="#header-carousel"
-                data-slide="next">
-                <div class="btn btn-primary bg-emerald-green border-color-emerald-green px-0"
-                    style="width: 68px; height: 68px;">
-                    <span class="carousel-control-next-icon mt-3"></span>
-                </div>
-            </a>
         </div>
-    </div>
-    <!-- Carousel End -->
-    <!-- Story Start -->
-    <div class="container-fluid py-5" id="story">
-        <div class="container pt-5 pb-3">
-            <div class="section-title position-relative text-center">
-                <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">Story</h6>
-                <h1 class="font-secondary display-4">Our Love Story</h1>
-                <i class="far fa-heart text-dark"></i>
-            </div>
-            <div class="row">
-                <div class="col-md-12 col-lg-12 col-md-12 col-xs-12 text-muted">
-                    <div class="h-100 d-flex flex-column justify-content-center bg-secondary p-4 ml-md-3"
-                        style="border-radius:31px;">
-                        <p class="m-0">Three years ago, amidst the vast expanse of the internet, a chance encounter
-                            brought a boy and a girl together. What began as a simple exchange of words in a chatroom or
-                            perhaps through a shared interest on social media, quickly grew into a meaningful
-                            connection. They discovered common interests, shared dreams, and a mutual sense of humor
-                            that bridged the miles between them.
+        <!-- Carousel End -->
+        <!-- Story Start -->
+        <div class="container-fluid py-5" id="story">
+            <div class="container pt-5 pb-3">
+                <div class="section-title position-relative text-center">
+                    <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">Story</h6>
+                    <h1 class="font-secondary display-4">Our Love Story</h1>
+                    <i class="far fa-heart text-dark"></i>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-md-12 col-xs-12 text-muted">
+                        <div class="h-100 d-flex flex-column justify-content-center bg-secondary p-4 ml-md-3"
+                            style="border-radius:31px;">
+                            <p class="m-0">Three years ago, amidst the vast expanse of the internet, a chance encounter
+                                brought a boy and a girl together. What began as a simple exchange of words in a
+                                chatroom or
+                                perhaps through a shared interest on social media, quickly grew into a meaningful
+                                connection. They discovered common interests, shared dreams, and a mutual sense of humor
+                                that bridged the miles between them.
 
 
 
-                            <br><br>In the beginning, their conversations were filled with the excitement of getting to
-                            know each other. They would spend hours chatting, sharing stories about their lives, their
-                            aspirations, and their favorite memories. As the days turned into weeks and the weeks into
-                            months, their bond deepened. They laughed together at silly jokes, supported each other
-                            through tough times, and celebrated each other's successes. Despite the physical distance,
-                            they felt an emotional closeness that was undeniable.
+                                <br><br>In the beginning, their conversations were filled with the excitement of getting
+                                to
+                                know each other. They would spend hours chatting, sharing stories about their lives,
+                                their
+                                aspirations, and their favorite memories. As the days turned into weeks and the weeks
+                                into
+                                months, their bond deepened. They laughed together at silly jokes, supported each other
+                                through tough times, and celebrated each other's successes. Despite the physical
+                                distance,
+                                they felt an emotional closeness that was undeniable.
 
 
 
-                            <br><br>As their relationship evolved, they made efforts to bridge the gap between them.
-                            They started video calling, allowing them to see each other's faces and hear each other's
-                            voices. These calls became the highlights of their days, filled with laughter, heartfelt
-                            conversations, and moments of silence that spoke volumes about their comfort with each
-                            other. They exchanged gifts and letters, small tokens of their affection that made the
-                            distance seem a little less daunting.
+                                <br><br>As their relationship evolved, they made efforts to bridge the gap between them.
+                                They started video calling, allowing them to see each other's faces and hear each
+                                other's
+                                voices. These calls became the highlights of their days, filled with laughter, heartfelt
+                                conversations, and moments of silence that spoke volumes about their comfort with each
+                                other. They exchanged gifts and letters, small tokens of their affection that made the
+                                distance seem a little less daunting.
 
 
 
-                            <br><br>Their first in-person meeting was a momentous occasion. Nervous excitement buzzed in
-                            the air as they finally embraced, feeling the warmth and reality of each other's presence.
-                            That meeting was the first of many, and with each visit, their love grew stronger. They
-                            explored new places, created new memories, and found joy in simply being together. Their
-                            relationship, once confined to the virtual realm, had now blossomed into a beautiful,
-                            tangible reality.
+                                <br><br>Their first in-person meeting was a momentous occasion. Nervous excitement
+                                buzzed in
+                                the air as they finally embraced, feeling the warmth and reality of each other's
+                                presence.
+                                That meeting was the first of many, and with each visit, their love grew stronger. They
+                                explored new places, created new memories, and found joy in simply being together. Their
+                                relationship, once confined to the virtual realm, had now blossomed into a beautiful,
+                                tangible reality.
 
 
 
-                            <br><br> Over the years, they navigated the challenges that came their way with grace and
-                            resilience. They learned to communicate openly and honestly, to trust each other implicitly,
-                            and to cherish the unique connection they shared. They realized that their love was built on
-                            a solid foundation of friendship, respect, and mutual admiration. Each day they spent
-                            together, whether physically or virtually, was a testament to their commitment to one
-                            another.
+                                <br><br> Over the years, they navigated the challenges that came their way with grace
+                                and
+                                resilience. They learned to communicate openly and honestly, to trust each other
+                                implicitly,
+                                and to cherish the unique connection they shared. They realized that their love was
+                                built on
+                                a solid foundation of friendship, respect, and mutual admiration. Each day they spent
+                                together, whether physically or virtually, was a testament to their commitment to one
+                                another.
 
 
 
-                            <br><br>Now, as they approach their third anniversary, they are ready to embark on a new
-                            chapter in their lives. On December 10, 2024, they will stand before their family and
-                            friends to exchange vows and declare their love and commitment. Their wedding day will be a
-                            celebration of their journey, a testament to the love that has grown and flourished over the
-                            years. It will be a day filled with joy, laughter, and the promise of a beautiful future
-                            together.
+                                <br><br>Now, as they approach their third anniversary, they are ready to embark on a new
+                                chapter in their lives. On December 10, 2024, they will stand before their family and
+                                friends to exchange vows and declare their love and commitment. Their wedding day will
+                                be a
+                                celebration of their journey, a testament to the love that has grown and flourished over
+                                the
+                                years. It will be a day filled with joy, laughter, and the promise of a beautiful future
+                                together.
 
-                            Their story is a beautiful reminder that love knows no boundaries. It can be found in the
-                            most unexpected places and can thrive despite the challenges that come its way. Their
-                            journey from online strangers to soulmates is a testament to the power of love,
-                            perseverance, and the belief that true love will always find a way.
+                                Their story is a beautiful reminder that love knows no boundaries. It can be found in
+                                the
+                                most unexpected places and can thrive despite the challenges that come its way. Their
+                                journey from online strangers to soulmates is a testament to the power of love,
+                                perseverance, and the belief that true love will always find a way.
 
 
 
-                            <br><br>As they look forward to their wedding day and the life that lies ahead, they do so
-                            with hearts full of gratitude and excitement. They are ready to face the future hand in
-                            hand, knowing that together, they can overcome anything. Their love story is just beginning,
-                            and they are eager to see what the future holds for them as they embark on this new
-                            adventure as husband and wife.
-                        </p>
+                                <br><br>As they look forward to their wedding day and the life that lies ahead, they do
+                                so
+                                with hearts full of gratitude and excitement. They are ready to face the future hand in
+                                hand, knowing that together, they can overcome anything. Their love story is just
+                                beginning,
+                                and they are eager to see what the future holds for them as they embark on this new
+                                adventure as husband and wife.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Story End -->
+        <!-- Story End -->
 
-    <!-- Entourage Start -->
-    <div class="container-fluid bg-entourage py-5 parallax-window" data-parallax="scroll"
-        data-image-src="<?php echo base_url('public/assets/img/entourage.jpg'); ?>" id="entourage">
-        <div class="container py-5">
-            <div class="section-title position-relative text-center">
-                <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">Entourage</h6>
-                <h1 class="font-secondary display-4">Our Gorgeous Entourage</h1>
-                <i class="far fa-heart text-dark"></i>
-            </div>
-            <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
-                <div class="col-md-12 text-center font-secondary">
-                    <h2>Groom's Parents</h2>
+        <!-- Entourage Start -->
+        <div class="container-fluid bg-entourage py-5 parallax-window" data-parallax="scroll"
+            data-image-src="<?php echo base_url('public/assets/img/entourage.jpg'); ?>" id="entourage">
+            <div class="container py-5">
+                <div class="section-title position-relative text-center">
+                    <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">Entourage</h6>
+                    <h1 class="font-secondary display-4">Our Gorgeous Entourage</h1>
+                    <i class="far fa-heart text-dark"></i>
                 </div>
-                <div class="col-6 p-0 text-md-right p-4 ml-container mf-size" id="m-prin">
-                    <p><i class="fas fa-cross"></i>Mr. Marceliano L. Garcia</p>
-                    <p>Mr. Edmundo G. Garcia</p>
-                </div>
-                <div class="col-6 p-0 text-md-left p-4 mr-container mf-size" id="f-prin">
-                    <p><i class="fas fa-cross"></i>Mrs. Gloria G. Garcia</p>
-                    <p>Mrs. Laila R. Garcia</p>
-                </div>
-                <div class="col-md-12 text-center font-secondary">
-                    <h2>Bride's Parents</h2>
-                </div>
-                <div class="col-6 p-0 text-md-right p-4 ml-container mf-size" id="m-prin">
-                    <p>Mr. Teofilo Monteverde</p>
-                </div>
-                <div class="col-6 p-0 text-md-left p-4 mr-container mf-size" id="f-prin">
-                    <p>Mrs. Marivic Monteverde</p>
-                </div>
-            </div>
-            <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
-                <div class="col-md-12 text-center font-secondary">
-                    <h2>Best Men </h2>
-                </div>
-                <div class="col-6 p-0 text-center text-md-right p-4 ml-container mf-size">
-                    <p>Mr. Erwin G. Garcia</p>
-                </div>
-                <div class="col-6 p-0 text-center text-md-left p-4 mr-container mf-size">
-                    <p>Mr. Carl Lucien L. Felicano</p>
-                </div>
-            </div>
-            <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
-                <div class="col-md-12 text-center font-secondary">
-                    <h2>Best Woman </h2>
-                </div>
-                <div class="col-12 p-0 text-center p-4 mf-size">
-                    <p>Mrs. Emily G. Garcia</p>
-                </div>
-            </div>
-            <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
-                <div class="col-md-12 text-center font-secondary">
-                    <h2>Maids and Men of Honor</h2>
-                </div>
-                <div class="col-6 p-0 text-md-right p-4 ml-container mf-size" id="m-prin">
-                    <p>Ms. Mary Anne Monteverde</p>
-                    <p>Ms. Marie Bianca Monteverde</p>
-                    <p>Mr. Andrew Jay B. Santos</p>
-                </div>
-                <div class="col-6 p-0 text-md-left p-4 mr-container mf-size" id="f-prin">
-                    <p>Ms. Marie Joyce Monteverde</p>
-                    <p>Ms. Marie Katrina Monteverde</p>
-                    <p>Mr. Dom Villegas</p>
-                </div>
-            </div>
-            <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
-                <div class="col-md-12 text-center font-secondary">
-                    <h2>Principal Sponsors</h2>
-                </div>
-                <div class="col-6 p-0 text-md-right p-4 ml-container mf-size" id="m-prin">
-                    <p>Mr. Juan dela Cruz</p>
-                    <p>Mr. Eduardo Leonor</p>
-                    <p>Mr. Arman Almirez</p>
-                    <p>Mr. Dhon Conwi</p>
-                    <p>Mr. Allan Dela Rosa</p>
-                    <p>Mr. Philippe Mateo</p>
-                    <p>Mr. Rogelio Almirez</p>
-                    <p>Mr. Rene Superio</p>
-                    <p>Mr. Nanding Sadsad</p>
-                </div>
-                <div class="col-6 p-0 text-md-left p-4 mr-container mf-size" id="f-prin">
-                    <p>Mrs. Marilou A. Kanda</p>
-                    <p>Mrs. Daisy Escudero</p>
-                    <p>Ms. Bernadeth Beliganio</p>
-                    <p>Mrs. Erlyn Conwi</p>
-                    <p>Mrs. Lucette Dela Rosa</p>
-                    <p>Mrs. Minerva Almirez</p>
-                    <p>Mrs. Inday Felizarta</p>
-                </div>
-            </div>
-            <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
-                <div class="col-md-12 text-center font-secondary pb-3">
-                    <h2>Secondary Sponsors</h2>
-                </div>
-                <div class="col-md-12 text-center font-secondary">
-                    <h4>Candles</h4>
-                </div>
-                <div class="col-6 p-0 text-center text-md-right p-4 ml-container mf-size">
-                    <p>Mr Joseph Carlo R. Bondoc</p>
-                </div>
-                <div class="col-6 p-0 text-center text-md-left p-4 mr-container mf-size">
-                    <p>Mrs. Camella Joy P. Bondoc</p>
-                </div>
-                <div class="col-md-12 text-center font-secondary">
-                    <h4>Veil</h4>
-                </div>
-                <div class="col-6 p-0 text-center text-md-right p-4 ml-container mf-size">
-                    <p>Mr. Frederick de Guzman</p>
-                </div>
-                <div class="col-6 p-0 text-center text-md-left p-4 mr-container mf-size">
-                    <p>Mrs. Beverly de Guzman</p>
-                </div>
-                <div class="col-md-12 text-center font-secondary">
-                    <h4>Cord</h4>
-                </div>
-                <div class="col-6 p-0 text-center text-md-right p-4 ml-container mf-size">
-                    <p>Mr. Frank Oliver Monteverde</p>
-                </div>
-                <div class="col-6 p-0 text-center text-md-left p-4 mr-container mf-size">
-                    <p>Mrs. Richelle Monteverde</p>
-                </div>
-            </div>
-            <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
-                <div class="col-md-12 text-center font-secondary">
-                    <h2>Groomsmen & Bridesmaid</h2>
-                </div>
-                <div class="col-6 p-0 text-center text-md-right ml-container mf-size p-4">
-                    <p>Mr. Rachelle-Ann Ducay</p>
-                    <p>Mr. Royward Castillo</p>
-                    <p>Mr. Jayson Anthony Batac</p>
-                    <p>Mr. Jerico Russell Mungcal</p>
-                </div>
-                <div class="col-6 p-0 text-center text-md-left mr-container mf-size p-4">
-                    <p>Ms. Mary Jane Cambaya</p>
-                    <p>Ms. Daphne Ochoa</p>
-                    <p>Ms. Cherry Mae Cabrera</p>
-                    <p>Ms. Dolly Jill Carmona</p>
-                    <p>Ms. Richelda Belza</p>
-                </div>
-            </div>
-            <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
-                <div class="col-md-12 text-center font-secondary">
-                    <h2>Flowergirls</h2>
-                </div>
-                <div class="col-6 p-0 text-center text-md-right p-4 ml-container mf-size">
-                    <p>Mrs. Lydia Monteverde</p>
-                </div>
-                <div class="col-6 p-0 text-center text-md-left p-4 mr-container mf-size">
-                    <p>Mrs. Victoria Almacen</p>
-                </div>
-            </div>
-            <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
-                <div class="col-md-12 text-center font-secondary pb-3">
-                    <h2>Bearers</h2>
-                </div>
-                <div class="col-md-4">
-                    <div class="col-md-12 text-center font-secondary">
-                        <h4>Bible</h4>
+                <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
+                    <div class="col-md-12 text-center font-secondary fw-light text-primary">
+                        <h2>Groom's Parents</h2>
                     </div>
-                    <div class="col-12 p-0 text-center p-4 mf-size" style="padding-bottom:0 !Important">
-                        <p>Jareal Corbin R. Garcia</p>
+                    <div class="col-6 p-0 text-md-right p-4 ml-container mf-size">
+                        <p>Mr. Edmundo G. Garcia</p>
                     </div>
-                    <div class="col-12 p-0 text-center p-4 mf-size" style="padding-top:0 !Important">
-                        <p>Sandro A. Garcia</p>
+                    <div class="col-6 p-0 text-md-left p-4 mr-container mf-size">
+                        <p>Mrs. Laila R. Garcia</p>
+                    </div>
+                    <div class="col-md-12 text-center font-secondary fw-light text-primary">
+                        <h2>Bride's Parents</h2>
+                    </div>
+                    <div class="col-6 p-0 text-md-right p-4 ml-container mf-size">
+                        <p>Mr. Teofilo Monteverde</p>
+                    </div>
+                    <div class="col-6 p-0 text-md-left p-4 mr-container mf-size">
+                        <p>Mrs. Marivic Monteverde</p>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="col-md-12 text-center font-secondary">
-                        <h4>Coin</h4>
+                <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
+                    <div class="col-md-12 text-center font-secondary fw-light text-primary">
+                        <h2>Our Best Men </h2>
+                    </div>
+                    <div class="col-6 p-0 text-center text-md-right p-4 ml-container mf-size">
+                        <p>Mr. Erwin G. Garcia</p>
+                    </div>
+                    <div class="col-6 p-0 text-center text-md-left p-4 mr-container mf-size">
+                        <p>Mr. Carl Lucien L. Felicano</p>
+                    </div>
+                </div>
+                <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
+                    <div class="col-md-12 text-center font-secondary fw-light text-primary">
+                        <h2>Our Best Woman </h2>
                     </div>
                     <div class="col-12 p-0 text-center p-4 mf-size">
-                        <p>Javin Nash R. Garcia</p>
+                        <p>Ms. Emily G. Garcia</p>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="col-md-12 text-center font-secondary">
-                        <h4>Ring</h4>
+                <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
+                    <div class="col-md-12 text-center font-secondary fw-light text-primary">
+                        <h2>Our Maids and Men of Honor</h2>
                     </div>
-                    <div class="col-12 p-0 text-center p-4 mf-size" style="padding-bottom:0 !Important">
-                        <p>Adrien Xayne Santos</p>
+                    <div class="col-6 p-0 text-md-right p-4 ml-container mf-size">
+                        <p>Ms. Mary Anne Monteverde</p>
+                        <p>Ms. Marie Bianca Monteverde</p>
+                        <p>Mr. Andrew Jay B. Santos</p>
                     </div>
-                    <div class="col-12 p-0 text-center p-4 mf-size" style="padding-top:0 !Important">
-                        <p>Sherwin A. Garcia</p>
+                    <div class="col-6 p-0 text-md-left p-4 mr-container mf-size">
+                        <p>Ms. Marie Joyce Monteverde</p>
+                        <p>Ms. Marie Katrina Monteverde</p>
+                        <p>Mr. Dom Villegas</p>
+                    </div>
+                </div>
+                <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
+                    <div class="col-md-12 text-center font-secondary fw-light text-primary">
+                        <h2>Our Principal Sponsors</h2>
+                    </div>
+                    <div class="col-6 p-0 text-md-right p-4 ml-container mf-size">
+                        <p>Mr. Juan dela Cruz</p>
+                        <p>Mr. Eduardo Leonor</p>
+                        <p>Mr. Arman Almirez</p>
+                        <p>Mr. Dhon Conwi</p>
+                        <p>Mr. Allan Dela Rosa</p>
+                        <p>Mr. Philippe Mateo</p>
+                        <p>Mr. Rogelio Almirez</p>
+                        <p>Mr. Rene Superio</p>
+                        <p>Mr. Nanding Sadsad</p>
+                    </div>
+                    <div class="col-6 p-0 text-md-left p-4 mr-container mf-size">
+                        <p>Mrs. Marilou A. Kanda</p>
+                        <p>Mrs. Daisy Escudero</p>
+                        <p>Ms. Bernadeth Beliganio</p>
+                        <p>Mrs. Erlyn Conwi</p>
+                        <p>Mrs. Lucette Dela Rosa</p>
+                        <p>Mrs. Minerva Almirez</p>
+                        <p>Mrs. Inday Felizarta</p>
+                    </div>
+                </div>
+                <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
+                    <div class="col-md-12 text-center font-secondary pb-3 fw-light text-primary">
+                        <h2>Our Secondary Sponsors</h2>
+                    </div>
+                    <div class="col-md-12 text-center font-secondary fw-light text-primary">
+                        <h3>Candles</h3>
+                    </div>
+                    <div class="col-6 p-0 text-center text-md-right p-4 ml-container mf-size">
+                        <p>Mr Joseph Carlo R. Bondoc</p>
+                    </div>
+                    <div class="col-6 p-0 text-center text-md-left p-4 mr-container mf-size">
+                        <p>Mrs. Camella Joy P. Bondoc</p>
+                    </div>
+                    <div class="col-md-12 text-center font-secondary fw-light text-primary">
+                        <h3>Veil</h3>
+                    </div>
+                    <div class="col-6 p-0 text-center text-md-right p-4 ml-container mf-size">
+                        <p>Mr. Frederick de Guzman</p>
+                    </div>
+                    <div class="col-6 p-0 text-center text-md-left p-4 mr-container mf-size">
+                        <p>Mrs. Beverly de Guzman</p>
+                    </div>
+                    <div class="col-md-12 text-center font-secondary fw-light text-primary">
+                        <h3>Cord</h3>
+                    </div>
+                    <div class="col-6 p-0 text-center text-md-right p-4 ml-container mf-size">
+                        <p>Mr. Frank Oliver Monteverde</p>
+                    </div>
+                    <div class="col-6 p-0 text-center text-md-left p-4 mr-container mf-size">
+                        <p>Mrs. Richelle Monteverde</p>
+                    </div>
+                </div>
+                <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
+                    <div class="col-md-12 text-center font-secondary fw-light text-primary">
+                        <h2>Our Groomsmen & Bridesmaid</h2>
+                    </div>
+                    <div class="col-6 p-0 text-center text-md-right ml-container mf-size p-4">
+                        <p>Mr. Rachelle-Ann Ducay</p>
+                        <p>Mr. Royward Castillo</p>
+                        <p>Mr. Jayson Anthony Batac</p>
+                        <p>Mr. Jerico Russell Mungcal</p>
+                    </div>
+                    <div class="col-6 p-0 text-center text-md-left mr-container mf-size p-4">
+                        <p>Ms. Mary Jane Cambaya</p>
+                        <p>Ms. Daphne Ochoa</p>
+                        <p>Ms. Cherry Mae Cabrera</p>
+                        <p>Ms. Dolly Jill Carmona</p>
+                        <p>Ms. Richelda Belza</p>
+                    </div>
+                </div>
+                <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
+                    <div class="col-md-12 text-center font-secondary fw-light text-primary">
+                        <h2>Our Lovely Flower Girls</h2>
+                    </div>
+                    <div class="col-6 p-0 text-center text-md-right p-4 ml-container mf-size">
+                        <p>Mrs. Lydia Monteverde</p>
+                    </div>
+                    <div class="col-6 p-0 text-center text-md-left p-4 mr-container mf-size">
+                        <p>Mrs. Victoria Almacen</p>
+                    </div>
+                </div>
+                <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
+                    <div class="col-md-12 text-center font-secondary pb-3 fw-light text-primary">
+                        <h2>Our Bearers</h2>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col-md-12 text-center font-secondary fw-light text-primary">
+                            <h3>Bible</h3>
+                        </div>
+                        <div class="col-12 p-0 text-center p-4 mf-size" style="padding-bottom:0 !Important">
+                            <p>Jareal Corbin R. Garcia</p>
+                        </div>
+                        <div class="col-12 p-0 text-center p-4 mf-size" style="padding-top:0 !Important">
+                            <p>Sandro A. Garcia</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col-md-12 text-center font-secondary fw-light text-primary">
+                            <h3>Coin</h3>
+                        </div>
+                        <div class="col-12 p-0 text-center p-4 mf-size">
+                            <p>Javin Nash R. Garcia</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col-md-12 text-center font-secondary fw-light text-primary">
+                            <h3>Ring</h3>
+                        </div>
+                        <div class="col-12 p-0 text-center p-4 mf-size" style="padding-bottom:0 !Important">
+                            <p>Adrien Xayne Santos</p>
+                        </div>
+                        <div class="col-12 p-0 text-center p-4 mf-size" style="padding-top:0 !Important">
+                            <p>Sherwin A. Garcia</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-title position-relative text-center">
+                    <h2 class="font-secondary text-primary" style="font-weight: 300;line-height: 1.2;">In Loving Memory</h2>
+                    <i class="far fa-heart text-dark"></i>
+                </div>
+                <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
+                    <div class="col-md-12 text-center font-secondary fw-light">
+                        <h3>On this special day, we honor those who are no longer with us but forever in our hearts:
+                        </h3>
+                    </div>
+                    <div class="col-6 p-0 text-md-right p-4 ml-container mf-size">
+                        <p>Mr. Marceliano L. Garcia</p>
+                    </div>
+                    <div class="col-6 p-0 text-md-left p-4 mr-container mf-size">
+                        <p>Mrs. Gloria G. Garcia</p>
+                    </div>
+                    <div class="col-md-12 text-center font-secondary fw-light">
+                        <h5>"In loving memory and with joy, we celebrate with those present and those we cherish in our
+                            hearts."</h5>
                     </div>
                 </div>
             </div>
@@ -585,7 +622,8 @@
             </div>
             <div class="row justify-content-center" style="padding-bottom:4rem;">
                 <div class="col-md-6 text-center">
-                    <h5 class="font-weight-normal text-muted mb-3 pb-3">With all that we have, we've been truly blessed.
+                    <h5 class="font-weight-normal text-muted mb-3 pb-3">With all that we have, we've been truly
+                        blessed.
                         Your presence and prayers are all that we request.
                         But if your desired to give nonetheless,
                         monetary gift is one we suggest.</h5>
@@ -610,45 +648,55 @@
             <div class="container py-5 bg-secondary pl-4 pr-4" style="border-radius:31px;">
                 <ul class="list-unstyled" style="line-height:36px;">
                     <li><b>What time do I need to be at the venue?</b></li>
-                    <li class="mb-2">Help us get the party started as scheduled! We recommend that you arrive 30 minutes
+                    <li class="mb-2">Help us get the party started as scheduled! We recommend that you arrive 30
+                        minutes
                         before the
                         start of the ceremony to make sure everyone is seated on time.</li>
 
                     <li><b>Can I bring a plus one?</b></li>
-                    <li class="mb-2">Unfortunately, we have a strict guest list to stay on budget. We are sadly unable
+                    <li class="mb-2">Unfortunately, we have a strict guest list to stay on budget. We are sadly
+                        unable
                         to accomodate
                         additional guests. We appreciate your understanding!</li>
 
                     <li><b>Can I sit anywhere at the reception?</b></li>
-                    <li class="mb-2">No, please. It took us a lot of effort to finalize the seating arrangement which is
+                    <li class="mb-2">No, please. It took us a lot of effort to finalize the seating arrangement
+                        which is
                         meant for
-                        everyone’s convenience. Group familiarity and network preference were taken into consideration
+                        everyone’s convenience. Group familiarity and network preference were taken into
+                        consideration
                         to make sure you will be comfortable, so no need to worry.</li>
 
-                    <li><b>If you reserved us two seats and only one can make it, can I bring someone else along with
+                    <li><b>If you reserved us two seats and only one can make it, can I bring someone else along
+                            with
                             me?</b></li>
                     <li class="mb-2">No, unless we have personally confirmed this. We wanted to be surrounded by our
                         families,
                         friends, and super familiar faces, meaning we can only take in those who are invited.</li>
                     <li><b>What happens between ceremony and reception?</b></li>
 
-                    <li class="mb-2">After the ceremony, the wedding party will be taking pictures nearby for around an
+                    <li class="mb-2">After the ceremony, the wedding party will be taking pictures nearby for around
+                        an
                         hour or so.
-                        Guests can head straight to the reception where we will be serving pastries and drinks during
+                        Guests can head straight to the reception where we will be serving pastries and drinks
+                        during
                         cocktail hour.</li>
 
                     <li><b>RSVP Deadline:</b></li>
-                    <li class="mb-2"></li>Please remember to RSVP by the specified deadline so we can finalize our guest
+                    <li class="mb-2"></li>Please remember to RSVP by the specified deadline so we can finalize our
+                    guest
                     list and
                     arrangements</li>
 
                     <li><b>Arrival Time:</b></li>
-                    <li class="mb-2">Aim to arrive a little early to avoid any last-minute rush and to ensure you don't
+                    <li class="mb-2">Aim to arrive a little early to avoid any last-minute rush and to ensure you
+                        don't
                         miss any part
                         of the ceremony.</li>
 
                     <li><b>Have Fun!:</b></li>
-                    <li>Most importantly, relax, have fun, and celebrate with us! We can't wait to share this special
+                    <li>Most importantly, relax, have fun, and celebrate with us! We can't wait to share this
+                        special
                         day with all of our loved ones.</li>
                 </ul>
             </div>
@@ -871,7 +919,7 @@
             </footer>
         </div>
     </div>
-</div>
+    </div>
     <!-- Footer End -->
 
     <!-- Scroll to Bottom -->
@@ -902,7 +950,7 @@
     <script src="<?php echo base_url('public/assets/lib/lightbox/js/lightbox.min.js'); ?>"></script>
     <script src="<?php echo base_url('public/assets/js/counter.js'); ?>"></script>
 
-    <script src="<?php echo base_url('public/assets/js/main.js').'?v='.rand(); ?>"></script>
+    <script src="<?php echo base_url('public/assets/js/main.js') . '?v=' . rand(); ?>"></script>
     <script>
         $('.parallax-window').parallax({
             imageSrc: '<?php echo base_url('public/assets/img/entourage.jpg'); ?>'
@@ -1025,6 +1073,7 @@
 
             }
         });
+
     </script>
 </body>
 
