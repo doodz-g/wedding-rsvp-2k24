@@ -73,6 +73,14 @@ body {
   text-align: left;
   background-color: #ffffff;
 }
+.custom-container {
+  opacity: 0;
+  transition: opacity 2s ease-in;
+}
+
+.custom-container.loaded {
+  opacity: 1;
+}
 
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important;
@@ -3215,6 +3223,17 @@ fieldset:disabled a.btn {
   text-decoration: none;
 }
 
+@keyframes zoomInFade {
+  from {
+    transform: scale(0.9); /* Start slightly zoomed out */
+    opacity: 0; /* Start invisible */
+  }
+  to {
+    transform: scale(1); /* End with normal size */
+    opacity: 1; /* End fully visible */
+  }
+}
+
 .overlay-cover {
   position: fixed;
   top: 0;
@@ -3231,7 +3250,6 @@ fieldset:disabled a.btn {
   color: #fff;
   z-index: 9000; /* Ensure it's above other content */
 }
-
 .overlay-content {
   text-align: center;
 }
@@ -10411,8 +10429,8 @@ h3 {
     font-size: 1rem; /* Further reduced text size */
   }
 }
- /* Style for the object (box) whose color will change */
- #color-box {
+/* Style for the object (box) whose color will change */
+#color-box {
   width: 300px;
   height: 300px;
   background-color: #f0f0f0;
@@ -10444,4 +10462,25 @@ h3 {
 
 .swatch:hover {
   border-color: #046307;
+}
+
+@media (max-width: 481px) {
+  .ml-container {
+    padding-left: 0 !important;
+    padding-right: 0.5rem !important;
+    text-align: left;
+    text-align: center !important;
+  }
+  
+  .mr-container {
+    padding-right: 0 !important;
+    padding-left: 0.5rem !important;
+    text-align: left;
+    text-align: center !important;
+  }
+
+  .mf-size {
+    font-size:11px;
+    font-weight: 600;
+  }
 }

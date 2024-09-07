@@ -24,10 +24,22 @@
     <link rel="stylesheet" href="<?php echo base_url('public/assets/lib/lightbox/css/lightbox.min.css'); ?>" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <!-- Customized Bootstrap Stylesheet -->
-    <link rel="stylesheet" href="<?php echo base_url('public/assets/css/style.css'); ?>" />
+    <link rel="stylesheet" href="<?php echo base_url('public/assets/css/style.css').'?v='.rand(); ?>" />
 </head>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="51">
+    <!-- Full-Screen Overlay Start -->
+    <div class="overlay-cover" id="fullOverlay">
+        <div class="overlay-content">
+            <h1 class="display-1 font-secondary text-white mt-n3 mb-md-4 animate__animated animate__backInDown">Doodz &
+                Akiss</h1>
+            <button
+                class="btn btn-primary animate__animated animate__bounceIn animate__pulse animate__infinite animate__slower"
+                id="openBtn">Open Invitation</button>
+        </div>
+    </div>
+    <!-- Full-Screen Overlay End-->
+    <div class="custom-container">
     <!-- Navbar Start -->
     <nav class="navbar fixed-top shadow-sm navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
         <a href="#home" class="navbar-brand d-block d-lg-none">
@@ -263,21 +275,21 @@
                 <div class="col-md-12 text-center font-secondary">
                     <h2>Groom's Parents</h2>
                 </div>
-                <div class="col-6 p-0 text-md-right p-4" id="m-prin">
+                <div class="col-6 p-0 text-md-right p-4 ml-container mf-size" id="m-prin">
                     <p><i class="fas fa-cross"></i>Mr. Marceliano L. Garcia</p>
                     <p>Mr. Edmundo G. Garcia</p>
                 </div>
-                <div class="col-6 p-0 text-md-left p-4" id="f-prin">
+                <div class="col-6 p-0 text-md-left p-4 mr-container mf-size" id="f-prin">
                     <p><i class="fas fa-cross"></i>Mrs. Gloria G. Garcia</p>
                     <p>Mrs. Laila R. Garcia</p>
                 </div>
                 <div class="col-md-12 text-center font-secondary">
                     <h2>Bride's Parents</h2>
                 </div>
-                <div class="col-6 p-0 text-md-right p-4" id="m-prin">
+                <div class="col-6 p-0 text-md-right p-4 ml-container mf-size" id="m-prin">
                     <p>Mr. Teofilo Monteverde</p>
                 </div>
-                <div class="col-6 p-0 text-md-left p-4" id="f-prin">
+                <div class="col-6 p-0 text-md-left p-4 mr-container mf-size" id="f-prin">
                     <p>Mrs. Marivic Monteverde</p>
                 </div>
             </div>
@@ -285,10 +297,10 @@
                 <div class="col-md-12 text-center font-secondary">
                     <h2>Best Men </h2>
                 </div>
-                <div class="col-6 p-0 text-center text-md-right p-4">
+                <div class="col-6 p-0 text-center text-md-right p-4 ml-container mf-size">
                     <p>Mr. Erwin G. Garcia</p>
                 </div>
-                <div class="col-6 p-0 text-center text-md-left p-4">
+                <div class="col-6 p-0 text-center text-md-left p-4 mr-container mf-size">
                     <p>Mr. Carl Lucien L. Felicano</p>
                 </div>
             </div>
@@ -296,7 +308,7 @@
                 <div class="col-md-12 text-center font-secondary">
                     <h2>Best Woman </h2>
                 </div>
-                <div class="col-12 p-0 text-center p-4">
+                <div class="col-12 p-0 text-center p-4 mf-size">
                     <p>Mrs. Emily G. Garcia</p>
                 </div>
             </div>
@@ -304,12 +316,12 @@
                 <div class="col-md-12 text-center font-secondary">
                     <h2>Maids and Men of Honor</h2>
                 </div>
-                <div class="col-6 p-0 text-md-right p-4" id="m-prin">
+                <div class="col-6 p-0 text-md-right p-4 ml-container mf-size" id="m-prin">
                     <p>Ms. Mary Anne Monteverde</p>
                     <p>Ms. Marie Bianca Monteverde</p>
                     <p>Mr. Andrew Jay B. Santos</p>
                 </div>
-                <div class="col-6 p-0 text-md-left p-4" id="f-prin">
+                <div class="col-6 p-0 text-md-left p-4 mr-container mf-size" id="f-prin">
                     <p>Ms. Marie Joyce Monteverde</p>
                     <p>Ms. Marie Katrina Monteverde</p>
                     <p>Mr. Dom Villegas</p>
@@ -319,7 +331,7 @@
                 <div class="col-md-12 text-center font-secondary">
                     <h2>Principal Sponsors</h2>
                 </div>
-                <div class="col-6 p-0 text-md-right p-4" id="m-prin">
+                <div class="col-6 p-0 text-md-right p-4 ml-container mf-size" id="m-prin">
                     <p>Mr. Juan dela Cruz</p>
                     <p>Mr. Eduardo Leonor</p>
                     <p>Mr. Arman Almirez</p>
@@ -330,7 +342,7 @@
                     <p>Mr. Rene Superio</p>
                     <p>Mr. Nanding Sadsad</p>
                 </div>
-                <div class="col-6 p-0 text-md-left p-4" id="f-prin">
+                <div class="col-6 p-0 text-md-left p-4 mr-container mf-size" id="f-prin">
                     <p>Mrs. Marilou A. Kanda</p>
                     <p>Mrs. Daisy Escudero</p>
                     <p>Ms. Bernadeth Beliganio</p>
@@ -347,28 +359,28 @@
                 <div class="col-md-12 text-center font-secondary">
                     <h4>Candles</h4>
                 </div>
-                <div class="col-6 p-0 text-center text-md-right p-4">
+                <div class="col-6 p-0 text-center text-md-right p-4 ml-container mf-size">
                     <p>Mr Joseph Carlo R. Bondoc</p>
                 </div>
-                <div class="col-6 p-0 text-center text-md-left p-4">
+                <div class="col-6 p-0 text-center text-md-left p-4 mr-container mf-size">
                     <p>Mrs. Camella Joy P. Bondoc</p>
                 </div>
                 <div class="col-md-12 text-center font-secondary">
                     <h4>Veil</h4>
                 </div>
-                <div class="col-6 p-0 text-center text-md-right p-4">
+                <div class="col-6 p-0 text-center text-md-right p-4 ml-container mf-size">
                     <p>Mr. Frederick de Guzman</p>
                 </div>
-                <div class="col-6 p-0 text-center text-md-left p-4">
+                <div class="col-6 p-0 text-center text-md-left p-4 mr-container mf-size">
                     <p>Mrs. Beverly de Guzman</p>
                 </div>
                 <div class="col-md-12 text-center font-secondary">
                     <h4>Cord</h4>
                 </div>
-                <div class="col-6 p-0 text-center text-md-right p-4">
+                <div class="col-6 p-0 text-center text-md-right p-4 ml-container mf-size">
                     <p>Mr. Frank Oliver Monteverde</p>
                 </div>
-                <div class="col-6 p-0 text-center text-md-left p-4">
+                <div class="col-6 p-0 text-center text-md-left p-4 mr-container mf-size">
                     <p>Mrs. Richelle Monteverde</p>
                 </div>
             </div>
@@ -376,13 +388,13 @@
                 <div class="col-md-12 text-center font-secondary">
                     <h2>Groomsmen & Bridesmaid</h2>
                 </div>
-                <div class="col-6 p-0 text-center text-md-right p-4">
+                <div class="col-6 p-0 text-center text-md-right ml-container mf-size p-4">
                     <p>Mr. Rachelle-Ann Ducay</p>
                     <p>Mr. Royward Castillo</p>
                     <p>Mr. Jayson Anthony Batac</p>
                     <p>Mr. Jerico Russell Mungcal</p>
                 </div>
-                <div class="col-6 p-0 text-center text-md-left p-4">
+                <div class="col-6 p-0 text-center text-md-left mr-container mf-size p-4">
                     <p>Ms. Mary Jane Cambaya</p>
                     <p>Ms. Daphne Ochoa</p>
                     <p>Ms. Cherry Mae Cabrera</p>
@@ -394,10 +406,10 @@
                 <div class="col-md-12 text-center font-secondary">
                     <h2>Flowergirls</h2>
                 </div>
-                <div class="col-6 p-0 text-center text-md-right p-4">
+                <div class="col-6 p-0 text-center text-md-right p-4 ml-container mf-size">
                     <p>Mrs. Lydia Monteverde</p>
                 </div>
-                <div class="col-6 p-0 text-center text-md-left p-4">
+                <div class="col-6 p-0 text-center text-md-left p-4 mr-container mf-size">
                     <p>Mrs. Victoria Almacen</p>
                 </div>
             </div>
@@ -409,10 +421,10 @@
                     <div class="col-md-12 text-center font-secondary">
                         <h4>Bible</h4>
                     </div>
-                    <div class="col-12 p-0 text-center p-4" style="padding-bottom:0 !Important">
+                    <div class="col-12 p-0 text-center p-4 mf-size" style="padding-bottom:0 !Important">
                         <p>Jareal Corbin R. Garcia</p>
                     </div>
-                    <div class="col-12 p-0 text-center p-4" style="padding-top:0 !Important">
+                    <div class="col-12 p-0 text-center p-4 mf-size" style="padding-top:0 !Important">
                         <p>Sandro A. Garcia</p>
                     </div>
                 </div>
@@ -420,7 +432,7 @@
                     <div class="col-md-12 text-center font-secondary">
                         <h4>Coin</h4>
                     </div>
-                    <div class="col-12 p-0 text-center p-4">
+                    <div class="col-12 p-0 text-center p-4 mf-size">
                         <p>Javin Nash R. Garcia</p>
                     </div>
                 </div>
@@ -428,10 +440,10 @@
                     <div class="col-md-12 text-center font-secondary">
                         <h4>Ring</h4>
                     </div>
-                    <div class="col-12 p-0 text-center p-4" style="padding-bottom:0 !Important">
+                    <div class="col-12 p-0 text-center p-4 mf-size" style="padding-bottom:0 !Important">
                         <p>Adrien Xayne Santos</p>
                     </div>
-                    <div class="col-12 p-0 text-center p-4" style="padding-top:0 !Important">
+                    <div class="col-12 p-0 text-center p-4 mf-size" style="padding-top:0 !Important">
                         <p>Sherwin A. Garcia</p>
                     </div>
                 </div>
@@ -798,17 +810,6 @@
             </div>
         </div>
     </div>
-    <!-- Full-Screen Overlay Start -->
-    <div class="overlay-cover" id="fullOverlay">
-        <div class="overlay-content">
-            <h1 class="display-1 font-secondary text-white mt-n3 mb-md-4 animate__animated animate__backInDown">Doodz &
-                Akiss</h1>
-            <button
-                class="btn btn-primary animate__animated animate__bounceIn animate__pulse animate__infinite animate__slower"
-                id="openBtn">Open Invitation</button>
-        </div>
-    </div>
-    <!-- Full-Screen Overlay End-->
     <div class="modal fade" id="qrModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -870,7 +871,7 @@
             </footer>
         </div>
     </div>
-
+</div>
     <!-- Footer End -->
 
     <!-- Scroll to Bottom -->
@@ -901,7 +902,7 @@
     <script src="<?php echo base_url('public/assets/lib/lightbox/js/lightbox.min.js'); ?>"></script>
     <script src="<?php echo base_url('public/assets/js/counter.js'); ?>"></script>
 
-    <script src="<?php echo base_url('public/assets/js/main.js'); ?>"></script>
+    <script src="<?php echo base_url('public/assets/js/main.js').'?v='.rand(); ?>"></script>
     <script>
         $('.parallax-window').parallax({
             imageSrc: '<?php echo base_url('public/assets/img/entourage.jpg'); ?>'
