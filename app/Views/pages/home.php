@@ -408,6 +408,7 @@
                         <p>Mr. Royward Castillo</p>
                         <p>Mr. Jayson Anthony Batac</p>
                         <p>Mr. Jerico Russell Mungcal</p>
+                        <p>Mr. Alvin Vinluan</p>
                     </div>
                     <div class="col-6 p-0 text-center text-md-left mr-container mf-size p-4">
                         <p>Ms. Mary Jane Cambaya</p>
