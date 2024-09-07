@@ -281,7 +281,7 @@
 
         <!-- Entourage Start -->
         <div class="container-fluid bg-entourage py-5 parallax-window" data-parallax="scroll"
-            data-image-src="<?php echo base_url('public/assets/img/entourage.jpg'); ?>" id="entourage">
+            data-image-src="<?php echo base_url('public/assets/img/entourage.png'); ?>" id="entourage">
             <div class="container py-5">
                 <div class="section-title position-relative text-center">
                     <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">Entourage</h6>
@@ -552,7 +552,7 @@
     <!-- Gallery End -->
     <!-- Event Start -->
     <div class="container-fluid noPaddingBottom pt-5 pb-4 parallax-window" data-parallax="scroll"
-        data-image-src="<?php echo base_url('public/assets/img/entourage.jpg'); ?>" id="event">
+        data-image-src="<?php echo base_url('public/assets/img/entourage.png'); ?>" id="event">
         <div class="container py-5">
             <div class="section-title position-relative text-center">
                 <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">Event</h6>
@@ -707,7 +707,7 @@
     <?php if (isset($data->show_modal)) { ?>
         <!-- RSVP Start -->
         <div class="container-fluid py-5 parallax-window" data-parallax="scroll"
-            data-image-src="<?php echo base_url('public/assets/img/entourage.jpg'); ?>" id="rsvp"
+            data-image-src="<?php echo base_url('public/assets/img/entourage.png'); ?>" id="rsvp"
             style="<?php echo $data->show_modal ? 'display:block;' : 'display:none;' ?>">
             <div class="container py-5 bg-secondary" style="border-radius:31px;">
                 <div class="section-title position-relative text-center">
@@ -750,7 +750,7 @@
         <!-- RSVP End -->
         <!-- RSVP Confirm Start -->
         <div class="container-fluid py-5 parallax-window" data-parallax="scroll"
-            data-image-src="<?php echo base_url('public/assets/img/entourage.jpg'); ?>" id="rsvp-confirm"
+            data-image-src="<?php echo base_url('public/assets/img/entourage.png'); ?>" id="rsvp-confirm"
             style="<?php echo $data->show_modal ? 'display:none;' : 'display:block;' ?>">
             <div class="container py-5 bg-secondary" style="border-radius:31px;">
                 <div class="section-title position-relative text-center">
@@ -954,7 +954,7 @@
     <script src="<?php echo base_url('public/assets/js/main.js') . '?v=' . rand(); ?>"></script>
     <script>
         $('.parallax-window').parallax({
-            imageSrc: '<?php echo base_url('public/assets/img/entourage.jpg'); ?>'
+            imageSrc: '<?php echo base_url('public/assets/img/entourage.png'); ?>'
         });
 
         $('#rsvp_confirm_yes').click(function () {
