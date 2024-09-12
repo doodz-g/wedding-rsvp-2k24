@@ -56,11 +56,15 @@
                         </form>
                     </div>
                 </div>
-                </span>
+                <footer class="text-center pt-5">
+                    <p>&copy; 2024 Doodz & Akiss Wedding.</p>
+                    <p>December 10, 2024</p>
+                    <p>All rights reserved.</p>
+                </footer>
             </div>
         </div>
-    </div>
 
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.js.map"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
@@ -74,6 +78,7 @@
             toastr.error('<?= session()->getFlashdata('error') ?>');
         <?php endif; ?>
     </script>
+
 </body>
 
 </html>

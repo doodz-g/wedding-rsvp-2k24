@@ -115,8 +115,8 @@
                                                 class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
-                                <tr class="fold">
-                                    <td colspan="6">
+                                <tr class="fold d-none">
+                                    <td colspan="7">
                                         <div class="overlay_<?php echo $c->id ?>">
                                             <div class="cv-spinner"><span class="spinner"></span></div>
                                         </div>
@@ -277,7 +277,7 @@
                         },
                         error: function (xhr, status, error) {
                             // Handle error
-                            toastr.danger('An error occurred: ' + error);
+                            toastr.warning('An error occurred: ' + error);
                         }
                     });
                 } else {
@@ -297,19 +297,26 @@
                         data: formData,
                         success: function (response) {
                             // Handle success
-                            toastr.success(response.message);
-                            setTimeout(function () {
+                            if(response.status == 'success'){
+                        
+                        toastr.success(response.message);
+                        setTimeout(function () {
                                 $(".overlay").fadeOut(300);
                             }, 500);
                             setTimeout(function () {
                                 $("#edit-user-modal").modal('hide');
                             }, 900);
                             refreshTable();
+                    }else{
+                        toastr.error(response.message);
+                        $("#edit-user-modal").modal('show');
+                    }
+                   
                             
                         
                         },
                         error: function (xhr, status, error) {
-                         toastr.danger('An error occurred: ' + error);
+                         toastr.warning('An error occurred: ' + error);
                         }
                     });
                 } else {
@@ -348,7 +355,7 @@
                     dataType: 'json',
                     success: function (response) {
                         // Handle success
-                        toastr.success(response.message);
+                         toastr.success(response.message);
                         setTimeout(function () {
                             $(".overlay").fadeOut(300);
                         }, 500);
@@ -388,20 +395,63 @@
                             console.log('Response:', response);
                             var companionContainer = $("#update_companion_container");
                             companionContainer.html('');
-                            $.each(response, function (index, item) {
-                                companionContainer.append('<li> <input type="text" id="companion_name" value="'+item.name+'" name="companion_name[]" style="width: 90%; height: 38px; border: 2px solid #ced4da;"><span type="button" class="delete_companion" data-id="'+item.id+'" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
+                            var ctr = 0;
+                               $.each(response, function (index, item) {
+                                companionContainer.append('<li> <input type="text" id="companion_name" value="'+(item.name ? item.name :'')+'" name="companion_name['+ctr+'][name]" style="width: 90%; height: 38px; border: 2px solid #ced4da;">'+
+                                '<input type="hidden" value="'+(item.id ? item.id : '')+'" name="companion_name['+ctr+'][id]" style="width: 90%; height: 38px; border: 2px solid #ced4da;">'+
+                                '<span type="button" class="delete_companion" data-id="'+(item.id ? item.id : '')+'" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
+                             ctr++;
                             });
+                           
 
                         }
                     },
                     error: function (xhr, status, error) {
-                        console.error('AJAX Error:', status, error);
+                        toastr.warning('An error occurred: ' + error);
+                        alert("wow");
                     }
                 });
                 $("#edit-user-modal").modal("show");
 
             });
         });
+    function debounce(func, wait) {
+        let timeout;
+        return function(...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+    }
+
+    // Function to handle the AJAX request
+    function handleTyping() {
+        var user_id = $("#update_user_id").val();
+        var companion_name = $('.com_field').val();
+
+        $.ajax({
+            url: '<?php echo base_url('admin/check-companions') ?>', // URL to the controller method
+            type: 'POST',
+            cache: false,
+            data: { user_id: user_id, companion_name: companion_name },
+            success: function(response) {
+                if (response.status == 'error') {
+                    toastr.error(response.message);
+                    $('.updateButton').prop('disabled', true);
+                    $("#edit-user-modal").modal('show');
+                } else {
+                    $('.updateButton').prop('disabled', false);
+                }
+            },
+            error: function(xhr, status, error) {
+                toastr.warning('An error occurred: ' + error);
+            }
+        });
+    }
+
+    // Attach the debounced function to the keyup event
+    $(document).on('keyup', '.com_field', debounce(handleTyping, 1000)); // 1000ms = 1 second
+
+
         $(document).on('click', '.fold-table td', function () {
             var user_id = $(this).parent().data('id');
             $("#companions_" + user_id).html('');
@@ -495,7 +545,7 @@
                             '<a href="#" type="button" data-id="' + item.id + '" class="delete btn-delete-guest-modal" title="Delete" data-toggle="tooltip"><i class="fa fa-trash"></i></a>' +
                             '</td>' +
                             '</tr>' +
-                            '<tr class="fold">' +
+                            '<tr class="fold d-none">' +
                             '<td colspan="7">' +
                             '<div class="overlay_' + item.id + '">' +
                             '<div class="cv-spinner"><span class="spinner"></span></div>' +
@@ -538,7 +588,7 @@
                     $('.hint-text').html(stats);
                     $(".pagination").html(pagination);
                     $(".fold-table tr.view").on("click", function () {
-                        $(this).toggleClass("open").next(".fold").toggleClass("open");
+                        $(this).toggleClass("open").next(".fold").toggleClass("open d-none");
                     });
                     $('.btn-delete-guest-modal').click(function () {
                         var delete_user_id = $(this).data('id');
@@ -554,7 +604,6 @@
             
         }
     </script>
-
     <footer class="text-center pt-5">
                 <p>&copy; 2024 Doodz & Akiss Wedding.</p>
                 <p>December 10, 2024</p>

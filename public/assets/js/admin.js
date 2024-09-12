@@ -32,7 +32,7 @@
 
     $(function () {
         $(".fold-table tr.view").on("click", function () {
-            $(this).toggleClass("open").next(".fold").toggleClass("open");
+            $(this).toggleClass("open").next(".fold").toggleClass("open d-none");
         });
     });
 
@@ -43,10 +43,10 @@
         companionContainer.append('<li> <input type="text" id="companion_name" required name="companion_name[]" style="width: 90%; height: 38px; border: 2px solid #ced4da;"><span type="button" class="delete_companion" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
     }
     var update_companion_container = $("#update_companion_container");
-    update_companion_container.html('<li> <input type="text" id="companion_name" required name="companion_name[]" style="width: 90%; height: 38px; border: 2px solid #ced4da;"><span type="button" class="delete_companion" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
+    update_companion_container.html('<li> <input type="text" id="companion_name" class="com_field" required name="companion_name[][name]" style="width: 90%; height: 38px; border: 2px solid #ced4da;"><span type="button" class="delete_companion" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
     
     function updateCompanion() {
-        update_companion_container.append('<li> <input type="text" id="companion_name" required name="companion_name[]" style="width: 90%; height: 38px; border: 2px solid #ced4da;"><span type="button" class="delete_companion" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
+        update_companion_container.append('<li> <input type="text" id="companion_name" class="com_field" required name="companion_name[][name]" style="width: 90%; height: 38px; border: 2px solid #ced4da;"><span type="button" class="delete_companion" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
     }
 
     $(document).on('click', '.add_companion', function() {

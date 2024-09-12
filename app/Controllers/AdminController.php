@@ -82,28 +82,38 @@ class AdminController extends BaseController
     {
         $user_id = $this->request->getPost('user_id');
         $userModel = model(UserModel::class);
+        $companionsModel = model(CompanionsModel::class);
+        // Find all companions for the given user_id
+        $companions = $companionsModel->where('user_id', $user_id)->findAll();
 
         // Check if the user_id exists before attempting to delete
         if ($userModel->find($user_id)) {
             $userModel->delete($user_id);
-            return $this->response->setJSON(['status' => 'success', 'message' => 'Record deleted successfully.']);
-        } else {
-            return $this->response->setJSON(['status' => 'warning', 'message' => 'Record not found.']);
+            if (!empty($companions)) {
+                foreach ($companions as $companion => $c) {
+                    $companionsModel->delete($c->id);
+                }
+
+                return $this->response->setJSON(['status' => 'success', 'message' => 'Record deleted successfully.']);
+            } else {
+                return $this->response->setJSON(['status' => 'warning', 'message' => 'Record not found.']);
+            }
         }
     }
-    public function deleteGuestCompanion(){
+    public function deleteGuestCompanion()
+    {
         $id = $this->request->getPost('id');
         $companionsModel = model(CompanionsModel::class);
 
         // Check if the user_id exists before attempting to delete
-        if ($companionsModel->where('id',$id)) {
+        if ($companionsModel->where('id', $id)) {
             $companionsModel->delete($id);
             return $this->response->setJSON(['status' => 'success', 'message' => 'Record deleted successfully.']);
         } else {
             return $this->response->setJSON(['status' => 'warning', 'message' => 'Record not found.']);
         }
     }
-    
+
     public function getCompanions()
     {
         $user_id = $this->request->getPost('user_id');
@@ -115,6 +125,23 @@ class AdminController extends BaseController
         // Optionally, you can use `json_decode` to convert the object to an array
         return $this->response->setJSON($getCompanions);
 
+    }
+
+    public function checkDuplicateCompanions()
+    {
+        $user_id = $this->request->getPost('user_id');
+        $companion_name = $this->request->getPost('companion_name');
+        $companionsModel = model(CompanionsModel::class);
+
+        // Fetch companions where user_id matches
+        $getCompanions = $companionsModel->where('user_id', $user_id)
+            ->where('name', $companion_name)
+            ->findAll();
+    
+        // Optionally, you can use `json_decode` to convert the object to an array
+        if (!empty($getCompanions)) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Duplicate Companions']);
+        } 
     }
 
     public function addInvitee()
@@ -160,9 +187,11 @@ class AdminController extends BaseController
     {
         // Check if the request is AJAX and POST
         if ($this->request->isAJAX() && $this->request->getMethod() === 'POST') {
+            $session = session();
             $user_id = $this->request->getPost('user_id');
             $name = $this->request->getPost('name');
-            $companion_name = $this->request->getPost('companion_name');
+            $companion_names = $this->request->getPost('companion_name'); // Expecting an array of companions with id and name
+
             // Initialize the models
             $userModel = model(UserModel::class);
             $companionsModel = model(CompanionsModel::class);
@@ -175,47 +204,44 @@ class AdminController extends BaseController
 
                 if ($userModel->update($user_id)) {
                     // If the user update was successful, proceed with companions update
-                    if ($companion_name) {
-                        // Get the existing companions for the user by user_id
-                        $existingCompanions = $companionsModel->where('user_id', $user_id)->findAll();
+                    if ($companion_names) {
+                        // Iterate over each companion provided in the POST request
+                        foreach ($companion_names as $companion) {
+                            $companion_id = $companion['id'] ?? null;
+                            $companion_name = $companion['name'];
 
-                        // Create an array of existing companion IDs for easy lookup
-                        $existingCompanionNames = [];
-                        foreach ($existingCompanions as $ex) {
-                            $existingCompanionNames[$ex->id] = $ex->name;
-                        }
-
-                        // Iterate over each companion name provided in the POST request
-                        foreach ($companion_name as $index => $companion) {
-                            // Check if the current companion already exists by checking its name
-                            if (in_array($companion, $existingCompanionNames)) {
-                                // Update the existing companion's name
-                                foreach ($existingCompanions as $ex) {
-                                    if ($ex->name == $companion) {
-                                        $companionsModel->set('name', $companion);
-                                        $companionsModel->where('id', $ex->id);
-                                        $companionsModel->update();
-                                    }
-                                }
+                            if ($companion_id) {
+                                // If companion ID exists, update the companion
+                                $companionsModel->set('name', $companion_name);
+                                $companionsModel->where('id', $companion_id);
+                                $companionsModel->update();
                             } else {
                                 // Insert a new companion if it doesn't exist
-                                $dataCompanion = [
-                                    'name' => $companion,
-                                    'user_id' => $user_id
-                                ];
-                                $companionsModel->save($dataCompanion);
+                                if (!empty($companion_name)) {
+                                    $dataCompanion = [
+                                        'name' => $companion_name,
+                                        'user_id' => $user_id
+                                    ];
+                                    $companionsModel->save($dataCompanion);
+                                } else {
+                                    return $this->response->setJSON(['status' => 'error', 'message' => 'Companion was empty.']);
+
+                                }
+
                             }
                         }
-
                     }
                 }
+
                 return $this->response->setJSON(['status' => 'success', 'message' => 'Data saved successfully!']);
             } else {
                 return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to save data.']);
             }
+
         } else {
             // Handle invalid request
             return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request.']);
         }
+
     }
 }
