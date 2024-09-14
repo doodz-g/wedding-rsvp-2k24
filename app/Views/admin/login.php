@@ -56,15 +56,28 @@
                         </form>
                     </div>
                 </div>
-                <footer class="text-center pt-5">
-                    <p>&copy; 2024 Doodz & Akiss Wedding.</p>
-                    <p>December 10, 2024</p>
-                    <p>All rights reserved.</p>
-                </footer>
             </div>
         </div>
 
     </div>
+    <div class="clearfix"></div>
+    <footer class="sticky-footer" style="background-color:transparent; ">
+        <div class="footer-content">
+        <div class="container-fluid">
+         <div class="row">
+            <div class="col-md-4">
+                December 10, 2024
+            </div>
+            <div class="col-md-4">
+                &copy; 2024 Doodz & Akiss Wedding
+            </div>
+            <div class="col-md-4">
+                All rights reserved.
+            </div>
+            </div>
+        </div>     
+        </div>
+    </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.js.map"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>

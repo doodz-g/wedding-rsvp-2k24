@@ -30,7 +30,7 @@
 <nav class="navbar navbar-expand-lg navbar bg-dark">
   <a class="navbar-brand" href="#">D & A</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+    <span class="navbar-toggler-icon" style="color:white;"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -42,23 +42,20 @@
         <a class="nav-link" href="#">Table Slots</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
       </li>
     </ul>
+    <?php if (session()->get('logged_in')): ?>
+                <p style="color: white;margin-bottom:0;">Mabuhay, <?= session()->get('username') ?>! <a href="<?php echo base_url('logout'); ?>" class="btn btn-secondary"
+                data-target="#" style="border-radius:50px;background: transparent;border: none;"><i class="fa fa-power-off" style="color:red;font-size:32px;"></i></a></p>
+    <?php endif; ?>    
   </div>
 </nav>
 
     <div class="container-fluid">
     <div class="row" style="padding-top:20px;">
-    <div class="col-md-7">
-        <h2 style="color: #000000;">Guest <b>Management</b></h2>
-    </div>
-    <div class="col-md-5" style="text-align:right;">
-    <?php if (session()->get('logged_in')): ?>
-                <p style="color: #000000;">Hello, <?= session()->get('username') ?>! <a href="<?php echo base_url('logout'); ?>" class="btn btn-secondary"
-                data-target="#" style="border-radius:50px;"><i class="fa fa-power-off" style="color:red;"></i></a></p>
-            <?php endif; ?>    
-    </div>
+        <div class="col-md-7 offset-md-5" style="t">
+            <h2 style="color: #000000;">Guest <b>Management</b></h2>
+        </div>
     </div>
     <div id="chart" style="float: left;width: 33.33%;">
     </div>
@@ -66,12 +63,14 @@
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
-                        <div class="col-md-7 offset-md-5" style="padding-right:0;">
+                        <div class="col-md-5" style="padding-right:0;">
                             <ul class="horizontal-list">
                                 <li><input type="text" class="form-control" id="search" onkeyup="refreshTable();"
                                         placeholder="Search here.."></li>
-                                <li></a>
-                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-7" style="padding-right:0;">
+                            <ul class="horizontal-list">
                                 <li><a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i>
                                         <span>Export to
                                             Excel</span></a></li>
@@ -691,11 +690,23 @@ new ApexCharts(document.querySelector("#chart"), options1).render();
 
     </script>
     <div class="clearfix"></div>
-    <footer class="text-center pt-5 sticky-footer">
-                <p>&copy; 2024 Doodz & Akiss Wedding.</p>
-                <p>December 10, 2024</p>
-                <p>All rights reserved.</p>
-     </footer>
+    <footer class="sticky-footer text-white">
+        <div class="footer-content">
+        <div class="container-fluid">
+         <div class="row">
+            <div class="col-md-4">
+                December 10, 2024
+            </div>
+            <div class="col-md-4">
+                &copy; 2024 Doodz & Akiss Wedding
+            </div>
+            <div class="col-md-4">
+                All rights reserved.
+            </div>
+            </div>
+        </div>     
+        </div>
+    </footer>
 </body>
 
 </html>
