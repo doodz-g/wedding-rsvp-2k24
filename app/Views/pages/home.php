@@ -792,8 +792,8 @@
         </div>
         <!-- RSVP Confirm End -->
     <?php } ?>
-    <audio id="bgmusic" controls>
-        <source src=" <?php echo base_url('public/assets/audio/music.mp4'); ?>" type="audio/mp4">
+    <audio id="bgmusic" controls preload="none">
+        <source src=" <?php echo base_url('public/assets/audio/music.mp3'); ?>" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
     <!-- Modal -->
