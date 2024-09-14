@@ -11,28 +11,65 @@ class AdminController extends BaseController
 {
     public function index()
     {
-        $userModel = model(UserModel::class);
+        $session = session();
+        if ($session->has('logged_in') || $session->get('logged_in') == true) {
 
-        // Get the current page number from the query string or default to 1
-        $currentPage = $this->request->getVar('page') ?? 1;
+            $userModel = model(UserModel::class);
+            $companionsModel = model(name: CompanionsModel::class);
 
-        // Define the number of items per page
-        $perPage = 10;
+            // Get the current page number from the query string or default to 1
+            $currentPage = $this->request->getVar('page') ?? 1;
 
-        // Get paginated results
-        $allUsers = $userModel->orderBy('date', 'DESC')->paginate($perPage, 'default', $currentPage);
+            // Define the number of items per page
+            $perPage = 10;
 
-        // Get the pager instance
-        $pager = \Config\Services::pager();
+            // Get the search term from the query string
+            $searchTerm = $this->request->getVar('search') ?? '';
 
-        // Prepare data for the view
-        $data = [
-            'users' => $allUsers,
-            'pager' => $pager
-        ];
+            // Build the query with search term
+            $builder = $userModel->orderBy('date', 'DESC');
 
-        $dataObject = json_decode(json_encode($data));
-        return view('admin/home', ['data' => $dataObject]);
+            if ($searchTerm) {
+                $builder->like('name', $searchTerm); // Modify this to match the fields you want to search
+            }
+
+            // Get paginated results
+            $allUsers = $builder->paginate($perPage, 'default', $currentPage);
+            // Get the pager instance
+            $pager = \Config\Services::pager();
+
+            // Get total number of users (considering the search term)
+            $totalUsers = $builder->countAll();
+            // Number of users on the current page
+
+            $currentPageUsers = count($allUsers);
+
+            // Fetch totals from models
+            $totalGuest = $userModel->get_totals();
+            $totalCompanions = $companionsModel->get_totals();
+
+            // Access numeric values from the results
+            $totalGuestCount = $totalGuest['total_users'] ?? 0;
+            $totalCompanionCount = $totalCompanions['total_companions'] ?? 0;
+            // Prepare response data
+            $data = [
+                'users' => $allUsers,
+                'pager' => [
+                    'currentPage' => $currentPage,
+                    'totalPages' => $pager->getPageCount(),
+                    'totalUsers' => $totalUsers,
+                    'currentPageUsers' => $currentPageUsers,
+
+                ],
+                'total_guests' => $totalGuestCount + $totalCompanionCount
+            ];
+
+            $dataObject = json_decode(json_encode($data));
+            return view('admin/home', ['data' => $dataObject]);
+
+        } else {
+            return redirect()->to('/login');
+        }
     }
     public function getUsers()
     {
@@ -137,11 +174,11 @@ class AdminController extends BaseController
         $getCompanions = $companionsModel->where('user_id', $user_id)
             ->where('name', $companion_name)
             ->findAll();
-    
+
         // Optionally, you can use `json_decode` to convert the object to an array
         if (!empty($getCompanions)) {
-            return $this->response->setJSON(['status' => 'error', 'message' => 'Duplicate Companions']);
-        } 
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Duplicate companion name detected!']);
+        }
     }
 
     public function addInvitee()

@@ -56,7 +56,7 @@
                         <div class="col-sm-5">
                             <h2 style="color: #000000;">Guest <b>Management</b></h2>
                             <?php if (session()->get('logged_in')): ?>
-                                <p>Hello, <?= session()->get('username') ?>! You are logged in.</p>
+                                <p style="color: #000000;">Hello, <?= session()->get('username') ?>! You are logged in.</p>
                             <?php endif; ?>
                         </div>
                         <div class="col-sm-7" style="padding-right:0;">
@@ -72,14 +72,17 @@
                                 <li><a href="#" class="btn btn-secondary" id="btn-add-guest" data-toggle="modal"
                                         data-target="#"><i class="material-icons">&#xE147;</i> <span>Add New
                                             User</span></a></li>
-                                <li><a href="#" onClick="refreshTable();" class="btn btn-secondary" id="btn-add-guest"
-                                        data-toggle="modal" data-target="#"><i class="fa fa-refresh"></i>
+                                <li><a href="#" onClick="refreshTable();" class="btn btn-secondary" data-target="#"><i class="fa fa-refresh"></i>
                                         <span>Refresh</span></a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <table class="table table-striped table-hover fold-table">
+                <div class="table-container" style="position:relative;">
+                    <div class="overlay-spinner d-none">
+                            <i class="fa fa-spinner fa-spin table-spinner" style="font-size:50px;"></i> 
+                    </div>
+                <table class="table table-striped table-hover fold-table" >
                     <thead>
                         <tr>
                             <th>#</th>
@@ -131,6 +134,7 @@
                         ?>
                     </tbody>
                 </table>
+                </div>
                 <input type="hidden" name="" id="current_p" value="<?php echo $data->pager->currentPage; ?>">
                 <div class="hint-text">Showing <b><?php echo $data->pager->currentPageUsers; ?></b> out of
                     <b><?php echo $data->pager->totalUsers ?></b> entries
@@ -159,6 +163,8 @@
             </div>
         </div>
     </div>
+    <div id="chart" style="float: left;width: 33.33%;">
+    </div>
     <!-- Add Modal -->
     <div class="modal fade" id="add-user-modal" tabindex="-1" role="dialog" aria-labelledby="#" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -182,8 +188,8 @@
                         </ul>
                         <button type="button" class="add_companion"><i class="fa fa-plus"></i> Add companion</button>
                         <div class="modal-footer">
+                            <button type="button" value="submit" class="btn btn-primary submitButton">Save</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" id="submitButton" value="submit" class="btn btn-primary submitButton">Save</button>
                         </div>
                     </form>
                 </div>
@@ -214,8 +220,8 @@
                         </ul>
                         <button type="button" class="update_companion"><i class="fa fa-plus"></i> Add companion</button>
                         <div class="modal-footer">
+                            <button type="button" value="submit" class="btn btn-primary updateButton">Save</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" id="submitButton" value="submit" class="btn btn-primary updateButton">Save</button>
                         </div>
                     </form>
                 </div>
@@ -238,9 +244,9 @@
                 <div class="modal-body">
                     <p>Would you like to remove this guest?</p>
                     <div class="modal-footer">
-                        <input type="text" id="d_user_id">
-                        <button type="button" class="btn btn-primary" id="btn-delete-guest">Yes</button>
-                        <button type="button" data-dismiss="modal" class="btn btn-secondary">No</button>
+                        <input type="hidden" id="d_user_id">
+                        <button type="button" class="btn btn-primary" id="btn-delete-guest">Confirm</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancel</button>
                     </div>
                 </div>
             </div>
@@ -249,6 +255,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.js.map"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <!-- Template Javascript -->
     <script src="<?php echo base_url('public/assets/js/admin.js'); ?>"></script>
 
@@ -257,7 +264,8 @@
             let rsvpURL = '<?php echo base_url('rsvp') ?>';
             $(document).on('click', '.submitButton', function() {
                 var formData = $(".guest-form-add").serialize();
-                if ($("#name").val().length > 0 )  {
+                $(".submitButton").html("<i class='fa fa-spinner fa-spin'></i>");
+                if ($("#name").val().length > 0 )  {      
                     console.log(formData);
                     // Send AJAX POST request
                     $.ajax({
@@ -274,6 +282,7 @@
                                 $("#add-user-modal").modal('hide');
                             }, 900);
                             refreshTable();
+                            $(".submitButton").text("Save");
                         },
                         error: function (xhr, status, error) {
                             // Handle error
@@ -281,11 +290,13 @@
                         }
                     });
                 } else {
-                    toastr.warning('You need to fill up the fields.');
+                    $(".submitButton").text("Save");
+                    toastr.warning('You need to fill up the fields.');  
                 }
-
+              
             });
             $(document).on('click', '.updateButton', function() {
+                $(this).html("<i class='fa fa-spinner fa-spin'></i>");
                 var formData = $(".guest-form-update").serialize();
                 if ($("#update_name").val().length > 0 )  {
                     console.log(formData);
@@ -300,12 +311,15 @@
                             if(response.status == 'success'){
                         
                         toastr.success(response.message);
+                      
                         setTimeout(function () {
                                 $(".overlay").fadeOut(300);
                             }, 500);
                             setTimeout(function () {
+                                $(".updateButton").text("Save");
                                 $("#edit-user-modal").modal('hide');
                             }, 900);
+                            
                             refreshTable();
                     }else{
                         toastr.error(response.message);
@@ -345,6 +359,7 @@
                 $(this).closest("li").remove();
             });
             $(document).on('click', '#btn-delete-guest', function() {
+                $(this).html("<i class='fa fa-spinner fa-spin'></i>");
                 var user_id = $("#d_user_id").val();
                 console.log(user_id);
                 // Send AJAX POST request
@@ -362,6 +377,7 @@
                         setTimeout(function () {
                             $("#delete-user-modal").modal('hide');
                         }, 900);
+                        $("#btn-delete-guest").html("Confirm");
                         refreshTable();
                     },
                     error: function (xhr, status, error) {
@@ -373,6 +389,7 @@
             $(document).on('click', '.btn-edit-guest-modal', function() {
                 var user_id = $(this).data('id');
                 var name = $(this).data('name');
+                $(this).html("<i class='fa fa-spinner fa-spin'></i>");
                 $(".modal-title").text('Edit Guest['+name+']');
                 $("#update_name").val(name);
                 $("#update_user_id").val(user_id);
@@ -408,9 +425,9 @@
                     },
                     error: function (xhr, status, error) {
                         toastr.warning('An error occurred: ' + error);
-                        alert("wow");
                     }
                 });
+                $(".btn-edit-guest-modal").html("<i class='fa fa-pencil'></i>");
                 $("#edit-user-modal").modal("show");
 
             });
@@ -525,6 +542,7 @@
             var rsvpURL = '<?php echo base_url('rsvp') ?>';
             var page = $("#current_p").val();
             var search = $("#search").val();
+            $(".overlay-spinner").removeClass('d-none');
             $.ajax({
                 url: '<?php echo base_url('admin/refresh') ?>',
                 type: 'POST',
@@ -587,15 +605,10 @@
 
                     $('.hint-text').html(stats);
                     $(".pagination").html(pagination);
-                    $(".fold-table tr.view").on("click", function () {
-                        $(this).toggleClass("open").next(".fold").toggleClass("open d-none");
-                    });
-                    $('.btn-delete-guest-modal').click(function () {
-                        var delete_user_id = $(this).data('id');
-                        $("#d_user_id").val(delete_user_id);
-                        $(".overlay").fadeOut(300);
-                        $("#delete-user-modal").modal("show");
-                    });
+                    setTimeout(function () {
+                        $(".overlay-spinner").addClass('d-none');
+                    }, 1000);
+                  
                 },
                 error: function (xhr, status, error) {
                     console.error('Error in second request:', error);
@@ -603,8 +616,77 @@
             });
             
         }
+        function checkDuplicateCompanionNames() {
+        const companionInputs = document.querySelectorAll('input[name="companion_name[]"]');
+        const names = [];
+        let hasDuplicate = false;
+
+        companionInputs.forEach(input => {
+            const name = input.value.trim();
+            if (name && names.includes(name)) {
+                hasDuplicate = true;
+            } else {
+                names.push(name);
+            }
+        });
+
+
+        if (hasDuplicate) {
+            toastr.error("Duplicate companion name detected!");
+            $(".submitButton").prop('disabled', true);
+        }else{
+            $(".submitButton").prop('disabled', false);
+        }
+    }
+    
+
+    var options1 = {
+  chart: {
+    height: 280,
+    type: "radialBar",
+  },
+  series: [<?php echo $data->total_guests;?>],
+  colors: ["#20E647"],
+  plotOptions: {
+    radialBar: {
+      startAngle: -135,
+      endAngle: 135,
+      track: {
+        background: '#333',
+        startAngle: -135,
+        endAngle: 135,
+      },
+      dataLabels: {
+        name: {
+          show: false,
+        },
+        value: {
+          fontSize: "30px",
+          show: true
+        }
+      }
+    }
+  },
+  fill: {
+    type: "gradient",
+    gradient: {
+      shade: "dark",
+      type: "horizontal",
+      gradientToColors: ["#87D4F9"],
+      stops: [0, 100]
+    }
+  },
+  stroke: {
+    lineCap: "butt"
+  },
+  labels: ["Total"]
+};
+
+new ApexCharts(document.querySelector("#chart"), options1).render();
+
     </script>
-    <footer class="text-center pt-5">
+    <div class="clearfix"></div>
+    <footer class="text-center pt-5 sticky-footer">
                 <p>&copy; 2024 Doodz & Akiss Wedding.</p>
                 <p>December 10, 2024</p>
                 <p>All rights reserved.</p>

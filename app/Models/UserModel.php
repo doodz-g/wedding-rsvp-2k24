@@ -56,4 +56,11 @@ class UserModel extends Model
                 ->join('tbl_companions', 'tbl_users.id = tbl_companions.user_id', 'inner')
                 ->findAll();
     }
+    public function get_totals() {
+        $builder = $this->db->table(tableName: 'tbl_users');
+        $total_users = $builder->countAllResults();
+        return [
+            'total_users' => $total_users,
+        ];
+    }
 }
