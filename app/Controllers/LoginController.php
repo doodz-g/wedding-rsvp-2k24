@@ -14,7 +14,7 @@ class LoginController extends BaseController
         $session = session();
         // $password = password_hash('P@55w0rd1', PASSWORD_DEFAULT);
         if ($session->has('logged_in') || $session->get('logged_in') == true) {
-            return redirect()->to('/admin');
+            return redirect()->to('/dashboard');
         } else {
             return view('admin/login');
         }
