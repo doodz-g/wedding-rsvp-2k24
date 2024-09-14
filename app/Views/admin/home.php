@@ -49,22 +49,28 @@
 </nav>
 
     <div class="container-fluid">
+    <div class="row" style="padding-top:20px;">
+    <div class="col-md-7">
+        <h2 style="color: #000000;">Guest <b>Management</b></h2>
+    </div>
+    <div class="col-md-5" style="text-align:right;">
+    <?php if (session()->get('logged_in')): ?>
+                <p style="color: #000000;">Hello, <?= session()->get('username') ?>! <a href="<?php echo base_url('logout'); ?>" class="btn btn-secondary"
+                data-target="#" style="border-radius:50px;"><i class="fa fa-power-off" style="color:red;"></i></a></p>
+            <?php endif; ?>    
+    </div>
+    </div>
+    <div id="chart" style="float: left;width: 33.33%;">
+    </div>
         <div class="table-responsive">
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
-                        <div class="col-sm-5">
-                            <h2 style="color: #000000;">Guest <b>Management</b></h2>
-                            <?php if (session()->get('logged_in')): ?>
-                                <p style="color: #000000;">Hello, <?= session()->get('username') ?>! You are logged in.</p>
-                            <?php endif; ?>
-                        </div>
-                        <div class="col-sm-7" style="padding-right:0;">
+                        <div class="col-md-7 offset-md-5" style="padding-right:0;">
                             <ul class="horizontal-list">
                                 <li><input type="text" class="form-control" id="search" onkeyup="refreshTable();"
                                         placeholder="Search here.."></li>
-                                <li><a href="<?php echo base_url('logout'); ?>" class="btn btn-secondary"
-                                        data-target="#"><i class="material-icons">&#xe9ba;</i> <span>Log out</span></a>
+                                <li></a>
                                 </li>
                                 <li><a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i>
                                         <span>Export to
@@ -163,8 +169,7 @@
             </div>
         </div>
     </div>
-    <div id="chart" style="float: left;width: 33.33%;">
-    </div>
+ 
     <!-- Add Modal -->
     <div class="modal fade" id="add-user-modal" tabindex="-1" role="dialog" aria-labelledby="#" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
