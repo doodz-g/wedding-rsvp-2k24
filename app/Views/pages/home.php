@@ -39,45 +39,45 @@
         </div>
     </div>
     <!-- Full-Screen Overlay End-->
-    <div class="custom-container">
-        <!-- Navbar Start -->
-        <nav class="navbar fixed-top shadow-sm navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
-            <a href="#home" class="navbar-brand d-block d-lg-none">
-                <h1 class="font-secondary text-white mb-n2">Doodz <span class="text-primary emerald-green">&</span>
-                    Akiss
-                </h1>
-            </a>
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                <div class="navbar-nav ml-auto py-0">
-                    <a href="#home" class="nav-item nav-link active">Home</a>
-                    <!-- <a href="#about" class="nav-item nav-link">About</a> -->
-                    <a href="#story" class="nav-item nav-link">Story</a>
-                    <a href="#entourage" id="entourage-link" class="nav-item nav-link">Entourage</a>
+    <!-- Navbar Start -->
+    <nav class="navbar fixed-top shadow-sm navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5 d-none">
+        <a href="#home" class="navbar-brand d-block d-lg-none">
+            <h1 class="font-secondary text-white mb-n2">Doodz <span class="text-primary emerald-green">&</span>
+                Akiss
+            </h1>
+        </a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+            <div class="navbar-nav ml-auto py-0">
+                <a href="#home" class="nav-item nav-link active">Home</a>
+                <!-- <a href="#about" class="nav-item nav-link">About</a> -->
+                <a href="#story" class="nav-item nav-link">Story</a>
+                <a href="#entourage" id="entourage-link" class="nav-item nav-link">Entourage</a>
 
-                </div>
-                <a href="#home" class="navbar-brand mx-5 d-none d-lg-block">
-                    <h1 class="font-secondary text-white mb-n2">Doodz <span class="text-primary">&</span> Akiss</h1>
-                </a>
-                <div class="navbar-nav mr-auto py-0">
-                    <a href="#gallery" class="nav-item nav-link">Gallery</a>
-                    <!-- <a href="#family" class="nav-item nav-link">Family</a> -->
-                    <a href="#event" class="nav-item nav-link">Event</a>
-                    <a href="#faqs" class="nav-item nav-link">Faqs</a>
-                    <?php if (isset($data->show_modal) && $data->show_modal == true) { ?>
-                        <a href="#rsvp" id="rsvp-nav" class="nav-item nav-link <?php
-                        echo empty($data->invite_id) ? 'd-none' : '' ?> ">RSVP</a>
-                    <?php } else { ?>
-                        <a href="#rsvp-confirm" id="rsvp-nav" class="nav-item nav-link <?php
-                        echo empty($data->invite_id) ? 'd-none' : '' ?> ">RSVP</a>
-
-                    <?php } ?>
-                </div>
             </div>
-        </nav>
-        <!-- Navbar End -->
+            <a href="#home" class="navbar-brand mx-5 d-none d-lg-block">
+                <h1 class="font-secondary text-white mb-n2">Doodz <span class="text-primary">&</span> Akiss</h1>
+            </a>
+            <div class="navbar-nav mr-auto py-0">
+                <a href="#gallery" class="nav-item nav-link">Gallery</a>
+                <!-- <a href="#family" class="nav-item nav-link">Family</a> -->
+                <a href="#event" class="nav-item nav-link">Event</a>
+                <a href="#faqs" class="nav-item nav-link">Faqs</a>
+                <?php if (isset($data->show_modal) && $data->show_modal == true) { ?>
+                    <a href="#rsvp" id="rsvp-nav" class="nav-item nav-link <?php
+                    echo empty($data->invite_id) ? 'd-none' : '' ?> ">RSVP</a>
+                <?php } else { ?>
+                    <a href="#rsvp-confirm" id="rsvp-nav" class="nav-item nav-link <?php
+                    echo empty($data->invite_id) ? 'd-none' : '' ?> ">RSVP</a>
+
+                <?php } ?>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+    <div class="custom-container">
         <!-- Carousel Start -->
         <div class="container-fluid p-0" id="home">
             <div id="header-carousel" class="carousel slide carousel-fade" data-ride="carousel">
@@ -466,7 +466,8 @@
                 </div>
 
                 <div class="section-title position-relative text-center">
-                    <h2 class="font-secondary text-primary" style="font-weight: 300;line-height: 1.2;">In Loving Memory</h2>
+                    <h2 class="font-secondary text-primary" style="font-weight: 300;line-height: 1.2;">In Loving Memory
+                    </h2>
                     <i class="far fa-heart text-dark"></i>
                 </div>
                 <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
@@ -953,126 +954,129 @@
 
     <script src="<?php echo base_url('public/assets/js/main.js') . '?v=' . rand(); ?>"></script>
     <script>
-        $('.parallax-window').parallax({
-            imageSrc: '<?php echo base_url('public/assets/img/entourage.png'); ?>'
-        });
+        $(function () {  
+            $('.parallax-window').parallax({
+                imageSrc: '<?php echo base_url('public/assets/img/entourage.png'); ?>'
+            });
 
-        $('#rsvp_confirm_yes').click(function () {
-            var rsvp_id = $("#invite_id").val().trim()
-            $.ajax({
-                url: '<?php echo base_url('confirm'); ?>',
-                headers: { 'X-Requested-With': 'XMLHttpRequest' },
-                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                data: { rsvp_id: rsvp_id, confirm: '1' },
-                type: 'POST',
+            $('#rsvp_confirm_yes').click(function () {
+                var rsvp_id = $("#invite_id").val().trim()
+                $.ajax({
+                    url: '<?php echo base_url('confirm'); ?>',
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: { rsvp_id: rsvp_id, confirm: '1' },
+                    type: 'POST',
 
-                success: function (data) {
+                    success: function (data) {
 
-                    if (data.confirm == 1) {
-                        $("#rsvp-nav").removeClass('d-none');
-                        setTimeout(function () {
-                            toastr.success('Thank you for your confirmation!');
-                        }, 1000);
-                        var html = '';
-                        html += '<p>We look forward to your presence, <b>' + data.main_invitee_name + ',</b></p>';
-                        if (data.companions.length > 0) {
-                            html += '<p>along with your accompanying family members:</p>';
-                            $.each(data.companions, function (index, companion) {
-                                console.log(companion.name);
-                                html += '<p><b>' + companion.name + '</b></p>';
-                            });
+                        if (data.confirm == 1) {
+                            $("#rsvp-nav").removeClass('d-none');
+                            setTimeout(function () {
+                                toastr.success('Thank you for your confirmation!');
+                            }, 1000);
+                            var html = '';
+                            html += '<p>We look forward to your presence, <b>' + data.main_invitee_name + ',</b></p>';
+                            if (data.companions.length > 0) {
+                                html += '<p>along with your accompanying family members:</p>';
+                                $.each(data.companions, function (index, companion) {
+                                    console.log(companion.name);
+                                    html += '<p><b>' + companion.name + '</b></p>';
+                                });
+                            }
+                            html += '<h3>Thank you!</h3><br>';
+                            html += "<button type='button' class='btn btn-primary font-weight-bold py-3 px-5' id='btn-show-qr'>Get your QR Pass</button>";
+
+                            $("#invitee-body").html(html);
                         }
-                        html += '<h3>Thank you!</h3><br>';
-                        html += "<button type='button' class='btn btn-primary font-weight-bold py-3 px-5' id='btn-show-qr'>Get your QR Pass</button>";
 
-                        $("#invitee-body").html(html);
-                    }
-
-                    $("#rsvp-confirm").show();
-                    $("#rsvp").hide();
-                }
-            }).done(function (data) {
-                setTimeout(function () {
-                    $("#overlay").fadeOut(300);
-                }, 500);
-                setTimeout(function () {
-                    $("#confirmationModal").modal("hide");
-                }, 900);
-                $('#qr-code-image').attr('src', data.qrCodeUri);
-                setTimeout(function () {
-                    $("#qrModal").modal("show");
-                }, 1200);
-
-
-            });
-        });
-
-        $('#rsvp_confirm_no').click(function () {
-            var rsvp_id = $("#invite_id").val().trim()
-            $.ajax({
-                url: '<?php echo base_url('confirm'); ?>',
-                headers: { 'X-Requested-With': 'XMLHttpRequest' },
-                data: { rsvp_id: rsvp_id, confirm: '0' },
-                type: 'POST',
-
-                success: function (data) {
-                    if (data.confirm == 0) {
-                        setTimeout(function () {
-                            toastr.success('Thank you for your confirmation!');
-                        }, 1000);
-
+                        $("#rsvp-confirm").show();
                         $("#rsvp").hide();
-                        $("#rsvp-confirm").hide();
-                        $("#rsvp-nav").hide();
                     }
-                }
-            }).done(function () {
-                setTimeout(function () {
-                    $("#overlay").fadeOut(300);
-                }, 500);
+                }).done(function (data) {
+                    setTimeout(function () {
+                        $("#overlay").fadeOut(300);
+                    }, 500);
+                    setTimeout(function () {
+                        $("#confirmationModal").modal("hide");
+                    }, 900);
+                    $('#qr-code-image').attr('src', data.qrCodeUri);
+                    setTimeout(function () {
+                        $("#qrModal").modal("show");
+                    }, 1200);
 
-                setTimeout(function () {
-                    $("#confirmationModal").modal("hide");
-                }, 900);
 
+                });
             });
-        });
-        <?php if (!empty($data->show_modal) && !is_null($data->show_modal) && $data->show_modal == true) { ?>
-            $("#confirmationModal").modal('show');
-        <?php } ?>
-        $('.bc').on('click', function () {
-            // Get the color from the swatch's data attribute
-            var selectedColor = $(this).data('color');
 
-            // Change the background color of the color box
-            $('#color-box').css('background-color', selectedColor);
+            $('#rsvp_confirm_no').click(function () {
+                var rsvp_id = $("#invite_id").val().trim()
+                $.ajax({
+                    url: '<?php echo base_url('confirm'); ?>',
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                    data: { rsvp_id: rsvp_id, confirm: '0' },
+                    type: 'POST',
 
-            // Optionally, change the text color of the color box for better visibility
-            if (selectedColor === '#d9ba9e') {
-                $('#boy-attire').attr('src', '<?php echo base_url('public/assets/img/boy_attire_nude.png'); ?>');
-            } else if (selectedColor === '#90a680') {
-                $('#boy-attire').attr('src', '<?php echo base_url('public/assets/img/boy_attire_green.png'); ?>');
-            } else {
-                $('#boy-attire').attr('src', '<?php echo base_url('public/assets/img/boy_attire_black.png'); ?>');
+                    success: function (data) {
+                        if (data.confirm == 0) {
+                            setTimeout(function () {
+                                toastr.success('Thank you for your confirmation!');
+                            }, 1000);
 
-            }
-        });
-        $('.gc').on('click', function () {
-            // Get the color from the swatch's data attribute
-            var selectedColor = $(this).data('color');
+                            $("#rsvp").hide();
+                            $("#rsvp-confirm").hide();
+                            $("#rsvp-nav").hide();
+                        }
+                    }
+                }).done(function () {
+                    setTimeout(function () {
+                        $("#overlay").fadeOut(300);
+                    }, 500);
 
-            // Change the background color of the color box
-            $('#color-box').css('background-color', selectedColor);
+                    setTimeout(function () {
+                        $("#confirmationModal").modal("hide");
+                    }, 900);
 
-            // Optionally, change the text color of the color box for better visibility
-            if (selectedColor === '#d9ba9e') {
-                $('#girl-attire').attr('src', '<?php echo base_url('public/assets/img/girl_attire_nude.png'); ?>');
-            } else if (selectedColor === '#90a680') {
-                $('#girl-attire').attr('src', '<?php echo base_url('public/assets/img/girl_attire_green.png'); ?>');
-            } else {
-                $('#girl-attire').attr('src', '<?php echo base_url('public/assets/img/girl_attire_nude.png'); ?>');
+                });
+            });
+            <?php if (!empty($data->show_modal) && !is_null($data->show_modal) && $data->show_modal == true) { ?>
+                $("#confirmationModal").modal('show');
+            <?php } ?>
+            $('.bc').on('click', function () {
+                // Get the color from the swatch's data attribute
+                var selectedColor = $(this).data('color');
 
-            }
+                // Change the background color of the color box
+                $('#color-box').css('background-color', selectedColor);
+
+                // Optionally, change the text color of the color box for better visibility
+                if (selectedColor === '#d9ba9e') {
+                    $('#boy-attire').attr('src', '<?php echo base_url('public/assets/img/boy_attire_nude.png'); ?>');
+                } else if (selectedColor === '#90a680') {
+                    $('#boy-attire').attr('src', '<?php echo base_url('public/assets/img/boy_attire_green.png'); ?>');
+                } else {
+                    $('#boy-attire').attr('src', '<?php echo base_url('public/assets/img/boy_attire_black.png'); ?>');
+
+                }
+            });
+            $('.gc').on('click', function () {
+                // Get the color from the swatch's data attribute
+                var selectedColor = $(this).data('color');
+
+                // Change the background color of the color box
+                $('#color-box').css('background-color', selectedColor);
+
+                // Optionally, change the text color of the color box for better visibility
+                if (selectedColor === '#d9ba9e') {
+                    $('#girl-attire').attr('src', '<?php echo base_url('public/assets/img/girl_attire_nude.png'); ?>');
+                } else if (selectedColor === '#90a680') {
+                    $('#girl-attire').attr('src', '<?php echo base_url('public/assets/img/girl_attire_green.png'); ?>');
+                } else {
+                    $('#girl-attire').attr('src', '<?php echo base_url('public/assets/img/girl_attire_nude.png'); ?>');
+
+                }
+            });
+
         });
 
     </script>

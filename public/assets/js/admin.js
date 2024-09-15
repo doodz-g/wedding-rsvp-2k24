@@ -23,7 +23,7 @@
         $(".overlay").fadeIn(300);
     });
     //copy invitation link
-    $("#users-tbody").find('.invite-link').click(function (event) {
+    $(document).on('click', '.invite-link', function(event) {
         event.preventDefault();
         navigator.clipboard.writeText($(this).attr("href")).then(() => {
             toastr.success('Invitation link copied');
@@ -43,10 +43,10 @@
         companionContainer.append('<li> <input type="text" id="companion_name" required name="companion_name[]" oninput="checkDuplicateCompanionNames()" style="width: 90%; height: 38px; border: 2px solid #ced4da;"><span type="button" class="delete_companion" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
     }
     var update_companion_container = $("#update_companion_container");
-    update_companion_container.html('<li> <input type="text" id="companion_name" class="com_field" required name="companion_name[][name]" style="width: 90%; height: 38px; border: 2px solid #ced4da;"><span type="button" class="delete_companion" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
+    update_companion_container.html('<li> <input type="text" id="companion_name" class="com_field" name="companion_name[][name]" style="width: 90%; height: 38px; border: 2px solid #ced4da;"><span type="button" class="delete_companion" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
     
     function updateCompanion() {
-        update_companion_container.append('<li> <input type="text" id="companion_name" class="com_field" required name="companion_name[][name]" style="width: 90%; height: 38px; border: 2px solid #ced4da;"><span type="button" class="delete_companion" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
+        update_companion_container.append('<li> <input type="text" id="companion_name" class="com_field" name="companion_name[][name]" style="width: 90%; height: 38px; border: 2px solid #ced4da;"><span type="button" class="delete_companion" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
     }
     // modals and action buttons
     $(document).on('click', '.add_companion', function() {
@@ -67,7 +67,18 @@
         var delete_user_id = $(this).data('id');
         $("#d_user_id").val(delete_user_id);
         $(".overlay").fadeOut(300);
+        $("#delete-user-modal").find(".modal-title").text("Delete Guest");
         $("#delete-user-modal").modal("show");
+    });
+    $(document).on('click', '.btn-assign-guest-modal', function() {
+        var assign_user_id = $(this).data('id');
+        var assign_table = $(this).data('table');
+        var name = $(this).data('name');
+        $("#table_number").val(assign_table);
+        $("#a_user_id").val(assign_user_id);
+        $(".overlay").fadeOut(300);
+        $("#assign-user-modal").find(".modal-title").text('Guest['+name+']');
+        $("#assign-user-modal").modal("show");
     });
 
 })(jQuery);

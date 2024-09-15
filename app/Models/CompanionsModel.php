@@ -14,7 +14,7 @@ class CompanionsModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
 
-        'id','user_id','name','date'
+        'id','user_id','name','date' ,'table_number'
     ];
 
     protected bool $allowEmptyInserts = false;

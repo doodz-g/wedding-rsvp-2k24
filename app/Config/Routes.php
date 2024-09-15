@@ -13,12 +13,15 @@ $routes->get('qr/(:any)', 'UserController::qrLanding/$1');
 
 
 $routes->post('/admin/companions', 'AdminController::getCompanions');
+$routes->get('/admin/table', 'AdminController::tableView');
+$routes->get('/admin/update-graph', 'AdminController::updateGraph');
 $routes->post('/admin/check-companions', 'AdminController::checkDuplicateCompanions');
 $routes->get('/admin/export', 'ExportController::export');
 $routes->post('admin/submit', 'AdminController::addInvitee');
 $routes->post('admin/update', 'AdminController::editInvitee');
 $routes->post('admin/refresh', 'AdminController::getUsers');
 $routes->post('admin/delete', 'AdminController::deleteGuest');
+$routes->post('admin/table-assignment', 'AdminController::assignGuestTable');
 $routes->get('/dashboard', 'AdminController::index', ['filter' => 'auth']);
 $routes->post('admin/delete/companion', 'AdminController::deleteGuestCompanion');
 $routes->get('/login', 'LoginController::index');

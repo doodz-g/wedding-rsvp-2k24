@@ -46,11 +46,38 @@ class AdminController extends BaseController
 
             // Fetch totals from models
             $totalGuest = $userModel->get_totals();
-            $totalCompanions = $companionsModel->get_totals();
+            $totalTableSlotsFor1 = $userModel->get_table_slots_1();
+            $totalTableSlotsFor2 = $userModel->get_table_slots_2();
+            $totalTableSlotsFor3 = $userModel->get_table_slots_3();
+            $totalTableSlotsFor4 = $userModel->get_table_slots_4();
+            $totalTableSlotsFor5 = $userModel->get_table_slots_5();
+            $totalTableSlotsFor6 = $userModel->get_table_slots_6();
+            $totalTableSlotsFor7 = $userModel->get_table_slots_7();
+            $totalTableSlotsFor8 = $userModel->get_table_slots_8();
+            $totalTableSlotsFor9 = $userModel->get_table_slots_9();
+            $totalTableSlotsFor10 = $userModel->get_table_slots_10();
 
+            $total_for_1 = $totalTableSlotsFor1['total_table_slots_1'];
+            $total_for_2 = $totalTableSlotsFor2['total_table_slots_2'];
+            $total_for_3 = $totalTableSlotsFor3['total_table_slots_3'];
+            $total_for_4 = $totalTableSlotsFor4['total_table_slots_4'];
+            $total_for_5 = $totalTableSlotsFor5['total_table_slots_5'];
+            $total_for_6 = $totalTableSlotsFor6['total_table_slots_6'];
+            $total_for_7 = $totalTableSlotsFor7['total_table_slots_7'];
+            $total_for_8 = $totalTableSlotsFor8['total_table_slots_8'];
+            $total_for_9 = $totalTableSlotsFor9['total_table_slots_9'];
+            $total_for_10 = $totalTableSlotsFor10['total_table_slots_10'];
+
+            $totalCompanions = $companionsModel->get_totals();
+            $tgWillAttend = $userModel->get_will_attend();
+            $totalGuestWillAttend = $tgWillAttend['total_users_will_attend'] ?? 0;
             // Access numeric values from the results
             $totalGuestCount = $totalGuest['total_users'] ?? 0;
             $totalCompanionCount = $totalCompanions['total_companions'] ?? 0;
+            $maxCap = 120;
+            $totalGNow = (int) $totalGuestCount + (int) $totalCompanionCount ?? 0;
+            $gPercentage = ($totalGNow / $maxCap) * 100 ?? 0;
+            $gWPercentage = ($totalGuestWillAttend / $maxCap) * 100 ?? 0;
             // Prepare response data
             $data = [
                 'users' => $allUsers,
@@ -61,7 +88,20 @@ class AdminController extends BaseController
                     'currentPageUsers' => $currentPageUsers,
 
                 ],
-                'total_guests' => $totalGuestCount + $totalCompanionCount
+                'guest_percentage' => ceil($gPercentage),
+                'maxCap' => $maxCap,
+                'totalGuestWillAttend' => ceil($gWPercentage),
+                'totalGNow' => $totalGNow,
+                'total_for_1' => isset($total_for_1) ? 10 - (int) $total_for_1 : 10,
+                'total_for_2' => isset($total_for_2) ? 10 - (int) $total_for_2 : 10,
+                'total_for_3' => isset($total_for_3) ? 10 - (int) $total_for_3 : 10,
+                'total_for_4' => isset($total_for_4) ? 10 - (int) $total_for_4 : 10,
+                'total_for_5' => isset($total_for_5) ? 10 - (int) $total_for_5 : 10,
+                'total_for_6' => isset($total_for_6) ? 10 - (int) $total_for_6 : 10,
+                'total_for_7' => isset($total_for_7) ? 10 - (int) $total_for_7 : 10,
+                'total_for_8' => isset($total_for_8) ? 10 - (int) $total_for_8 : 10,
+                'total_for_9' => isset($total_for_9) ? 10 - (int) $total_for_9 : 10,
+                'total_for_10' => isset($total_for_10) ? 10 - (int) $total_for_10 : 10,
             ];
 
             $dataObject = json_decode(json_encode($data));
@@ -71,6 +111,101 @@ class AdminController extends BaseController
             return redirect()->to('/login');
         }
     }
+    public function updateGraph()
+    {
+        $userModel = model(UserModel::class);
+        $companionsModel = model(name: CompanionsModel::class);
+        $totalGuest = $userModel->get_totals();
+        $totalCompanions = $companionsModel->get_totals();
+        $tgWillAttend = $userModel->get_will_attend();
+        $totalGuestWillAttend = $tgWillAttend['total_users_will_attend'] ?? 0;
+        // Access numeric values from the results
+        $totalGuestCount = $totalGuest['total_users'] ?? 0;
+        $totalCompanionCount = $totalCompanions['total_companions'] ?? 0;
+        $maxCap = 120;
+        $totalGNow = (int) $totalGuestCount + (int) $totalCompanionCount ?? 0;
+        $gPercentage = ($totalGNow / $maxCap) * 100 ?? 0;
+        $gWPercentage = ($totalGuestWillAttend / $maxCap) * 100 ?? 0;
+
+        $data = [
+            'guest_percentage' => ceil($gPercentage),
+            'maxCap' => $maxCap,
+            'totalGuestWillAttend' => ceil($gWPercentage),
+            'totalGNow' => $totalGNow,
+        ];
+        return $this->response->setJSON($data);
+    }
+    public function tableView()
+    {
+        $session = session();
+        if ($session->has('logged_in') || $session->get('logged_in') == true) {
+
+            $userModel = model(UserModel::class);
+            $companionsModel = model(name: CompanionsModel::class);
+
+            // Build the query with search term
+            $allUsers = $userModel->findAll();
+            // Get total number of users (considering the search term)
+            $totalUsers = $userModel->countAll();
+
+            // Number of users on the current page
+
+            $get_companions = $companionsModel->findAll();
+
+            // Fetch totals from models
+            //$allUsers = $userModel->get_users_and_companions();
+
+            $totalGuest = $userModel->get_totals();
+            $totalTableSlotsFor1 = $userModel->get_table_slots_1();
+            $totalTableSlotsFor2 = $userModel->get_table_slots_2();
+            $totalTableSlotsFor3 = $userModel->get_table_slots_3();
+            $totalTableSlotsFor4 = $userModel->get_table_slots_4();
+            $totalTableSlotsFor5 = $userModel->get_table_slots_5();
+            $totalTableSlotsFor6 = $userModel->get_table_slots_6();
+            $totalTableSlotsFor7 = $userModel->get_table_slots_7();
+            $totalTableSlotsFor8 = $userModel->get_table_slots_8();
+            $totalTableSlotsFor9 = $userModel->get_table_slots_9();
+            $totalTableSlotsFor10 = $userModel->get_table_slots_10();
+
+            $total_for_1 = $totalTableSlotsFor1['total_table_slots_1'];
+            $total_for_2 = $totalTableSlotsFor2['total_table_slots_2'];
+            $total_for_3 = $totalTableSlotsFor3['total_table_slots_3'];
+            $total_for_4 = $totalTableSlotsFor4['total_table_slots_4'];
+            $total_for_5 = $totalTableSlotsFor5['total_table_slots_5'];
+            $total_for_6 = $totalTableSlotsFor6['total_table_slots_6'];
+            $total_for_7 = $totalTableSlotsFor7['total_table_slots_7'];
+            $total_for_8 = $totalTableSlotsFor8['total_table_slots_8'];
+            $total_for_9 = $totalTableSlotsFor9['total_table_slots_9'];
+            $total_for_10 = $totalTableSlotsFor10['total_table_slots_10'];
+            $totalCompanions = $companionsModel->get_totals();
+            // Access numeric values from the results
+            $totalGuestCount = $totalGuest['total_users'] ?? 0;
+            $totalCompanionCount = $totalCompanions['total_companions'] ?? 0;
+            // Prepare response data
+            $data = [
+                'users' => $allUsers,
+                'companions' => $get_companions,
+                'total_guests' => $totalGuestCount + $totalCompanionCount,
+                'total_for_1' => isset($total_for_1) ? 10 - (int) $total_for_1 : 10,
+                'total_for_2' => isset($total_for_2) ? 10 - (int) $total_for_2 : 10,
+                'total_for_3' => isset($total_for_3) ? 10 - (int) $total_for_3 : 10,
+                'total_for_4' => isset($total_for_4) ? 10 - (int) $total_for_4 : 10,
+                'total_for_5' => isset($total_for_5) ? 10 - (int) $total_for_5 : 10,
+                'total_for_6' => isset($total_for_6) ? 10 - (int) $total_for_6 : 10,
+                'total_for_7' => isset($total_for_7) ? 10 - (int) $total_for_7 : 10,
+                'total_for_8' => isset($total_for_8) ? 10 - (int) $total_for_8 : 10,
+                'total_for_9' => isset($total_for_9) ? 10 - (int) $total_for_9 : 10,
+                'total_for_10' => isset($total_for_10) ? 10 - (int) $total_for_10 : 10,
+            ];
+            $dataObject = json_decode(json_encode($data));
+            return view('admin/table', ['data' => $dataObject]);
+
+        } else {
+            return redirect()->to('/login');
+        }
+
+    }
+
     public function getUsers()
     {
         $userModel = model(UserModel::class);
@@ -99,7 +234,29 @@ class AdminController extends BaseController
         // Get total number of users (considering the search term)
         $totalUsers = $builder->countAll();
         // Number of users on the current page
+        // Fetch totals from models
+        $totalGuest = $userModel->get_totals();
+        $totalTableSlotsFor1 = $userModel->get_table_slots_1();
+        $totalTableSlotsFor2 = $userModel->get_table_slots_2();
+        $totalTableSlotsFor3 = $userModel->get_table_slots_3();
+        $totalTableSlotsFor4 = $userModel->get_table_slots_4();
+        $totalTableSlotsFor5 = $userModel->get_table_slots_5();
+        $totalTableSlotsFor6 = $userModel->get_table_slots_6();
+        $totalTableSlotsFor7 = $userModel->get_table_slots_7();
+        $totalTableSlotsFor8 = $userModel->get_table_slots_8();
+        $totalTableSlotsFor9 = $userModel->get_table_slots_9();
+        $totalTableSlotsFor10 = $userModel->get_table_slots_10();
 
+        $total_for_1 = $totalTableSlotsFor1['total_table_slots_1'];
+        $total_for_2 = $totalTableSlotsFor2['total_table_slots_2'];
+        $total_for_3 = $totalTableSlotsFor3['total_table_slots_3'];
+        $total_for_4 = $totalTableSlotsFor4['total_table_slots_4'];
+        $total_for_5 = $totalTableSlotsFor5['total_table_slots_5'];
+        $total_for_6 = $totalTableSlotsFor6['total_table_slots_6'];
+        $total_for_7 = $totalTableSlotsFor7['total_table_slots_7'];
+        $total_for_8 = $totalTableSlotsFor8['total_table_slots_8'];
+        $total_for_9 = $totalTableSlotsFor9['total_table_slots_9'];
+        $total_for_10 = $totalTableSlotsFor10['total_table_slots_10'];
         $currentPageUsers = count($allUsers);
         // Prepare response data
         $data = [
@@ -109,7 +266,17 @@ class AdminController extends BaseController
                 'totalPages' => $pager->getPageCount(),
                 'totalUsers' => $totalUsers,
                 'currentPageUsers' => $currentPageUsers
-            ]
+            ],
+            'total_for_1' => isset($total_for_1) ? 10 - (int) $total_for_1 : 10,
+            'total_for_2' => isset($total_for_2) ? 10 - (int) $total_for_2 : 10,
+            'total_for_3' => isset($total_for_3) ? 10 - (int) $total_for_3 : 10,
+            'total_for_4' => isset($total_for_4) ? 10 - (int) $total_for_4 : 10,
+            'total_for_5' => isset($total_for_5) ? 10 - (int) $total_for_5 : 10,
+            'total_for_6' => isset($total_for_6) ? 10 - (int) $total_for_6 : 10,
+            'total_for_7' => isset($total_for_7) ? 10 - (int) $total_for_7 : 10,
+            'total_for_8' => isset($total_for_8) ? 10 - (int) $total_for_8 : 10,
+            'total_for_9' => isset($total_for_9) ? 10 - (int) $total_for_9 : 10,
+            'total_for_10' => isset($total_for_10) ? 10 - (int) $total_for_10 : 10,
         ];
 
         // Return JSON response
@@ -137,6 +304,49 @@ class AdminController extends BaseController
             }
         }
     }
+    public function assignGuestTable()
+    {
+        $user_id = $this->request->getPost('user_id');
+        $table_number = $this->request->getPost('table_number');
+        $userModel = model(UserModel::class);
+        $companionModel = model(CompanionsModel::class);
+        log_message('debug', 'User ID: ' . $user_id);
+        log_message('debug', 'Table Number: ' . $table_number);
+        // Check if table_number exists and is not empty
+        if (empty($table_number)) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Table number is missing.']);
+        }
+
+        // Check if the user_id exists before attempting to update
+        if ($userModel->find($user_id)) {
+            // Update the user's table number
+            if ($userModel->update($user_id, ['table_number' => $table_number])) {
+                // Retrieve companions associated with the user
+                $getAllCompanions = $companionModel->where('user_id', $user_id)->findAll();
+                // Only update if there are companions
+                if (!empty($getAllCompanions)) {
+                    foreach ($getAllCompanions as $companion) {
+                        // Ensure the companion has an ID before attempting the update
+                        if (!empty($companion->id)) {
+                            // Update the table_number for each companion
+                            if (!$companionModel->update($companion->id, ['table_number' => $table_number])) {
+                                return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to update companion.']);
+                            }
+                        } else {
+                            return $this->response->setJSON(['status' => 'error', 'message' => 'Companion ID is missing.']);
+                        }
+                    }
+                }
+
+                return $this->response->setJSON(['status' => 'success', 'message' => 'Table assigned successfully.']);
+            } else {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to update user table number.']);
+            }
+        } else {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'User not found.']);
+        }
+    }
+
     public function deleteGuestCompanion()
     {
         $id = $this->request->getPost('id');

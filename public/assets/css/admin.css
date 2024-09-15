@@ -297,7 +297,22 @@ table {
     justify-content: center;
     align-items: center;
 }
-
+.charts-container {
+    display: flex;
+    justify-content: space-around; /* Align charts horizontally */
+    gap: 20px; /* Space between charts */
+    margin-top: 20px;
+}
+.chart-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.chart-label {
+    margin-top: 10px; /* Space between chart and label */
+    font-size: 16px;
+    color: #333;
+}
 table.fold-table {
     >tbody {
         >tr.view {
