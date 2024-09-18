@@ -82,7 +82,7 @@
         <div class="container-fluid p-0" id="home">
             <div id="header-carousel" class="carousel slide carousel-fade" data-ride="carousel">
                 <div class="carousel-inner" id="carousel-container">
-                    <div class="carousel-item position-relative active" style="height: 100vh; min-height: 400px;">
+                    <div class="carousel-item position-relative active carou">
                         <img class="position-absolute w-100 h-153"
                             src="<?php echo strtolower(base_url('public/assets/img/carousel-2.JPG')); ?>" loading="lazy"
                             style="object-fit: cover;">
@@ -93,8 +93,8 @@
                                     Doodz & Akiss</h1>
                                 <div
                                     class="animate__animated animate__bounceInLeft d-inline-block border-top border-bottom border-light py-3 px-4">
-                                    <h3 class="text-uppercase font-weight-normal text-white m-0"
-                                        style="letter-spacing: 2px;">December 10 2024</h3>
+                                    <h3 class="text-uppercase font-weight-normal text-white m-0 ls-2">December 10 2024
+                                    </h3>
                                 </div>
                                 <div class="animate__animated animate__slideInUp">
                                     <button type="button" class="btn-play mx-auto emerald-border-left btn-play-music"
@@ -110,7 +110,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="carousel-item position-relative" style="height: 100vh; min-height: 400px;">
+                    <div class="carousel-item position-relative carou">
                         <img class="position-absolute w-100 h-153"
                             src="<?php echo strtolower(base_url('public/assets/img/carousel-1.JPG')); ?>" loading="lazy"
                             style="object-fit: cover;">
@@ -137,7 +137,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="carousel-item position-relative" style="height: 100vh; min-height: 400px;">
+                    <div class="carousel-item position-relative carou">
                         <img class="position-absolute w-100 h-153"
                             src="<?php echo strtolower(base_url('public/assets/img/carousel-3.JPG')); ?>" loading="lazy"
                             style="object-fit: cover;">
@@ -145,8 +145,8 @@
                             <div class="p-3" style="max-width: 900px;">
                                 <h1 class="display-1 font-secondary text-white mt-n3 mb-md-4">Doodz & Akiss</h1>
                                 <div class="d-inline-block border-top border-bottom border-light py-3 px-4">
-                                    <h3 class="text-uppercase font-weight-normal text-white m-0"
-                                        style="letter-spacing: 2px;">We're getting married</h3>
+                                    <h3 class="text-uppercase font-weight-normal text-white m-0 ls-2">We're getting
+                                        married</h3>
                                 </div>
                                 <div class="animate__animated animate__slideInUp">
                                     <button type="button" class="btn-play mx-auto emerald-border-left btn-play-music"
@@ -163,15 +163,13 @@
                         </div>
                     </div>
                 </div>
-                <a class="carousel-control-prev justify-content-start" style="visibility:hidden;"
-                    href="#header-carousel" data-slide="prev">
+                <a class="carousel-control-prev justify-content-start d-none" href="#header-carousel" data-slide="prev">
                     <div class="btn btn-primary bg-emerald-green border-color-emerald-green px-0"
                         style="width: 68px; height: 68px;">
                         <span class="carousel-control-prev-icon mt-3"></span>
                     </div>
                 </a>
-                <a class="carousel-control-next justify-content-end" style="visibility:hidden;" href="#header-carousel"
-                    data-slide="next">
+                <a class="carousel-control-next justify-content-end d-none" href="#header-carousel" data-slide="next">
                     <div class="btn btn-primary bg-emerald-green border-color-emerald-green px-0"
                         style="width: 68px; height: 68px;">
                         <span class="carousel-control-next-icon mt-3"></span>
@@ -181,110 +179,107 @@
         </div>
         <!-- Carousel End -->
         <!-- Story Start -->
-        <div class="container-fluid py-5" id="story">
-            <div class="container pt-5 pb-3">
+        <div class="container-fluid parallax-window-even" data-parallax="scroll"
+            data-image-src="<?php echo base_url('public/assets/img/even.png'); ?>" id="faqs">
+            <div class="container-fluid pt-6 c-pb-3 ">
                 <div class="section-title position-relative text-center">
-                    <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">Story</h6>
-                    <h1 class="font-secondary display-4">Our Love Story</h1>
+                    <h6 class="text-uppercase text-primary mb-3 ls-3">Story</h6>
+                    <h1 class="font-secondary display-4 scroll-up-content">Our Love Story</h1>
                     <i class="far fa-heart text-dark"></i>
+                    <Ul>
                 </div>
-                <div class="row">
-                    <div class="col-md-12 col-lg-12 col-md-12 col-xs-12 text-muted">
-                        <div class="h-100 d-flex flex-column justify-content-center bg-secondary p-4 ml-md-3"
-                            style="border-radius:31px;">
-                            <p class="m-0">Three years ago, amidst the vast expanse of the internet, a chance encounter
-                                brought a boy and a girl together. What began as a simple exchange of words in a
-                                chatroom or
-                                perhaps through a shared interest on social media, quickly grew into a meaningful
-                                connection. They discovered common interests, shared dreams, and a mutual sense of humor
-                                that bridged the miles between them.
+                <div class="container py-5 bg-secondary pl-4 pr-4 scroll-up-content">
+                    <p class="m-0 text-muted">Three years ago, amidst the vast expanse of the internet, a chance
+                        encounter
+                        brought a boy and a girl together. What began as a simple exchange of words in a
+                        chatroom or
+                        perhaps through a shared interest on social media, quickly grew into a meaningful
+                        connection. They discovered common interests, shared dreams, and a mutual sense of humor
+                        that bridged the miles between them.
 
 
 
-                                <br><br>In the beginning, their conversations were filled with the excitement of getting
-                                to
-                                know each other. They would spend hours chatting, sharing stories about their lives,
-                                their
-                                aspirations, and their favorite memories. As the days turned into weeks and the weeks
-                                into
-                                months, their bond deepened. They laughed together at silly jokes, supported each other
-                                through tough times, and celebrated each other's successes. Despite the physical
-                                distance,
-                                they felt an emotional closeness that was undeniable.
+                        <br><br>In the beginning, their conversations were filled with the excitement of getting
+                        to
+                        know each other. They would spend hours chatting, sharing stories about their lives,
+                        their
+                        aspirations, and their favorite memories. As the days turned into weeks and the weeks
+                        into
+                        months, their bond deepened. They laughed together at silly jokes, supported each other
+                        through tough times, and celebrated each other's successes. Despite the physical
+                        distance,
+                        they felt an emotional closeness that was undeniable.
 
 
 
-                                <br><br>As their relationship evolved, they made efforts to bridge the gap between them.
-                                They started video calling, allowing them to see each other's faces and hear each
-                                other's
-                                voices. These calls became the highlights of their days, filled with laughter, heartfelt
-                                conversations, and moments of silence that spoke volumes about their comfort with each
-                                other. They exchanged gifts and letters, small tokens of their affection that made the
-                                distance seem a little less daunting.
+                        <br><br>As their relationship evolved, they made efforts to bridge the gap between them.
+                        They started video calling, allowing them to see each other's faces and hear each
+                        other's
+                        voices. These calls became the highlights of their days, filled with laughter, heartfelt
+                        conversations, and moments of silence that spoke volumes about their comfort with each
+                        other. They exchanged gifts and letters, small tokens of their affection that made the
+                        distance seem a little less daunting.
 
 
 
-                                <br><br>Their first in-person meeting was a momentous occasion. Nervous excitement
-                                buzzed in
-                                the air as they finally embraced, feeling the warmth and reality of each other's
-                                presence.
-                                That meeting was the first of many, and with each visit, their love grew stronger. They
-                                explored new places, created new memories, and found joy in simply being together. Their
-                                relationship, once confined to the virtual realm, had now blossomed into a beautiful,
-                                tangible reality.
+                        <br><br>Their first in-person meeting was a momentous occasion. Nervous excitement
+                        buzzed in
+                        the air as they finally embraced, feeling the warmth and reality of each other's
+                        presence.
+                        That meeting was the first of many, and with each visit, their love grew stronger. They
+                        explored new places, created new memories, and found joy in simply being together. Their
+                        relationship, once confined to the virtual realm, had now blossomed into a beautiful,
+                        tangible reality.
 
 
 
-                                <br><br> Over the years, they navigated the challenges that came their way with grace
-                                and
-                                resilience. They learned to communicate openly and honestly, to trust each other
-                                implicitly,
-                                and to cherish the unique connection they shared. They realized that their love was
-                                built on
-                                a solid foundation of friendship, respect, and mutual admiration. Each day they spent
-                                together, whether physically or virtually, was a testament to their commitment to one
-                                another.
+                        <br><br> Over the years, they navigated the challenges that came their way with grace
+                        and
+                        resilience. They learned to communicate openly and honestly, to trust each other
+                        implicitly,
+                        and to cherish the unique connection they shared. They realized that their love was
+                        built on
+                        a solid foundation of friendship, respect, and mutual admiration. Each day they spent
+                        together, whether physically or virtually, was a testament to their commitment to one
+                        another.
 
 
 
-                                <br><br>Now, as they approach their third anniversary, they are ready to embark on a new
-                                chapter in their lives. On December 10, 2024, they will stand before their family and
-                                friends to exchange vows and declare their love and commitment. Their wedding day will
-                                be a
-                                celebration of their journey, a testament to the love that has grown and flourished over
-                                the
-                                years. It will be a day filled with joy, laughter, and the promise of a beautiful future
-                                together.
+                        <br><br>Now, as they approach their third anniversary, they are ready to embark on a new
+                        chapter in their lives. On December 10, 2024, they will stand before their family and
+                        friends to exchange vows and declare their love and commitment. Their wedding day will
+                        be a
+                        celebration of their journey, a testament to the love that has grown and flourished over
+                        the
+                        years. It will be a day filled with joy, laughter, and the promise of a beautiful future
+                        together.
 
-                                Their story is a beautiful reminder that love knows no boundaries. It can be found in
-                                the
-                                most unexpected places and can thrive despite the challenges that come its way. Their
-                                journey from online strangers to soulmates is a testament to the power of love,
-                                perseverance, and the belief that true love will always find a way.
+                        Their story is a beautiful reminder that love knows no boundaries. It can be found in
+                        the
+                        most unexpected places and can thrive despite the challenges that come its way. Their
+                        journey from online strangers to soulmates is a testament to the power of love,
+                        perseverance, and the belief that true love will always find a way.
 
 
 
-                                <br><br>As they look forward to their wedding day and the life that lies ahead, they do
-                                so
-                                with hearts full of gratitude and excitement. They are ready to face the future hand in
-                                hand, knowing that together, they can overcome anything. Their love story is just
-                                beginning,
-                                and they are eager to see what the future holds for them as they embark on this new
-                                adventure as husband and wife.
-                            </p>
-                        </div>
-                    </div>
+                        <br><br>As they look forward to their wedding day and the life that lies ahead, they do
+                        so
+                        with hearts full of gratitude and excitement. They are ready to face the future hand in
+                        hand, knowing that together, they can overcome anything. Their love story is just
+                        beginning,
+                        and they are eager to see what the future holds for them as they embark on this new
+                        adventure as husband and wife.
+                    </p>
                 </div>
             </div>
         </div>
         <!-- Story End -->
-
         <!-- Entourage Start -->
-        <div class="container-fluid bg-entourage py-5 parallax-window" data-parallax="scroll"
+        <div class="container-fluid bg-entourage parallax-window" data-parallax="scroll"
             data-image-src="<?php echo base_url('public/assets/img/entourage.png'); ?>" id="entourage">
-            <div class="container py-5">
+            <div class="container pt-6">
                 <div class="section-title position-relative text-center">
-                    <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">Entourage</h6>
+                    <h6 class="text-uppercase text-primary mb-3 ls-3">Entourage</h6>
                     <h1 class="font-secondary display-4">Our Gorgeous Entourage</h1>
                     <i class="far fa-heart text-dark"></i>
                 </div>
@@ -437,10 +432,10 @@
                         <div class="col-md-12 text-center font-secondary fw-light text-primary">
                             <h3>Bible</h3>
                         </div>
-                        <div class="col-12 p-0 text-center p-4 mf-size" style="padding-bottom:0 !Important">
+                        <div class="col-12 p-0 text-center mf-size pt-4">
                             <p>Jareal Corbin R. Garcia</p>
                         </div>
-                        <div class="col-12 p-0 text-center p-4 mf-size" style="padding-top:0 !Important">
+                        <div class="col-12 p-0 text-center mf-size">
                             <p>Sandro A. Garcia</p>
                         </div>
                     </div>
@@ -456,17 +451,17 @@
                         <div class="col-md-12 text-center font-secondary fw-light text-primary">
                             <h3>Ring</h3>
                         </div>
-                        <div class="col-12 p-0 text-center p-4 mf-size" style="padding-bottom:0 !Important">
+                        <div class="col-12 p-0 text-center mf-size pt-4">
                             <p>Adrien Xayne Santos</p>
                         </div>
-                        <div class="col-12 p-0 text-center p-4 mf-size" style="padding-top:0 !Important">
+                        <div class="col-12 p-0 text-center mf-size">
                             <p>Sherwin A. Garcia</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="section-title position-relative text-center">
-                    <h2 class="font-secondary text-primary" style="font-weight: 300;line-height: 1.2;">In Loving Memory
+                    <h2 class="font-secondary text-primary c-ilm">In Loving Memory
                     </h2>
                     <i class="far fa-heart text-dark"></i>
                 </div>
@@ -490,12 +485,11 @@
         </div>
     </div>
     <!-- Entourage End -->
-
-
     <!-- Gallery Start -->
-    <div class="container-fluid" id="gallery" style="padding: 50px 0;padding-bottom: 0; margin-bottom: 0;">
-        <div class="section-title position-relative text-center" style="margin-bottom: 120px;">
-            <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">Gallery</h6>
+    <div class="container-fluid parallax-window-even pr-0 pl-0 pt-6" data-parallax="scroll"
+        data-image-src="<?php echo base_url('public/assets/img/even.png'); ?>" id="gallery">
+        <div class="section-title position-relative text-center mb-6">
+            <h6 class="text-uppercase text-primary mb-3 ls-3">Gallery</h6>
             <h1 class="font-secondary display-4">Our Photo Gallery</h1>
             <i class="far fa-heart"></i>
         </div>
@@ -552,11 +546,11 @@
     </div>
     <!-- Gallery End -->
     <!-- Event Start -->
-    <div class="container-fluid noPaddingBottom pt-5 pb-4 parallax-window" data-parallax="scroll"
+    <div class="container-fluid parallax-window" data-parallax="scroll"
         data-image-src="<?php echo base_url('public/assets/img/entourage.png'); ?>" id="event">
-        <div class="container py-5">
+        <div class="container pt-6">
             <div class="section-title position-relative text-center">
-                <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">Event</h6>
+                <h6 class="text-uppercase text-primary mb-3 ls-3">Event</h6>
                 <h1 class="font-secondary display-4">Our Wedding Event</h1>
                 <i class="far fa-heart text-dark"></i>
             </div>
@@ -589,6 +583,8 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="container">
             <div class="section-title position-relative text-center pt-5">
                 <h1 class="font-secondary display-4">Attire Guide</h1>
                 <i class="far fa-heart text-dark"></i>
@@ -599,10 +595,10 @@
                         Forever, Every Stitch Tells a Story of Love.</h5>
                 </div>
             </div>
-            <div class="row no-gutters pb-3">
+            <div class="row no-gutters">
                 <div class="col-lg-6 col-md-6 col-sm-6 text-center">
                     <img src="<?php echo base_url('public/assets/img/boy_attire_green.png'); ?>" id="boy-attire"
-                        class="img-fluid" style="max-width: 50%; !important: align" alt="Responsive image" height="100">
+                        class="img-fluid" style="max-width: 50%; max-height:80%;" alt="Responsive image">
                     <div class="color-swatch d-flex justify-content-center" style="margin-top: 10px;">
                         <div class="swatch bc" style="background-color: #d9ba9e;" data-color="#d9ba9e"></div>
                         <div class="swatch bc" style="background-color: #90a680;" data-color="#90a680"></div>
@@ -611,7 +607,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 text-center">
                     <img src="<?php echo base_url('public/assets/img/girl_attire_nude.png'); ?>" id="girl-attire"
-                        class="img-fluid" style="max-width: 50%;" alt="Responsive image" height="100">
+                        class="img-fluid" style="max-width: 50%; max-height:80%;" alt="Responsive image">
                     <div class="color-swatch d-flex justify-content-center" style="margin-top: 10px;">
                         <div class="swatch gc" style="background-color: #d9ba9e;" data-color="#d9ba9e"></div>
                         <div class="swatch gc" style="background-color: #90a680;" data-color="#90a680"></div>
@@ -622,33 +618,35 @@
                 <h1 class="font-secondary display-4">Gift Guide</h1>
                 <i class="far fa-heart text-dark"></i>
             </div>
-            <div class="row justify-content-center" style="padding-bottom:4rem;">
+            <div class="row justify-content-center">
                 <div class="col-md-6 text-center">
                     <h5 class="font-weight-normal text-muted mb-3 pb-3">With all that we have, we've been truly
                         blessed.
                         Your presence and prayers are all that we request.
                         But if your desired to give nonetheless,
                         monetary gift is one we suggest.</h5>
-                </div>
-                <div class="col-md-12 text-center">
                     <img src="<?php echo base_url('public/assets/img/qrcode.png'); ?>" class="img-fluid"
                         alt="Responsive image">
+                </div>
+                <div class="col-md-12 text-center">
+                    <h4>Dummy QR</h4>
                 </div>
             </div>
         </div>
     </div>
     <!-- Event End -->
     <!-- Faqs Start -->
-    <div class="container-fluid pt-5 pb-5" id="faqs">
-        <div class="container-fluid">
+    <div class="container-fluid parallax-window-even" data-parallax="scroll"
+        data-image-src="<?php echo base_url('public/assets/img/even.png'); ?>" id="faqs">
+        <div class="container-fluid c-pb-3 pt-6 scroll-up-content" data-aos="fade-up">
             <div class="section-title position-relative text-center">
-                <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">FAQS</h6>
+                <h6 class="text-uppercase text-primary mb-3 ls-3">FAQS</h6>
                 <h1 class="font-secondary display-4">Everything You Need to Know</h1>
                 <i class="far fa-heart text-dark"></i>
                 <Ul>
             </div>
-            <div class="container py-5 bg-secondary pl-4 pr-4" style="border-radius:31px;">
-                <ul class="list-unstyled" style="line-height:36px;">
+            <div class="container py-5 bg-secondary pl-4 pr-4">
+                <ul class="list-unstyled lh-36">
                     <li><b>What time do I need to be at the venue?</b></li>
                     <li class="mb-2">Help us get the party started as scheduled! We recommend that you arrive 30
                         minutes
@@ -710,9 +708,9 @@
         <div class="container-fluid py-5 parallax-window" data-parallax="scroll"
             data-image-src="<?php echo base_url('public/assets/img/entourage.png'); ?>" id="rsvp"
             style="<?php echo $data->show_modal ? 'display:block;' : 'display:none;' ?>">
-            <div class="container py-5 bg-secondary" style="border-radius:31px;">
+            <div class="container py-5 bg-secondary">
                 <div class="section-title position-relative text-center">
-                    <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">RSVP</h6>
+                    <h6 class="text-uppercase text-primary mb-3 ls-3">RSVP</h6>
                     <h1 class="font-secondary display-4">Join Our Wedding</h1>
                     <i class="far fa-heart text-dark"></i>
                 </div>
@@ -753,9 +751,9 @@
         <div class="container-fluid py-5 parallax-window" data-parallax="scroll"
             data-image-src="<?php echo base_url('public/assets/img/entourage.png'); ?>" id="rsvp-confirm"
             style="<?php echo $data->show_modal ? 'display:none;' : 'display:block;' ?>">
-            <div class="container py-5 bg-secondary" style="border-radius:31px;">
+            <div class="container py-5 bg-secondary">
                 <div class="section-title position-relative text-center">
-                    <h6 class="text-uppercase text-primary mb-3" style="letter-spacing: 3px;">RSVP</h6>
+                    <h6 class="text-uppercase text-primary mb-3 ls-3">RSVP</h6>
                     <h1 class="font-secondary display-4">Your Presence is Highly Anticipated</h1>
                     <i class="far fa-heart text-dark"></i>
                 </div>
@@ -895,7 +893,7 @@
         </div>
     </div>
     <!-- Footer Start -->
-    <div class="container-fluid bg-dark text-white py-5" style="padding:0 !important;" id="contact">
+    <div class="container-fluid bg-dark text-white py-5 cp-0" id="contact">
         <div class="container text-center py-5">
             <div class="section-title position-relative text-center">
                 <h1 class="font-secondary display-3 text-white">Thank You</h1>
@@ -945,7 +943,6 @@
     <script src="<?php echo base_url('public/assets/lib/owlcarousel/owl.carousel.min.js'); ?>"></script>
     <script src="<?php echo base_url('public/assets/lib/isotope/isotope.pkgd.min.js'); ?>"></script>
     <script src="<?php echo base_url('public/assets/lib/lightbox/js/lightbox.min.js'); ?>"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.js.map"></script>
     <!-- Template Javascript -->
@@ -954,9 +951,13 @@
 
     <script src="<?php echo base_url('public/assets/js/main.js') . '?v=' . rand(); ?>"></script>
     <script>
-        $(function () {  
+        $(function () {
             $('.parallax-window').parallax({
                 imageSrc: '<?php echo base_url('public/assets/img/entourage.png'); ?>'
+            });
+
+            $('.parallax-window-even').parallax({
+                imageSrc: '<?php echo base_url('public/assets/img/even.png'); ?>'
             });
 
             $('#rsvp_confirm_yes').click(function () {

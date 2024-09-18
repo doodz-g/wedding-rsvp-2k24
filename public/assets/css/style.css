@@ -6625,8 +6625,9 @@ button.bg-primary:focus {
 }
 
 .bg-secondary {
-  background-color: #edf5f7 !important;
+  background-color: rgba(255, 255, 255, 0.3);
   text-align: justify;
+  border-radius: 31px;
 }
 
 a.bg-secondary:hover,
@@ -7782,6 +7783,40 @@ button.bg-dark:focus {
 .shadow-none {
   box-shadow: none !important;
 }
+.owl-prev{
+  background-color: transparent !important;
+}
+.owl-next{
+  background-color: transparent !important;
+}
+.c-ilm{
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.mb-6{
+  margin-bottom: 6em !important;
+}
+
+.mt-6{
+  margin-top: 6em !important;
+}
+
+.pb-6{
+  padding-bottom:6em !important;
+}
+
+.pt-6{
+  padding-top:6em !important;
+}
+
+.c-pb-3{
+  padding-bottom: 3em !important;
+}
+
+.lh-36{
+  line-height: 36px !important;
+}
 
 .w-25 {
   width: 25% !important;
@@ -8288,6 +8323,18 @@ button.bg-dark:focus {
   margin-left: auto !important;
 }
 
+.ls-3{
+  letter-spacing: 3px !important;
+}
+.ls-2{
+  letter-spacing: 2px !important;
+}
+.cp-0{
+  padding:0 !important;
+}
+.carou{
+  height: 100vh; min-height: 400px;
+}
 @media (min-width: 576px) {
   .m-sm-0 {
     margin: 0 !important;
@@ -10339,6 +10386,12 @@ audio {
   min-height: auto;
   background: transparent;
 }
+
+.parallax-window-even {
+  min-height: auto;
+  background: transparent;
+}
+
 
 .parallax-mirror,
 #vurtUnderlay {
