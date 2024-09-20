@@ -81,7 +81,23 @@ class UserModel extends Model
         ];
     
     }
-   
+    public function getRemSlots($table_number)
+    {
+        $builderUsers = $this->db->table('tbl_users');
+        $builderUsers->select('COUNT(tbl_users.id) as total_users');
+        $builderUsers->where('tbl_users.table_number', $table_number);
+
+        $builderCompanions = $this->db->table('tbl_companions');
+        $builderCompanions->join('tbl_users', 'tbl_companions.user_id = tbl_users.id', 'left');
+        $builderCompanions->where('tbl_companions.table_number', $table_number);
+
+        // Get the count of companions
+        $total_companions = $builderCompanions->countAllResults();
+        $total_users = $builderUsers->countAllResults();
+        $rem_slots = 10 - ($total_companions + $total_users);
+
+        return $rem_slots;
+    }
     public function get_table_slots_1()
     {
         $builderUsers = $this->db->table('tbl_users');
@@ -90,7 +106,7 @@ class UserModel extends Model
 
         $builderCompanions = $this->db->table('tbl_companions');
         $builderCompanions->join('tbl_users', 'tbl_companions.user_id = tbl_users.id', 'left');
-        $builderCompanions->where('tbl_users.table_number', 1);
+        $builderCompanions->where('tbl_companions.table_number', 1);
 
         // Get the count of companions
         $total_companions = $builderCompanions->countAllResults();
@@ -108,7 +124,7 @@ class UserModel extends Model
 
         $builderCompanions = $this->db->table('tbl_companions');
         $builderCompanions->join('tbl_users', 'tbl_companions.user_id = tbl_users.id', 'left');
-        $builderCompanions->where('tbl_users.table_number', 2);
+        $builderCompanions->where('tbl_companions.table_number', 2);
 
         // Get the count of companions
         $total_companions = $builderCompanions->countAllResults();
@@ -126,7 +142,7 @@ class UserModel extends Model
 
         $builderCompanions = $this->db->table('tbl_companions');
         $builderCompanions->join('tbl_users', 'tbl_companions.user_id = tbl_users.id', 'left');
-        $builderCompanions->where('tbl_users.table_number', 3);
+        $builderCompanions->where('tbl_companions.table_number', 3);
 
         // Get the count of companions
         $total_companions = $builderCompanions->countAllResults();
@@ -144,7 +160,7 @@ class UserModel extends Model
 
         $builderCompanions = $this->db->table('tbl_companions');
         $builderCompanions->join('tbl_users', 'tbl_companions.user_id = tbl_users.id', 'left');
-        $builderCompanions->where('tbl_users.table_number', 4);
+        $builderCompanions->where('tbl_companions.table_number', 4);
 
         // Get the count of companions
         $total_companions = $builderCompanions->countAllResults();
@@ -162,7 +178,7 @@ class UserModel extends Model
 
         $builderCompanions = $this->db->table('tbl_companions');
         $builderCompanions->join('tbl_users', 'tbl_companions.user_id = tbl_users.id', 'left');
-        $builderCompanions->where('tbl_users.table_number', 5);
+        $builderCompanions->where('tbl_companions.table_number', 5);
 
         // Get the count of companions
         $total_companions = $builderCompanions->countAllResults();
@@ -180,7 +196,7 @@ class UserModel extends Model
 
         $builderCompanions = $this->db->table('tbl_companions');
         $builderCompanions->join('tbl_users', 'tbl_companions.user_id = tbl_users.id', 'left');
-        $builderCompanions->where('tbl_users.table_number', 6);
+        $builderCompanions->where('tbl_companions.table_number', 6);
 
         // Get the count of companions
         $total_companions = $builderCompanions->countAllResults();
@@ -198,7 +214,7 @@ class UserModel extends Model
 
         $builderCompanions = $this->db->table('tbl_companions');
         $builderCompanions->join('tbl_users', 'tbl_companions.user_id = tbl_users.id', 'left');
-        $builderCompanions->where('tbl_users.table_number', 7);
+        $builderCompanions->where('tbl_companions.table_number', 7);
 
         // Get the count of companions
         $total_companions = $builderCompanions->countAllResults();
@@ -216,7 +232,7 @@ class UserModel extends Model
 
         $builderCompanions = $this->db->table('tbl_companions');
         $builderCompanions->join('tbl_users', 'tbl_companions.user_id = tbl_users.id', 'left');
-        $builderCompanions->where('tbl_users.table_number', 8);
+        $builderCompanions->where('tbl_companions.table_number', 8);
 
         // Get the count of companions
         $total_companions = $builderCompanions->countAllResults();
@@ -234,7 +250,7 @@ class UserModel extends Model
 
         $builderCompanions = $this->db->table('tbl_companions');
         $builderCompanions->join('tbl_users', 'tbl_companions.user_id = tbl_users.id', 'left');
-        $builderCompanions->where('tbl_users.table_number', 9);
+        $builderCompanions->where('tbl_companions.table_number', 9);
 
         // Get the count of companions
         $total_companions = $builderCompanions->countAllResults();
@@ -252,7 +268,7 @@ class UserModel extends Model
 
         $builderCompanions = $this->db->table('tbl_companions');
         $builderCompanions->join('tbl_users', 'tbl_companions.user_id = tbl_users.id', 'left');
-        $builderCompanions->where('tbl_users.table_number', 10);
+        $builderCompanions->where('tbl_companions.table_number', 10);
 
         // Get the count of companions
         $total_companions = $builderCompanions->countAllResults();

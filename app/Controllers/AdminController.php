@@ -306,44 +306,61 @@ class AdminController extends BaseController
     }
     public function assignGuestTable()
     {
-        $user_id = $this->request->getPost('user_id');
+        $guest_id = $this->request->getPost('guest_id');
         $table_number = $this->request->getPost('table_number');
+        $companion_names = $this->request->getPost('companion_name');
         $userModel = model(UserModel::class);
         $companionModel = model(CompanionsModel::class);
-        log_message('debug', 'User ID: ' . $user_id);
-        log_message('debug', 'Table Number: ' . $table_number);
-        // Check if table_number exists and is not empty
+        $checker = 0;
+        if ($companion_names) {
+            // Iterate over each companion provided in the POST request
+            foreach ($companion_names as $companion) {
+                $companion_id = $companion['id'] ?? null;
+                $companion_name = $companion['name'] ?? null;
+                if (!empty($companion_id) && !empty($companion_name)) {
+                    $checker++;
+                }
+            }
+        }
+        $rem_slots = $userModel->getRemSlots($table_number);
+
         if (empty($table_number)) {
             return $this->response->setJSON(['status' => 'error', 'message' => 'Table number is missing.']);
         }
-
-        // Check if the user_id exists before attempting to update
-        if ($userModel->find($user_id)) {
-            // Update the user's table number
-            if ($userModel->update($user_id, ['table_number' => $table_number])) {
-                // Retrieve companions associated with the user
-                $getAllCompanions = $companionModel->where('user_id', $user_id)->findAll();
-                // Only update if there are companions
-                if (!empty($getAllCompanions)) {
-                    foreach ($getAllCompanions as $companion) {
-                        // Ensure the companion has an ID before attempting the update
-                        if (!empty($companion->id)) {
-                            // Update the table_number for each companion
-                            if (!$companionModel->update($companion->id, ['table_number' => $table_number])) {
-                                return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to update companion.']);
-                            }
-                        } else {
-                            return $this->response->setJSON(['status' => 'error', 'message' => 'Companion ID is missing.']);
-                        }
+        if ($checker <= $rem_slots) {
+            if ($guest_id) {
+                $userModel->find($guest_id);
+                if ($userModel->update($guest_id, ['table_number' => $table_number])) {
+                    if ($companion_names) {
+                        $this->assignCompanionsToTable($companion_names, $table_number, $companionModel);
+                        return $this->response->setJSON(['status' => 'success', 'message' => 'Table assigned successfully.']);
                     }
+                } else {
+                    return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to update user table number.']);
                 }
-
+            } else if ($companion_names) {
+                $this->assignCompanionsToTable($companion_names, $table_number, $companionModel);
                 return $this->response->setJSON(['status' => 'success', 'message' => 'Table assigned successfully.']);
             } else {
-                return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to update user table number.']);
+                return $this->response->setJSON(['status' => 'error', 'message' => 'User not found.']);
             }
         } else {
-            return $this->response->setJSON(['status' => 'error', 'message' => 'User not found.']);
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Table slots not sufficient']);
+        }
+
+    }
+    private function assignCompanionsToTable($companions, $table_number, $companionModel)
+    {
+        if ($companions) {
+            foreach ($companions as $companion) {
+                $companion_id = $companion['id'] ?? null;
+                $companion_name = $companion['name'] ?? null;
+                if (!empty($companion_id) && !empty($companion_name)) {
+                    $companionModel->set('table_number', $table_number)
+                        ->where('id', $companion_id)
+                        ->update();
+                }
+            }
         }
     }
 
@@ -365,12 +382,19 @@ class AdminController extends BaseController
     {
         $user_id = $this->request->getPost('user_id');
         $companionsModel = model(CompanionsModel::class);
+        $usersModel = model(UserModel::class);
 
         // Fetch companions where user_id matches
         $getCompanions = $companionsModel->where('user_id', $user_id)->findAll();
+        $getUsers = $usersModel->where('id', $user_id)->findAll();
 
-        // Optionally, you can use `json_decode` to convert the object to an array
-        return $this->response->setJSON($getCompanions);
+        $responseData = [
+            'companions' => $getCompanions,
+            'user' => $getUsers
+        ];
+
+        // Return the response as JSON
+        return $this->response->setJSON($responseData);
 
     }
 
@@ -434,7 +458,6 @@ class AdminController extends BaseController
     {
         // Check if the request is AJAX and POST
         if ($this->request->isAJAX() && $this->request->getMethod() === 'POST') {
-            $session = session();
             $user_id = $this->request->getPost('user_id');
             $name = $this->request->getPost('name');
             $companion_names = $this->request->getPost('companion_name'); // Expecting an array of companions with id and name

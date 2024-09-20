@@ -70,15 +70,8 @@
         $("#delete-user-modal").find(".modal-title").text("Delete Guest");
         $("#delete-user-modal").modal("show");
     });
-    $(document).on('click', '.btn-assign-guest-modal', function() {
-        var assign_user_id = $(this).data('id');
-        var assign_table = $(this).data('table');
-        var name = $(this).data('name');
-        $("#table_number").val(assign_table);
-        $("#a_user_id").val(assign_user_id);
-        $(".overlay").fadeOut(300);
-        $("#assign-user-modal").find(".modal-title").text('Guest['+name+']');
-        $("#assign-user-modal").modal("show");
+    $(document).on('click', '#selectAll', function() {
+        $('#ga-table-container').find('.c-box').prop('checked', this.checked);
     });
 
 })(jQuery);
