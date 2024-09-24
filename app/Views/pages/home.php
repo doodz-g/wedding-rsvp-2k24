@@ -52,7 +52,6 @@
         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
             <div class="navbar-nav ml-auto py-0">
                 <a href="#home" class="nav-item nav-link active">Home</a>
-                <!-- <a href="#about" class="nav-item nav-link">About</a> -->
                 <a href="#story" class="nav-item nav-link">Story</a>
                 <a href="#entourage" id="entourage-link" class="nav-item nav-link">Entourage</a>
 
@@ -62,17 +61,17 @@
             </a>
             <div class="navbar-nav mr-auto py-0">
                 <a href="#gallery" class="nav-item nav-link">Gallery</a>
-                <!-- <a href="#family" class="nav-item nav-link">Family</a> -->
                 <a href="#event" class="nav-item nav-link">Event</a>
                 <a href="#faqs" class="nav-item nav-link">Faqs</a>
-                <?php if (isset($data->show_modal) && $data->show_modal == true) { ?>
-                    <a href="#rsvp" id="rsvp-nav" class="nav-item nav-link <?php
-                    echo empty($data->invite_id) ? 'd-none' : '' ?> ">RSVP</a>
-                <?php } else { ?>
-                    <a href="#rsvp-confirm" id="rsvp-nav" class="nav-item nav-link <?php
-                    echo empty($data->invite_id) ? 'd-none' : '' ?> ">RSVP</a>
-
-                <?php } ?>
+                <div id="rsvp-container">
+                    <?php if (isset($data->invite_id)) { ?>
+                        <?php if (isset($data->show_modal) && $data->show_modal == 'true') { ?>
+                            <a href="#rsvp" id="rsvp-nav" class="nav-item nav-link ">RSVP</a>
+                        <?php } else { ?>
+                            <a href="#rsvp-confirm" id="rsvp-confirm-nav" class="nav-item nav-link">RSVP</a>
+                        <?php }
+                    } ?>
+                </div>
             </div>
         </div>
     </nav>
@@ -180,7 +179,7 @@
         <!-- Carousel End -->
         <!-- Story Start -->
         <div class="container-fluid parallax-window-even" data-parallax="scroll"
-            data-image-src="<?php echo base_url('public/assets/img/even.png'); ?>" id="faqs">
+            data-image-src="<?php echo base_url('public/assets/img/even.png'); ?>" id="story">
             <div class="container-fluid pt-6 c-pb-3 ">
                 <div class="section-title position-relative text-center">
                     <h6 class="text-uppercase text-primary mb-3 ls-3">Story</h6>
@@ -707,7 +706,7 @@
         <!-- RSVP Start -->
         <div class="container-fluid py-5 parallax-window" data-parallax="scroll"
             data-image-src="<?php echo base_url('public/assets/img/entourage.png'); ?>" id="rsvp"
-            style="<?php echo $data->show_modal ? 'display:block;' : 'display:none;' ?>">
+            style="<?php echo $data->show_modal == 'true' ? 'display:block;' : 'display:none;' ?>">
             <div class="container py-5 bg-secondary">
                 <div class="section-title position-relative text-center">
                     <h6 class="text-uppercase text-primary mb-3 ls-3">RSVP</h6>
@@ -750,7 +749,7 @@
         <!-- RSVP Confirm Start -->
         <div class="container-fluid py-5 parallax-window" data-parallax="scroll"
             data-image-src="<?php echo base_url('public/assets/img/entourage.png'); ?>" id="rsvp-confirm"
-            style="<?php echo $data->show_modal ? 'display:none;' : 'display:block;' ?>">
+            style="<?php echo $data->show_modal == 'false' ? 'display:none;' : 'display:block;' ?>">
             <div class="container py-5 bg-secondary">
                 <div class="section-title position-relative text-center">
                     <h6 class="text-uppercase text-primary mb-3 ls-3">RSVP</h6>
@@ -948,138 +947,14 @@
     <!-- Template Javascript -->
     <script src="<?php echo base_url('public/assets/lib/lightbox/js/lightbox.min.js'); ?>"></script>
     <script src="<?php echo base_url('public/assets/js/counter.js'); ?>"></script>
-
+    <script> var baseURL = "<?php echo base_url(); ?>"; </script>
     <script src="<?php echo base_url('public/assets/js/main.js') . '?v=' . rand(); ?>"></script>
     <script>
-        $(function () {
-            $('.parallax-window').parallax({
-                imageSrc: '<?php echo base_url('public/assets/img/entourage.png'); ?>'
-            });
-
-            $('.parallax-window-even').parallax({
-                imageSrc: '<?php echo base_url('public/assets/img/even.png'); ?>'
-            });
-
-            $('#rsvp_confirm_yes').click(function () {
-                var rsvp_id = $("#invite_id").val().trim()
-                $.ajax({
-                    url: '<?php echo base_url('confirm'); ?>',
-                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
-                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                    data: { rsvp_id: rsvp_id, confirm: '1' },
-                    type: 'POST',
-
-                    success: function (data) {
-
-                        if (data.confirm == 1) {
-                            $("#rsvp-nav").removeClass('d-none');
-                            setTimeout(function () {
-                                toastr.success('Thank you for your confirmation!');
-                            }, 1000);
-                            var html = '';
-                            html += '<p>We look forward to your presence, <b>' + data.main_invitee_name + ',</b></p>';
-                            if (data.companions.length > 0) {
-                                html += '<p>along with your accompanying family members:</p>';
-                                $.each(data.companions, function (index, companion) {
-                                    console.log(companion.name);
-                                    html += '<p><b>' + companion.name + '</b></p>';
-                                });
-                            }
-                            html += '<h3>Thank you!</h3><br>';
-                            html += "<button type='button' class='btn btn-primary font-weight-bold py-3 px-5' id='btn-show-qr'>Get your QR Pass</button>";
-
-                            $("#invitee-body").html(html);
-                        }
-
-                        $("#rsvp-confirm").show();
-                        $("#rsvp").hide();
-                    }
-                }).done(function (data) {
-                    setTimeout(function () {
-                        $("#overlay").fadeOut(300);
-                    }, 500);
-                    setTimeout(function () {
-                        $("#confirmationModal").modal("hide");
-                    }, 900);
-                    $('#qr-code-image').attr('src', data.qrCodeUri);
-                    setTimeout(function () {
-                        $("#qrModal").modal("show");
-                    }, 1200);
-
-
-                });
-            });
-
-            $('#rsvp_confirm_no').click(function () {
-                var rsvp_id = $("#invite_id").val().trim()
-                $.ajax({
-                    url: '<?php echo base_url('confirm'); ?>',
-                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
-                    data: { rsvp_id: rsvp_id, confirm: '0' },
-                    type: 'POST',
-
-                    success: function (data) {
-                        if (data.confirm == 0) {
-                            setTimeout(function () {
-                                toastr.success('Thank you for your confirmation!');
-                            }, 1000);
-
-                            $("#rsvp").hide();
-                            $("#rsvp-confirm").hide();
-                            $("#rsvp-nav").hide();
-                        }
-                    }
-                }).done(function () {
-                    setTimeout(function () {
-                        $("#overlay").fadeOut(300);
-                    }, 500);
-
-                    setTimeout(function () {
-                        $("#confirmationModal").modal("hide");
-                    }, 900);
-
-                });
-            });
+        $(document).ready(function () {
             <?php if (!empty($data->show_modal) && !is_null($data->show_modal) && $data->show_modal == true) { ?>
                 $("#confirmationModal").modal('show');
             <?php } ?>
-            $('.bc').on('click', function () {
-                // Get the color from the swatch's data attribute
-                var selectedColor = $(this).data('color');
-
-                // Change the background color of the color box
-                $('#color-box').css('background-color', selectedColor);
-
-                // Optionally, change the text color of the color box for better visibility
-                if (selectedColor === '#d9ba9e') {
-                    $('#boy-attire').attr('src', '<?php echo base_url('public/assets/img/boy_attire_nude.png'); ?>');
-                } else if (selectedColor === '#90a680') {
-                    $('#boy-attire').attr('src', '<?php echo base_url('public/assets/img/boy_attire_green.png'); ?>');
-                } else {
-                    $('#boy-attire').attr('src', '<?php echo base_url('public/assets/img/boy_attire_black.png'); ?>');
-
-                }
-            });
-            $('.gc').on('click', function () {
-                // Get the color from the swatch's data attribute
-                var selectedColor = $(this).data('color');
-
-                // Change the background color of the color box
-                $('#color-box').css('background-color', selectedColor);
-
-                // Optionally, change the text color of the color box for better visibility
-                if (selectedColor === '#d9ba9e') {
-                    $('#girl-attire').attr('src', '<?php echo base_url('public/assets/img/girl_attire_nude.png'); ?>');
-                } else if (selectedColor === '#90a680') {
-                    $('#girl-attire').attr('src', '<?php echo base_url('public/assets/img/girl_attire_green.png'); ?>');
-                } else {
-                    $('#girl-attire').attr('src', '<?php echo base_url('public/assets/img/girl_attire_nude.png'); ?>');
-
-                }
-            });
-
         });
-
     </script>
 </body>
 

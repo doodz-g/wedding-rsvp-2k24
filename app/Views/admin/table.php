@@ -50,8 +50,36 @@
         <div class="row">
             <div class="col-md-2 border-custom padding-custom margin-custom" style="padding:0;">
                 <h3 style="background-color: black;color:white;" class="text-center">Table <span
+                        style="color:red;">Kids</span></h3>
+                <ul class="list-group" style="word-break: break-all;">
+                    <?php
+                    if (!empty($data->users)) {
+                        foreach ($data->users as $c) {
+                            if (isset($c->table_number) && $c->table_number == 11) {
+                                echo '<li class="list-group-item">' . $c->name . '</li>';
+                            }
+                        }
+                    }
+                    ?>
+                    <?php
+                    if (!empty($data->companions)) {
+                        foreach ($data->companions as $c) {
+                            if (isset($c->table_number) && $c->table_number == 11) {
+                                echo '<li class="list-group-item">' . $c->name . '</li>';
+                            }
+                        }
+                    }
+                    ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-2 border-custom padding-custom margin-custom" style="padding:0;">
+                <h3 style="background-color: black;color:white;" class="text-center">Table <span
                         style="color:red;">1</span></h3>
-                <ul class="list-group">
+                <ul class="list-group" style="word-break: break-all;">
                     <?php
                     if (!empty($data->users)) {
                         foreach ($data->users as $c) {
@@ -75,7 +103,7 @@
             <div class="col-md-2 border-custom padding-custom margin-custom" style="padding:0;">
                 <h3 style="background-color: black;color:white;" class="text-center">Table <span
                         style="color:red;">2</span></h3>
-                <ul class="list-group">
+                <ul class="list-group" style="word-break: break-all;">
                     <?php
                     if (!empty($data->users)) {
                         foreach ($data->users as $c) {
@@ -99,7 +127,7 @@
             <div class="col-md-2 border-custom padding-custom margin-custom" style="padding:0;">
                 <h3 style="background-color: black;color:white;" class="text-center">Table <span
                         style="color:red;">3</span></h3>
-                <ul class="list-group">
+                <ul class="list-group" style="word-break: break-all;">
                     <?php
                     if (!empty($data->users)) {
                         foreach ($data->users as $c) {
@@ -123,7 +151,7 @@
             <div class="col-md-2 border-custom padding-custom margin-custom" style="padding:0;">
                 <h3 style="background-color: black;color:white;" class="text-center">Table <span
                         style="color:red;">4</span></h3>
-                <ul class="list-group">
+                <ul class="list-group" style="word-break: break-all;">
                     <?php
                     if (!empty($data->users)) {
                         foreach ($data->users as $c) {
@@ -147,7 +175,7 @@
             <div class="col-md-2 border-custom padding-custom margin-custom" style="padding:0;">
                 <h3 style="background-color: black;color:white;" class="text-center">Table <span
                         style="color:red;">5</span></h3>
-                <ul class="list-group">
+                <ul class="list-group" style="word-break: break-all;">
                     <?php
                     if (!empty($data->users)) {
                         foreach ($data->users as $c) {
@@ -173,7 +201,7 @@
             <div class="col-md-2 border-custom padding-custom margin-custom" style="padding:0;">
                 <h3 style="background-color: black;color:white;" class="text-center">Table <span
                         style="color:red;">6</span></h3>
-                <ul class="list-group">
+                <ul class="list-group" style="word-break: break-all;">
                     <?php
                     if (!empty($data->users)) {
                         foreach ($data->users as $c) {
@@ -197,7 +225,7 @@
             <div class="col-md-2 border-custom padding-custom margin-custom" style="padding:0;">
                 <h3 style="background-color: black;color:white;" class="text-center">Table <span
                         style="color:red;">7</span></h3>
-                <ul class="list-group">
+                <ul class="list-group" style="word-break: break-all;">
                     <?php
                     if (!empty($data->users)) {
                         foreach ($data->users as $c) {
@@ -221,7 +249,7 @@
             <div class="col-md-2 border-custom padding-custom margin-custom" style="padding:0;">
                 <h3 style="background-color: black;color:white;" class="text-center">Table <span style="color:red;">8
                 </h3>
-                <ul class="list-group">
+                <ul class="list-group" style="word-break: break-all;">
                     <?php
                     if (!empty($data->users)) {
                         foreach ($data->users as $c) {
@@ -245,7 +273,7 @@
             <div class="col-md-2 border-custom padding-custom margin-custom" style="padding:0;">
                 <h3 style="background-color: black;color:white;" class="text-center">Table <span
                         style="color:red;">9</span></h3>
-                <ul class="list-group">
+                <ul class="list-group" style="word-break: break-all;">
                     <?php
                     if (!empty($data->users)) {
                         foreach ($data->users as $c) {
@@ -269,7 +297,7 @@
             <div class="col-md-2 border-custom padding-custom margin-custom" style="padding:0;">
                 <h3 style="background-color: black;color:white;" class="text-center">Table <span
                         style="color:red;">10</span></h3>
-                <ul class="list-group">
+                <ul class="list-group" style="word-break: break-all;">
                     <?php
                     if (!empty($data->users)) {
                         foreach ($data->users as $c) {

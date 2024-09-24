@@ -31,22 +31,37 @@ class LoginController extends BaseController
 
         $user = $model->getUserByUsername($username);
 
+        $recaptchaResponse = $this->request->getPost('g-recaptcha-response');
+        $secretKey = '6LcujTAUAAAAAJxVcoFAYSVFlzKcA6HtIZCSOrz5';
+        $apiUrl = 'https://www.google.com/recaptcha/api/siteverify';
+
+        $response = file_get_contents($apiUrl . '?secret=' . $secretKey . '&response=' . $recaptchaResponse);
+        $responseData = json_decode($response);
+
         if ($user) {
             // Verify the password
             if (password_verify($password, $user['password'])) {
-                $session->set([
-                    'username' => $user['username'],
-                    'logged_in' => true
-                ]);
-                return redirect()->to('/dashboard');
+                if ($responseData->success) {
+                    $session->set([
+                        'username' => $user['username'],
+                        'usertype' => $user['usertype'],
+                        'logged_in' => true
+                    ]);
+                    return redirect()->to('/dashboard');
+                } else {
+                    $session->setFlashdata('error', 'Don’t overlook the captcha!!!!');
+                    return view('admin/login');
+                }
             } else {
-                $session->setFlashdata('error', 'Invalid password');
+                $session->setFlashdata('error', 'Password does not match our records!!!!');
                 return view('admin/login');
             }
+
         } else {
-            $session->setFlashdata('error', 'Username not found');
+            $session->setFlashdata('error', 'That username is not registered!!!!');
             return view('admin/login');
         }
+
     }
 
     public function logout()

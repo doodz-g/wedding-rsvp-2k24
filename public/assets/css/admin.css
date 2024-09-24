@@ -3,7 +3,12 @@ body {
     font-size: 13px;
     z-index: 1;
 }
-
+.toast{
+    min-width: 90%;
+}
+.toast-message{
+    text-align: center;
+}
 .bg-success {
     background-color: #c2e9cb !important;
 }
@@ -16,7 +21,9 @@ ul.horizontal-list {
     padding: 0;
     margin: 0;
 }
-
+.btn-primary{
+    border: 1px solid black !important;
+}
 ul.horizontal-list li {
     margin-right: 15px;
     /* Adjust spacing between items */
@@ -33,14 +40,9 @@ ul.horizontal-list li a {
     /* Adjust padding for better appearance */
 }
 
-.toast-custom {
-    position: absolute !important;
-    top: 286px !important;
-    /* Adjust as needed */
-    left: 0;
-    /* Adjust as needed */
-    margin-left: 10px;
-    /* Adjust as needed */
+#toast-container {
+    top: 50px; /* Custom top offset */
+    right: 20px; /* Custom right offset */;
 }
 
 .notification-container {
@@ -277,7 +279,21 @@ table {
     width: 100%;
     height: 100%;
 }
-
+.fc-red{
+    color:red !important;
+}
+.fc-dg{
+    color:darkgreen !important;
+}
+.fc-black{
+    color:black !important;
+}
+.bg-color{
+    background-color: red !important;
+}
+.bg-black{
+    background-color: black !important;
+}
 .table-spinner {
     font-size: 50px;
     position: absolute;
@@ -313,6 +329,18 @@ table {
     font-size: 16px;
     color: #333;
 }
+
+.bg-login {
+    background-image: url('../img/cover_bg.jpg'); /* Replace with your image path */
+    background-size: cover;      /* Cover the entire div */
+    background-position: 50% 23%;  /* Center the image */
+    height: 300px;               /* Set a height for the div */
+    color: white;                /* Text color for better contrast */
+    display: flex;               /* Optional: for centering content */
+    justify-content: center;      /* Optional: horizontally center content */
+    align-items: center;          /* Optional: vertically center content */
+}
+
 table.fold-table {
     >tbody {
         >tr.view {
@@ -389,5 +417,14 @@ table.fold-table {
         /* Fixed positioning */
         box-sizing: border-box;
         /* Include padding and border in width */
+    }
+    
+}
+@media (max-width: 768px) {
+    .hide-on-mobile {
+        display: none !important;
+    }
+    .rc-anchor-normal{
+        width: 335px !important;
     }
 }

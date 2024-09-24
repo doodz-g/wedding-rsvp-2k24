@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\CompanionsModel;
+use App\Models\SettingsModel;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -16,6 +17,10 @@ class AdminController extends BaseController
 
             $userModel = model(UserModel::class);
             $companionsModel = model(name: CompanionsModel::class);
+            $settingsModel = model(name: SettingsModel::class);
+            $getSettingsTableAdult = $settingsModel->where('id','1')->first();
+            $getSettingsTableKids = $settingsModel->where('id','3')->first();
+            $getSettingsMaxGuest = $settingsModel->where('id','2')->first();
 
             // Get the current page number from the query string or default to 1
             $currentPage = $this->request->getVar('page') ?? 1;
@@ -46,35 +51,13 @@ class AdminController extends BaseController
 
             // Fetch totals from models
             $totalGuest = $userModel->get_totals();
-            $totalTableSlotsFor1 = $userModel->get_table_slots_1();
-            $totalTableSlotsFor2 = $userModel->get_table_slots_2();
-            $totalTableSlotsFor3 = $userModel->get_table_slots_3();
-            $totalTableSlotsFor4 = $userModel->get_table_slots_4();
-            $totalTableSlotsFor5 = $userModel->get_table_slots_5();
-            $totalTableSlotsFor6 = $userModel->get_table_slots_6();
-            $totalTableSlotsFor7 = $userModel->get_table_slots_7();
-            $totalTableSlotsFor8 = $userModel->get_table_slots_8();
-            $totalTableSlotsFor9 = $userModel->get_table_slots_9();
-            $totalTableSlotsFor10 = $userModel->get_table_slots_10();
-
-            $total_for_1 = $totalTableSlotsFor1['total_table_slots_1'];
-            $total_for_2 = $totalTableSlotsFor2['total_table_slots_2'];
-            $total_for_3 = $totalTableSlotsFor3['total_table_slots_3'];
-            $total_for_4 = $totalTableSlotsFor4['total_table_slots_4'];
-            $total_for_5 = $totalTableSlotsFor5['total_table_slots_5'];
-            $total_for_6 = $totalTableSlotsFor6['total_table_slots_6'];
-            $total_for_7 = $totalTableSlotsFor7['total_table_slots_7'];
-            $total_for_8 = $totalTableSlotsFor8['total_table_slots_8'];
-            $total_for_9 = $totalTableSlotsFor9['total_table_slots_9'];
-            $total_for_10 = $totalTableSlotsFor10['total_table_slots_10'];
-
             $totalCompanions = $companionsModel->get_totals();
             $tgWillAttend = $userModel->get_will_attend();
             $totalGuestWillAttend = $tgWillAttend['total_users_will_attend'] ?? 0;
             // Access numeric values from the results
             $totalGuestCount = $totalGuest['total_users'] ?? 0;
             $totalCompanionCount = $totalCompanions['total_companions'] ?? 0;
-            $maxCap = 120;
+            $maxCap = $getSettingsMaxGuest['quantity'];
             $totalGNow = (int) $totalGuestCount + (int) $totalCompanionCount ?? 0;
             $gPercentage = ($totalGNow / $maxCap) * 100 ?? 0;
             $gWPercentage = ($totalGuestWillAttend / $maxCap) * 100 ?? 0;
@@ -86,22 +69,22 @@ class AdminController extends BaseController
                     'totalPages' => $pager->getPageCount(),
                     'totalUsers' => $totalUsers,
                     'currentPageUsers' => $currentPageUsers,
-
                 ],
                 'guest_percentage' => ceil($gPercentage),
                 'maxCap' => $maxCap,
                 'totalGuestWillAttend' => ceil($gWPercentage),
                 'totalGNow' => $totalGNow,
-                'total_for_1' => isset($total_for_1) ? 10 - (int) $total_for_1 : 10,
-                'total_for_2' => isset($total_for_2) ? 10 - (int) $total_for_2 : 10,
-                'total_for_3' => isset($total_for_3) ? 10 - (int) $total_for_3 : 10,
-                'total_for_4' => isset($total_for_4) ? 10 - (int) $total_for_4 : 10,
-                'total_for_5' => isset($total_for_5) ? 10 - (int) $total_for_5 : 10,
-                'total_for_6' => isset($total_for_6) ? 10 - (int) $total_for_6 : 10,
-                'total_for_7' => isset($total_for_7) ? 10 - (int) $total_for_7 : 10,
-                'total_for_8' => isset($total_for_8) ? 10 - (int) $total_for_8 : 10,
-                'total_for_9' => isset($total_for_9) ? 10 - (int) $total_for_9 : 10,
-                'total_for_10' => isset($total_for_10) ? 10 - (int) $total_for_10 : 10,
+                'total_for_1' => ($userModel->getRemSlotsForEachTable(1)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(1) : $getSettingsTableAdult['quantity'],
+                'total_for_2' => ($userModel->getRemSlotsForEachTable(2)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(2) : $getSettingsTableAdult['quantity'] ,
+                'total_for_3' => ($userModel->getRemSlotsForEachTable(3)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(3) : $getSettingsTableAdult['quantity'] ,
+                'total_for_4' => ($userModel->getRemSlotsForEachTable(4)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(4) : $getSettingsTableAdult['quantity'] ,
+                'total_for_5' => ($userModel->getRemSlotsForEachTable(5)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(5) : $getSettingsTableAdult['quantity'] ,
+                'total_for_6' => ($userModel->getRemSlotsForEachTable(6)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(6) : $getSettingsTableAdult['quantity'] ,
+                'total_for_7' => ($userModel->getRemSlotsForEachTable(7)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(7) : $getSettingsTableAdult['quantity'] ,
+                'total_for_8' => ($userModel->getRemSlotsForEachTable(8)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(8) : $getSettingsTableAdult['quantity'] ,
+                'total_for_9' => ($userModel->getRemSlotsForEachTable(9)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(9) : $getSettingsTableAdult['quantity'] ,
+                'total_for_10' => ($userModel->getRemSlotsForEachTable(10)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(10) : $getSettingsTableAdult['quantity'] ,
+                'total_for_11' => ($userModel->getRemSlotsForEachTable(11)) ? $getSettingsTableKids['quantity'] - (int) $userModel->getRemSlotsForEachTable(11) : $getSettingsTableKids['quantity'],
             ];
 
             $dataObject = json_decode(json_encode($data));
@@ -142,41 +125,9 @@ class AdminController extends BaseController
 
             $userModel = model(UserModel::class);
             $companionsModel = model(name: CompanionsModel::class);
-
-            // Build the query with search term
             $allUsers = $userModel->findAll();
-            // Get total number of users (considering the search term)
-            $totalUsers = $userModel->countAll();
-
-            // Number of users on the current page
-
             $get_companions = $companionsModel->findAll();
-
-            // Fetch totals from models
-            //$allUsers = $userModel->get_users_and_companions();
-
             $totalGuest = $userModel->get_totals();
-            $totalTableSlotsFor1 = $userModel->get_table_slots_1();
-            $totalTableSlotsFor2 = $userModel->get_table_slots_2();
-            $totalTableSlotsFor3 = $userModel->get_table_slots_3();
-            $totalTableSlotsFor4 = $userModel->get_table_slots_4();
-            $totalTableSlotsFor5 = $userModel->get_table_slots_5();
-            $totalTableSlotsFor6 = $userModel->get_table_slots_6();
-            $totalTableSlotsFor7 = $userModel->get_table_slots_7();
-            $totalTableSlotsFor8 = $userModel->get_table_slots_8();
-            $totalTableSlotsFor9 = $userModel->get_table_slots_9();
-            $totalTableSlotsFor10 = $userModel->get_table_slots_10();
-
-            $total_for_1 = $totalTableSlotsFor1['total_table_slots_1'];
-            $total_for_2 = $totalTableSlotsFor2['total_table_slots_2'];
-            $total_for_3 = $totalTableSlotsFor3['total_table_slots_3'];
-            $total_for_4 = $totalTableSlotsFor4['total_table_slots_4'];
-            $total_for_5 = $totalTableSlotsFor5['total_table_slots_5'];
-            $total_for_6 = $totalTableSlotsFor6['total_table_slots_6'];
-            $total_for_7 = $totalTableSlotsFor7['total_table_slots_7'];
-            $total_for_8 = $totalTableSlotsFor8['total_table_slots_8'];
-            $total_for_9 = $totalTableSlotsFor9['total_table_slots_9'];
-            $total_for_10 = $totalTableSlotsFor10['total_table_slots_10'];
             $totalCompanions = $companionsModel->get_totals();
             // Access numeric values from the results
             $totalGuestCount = $totalGuest['total_users'] ?? 0;
@@ -186,16 +137,6 @@ class AdminController extends BaseController
                 'users' => $allUsers,
                 'companions' => $get_companions,
                 'total_guests' => $totalGuestCount + $totalCompanionCount,
-                'total_for_1' => isset($total_for_1) ? 10 - (int) $total_for_1 : 10,
-                'total_for_2' => isset($total_for_2) ? 10 - (int) $total_for_2 : 10,
-                'total_for_3' => isset($total_for_3) ? 10 - (int) $total_for_3 : 10,
-                'total_for_4' => isset($total_for_4) ? 10 - (int) $total_for_4 : 10,
-                'total_for_5' => isset($total_for_5) ? 10 - (int) $total_for_5 : 10,
-                'total_for_6' => isset($total_for_6) ? 10 - (int) $total_for_6 : 10,
-                'total_for_7' => isset($total_for_7) ? 10 - (int) $total_for_7 : 10,
-                'total_for_8' => isset($total_for_8) ? 10 - (int) $total_for_8 : 10,
-                'total_for_9' => isset($total_for_9) ? 10 - (int) $total_for_9 : 10,
-                'total_for_10' => isset($total_for_10) ? 10 - (int) $total_for_10 : 10,
             ];
             $dataObject = json_decode(json_encode($data));
             return view('admin/table', ['data' => $dataObject]);
@@ -209,7 +150,9 @@ class AdminController extends BaseController
     public function getUsers()
     {
         $userModel = model(UserModel::class);
-
+        $settingsModel = model(SettingsModel::class);
+        $getSettingsTableAdult = $settingsModel->where('id','1')->first();
+        $getSettingsTableKids = $settingsModel->where('id','3')->first();
         // Get the current page number from the query string or default to 1
         $currentPage = $this->request->getVar('page') ?? 1;
 
@@ -234,29 +177,6 @@ class AdminController extends BaseController
         // Get total number of users (considering the search term)
         $totalUsers = $builder->countAll();
         // Number of users on the current page
-        // Fetch totals from models
-        $totalGuest = $userModel->get_totals();
-        $totalTableSlotsFor1 = $userModel->get_table_slots_1();
-        $totalTableSlotsFor2 = $userModel->get_table_slots_2();
-        $totalTableSlotsFor3 = $userModel->get_table_slots_3();
-        $totalTableSlotsFor4 = $userModel->get_table_slots_4();
-        $totalTableSlotsFor5 = $userModel->get_table_slots_5();
-        $totalTableSlotsFor6 = $userModel->get_table_slots_6();
-        $totalTableSlotsFor7 = $userModel->get_table_slots_7();
-        $totalTableSlotsFor8 = $userModel->get_table_slots_8();
-        $totalTableSlotsFor9 = $userModel->get_table_slots_9();
-        $totalTableSlotsFor10 = $userModel->get_table_slots_10();
-
-        $total_for_1 = $totalTableSlotsFor1['total_table_slots_1'];
-        $total_for_2 = $totalTableSlotsFor2['total_table_slots_2'];
-        $total_for_3 = $totalTableSlotsFor3['total_table_slots_3'];
-        $total_for_4 = $totalTableSlotsFor4['total_table_slots_4'];
-        $total_for_5 = $totalTableSlotsFor5['total_table_slots_5'];
-        $total_for_6 = $totalTableSlotsFor6['total_table_slots_6'];
-        $total_for_7 = $totalTableSlotsFor7['total_table_slots_7'];
-        $total_for_8 = $totalTableSlotsFor8['total_table_slots_8'];
-        $total_for_9 = $totalTableSlotsFor9['total_table_slots_9'];
-        $total_for_10 = $totalTableSlotsFor10['total_table_slots_10'];
         $currentPageUsers = count($allUsers);
         // Prepare response data
         $data = [
@@ -267,16 +187,17 @@ class AdminController extends BaseController
                 'totalUsers' => $totalUsers,
                 'currentPageUsers' => $currentPageUsers
             ],
-            'total_for_1' => isset($total_for_1) ? 10 - (int) $total_for_1 : 10,
-            'total_for_2' => isset($total_for_2) ? 10 - (int) $total_for_2 : 10,
-            'total_for_3' => isset($total_for_3) ? 10 - (int) $total_for_3 : 10,
-            'total_for_4' => isset($total_for_4) ? 10 - (int) $total_for_4 : 10,
-            'total_for_5' => isset($total_for_5) ? 10 - (int) $total_for_5 : 10,
-            'total_for_6' => isset($total_for_6) ? 10 - (int) $total_for_6 : 10,
-            'total_for_7' => isset($total_for_7) ? 10 - (int) $total_for_7 : 10,
-            'total_for_8' => isset($total_for_8) ? 10 - (int) $total_for_8 : 10,
-            'total_for_9' => isset($total_for_9) ? 10 - (int) $total_for_9 : 10,
-            'total_for_10' => isset($total_for_10) ? 10 - (int) $total_for_10 : 10,
+            'total_for_1' => ($userModel->getRemSlotsForEachTable(1)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(1) : $getSettingsTableAdult['quantity'],
+            'total_for_2' => ($userModel->getRemSlotsForEachTable(2)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(2) : $getSettingsTableAdult['quantity'] ,
+            'total_for_3' => ($userModel->getRemSlotsForEachTable(3)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(3) : $getSettingsTableAdult['quantity'] ,
+            'total_for_4' => ($userModel->getRemSlotsForEachTable(4)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(4) : $getSettingsTableAdult['quantity'] ,
+            'total_for_5' => ($userModel->getRemSlotsForEachTable(5)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(5) : $getSettingsTableAdult['quantity'] ,
+            'total_for_6' => ($userModel->getRemSlotsForEachTable(6)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(6) : $getSettingsTableAdult['quantity'] ,
+            'total_for_7' => ($userModel->getRemSlotsForEachTable(7)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(7) : $getSettingsTableAdult['quantity'] ,
+            'total_for_8' => ($userModel->getRemSlotsForEachTable(8)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(8) : $getSettingsTableAdult['quantity'] ,
+            'total_for_9' => ($userModel->getRemSlotsForEachTable(9)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(9) : $getSettingsTableAdult['quantity'] ,
+            'total_for_10' => ($userModel->getRemSlotsForEachTable(10)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(10) : $getSettingsTableAdult['quantity'] ,
+            'total_for_11' => ($userModel->getRemSlotsForEachTable(11)) ? $getSettingsTableKids['quantity'] - (int) $userModel->getRemSlotsForEachTable(11) : $getSettingsTableKids['quantity'],
         ];
 
         // Return JSON response
@@ -297,7 +218,6 @@ class AdminController extends BaseController
                 foreach ($companions as $companion => $c) {
                     $companionsModel->delete($c->id);
                 }
-
                 return $this->response->setJSON(['status' => 'success', 'message' => 'Record deleted successfully.']);
             } else {
                 return $this->response->setJSON(['status' => 'warning', 'message' => 'Record not found.']);
@@ -312,6 +232,9 @@ class AdminController extends BaseController
         $userModel = model(UserModel::class);
         $companionModel = model(CompanionsModel::class);
         $checker = 0;
+        if ($guest_id) {
+            $checker++;
+        }
         if ($companion_names) {
             // Iterate over each companion provided in the POST request
             foreach ($companion_names as $companion) {
@@ -322,7 +245,8 @@ class AdminController extends BaseController
                 }
             }
         }
-        $rem_slots = $userModel->getRemSlots($table_number);
+
+        $rem_slots = $userModel->getRemSlotsForKidsTable($table_number);
 
         if (empty($table_number)) {
             return $this->response->setJSON(['status' => 'error', 'message' => 'Table number is missing.']);
@@ -363,6 +287,41 @@ class AdminController extends BaseController
             }
         }
     }
+    
+    public function getSettings(){
+        $settingsModel = model(SettingsModel::class);
+        // Fetch companions where user_id matches
+        $getSettings = $settingsModel->findAll();
+
+        $responseData = [
+            'settings' => $getSettings
+        ];
+
+        // Return the response as JSON
+        return $this->response->setJSON($responseData);
+    }
+    public function updateSettings(){
+        $settings = $this->request->getPost('setting');
+        $settingsModel = model(SettingsModel::class);
+        if($settings){
+            foreach($settings as $index => $s){
+                $updateResult=$settingsModel->set('quantity', $s)
+                ->where('id', $index)
+                ->update(); 
+            }
+            if($updateResult){
+                return $this->response->setJSON(['status' => 'success', 'message' => 'Settings updated.']);
+            }else{
+                return $this->response->setJSON(['status' => 'success', 'message' => 'Settings update failed.']);
+            }
+           
+        }else{
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Setting payload unavailable']);
+        }
+        // Return the response as JSON
+
+    }
+
 
     public function deleteGuestCompanion()
     {
@@ -421,6 +380,7 @@ class AdminController extends BaseController
         if ($this->request->isAJAX() && $this->request->getMethod() === 'POST') {
             $name = $this->request->getPost('name');
             $companion_name = $this->request->getPost('companion_name');
+            $table_kid = $this->request->getPost('kid');
 
             // You can now validate and save the data
             $userModel = new UserModel();
@@ -439,6 +399,7 @@ class AdminController extends BaseController
                     foreach ($companion_name as $c) {
                         $dataCompanion = [
                             'name' => $c,
+                            'table_number' => $table_kid,
                             'user_id' => $latestID
 
                         ];
