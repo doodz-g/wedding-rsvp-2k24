@@ -102,8 +102,19 @@ class LoginController extends BaseController
 
     public function logout()
     {
-        session()->destroy();
-        return view('admin/login');
+        $sessionAdmin = \Config\Services::session(); // Get the admin session
+        $config = new \Config\SessionTwo(); // Get the configuration for the second session
+        $sessionSuperAdmin = \Config\Services::session($config); // 
+        if ($sessionAdmin->has('logged_in') && $sessionAdmin->get('logged_in') == true){
+            $sessionAdmin->destroy();
+            return view('admin/login');
+        }
+        
+        if ($sessionSuperAdmin->has('logged_in') && $sessionSuperAdmin->get('logged_in') == true){
+            $sessionSuperAdmin->destroy(); 
+            return view('admin/login');
+        }
+      
     }
 
 }
