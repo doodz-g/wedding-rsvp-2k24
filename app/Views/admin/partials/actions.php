@@ -199,13 +199,13 @@
                             companionContainer.html('');
                             var ctr = 0;
                             $.each(response.user, function (index, item) {
-                                var tb_num = (item.table_number !== null ? item.table_number == 11 ? 'Kids Table' : 'Table #' + item.table_number : '');
+                                var tb_num = (item.table_number !== null ? item.table_number == 11 ? 'Kids Table' : item.table_number == 12 ? 'Sponsors Table' : 'Table #' + item.table_number : '');
                                 companionContainer.append('<div class="row form-check"><input type="checkbox" class="form-check-input c-box" value="' + (item.id ? item.id : '') + '" name="guest_id"><label class="form-check-label" for="guest">' + item.name + '<span style="float:right;font-weight:600;">(Main Guest)</span></label>' +
                                     '<span style="float:right;font-weight:600;">' + tb_num + '</span></div>');
                                 ctr++;
                             });
                             $.each(response.companions, function (index, item) {
-                                var tb_num = (item.table_number !== null ? item.table_number == 11 ? 'Kids Table' : 'Table #' + item.table_number : '');
+                                var tb_num = (item.table_number !== null ? item.table_number == 11 ? 'Kids Table' : item.table_number == 12 ? 'Sponsors Table' : 'Table #' + item.table_number : '');
                                 companionContainer.append('<div class="row form-check"><input type="checkbox" class="form-check-input c-box" value="' + (item.name ? item.name : '') + '" name="companion_name[' + ctr + '][name]"><label class="form-check-label" for="guest">' + item.name + '</label>' +
                                     '<input type="hidden" value="' + (item.id ? item.id : '') + '" name="companion_name[' + ctr + '][id]" style="width: 90%; height: 38px; border: 2px solid #ced4da;"><span style="float:right;font-weight:600;">' + tb_num + '</span></div>');
                                 ctr++;
@@ -428,7 +428,7 @@
                     console.log(response2);
                     var html = '';
                     $.each(response2.users, function (index, item) {
-                        var tb_num = (item.table_number !== null ? item.table_number == 11 ? 'Kids' : item.table_number : 'N/A');
+                        var tb_num = (item.table_number !== null ? item.table_number == 11 ? 'Kids' : (item.table_number == 12 ? 'Sponsors' : item.table_number) : 'N/A');
                         html += '<tr class="' + (item.qr_code_status == 1 ? 'bg-success' : '') + '" data-id="' + item.id + '">' +
                             '<td><button class="fc-red btn-expand btn btn-xs"><i class="fa fa-expand"></button></td>' +
                             '<td>' + item.invite_id + '</td>' +
@@ -484,9 +484,9 @@
 
                     var tableNum = '';
                     tableNum = '<option value="0" disabled="" selected="">Select Table #</option>';
-                    for (var ctr = 1; ctr <= 11; ctr++) {
+                    for (var ctr = 1; ctr <= 12; ctr++) {
                         var remS = parseInt(response2['total_for_' + ctr], 10);
-                        tableNum += '<option value="' + ctr + '" ' + (remS == 0 ? 'disabled' : '') + ' style="' + (remS == 0 ? 'color:red !important;' : '') + '">' + (ctr == 11 ? 'Kids' : ctr) + '(Slots: ' + (remS == 0 ? 'Full' : remS) + ')</option>';
+                        tableNum += '<option value="' + ctr + '" ' + (remS == 0 ? 'disabled' : '') + ' style="' + (remS == 0 ? 'color:red !important;' : '') + '">' + (ctr == 11 ? 'Kids' : (ctr==12 ? 'Sponsors': ctr)) + '(Slots: ' + (remS == 0 ? 'Full' : remS) + ')</option>';
                     }
                     $("#table_number").html(tableNum);
                     $('.hint-text').html(stats);

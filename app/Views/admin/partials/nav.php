@@ -14,13 +14,13 @@
                     <a class="nav-link" href="<?php echo base_url('admin/table')?>">Table Management</a>
                 </li>
             </ul>
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mabuhay, <?= session()->get('username')?>!</a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item <?php echo session()->get('usertype') == 'admin' ? 'd-none':''?>" type ="button" id="btn-modal-settings" data-toggle="modal">Settings</a></li>
-                        <li><a class="dropdown-item" href="<?php echo base_url('logout'); ?>" class="btn btn-secondary" data-target="#" style="border-radius:50px;background: transparent;border: none;">Log out</a></li>
-                    </ul>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mabuhay, <?= session()->get('username')?>!</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item <?php echo session()->get('usertype') == 'admin' ? 'd-none' : '' ?>" href="#" id="btn-modal-settings" data-toggle="modal">Settings</a>
+                        <a class="dropdown-item" href="<?php echo base_url('logout'); ?>" style="border-radius:50px;background: transparent;border: none;">Log out</a>
+                    </div>
                 </li>
             </ul>
         </div> 

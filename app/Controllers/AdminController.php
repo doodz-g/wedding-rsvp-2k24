@@ -20,6 +20,7 @@ class AdminController extends BaseController
             $settingsModel = model(name: SettingsModel::class);
             $getSettingsTableAdult = $settingsModel->where('id','1')->first();
             $getSettingsTableKids = $settingsModel->where('id','3')->first();
+            $getSettingsTableSponsors= $settingsModel->where('id','4')->first();
             $getSettingsMaxGuest = $settingsModel->where('id','2')->first();
 
             // Get the current page number from the query string or default to 1
@@ -85,6 +86,7 @@ class AdminController extends BaseController
                 'total_for_9' => ($userModel->getRemSlotsForEachTable(9)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(9) : $getSettingsTableAdult['quantity'] ,
                 'total_for_10' => ($userModel->getRemSlotsForEachTable(10)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(10) : $getSettingsTableAdult['quantity'] ,
                 'total_for_11' => ($userModel->getRemSlotsForEachTable(11)) ? $getSettingsTableKids['quantity'] - (int) $userModel->getRemSlotsForEachTable(11) : $getSettingsTableKids['quantity'],
+                'total_for_12' => ($userModel->getRemSlotsForEachTable(12)) ? $getSettingsTableSponsors['quantity'] - (int) $userModel->getRemSlotsForEachTable(12) : $getSettingsTableSponsors['quantity'],  
             ];
 
             $dataObject = json_decode(json_encode($data));
@@ -153,6 +155,7 @@ class AdminController extends BaseController
         $settingsModel = model(SettingsModel::class);
         $getSettingsTableAdult = $settingsModel->where('id','1')->first();
         $getSettingsTableKids = $settingsModel->where('id','3')->first();
+        $getSettingsTableSponsors= $settingsModel->where('id','4')->first();
         // Get the current page number from the query string or default to 1
         $currentPage = $this->request->getVar('page') ?? 1;
 
@@ -198,6 +201,7 @@ class AdminController extends BaseController
             'total_for_9' => ($userModel->getRemSlotsForEachTable(9)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(9) : $getSettingsTableAdult['quantity'] ,
             'total_for_10' => ($userModel->getRemSlotsForEachTable(10)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(10) : $getSettingsTableAdult['quantity'] ,
             'total_for_11' => ($userModel->getRemSlotsForEachTable(11)) ? $getSettingsTableKids['quantity'] - (int) $userModel->getRemSlotsForEachTable(11) : $getSettingsTableKids['quantity'],
+            'total_for_12' => ($userModel->getRemSlotsForEachTable(12)) ? $getSettingsTableSponsors['quantity'] - (int) $userModel->getRemSlotsForEachTable(12) : $getSettingsTableSponsors['quantity'],  
         ];
 
         // Return JSON response
@@ -231,9 +235,18 @@ class AdminController extends BaseController
         $companion_names = $this->request->getPost('companion_name');
         $userModel = model(UserModel::class);
         $companionModel = model(CompanionsModel::class);
-        $checker = 0;
+        $settingsModel = model(SettingsModel::class);
+        $getSettingsTableAdult = $settingsModel->where('id','1')->first();
+        $getSettingsTableKids = $settingsModel->where('id','3')->first();
+        $getSettingsTableSponsors= $settingsModel->where('id','4')->first();
+        $newAssignees = 0;
+
+        if (empty($table_number)) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Table number is missing.']);
+        }
+
         if ($guest_id) {
-            $checker++;
+            $newAssignees++;
         }
         if ($companion_names) {
             // Iterate over each companion provided in the POST request
@@ -241,17 +254,20 @@ class AdminController extends BaseController
                 $companion_id = $companion['id'] ?? null;
                 $companion_name = $companion['name'] ?? null;
                 if (!empty($companion_id) && !empty($companion_name)) {
-                    $checker++;
+                    $newAssignees++;
                 }
             }
         }
-
-        $rem_slots = $userModel->getRemSlotsForKidsTable($table_number);
-
-        if (empty($table_number)) {
-            return $this->response->setJSON(['status' => 'error', 'message' => 'Table number is missing.']);
+       
+        if($table_number == 11){
+            $rem_slots = $getSettingsTableKids['quantity'] - (int) $userModel->getRemSlotsForEachTable(11);
+        }else if($table_number == 12){
+            $rem_slots = $getSettingsTableSponsors['quantity'] - (int) $userModel->getRemSlotsForEachTable(12);
+        }else{
+            $rem_slots = $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable($table_number);
         }
-        if ($checker <= $rem_slots) {
+       
+        if ($newAssignees <= $rem_slots) {
             if ($guest_id) {
                 $userModel->find($guest_id);
                 if ($userModel->update($guest_id, ['table_number' => $table_number])) {

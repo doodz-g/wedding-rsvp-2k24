@@ -102,10 +102,9 @@
                         </div>
                         <select class="form-control" id="table_number" name="table_number">
                             <option disabled selected>Select Table #</option>
-                            <?php for ($x = 1; $x <= 11; $x++) { ?>
+                            <?php for ($x = 1; $x <= 12; $x++) { ?>
                                 <option value="<?php echo $x; ?>" <?php echo $data->{"total_for_" . $x} == 0 ? 'disabled' : ''; ?>>
-                                    <?php echo ($x == 11 ? 'Kids': $x); ?> (Slots:
-                                    <?php echo $data->{"total_for_" . $x} == 0 ? 'Full' : $data->{"total_for_" . $x}; ?>)
+                                    <?php echo ($x == 11 ? 'Kids': ($x == 12 ? 'Sponsors' : $x)); ?> (Slots:<?php echo $data->{"total_for_" . $x} == 0 ? 'Full' : $data->{"total_for_" . $x}; ?>)
                                 </option>
                             <?php } ?>
                         </select>

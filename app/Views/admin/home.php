@@ -95,7 +95,7 @@
                                         <td><?php echo $c->name ?></td>
                                         <td><?php echo $c->date ?></td>
                                         <td><?php echo ($c->will_attend === NULL) ? 'Invitation not yet sent ' : (($c->will_attend == 'Yes') ? 'Will attend' : 'Will not attend') ?>
-                                        <td><?php echo ($c->table_number != NULL ? $c->table_number == 11 ? 'Kids' : $c->table_number : 'N/A') ?>
+                                        <td><?php echo ($c->table_number != NULL ? $c->table_number == 11 ? 'Kids' : ($c->table_number == 12 ? 'Sponsors' : $c->table_number): 'N/A') ?>
                                         </td>
                                         </td>
                                         <td style="width:158px;" class="<?php echo session()->get('usertype') == 'admin' ? 'd-none':''?>">
@@ -163,7 +163,6 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/accordion@3.0.2/src/accordion.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts@latest"></script>
     <!-- Template Javascript -->
