@@ -16,9 +16,9 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mabuhay, <?= session()->get('username')?>!</a>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mabuhay, <?=  esc($username) ?>!</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item <?php echo session()->get('usertype') == 'admin' ? 'd-none' : '' ?>" href="#" id="btn-modal-settings" data-toggle="modal">Settings</a>
+                        <a class="dropdown-item <?php  esc( $usertype )  == 'admin' ? 'd-none' : '' ?>" href="#" id="btn-modal-settings" data-toggle="modal">Settings</a>
                         <a class="dropdown-item" href="<?php echo base_url('logout'); ?>" style="border-radius:50px;background: transparent;border: none;">Log out</a>
                     </div>
                 </li>

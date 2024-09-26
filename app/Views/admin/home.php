@@ -21,7 +21,30 @@
 </head>
 
 <body>
-    <?php echo view('admin/partials/nav'); ?>
+    <?php
+    $sessionAdmin = \Config\Services::session();
+    $config = new \Config\SessionTwo();
+    $sessionSuperAdmin = \Config\Services::session($config);
+
+    // Check if superadmin session data exists
+    if ($sessionSuperAdmin->has('logged_in') && $sessionSuperAdmin->get('logged_in') === true) {
+        $username = $sessionSuperAdmin->get('username');
+        $usertype = $sessionSuperAdmin->get('usertype');
+    } elseif ($sessionAdmin->has('logged_in') && $sessionAdmin->get('logged_in') === true) {
+        // Check for admin session
+        $username = $sessionAdmin->get('username');
+        $usertype = $sessionAdmin->get('usertype');
+    } else {
+        $username = null;
+        $usertype = null;
+    }
+
+    $sessions = [
+        'username' => $username,
+        'usertype' => $usertype
+    ];
+    ?>
+  <?= view('admin/partials/nav', $sessions); ?>
     <div class="container-fluid">
         <div class="container">
             <div class="row charts-container text-center">
@@ -50,7 +73,7 @@
                                         placeholder="Search here.."></li>
                             </ul>
                         </div>
-                        <div class="col-md-7 <?php echo session()->get('usertype') === 'admin' ? 'd-none':'' ?>" style="padding-right:0;">
+                        <div class="col-md-7 <?php esc($usertype) === 'admin' ? 'd-none':'' ?>" style="padding-right:0;">
                                 <ul class="horizontal-list">
                                     <li><a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i>
                                             <span>Export to
@@ -79,7 +102,7 @@
                                 <th>Date Created</th>
                                 <th>RSVP</th>
                                 <th>Table #</th>
-                                <th class="<?php echo session()->get('usertype') == 'admin' ? 'd-none':''?>">Action</th>
+                                <th class="<?php echo esc($usertype) == 'admin' ? 'd-none':''?>">Action</th>
                             </tr>
                         </thead>
                         <tbody id="users-tbody">
@@ -98,7 +121,7 @@
                                         <td><?php echo ($c->table_number != NULL ? $c->table_number == 11 ? 'Kids' : ($c->table_number == 12 ? 'Sponsors' : $c->table_number): 'N/A') ?>
                                         </td>
                                         </td>
-                                        <td style="width:158px;" class="<?php echo session()->get('usertype') == 'admin' ? 'd-none':''?>">
+                                        <td style="width:158px;" class="<?php echo esc($usertype) == 'admin' ? 'd-none':''?>">
                                             <a href="#" type="button" data-id="<?php echo $c->id; ?>"
                                                 data-name="<?php echo $c->name; ?>" class="settings btn-edit-guest-modal"
                                                 title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>
