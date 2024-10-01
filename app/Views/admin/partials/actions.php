@@ -63,6 +63,7 @@
                                 refreshTable();
                             } else {
                                 toastr.error(response.message);
+                                $(".updateButton").text("Save");
                                 $("#edit-user-modal").modal('show');
                             }
 
@@ -225,6 +226,7 @@
                 $(".modal-title").text('Edit Guest[' + name + ']');
                 $("#update_name").val(name);
                 $("#update_user_id").val(user_id);
+                $(".comp_label").removeClass("d-none");
                 $.ajax({
                     url: '<?php echo site_url('admin/companions'); ?>',
                     type: 'POST',
@@ -299,6 +301,28 @@
         // Attach the debounced function to the keyup event
         $(document).on('keyup', '.com_field', debounce(handleTyping, 500)); // 1000ms = 1 second
 
+        $('#toggle-event').change(function(event) {
+            var currentStatus = $(this).prop('checked');
+            var password = prompt("Please enter your password:", "");
+            if (password == '12345') {
+                var status = $(this).prop('checked') == true ? 1 : 0;
+                $.ajax({
+                    url: '<?php echo site_url('admin/settings-qr'); ?>',
+                    type: 'POST',
+                    data: { status: status },
+                    dataType: 'json',
+                    success: function (response) {
+                        toastr.success(response.message);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('AJAX Error:', status, error);
+                    }
+                });
+            }else{
+                $(this).prop('checked', currentStatus).change(); // Revert to the previous state
+                event.preventDefault(); // Prevent further actions if necessary
+            }
+        })
 
         $(document).on('click', '.btn-expand', function () {
             var user_id = $(this).parent().parent().data('id');
@@ -436,7 +460,7 @@
                             '<td>' + item.date + '</td>' +
                             '<td>' + (item.will_attend === null ? 'Invitation not yet sent' : (item.will_attend === 'Yes' ? 'Will attend' : 'Will not attend')) + '</td>' +
                             '<td>' + tb_num + '</td>' +
-                            '<td style="width:158px;" class="<?php echo session()->get('usertype') == 'admin' ? 'd-none':''?>">' +
+                            '<td style="width:158px;" class="<?php echo session()->get('usertype') == 'admin' ? 'd-none' : '' ?>">' +
                             '<a href="#" type="button" data-id="' + item.id + '" class="settings btn-edit-guest-modal" data-id= "' + item.id + '" data-name="' + item.name + '" title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>' +
                             '<a href="#" type="button" data-id="' + item.id + '" data-name="' + item.name + '" class="settings btn-assign-guest-modal" data-table="' + item.table_number + '"title="Assign table slot" data-toggle="tooltip"><i class="fa fa-table"></i></a>' +
                             (item.will_attend === null ? '<a class="invite-link settings" title="Copy Invite link" data-toggle="tooltip" type="button" href="' + rsvpURL + '/' + item.invite_id + '"><i class="fa fa-link"></i></a>' : '<a class="settings" disabled title="Copy Invite link" data-toggle="tooltip" type="button" href="#"><i class="fa fa-link" style="color:gray !important;"></i></a>') +

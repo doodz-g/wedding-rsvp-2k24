@@ -22,6 +22,7 @@ class AdminController extends BaseController
             $getSettingsTableKids = $settingsModel->where('id','3')->first();
             $getSettingsTableSponsors= $settingsModel->where('id','4')->first();
             $getSettingsMaxGuest = $settingsModel->where('id','2')->first();
+            $getSettingsQR= $settingsModel->where('id','5')->first();
 
             // Get the current page number from the query string or default to 1
             $currentPage = $this->request->getVar('page') ?? 1;
@@ -65,6 +66,7 @@ class AdminController extends BaseController
             // Prepare response data
             $data = [
                 'users' => $allUsers,
+                'qrSetting' => (int) $getSettingsQR['quantity'],
                 'pager' => [
                     'currentPage' => $currentPage,
                     'totalPages' => $pager->getPageCount(),
@@ -149,7 +151,7 @@ class AdminController extends BaseController
 
     }
 
-    public function getUsers()
+    public function refresh()
     {
         $userModel = model(UserModel::class);
         $settingsModel = model(SettingsModel::class);
@@ -188,7 +190,7 @@ class AdminController extends BaseController
                 'currentPage' => $currentPage,
                 'totalPages' => $pager->getPageCount(),
                 'totalUsers' => $totalUsers,
-                'currentPageUsers' => $currentPageUsers
+                'currentPageUsers' => $currentPageUsers,
             ],
             'total_for_1' => ($userModel->getRemSlotsForEachTable(1)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(1) : $getSettingsTableAdult['quantity'],
             'total_for_2' => ($userModel->getRemSlotsForEachTable(2)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(2) : $getSettingsTableAdult['quantity'] ,
@@ -307,7 +309,7 @@ class AdminController extends BaseController
     public function getSettings(){
         $settingsModel = model(SettingsModel::class);
         // Fetch companions where user_id matches
-        $getSettings = $settingsModel->findAll();
+        $getSettings = $settingsModel->where('qty_settings',1)->findAll();
 
         $responseData = [
             'settings' => $getSettings
@@ -323,12 +325,33 @@ class AdminController extends BaseController
             foreach($settings as $index => $s){
                 $updateResult=$settingsModel->set('quantity', $s)
                 ->where('id', $index)
+                ->where('qty_settings', 1)
                 ->update(); 
             }
             if($updateResult){
                 return $this->response->setJSON(['status' => 'success', 'message' => 'Settings updated.']);
             }else{
                 return $this->response->setJSON(['status' => 'success', 'message' => 'Settings update failed.']);
+            }
+           
+        }else{
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Setting payload unavailable']);
+        }
+        // Return the response as JSON
+
+    }
+    public function updateQRSettings(){
+        $status = $this->request->getPost('status');
+        $settingsModel = model(SettingsModel::class);
+        if($settingsModel){
+                $updateResult=$settingsModel->set('quantity', $status)
+                ->where('id', 5)
+                ->update(); 
+            
+            if($updateResult){
+                return $this->response->setJSON(['status' => 'success', 'message' => 'QR Settings updated.']);
+            }else{
+                return $this->response->setJSON(['status' => 'success', 'message' => 'QR Settings update failed.']);
             }
            
         }else{
@@ -411,16 +434,23 @@ class AdminController extends BaseController
             if ($userModel->save($data)) {
                 $latestID = $userModel->insertID();
                 $companionsModel = model(CompanionsModel::class);
-                if ($companion_name) {
-                    foreach ($companion_name as $c) {
-                        $dataCompanion = [
-                            'name' => $c,
-                            'table_number' => $table_kid,
-                            'user_id' => $latestID
 
-                        ];
-                        $companionsModel->save($dataCompanion);
-                    }
+                $filteredCompanions = array_filter($companion_name, function($value) {
+                  return trim($value) !== '';
+                });
+
+                if($filteredCompanions){
+    
+                        foreach ($filteredCompanions as $c) {
+                            $dataCompanion = [
+                                'name' => $c,
+                                'table_number' => $table_kid,
+                                'user_id' => $latestID
+    
+                            ];
+                            $companionsModel->save($dataCompanion);
+                        }
+                    
                 }
                 return $this->response->setJSON(['status' => 'success', 'message' => 'Data saved successfully!']);
             } else {
@@ -446,7 +476,6 @@ class AdminController extends BaseController
             // Update user details
             if ($user_id && $name) {
                 $userModel->set('name', $name);
-                $userModel->where('will_attend', NULL);
                 $userModel->where('id', $user_id);
 
                 if ($userModel->update($user_id)) {

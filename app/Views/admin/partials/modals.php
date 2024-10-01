@@ -12,7 +12,7 @@
                     <form class="guest-form-add">
                         <label for="name">Name:</label>
                         <input type="text" class="form-control" id="name" name="name" required>
-                        <label for="name">Companions:</label>
+                        <label class="d-none comp_label" for="name">Companions:</label>
                         <ul id="companion-container" style="line-height:3.5;list-style:none;padding-left:0;">
 
                         </ul>
@@ -42,7 +42,7 @@
                         <label for="name">Name:</label>
                         <input type="text" class="form-control" id="update_name" name="name">
                         <input type="hidden" class="form-control" id="update_user_id" name="user_id">
-                        <label for="name">Companions:</label>
+                        <label for="name" class="d-none comp_label">Companions:</label>
                         <ul id="update_companion_container" style="line-height:3.5;list-style:none;padding-left:0;">
 
                         </ul>

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\CompanionsModel;
+use App\Models\SettingsModel;
 use App\Controllers\BaseController;
 use App\Services\QrCodeService;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -170,45 +171,53 @@ class UserController extends BaseController
     {
         $userModel = model(UserModel::class);
         $companionsModel = model(CompanionsModel::class);
-
-        if (isset($rsvp_id)) {
-            $getUser = $userModel->where('invite_id', $rsvp_id)->first();
-            $getCompanions = $companionsModel->where('user_id', $getUser->id)->findAll();
-            if ($getUser && $getUser->will_attend == "Yes") {
-
-                $userModel->where('invite_id', $rsvp_id);
-                $userModel->set('qr_code_status', 1);
-                $userModel->update();
-
-                // Set up Pusher configuration
-                $options = [
-                    'cluster' => 'ap3',  // Replace with your Pusher cluster
-                    'useTLS' => true,
+        $settingsModel = model(name: SettingsModel::class);
+        $getSettingsQR= $settingsModel->where('id','5')->first();
+        if((int) $getSettingsQR['quantity'] == 1){
+            if (isset($rsvp_id)) {
+                $getUser = $userModel->where('invite_id', $rsvp_id)->first();
+                $getCompanions = $companionsModel->where('user_id', $getUser->id)->findAll();
+                if ($getUser && $getUser->will_attend == "Yes") {
+    
+                    $userModel->where('invite_id', $rsvp_id);
+                    $userModel->set('qr_code_status', 1);
+                    $userModel->update();
+    
+                    // Set up Pusher configuration
+                    $options = [
+                        'cluster' => 'ap3',  // Replace with your Pusher cluster
+                        'useTLS' => true,
+                    ];
+    
+                    $pusher = new \Pusher\Pusher(
+                        'b012177f6ee3695e54b9',    // Replace with your Pusher app key
+                        '4904ff2acd898d494475', // Replace with your Pusher app secret
+                        '1852485',     // Replace with your Pusher app ID
+                        $options
+                    );
+                    $pusherData = [
+                        'message' => 'User RSVP status updated',
+                        'user_id' => $getUser->id,
+                    ];
+                    $pusher->trigger('rsvp-channel', 'rsvp-updated', $pusherData);
+                }
+    
+                $data = [
+                    'companions' => $getCompanions,
+                    'qrSetting' => (int) $getSettingsQR['quantity'],
+                    'main_invitee' => $getUser->name,
+                    'table_number' => $getUser->table_number,
+    
                 ];
-
-                $pusher = new \Pusher\Pusher(
-                    'b012177f6ee3695e54b9',    // Replace with your Pusher app key
-                    '4904ff2acd898d494475', // Replace with your Pusher app secret
-                    '1852485',     // Replace with your Pusher app ID
-                    $options
-                );
-                $pusherData = [
-                    'message' => 'User RSVP status updated',
-                    'user_id' => $getUser->id,
-                ];
-                $pusher->trigger('rsvp-channel', 'rsvp-updated', $pusherData);
             }
-
-            $data = [
-                'companions' => $getCompanions,
-                'main_invitee' => $getUser->name,
-
-            ];
+    
+            $dataObject = json_decode(json_encode($data));
+    
+            return view('pages/qr', ['data' => $dataObject]);
+        }else{
+            return view('pages/unathorized');
         }
-
-        $dataObject = json_decode(json_encode($data));
-
-        return view('pages/qr', ['data' => $dataObject]);
+       
 
     }
 }

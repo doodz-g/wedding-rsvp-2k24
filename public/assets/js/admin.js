@@ -50,16 +50,18 @@
     }
     // modals and action buttons
     $(document).on('click', '.add_companion', function () {
+        $(".comp_label").removeClass('d-none');
         addCompanion();
     });
     $(document).on('click', '.update_companion', function () {
+        $(".comp_label").removeClass('d-none');
         updateCompanion();
     });
     $(document).on('click', '#btn-add-guest', function () {
         $("#name").val('');
+        $(".comp_label").addClass("d-none");
         $(".overlay").fadeOut(300);
         companionContainer.html('');
-        companionContainer.append('<li> <input type="text" id="companion_name" required name="companion_name[]" oninput="checkDuplicateCompanionNames()" style="width: 90%; height: 38px; border: 2px solid #ced4da;"><span type="button" class="delete_companion" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
         $("#add-user-modal").find(".modal-title").text("Add Guest");
         $("#add-user-modal").modal("show");
     });
@@ -77,6 +79,7 @@
     $(document).on('click', '.c-box', function () {
         cboxEnabler();
     });
+   
     function cboxEnabler() {
         var cboxChecker = $('#ga-table-container').find('.c-box').is(":checked");
         console.log(cboxChecker);
@@ -86,6 +89,11 @@
             $("#btn-assign-guest").prop('disabled', true);
         }
     }
-
+    function showPrompt() {
+        var userInput = prompt("Please enter your name:", "");
+        if (userInput != null) {
+            document.getElementById("output").innerHTML = "Hello, " + userInput + "!";
+        }
+    }
 })(jQuery);
 
