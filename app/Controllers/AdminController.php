@@ -433,25 +433,28 @@ class AdminController extends BaseController
 
             if ($userModel->save($data)) {
                 $latestID = $userModel->insertID();
-                $companionsModel = model(CompanionsModel::class);
+                if(!empty($companion_name)){
+                    $companionsModel = model(CompanionsModel::class);
 
-                $filteredCompanions = array_filter($companion_name, function($value) {
-                  return trim($value) !== '';
-                });
+                    $filteredCompanions = array_filter($companion_name, function($value) {
+                    return trim($value) !== '';
+                    });
 
-                if($filteredCompanions){
-    
-                        foreach ($filteredCompanions as $c) {
-                            $dataCompanion = [
-                                'name' => $c,
-                                'table_number' => $table_kid,
-                                'user_id' => $latestID
-    
-                            ];
-                            $companionsModel->save($dataCompanion);
-                        }
-                    
+                    if($filteredCompanions){
+        
+                            foreach ($filteredCompanions as $c) {
+                                $dataCompanion = [
+                                    'name' => $c,
+                                    'table_number' => $table_kid,
+                                    'user_id' => $latestID
+        
+                                ];
+                                $companionsModel->save($dataCompanion);
+                            }
+                        
+                    }
                 }
+                
                 return $this->response->setJSON(['status' => 'success', 'message' => 'Data saved successfully!']);
             } else {
                 return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to save data.']);
