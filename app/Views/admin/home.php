@@ -18,33 +18,15 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@latest/dist/apexcharts.css">
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <?php
-    $sessionAdmin = \Config\Services::session();
-    $config = new \Config\SessionTwo();
-    $sessionSuperAdmin = \Config\Services::session($config);
-
-    // Check if superadmin session data exists
-    if ($sessionSuperAdmin->has('logged_in') && $sessionSuperAdmin->get('logged_in') === true) {
-        $username = $sessionSuperAdmin->get('username');
-        $usertype = $sessionSuperAdmin->get('usertype');
-    } elseif ($sessionAdmin->has('logged_in') && $sessionAdmin->get('logged_in') === true) {
-        // Check for admin session
-        $username = $sessionAdmin->get('username');
-        $usertype = $sessionAdmin->get('usertype');
-    } else {
-        $username = null;
-        $usertype = null;
-    }
-
-    $sessions = [
-        'username' => $username,
-        'usertype' => $usertype
-    ];
-    ?>
-  <?= view('admin/partials/nav', $sessions); ?>
+    <?php echo view('admin/partials/nav'); ?>
+    <div class="row" style="float: right;padding: 25px;">
+        <input class="form-control" id="toggle-event" type="checkbox" <?php echo $data->qrSetting == 1 ? 'checked':''?> data-toggle="toggle" data-off="QR" data-on ="QR" data-onstyle="success" data-size="sm" data-offstyle="danger">
+    </div>
+   
     <div class="container-fluid">
         <div class="container">
             <div class="row charts-container text-center">
@@ -73,7 +55,7 @@
                                         placeholder="Search here.."></li>
                             </ul>
                         </div>
-                        <div class="col-md-7 <?php esc($usertype) === 'admin' ? 'd-none':'' ?>" style="padding-right:0;">
+                        <div class="col-md-7 <?php echo session()->get('usertype') === 'admin' ? 'd-none':'' ?>" style="padding-right:0;">
                                 <ul class="horizontal-list">
                                     <li><a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i>
                                             <span>Export to
@@ -102,7 +84,7 @@
                                 <th>Date Created</th>
                                 <th>RSVP</th>
                                 <th>Table #</th>
-                                <th class="<?php echo esc($usertype) == 'admin' ? 'd-none':''?>">Action</th>
+                                <th class="<?php echo session()->get('usertype') == 'admin' ? 'd-none':''?>">Action</th>
                             </tr>
                         </thead>
                         <tbody id="users-tbody">
@@ -118,10 +100,10 @@
                                         <td><?php echo $c->name ?></td>
                                         <td><?php echo $c->date ?></td>
                                         <td><?php echo ($c->will_attend === NULL) ? 'Invitation not yet sent ' : (($c->will_attend == 'Yes') ? 'Will attend' : 'Will not attend') ?>
-                                        <td><?php echo ($c->table_number != NULL ? $c->table_number == 11 ? 'Kids' : ($c->table_number == 12 ? 'Sponsors' : $c->table_number): 'N/A') ?>
+                                        <td><?php echo ($c->table_number != NULL ? $c->table_number == 11 ? 'Kids' : ($c->table_number == 12 ? 'Sponsors' : $c->table_number ): 'N/A') ?>
                                         </td>
                                         </td>
-                                        <td style="width:158px;" class="<?php echo esc($usertype) == 'admin' ? 'd-none':''?>">
+                                        <td style="width:158px;" class="<?php echo session()->get('usertype') == 'admin' ? 'd-none':''?>">
                                             <a href="#" type="button" data-id="<?php echo $c->id; ?>"
                                                 data-name="<?php echo $c->name; ?>" class="settings btn-edit-guest-modal"
                                                 title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>
@@ -188,6 +170,7 @@
     <script src="https://cdn.jsdelivr.net/npm/accordion@3.0.2/src/accordion.min.js"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts@latest"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     <!-- Template Javascript -->
     <script src="<?php echo base_url('public/assets/js/admin.js'); ?>"></script>
 
