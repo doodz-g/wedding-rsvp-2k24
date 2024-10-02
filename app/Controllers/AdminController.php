@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\UserModel;
 use App\Models\CompanionsModel;
 use App\Models\SettingsModel;
+use App\Models\ExportModel;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -18,11 +19,11 @@ class AdminController extends BaseController
             $userModel = model(UserModel::class);
             $companionsModel = model(name: CompanionsModel::class);
             $settingsModel = model(name: SettingsModel::class);
-            $getSettingsTableAdult = $settingsModel->where('id','1')->first();
-            $getSettingsTableKids = $settingsModel->where('id','3')->first();
-            $getSettingsTableSponsors= $settingsModel->where('id','4')->first();
-            $getSettingsMaxGuest = $settingsModel->where('id','2')->first();
-            $getSettingsQR= $settingsModel->where('id','5')->first();
+            $getSettingsTableAdult = $settingsModel->where('id', '1')->first();
+            $getSettingsTableKids = $settingsModel->where('id', '3')->first();
+            $getSettingsTableSponsors = $settingsModel->where('id', '4')->first();
+            $getSettingsMaxGuest = $settingsModel->where('id', '2')->first();
+            $getSettingsQR = $settingsModel->where('id', '5')->first();
 
             // Get the current page number from the query string or default to 1
             $currentPage = $this->request->getVar('page') ?? 1;
@@ -34,7 +35,7 @@ class AdminController extends BaseController
             $searchTerm = $this->request->getVar('search') ?? '';
 
             // Build the query with search term
-            $builder = $userModel->orderBy('date', 'DESC');
+            $builder = $userModel->orderBy('id', 'DESC');
 
             if ($searchTerm) {
                 $builder->like('name', $searchTerm); // Modify this to match the fields you want to search
@@ -52,15 +53,14 @@ class AdminController extends BaseController
             $currentPageUsers = count($allUsers);
 
             // Fetch totals from models
-            $totalGuest = $userModel->get_totals();
-            $totalCompanions = $companionsModel->get_totals();
-            $tgWillAttend = $userModel->get_will_attend();
-            $totalGuestWillAttend = $tgWillAttend['total_users_will_attend'] ?? 0;
+            $totalGuest = $userModel->where('will_attend', 'Yes')->orWhere('will_attend', NULL)->countAllResults();
+            $totalCompanions = $companionsModel->where('will_attend', 'Yes')->orWhere('will_attend', NULL)->countAllResults();
+            $totalGuestConfirmAttendance = $userModel->where('will_attend', 'Yes')->countAllResults();
+            $totalCompanionsConfirmAttendance = $companionsModel->where('will_attend', 'Yes')->countAllResults();
+            $totalGuestWillAttend = $totalGuestConfirmAttendance + $totalCompanionsConfirmAttendance ?? 0;
             // Access numeric values from the results
-            $totalGuestCount = $totalGuest['total_users'] ?? 0;
-            $totalCompanionCount = $totalCompanions['total_companions'] ?? 0;
             $maxCap = $getSettingsMaxGuest['quantity'];
-            $totalGNow = (int) $totalGuestCount + (int) $totalCompanionCount ?? 0;
+            $totalGNow = $totalGuest + $totalCompanions ?? 0;
             $gPercentage = ($totalGNow / $maxCap) * 100 ?? 0;
             $gWPercentage = ($totalGuestWillAttend / $maxCap) * 100 ?? 0;
             // Prepare response data
@@ -76,19 +76,20 @@ class AdminController extends BaseController
                 'guest_percentage' => ceil($gPercentage),
                 'maxCap' => $maxCap,
                 'totalGuestWillAttend' => ceil($gWPercentage),
+                'totalGuestThatConfirm' => $totalGuestWillAttend,
                 'totalGNow' => $totalGNow,
                 'total_for_1' => ($userModel->getRemSlotsForEachTable(1)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(1) : $getSettingsTableAdult['quantity'],
-                'total_for_2' => ($userModel->getRemSlotsForEachTable(2)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(2) : $getSettingsTableAdult['quantity'] ,
-                'total_for_3' => ($userModel->getRemSlotsForEachTable(3)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(3) : $getSettingsTableAdult['quantity'] ,
-                'total_for_4' => ($userModel->getRemSlotsForEachTable(4)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(4) : $getSettingsTableAdult['quantity'] ,
-                'total_for_5' => ($userModel->getRemSlotsForEachTable(5)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(5) : $getSettingsTableAdult['quantity'] ,
-                'total_for_6' => ($userModel->getRemSlotsForEachTable(6)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(6) : $getSettingsTableAdult['quantity'] ,
-                'total_for_7' => ($userModel->getRemSlotsForEachTable(7)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(7) : $getSettingsTableAdult['quantity'] ,
-                'total_for_8' => ($userModel->getRemSlotsForEachTable(8)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(8) : $getSettingsTableAdult['quantity'] ,
-                'total_for_9' => ($userModel->getRemSlotsForEachTable(9)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(9) : $getSettingsTableAdult['quantity'] ,
-                'total_for_10' => ($userModel->getRemSlotsForEachTable(10)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(10) : $getSettingsTableAdult['quantity'] ,
+                'total_for_2' => ($userModel->getRemSlotsForEachTable(2)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(2) : $getSettingsTableAdult['quantity'],
+                'total_for_3' => ($userModel->getRemSlotsForEachTable(3)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(3) : $getSettingsTableAdult['quantity'],
+                'total_for_4' => ($userModel->getRemSlotsForEachTable(4)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(4) : $getSettingsTableAdult['quantity'],
+                'total_for_5' => ($userModel->getRemSlotsForEachTable(5)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(5) : $getSettingsTableAdult['quantity'],
+                'total_for_6' => ($userModel->getRemSlotsForEachTable(6)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(6) : $getSettingsTableAdult['quantity'],
+                'total_for_7' => ($userModel->getRemSlotsForEachTable(7)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(7) : $getSettingsTableAdult['quantity'],
+                'total_for_8' => ($userModel->getRemSlotsForEachTable(8)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(8) : $getSettingsTableAdult['quantity'],
+                'total_for_9' => ($userModel->getRemSlotsForEachTable(9)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(9) : $getSettingsTableAdult['quantity'],
+                'total_for_10' => ($userModel->getRemSlotsForEachTable(10)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(10) : $getSettingsTableAdult['quantity'],
                 'total_for_11' => ($userModel->getRemSlotsForEachTable(11)) ? $getSettingsTableKids['quantity'] - (int) $userModel->getRemSlotsForEachTable(11) : $getSettingsTableKids['quantity'],
-                'total_for_12' => ($userModel->getRemSlotsForEachTable(12)) ? $getSettingsTableSponsors['quantity'] - (int) $userModel->getRemSlotsForEachTable(12) : $getSettingsTableSponsors['quantity'],  
+                'total_for_12' => ($userModel->getRemSlotsForEachTable(12)) ? $getSettingsTableSponsors['quantity'] - (int) $userModel->getRemSlotsForEachTable(12) : $getSettingsTableSponsors['quantity'],
             ];
 
             $dataObject = json_decode(json_encode($data));
@@ -102,23 +103,27 @@ class AdminController extends BaseController
     {
         $userModel = model(UserModel::class);
         $companionsModel = model(name: CompanionsModel::class);
-        $totalGuest = $userModel->get_totals();
-        $totalCompanions = $companionsModel->get_totals();
-        $tgWillAttend = $userModel->get_will_attend();
-        $totalGuestWillAttend = $tgWillAttend['total_users_will_attend'] ?? 0;
+        $settingsModel = model(name: SettingsModel::class);
+        $getSettingsMaxGuest = $settingsModel->where('id', '2')->first();
+        $totalGuest = $userModel->where('will_attend', 'Yes')->orWhere('will_attend', NULL)->countAllResults();
+        $totalCompanions = $companionsModel->where('will_attend', 'Yes')->orWhere('will_attend', NULL)->countAllResults();
+
+        $totalGuestConfirmAttendance = $userModel->where('will_attend', 'Yes')->countAllResults();
+        $totalCompanionsConfirmAttendance = $companionsModel->where('will_attend', 'Yes')->countAllResults();
+       
         // Access numeric values from the results
-        $totalGuestCount = $totalGuest['total_users'] ?? 0;
-        $totalCompanionCount = $totalCompanions['total_companions'] ?? 0;
-        $maxCap = 120;
-        $totalGNow = (int) $totalGuestCount + (int) $totalCompanionCount ?? 0;
+        $maxCap = $getSettingsMaxGuest['quantity'];
+        $totalGuestWillAttend = $totalGuestConfirmAttendance + $totalCompanionsConfirmAttendance ?? 0;
+        $totalGNow = $totalGuest + $totalCompanions ?? 0;
         $gPercentage = ($totalGNow / $maxCap) * 100 ?? 0;
         $gWPercentage = ($totalGuestWillAttend / $maxCap) * 100 ?? 0;
 
         $data = [
-            'guest_percentage' => ceil($gPercentage),
-            'maxCap' => $maxCap,
+            'totalGuestPercentage' => ceil($gPercentage),
             'totalGuestWillAttend' => ceil($gWPercentage),
-            'totalGNow' => $totalGNow,
+            'totalGuest' => $totalGNow,
+            'totalGuestConfirm' => $totalGuestWillAttend,
+            'totalCap' => $maxCap
         ];
         return $this->response->setJSON($data);
     }
@@ -155,11 +160,13 @@ class AdminController extends BaseController
     {
         $userModel = model(UserModel::class);
         $settingsModel = model(SettingsModel::class);
-        $getSettingsTableAdult = $settingsModel->where('id','1')->first();
-        $getSettingsTableKids = $settingsModel->where('id','3')->first();
-        $getSettingsTableSponsors= $settingsModel->where('id','4')->first();
+        $getSettingsTableAdult = $settingsModel->where('id', '1')->first();
+        $getSettingsTableKids = $settingsModel->where('id', '3')->first();
+        $getSettingsTableSponsors = $settingsModel->where('id', '4')->first();
         // Get the current page number from the query string or default to 1
         $currentPage = $this->request->getVar('page') ?? 1;
+        $sort = $this->request->getVar('sort') ?? 'id';
+        $order = $this->request->getVar('order') ?? 'DESC';
 
         // Define the number of items per page
         $perPage = 10;
@@ -168,7 +175,7 @@ class AdminController extends BaseController
         $searchTerm = $this->request->getVar('search') ?? '';
 
         // Build the query with search term
-        $builder = $userModel->orderBy('date', 'DESC');
+        $builder = $userModel->orderBy($sort, $order);
 
         if ($searchTerm) {
             $builder->like('name', $searchTerm); // Modify this to match the fields you want to search
@@ -193,17 +200,17 @@ class AdminController extends BaseController
                 'currentPageUsers' => $currentPageUsers,
             ],
             'total_for_1' => ($userModel->getRemSlotsForEachTable(1)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(1) : $getSettingsTableAdult['quantity'],
-            'total_for_2' => ($userModel->getRemSlotsForEachTable(2)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(2) : $getSettingsTableAdult['quantity'] ,
-            'total_for_3' => ($userModel->getRemSlotsForEachTable(3)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(3) : $getSettingsTableAdult['quantity'] ,
-            'total_for_4' => ($userModel->getRemSlotsForEachTable(4)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(4) : $getSettingsTableAdult['quantity'] ,
-            'total_for_5' => ($userModel->getRemSlotsForEachTable(5)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(5) : $getSettingsTableAdult['quantity'] ,
-            'total_for_6' => ($userModel->getRemSlotsForEachTable(6)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(6) : $getSettingsTableAdult['quantity'] ,
-            'total_for_7' => ($userModel->getRemSlotsForEachTable(7)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(7) : $getSettingsTableAdult['quantity'] ,
-            'total_for_8' => ($userModel->getRemSlotsForEachTable(8)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(8) : $getSettingsTableAdult['quantity'] ,
-            'total_for_9' => ($userModel->getRemSlotsForEachTable(9)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(9) : $getSettingsTableAdult['quantity'] ,
-            'total_for_10' => ($userModel->getRemSlotsForEachTable(10)) ? $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable(10) : $getSettingsTableAdult['quantity'] ,
+            'total_for_2' => ($userModel->getRemSlotsForEachTable(2)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(2) : $getSettingsTableAdult['quantity'],
+            'total_for_3' => ($userModel->getRemSlotsForEachTable(3)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(3) : $getSettingsTableAdult['quantity'],
+            'total_for_4' => ($userModel->getRemSlotsForEachTable(4)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(4) : $getSettingsTableAdult['quantity'],
+            'total_for_5' => ($userModel->getRemSlotsForEachTable(5)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(5) : $getSettingsTableAdult['quantity'],
+            'total_for_6' => ($userModel->getRemSlotsForEachTable(6)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(6) : $getSettingsTableAdult['quantity'],
+            'total_for_7' => ($userModel->getRemSlotsForEachTable(7)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(7) : $getSettingsTableAdult['quantity'],
+            'total_for_8' => ($userModel->getRemSlotsForEachTable(8)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(8) : $getSettingsTableAdult['quantity'],
+            'total_for_9' => ($userModel->getRemSlotsForEachTable(9)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(9) : $getSettingsTableAdult['quantity'],
+            'total_for_10' => ($userModel->getRemSlotsForEachTable(10)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(10) : $getSettingsTableAdult['quantity'],
             'total_for_11' => ($userModel->getRemSlotsForEachTable(11)) ? $getSettingsTableKids['quantity'] - (int) $userModel->getRemSlotsForEachTable(11) : $getSettingsTableKids['quantity'],
-            'total_for_12' => ($userModel->getRemSlotsForEachTable(12)) ? $getSettingsTableSponsors['quantity'] - (int) $userModel->getRemSlotsForEachTable(12) : $getSettingsTableSponsors['quantity'],  
+            'total_for_12' => ($userModel->getRemSlotsForEachTable(12)) ? $getSettingsTableSponsors['quantity'] - (int) $userModel->getRemSlotsForEachTable(12) : $getSettingsTableSponsors['quantity'],
         ];
 
         // Return JSON response
@@ -238,9 +245,9 @@ class AdminController extends BaseController
         $userModel = model(UserModel::class);
         $companionModel = model(CompanionsModel::class);
         $settingsModel = model(SettingsModel::class);
-        $getSettingsTableAdult = $settingsModel->where('id','1')->first();
-        $getSettingsTableKids = $settingsModel->where('id','3')->first();
-        $getSettingsTableSponsors= $settingsModel->where('id','4')->first();
+        $getSettingsTableAdult = $settingsModel->where('id', '1')->first();
+        $getSettingsTableKids = $settingsModel->where('id', '3')->first();
+        $getSettingsTableSponsors = $settingsModel->where('id', '4')->first();
         $newAssignees = 0;
 
         if (empty($table_number)) {
@@ -260,15 +267,15 @@ class AdminController extends BaseController
                 }
             }
         }
-       
-        if($table_number == 11){
+
+        if ($table_number == 11) {
             $rem_slots = $getSettingsTableKids['quantity'] - (int) $userModel->getRemSlotsForEachTable(11);
-        }else if($table_number == 12){
+        } else if ($table_number == 12) {
             $rem_slots = $getSettingsTableSponsors['quantity'] - (int) $userModel->getRemSlotsForEachTable(12);
-        }else{
-            $rem_slots = $getSettingsTableAdult['quantity']  - (int) $userModel->getRemSlotsForEachTable($table_number);
+        } else {
+            $rem_slots = $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable($table_number);
         }
-       
+
         if ($newAssignees <= $rem_slots) {
             if ($guest_id) {
                 $userModel->find($guest_id);
@@ -305,11 +312,12 @@ class AdminController extends BaseController
             }
         }
     }
-    
-    public function getSettings(){
+
+    public function getSettings()
+    {
         $settingsModel = model(SettingsModel::class);
         // Fetch companions where user_id matches
-        $getSettings = $settingsModel->where('qty_settings',1)->findAll();
+        $getSettings = $settingsModel->where('qty_settings', 1)->findAll();
 
         $responseData = [
             'settings' => $getSettings
@@ -318,43 +326,49 @@ class AdminController extends BaseController
         // Return the response as JSON
         return $this->response->setJSON($responseData);
     }
-    public function updateSettings(){
+    public function updateSettings()
+    {
         $settings = $this->request->getPost('setting');
         $settingsModel = model(SettingsModel::class);
-        if($settings){
-            foreach($settings as $index => $s){
-                $updateResult=$settingsModel->set('quantity', $s)
-                ->where('id', $index)
-                ->where('qty_settings', 1)
-                ->update(); 
+        if ($settings) {
+            foreach ($settings as $index => $s) {
+                $updateResult = $settingsModel->set('quantity', $s)
+                    ->where('id', $index)
+                    ->where('qty_settings', 1)
+                    ->update();
             }
-            if($updateResult){
+            if ($updateResult) {
                 return $this->response->setJSON(['status' => 'success', 'message' => 'Settings updated.']);
-            }else{
+            } else {
                 return $this->response->setJSON(['status' => 'success', 'message' => 'Settings update failed.']);
             }
-           
-        }else{
+
+        } else {
             return $this->response->setJSON(['status' => 'error', 'message' => 'Setting payload unavailable']);
         }
         // Return the response as JSON
 
     }
-    public function updateQRSettings(){
+    public function updateQRSettings()
+    {
         $status = $this->request->getPost('status');
         $settingsModel = model(SettingsModel::class);
-        if($settingsModel){
-                $updateResult=$settingsModel->set('quantity', $status)
+        $session = session();
+        if ($settingsModel) {
+            $updateResult = $settingsModel->set('quantity', $status)
                 ->where('id', 5)
-                ->update(); 
-            
-            if($updateResult){
+                ->update();
+
+            if ($updateResult) {
+                $session->set([
+                    'qrSetting' => $status,
+                ]);
                 return $this->response->setJSON(['status' => 'success', 'message' => 'QR Settings updated.']);
-            }else{
+            } else {
                 return $this->response->setJSON(['status' => 'success', 'message' => 'QR Settings update failed.']);
             }
-           
-        }else{
+
+        } else {
             return $this->response->setJSON(['status' => 'error', 'message' => 'Setting payload unavailable']);
         }
         // Return the response as JSON
@@ -433,28 +447,48 @@ class AdminController extends BaseController
 
             if ($userModel->save($data)) {
                 $latestID = $userModel->insertID();
-                if(!empty($companion_name)){
+                if (!empty($companion_name)) {
                     $companionsModel = model(CompanionsModel::class);
 
-                    $filteredCompanions = array_filter($companion_name, function($value) {
-                    return trim($value) !== '';
+                    $filteredCompanions = array_filter($companion_name, function ($value) {
+                        return trim($value) !== '';
                     });
 
-                    if($filteredCompanions){
-        
-                            foreach ($filteredCompanions as $c) {
-                                $dataCompanion = [
-                                    'name' => $c,
-                                    'table_number' => $table_kid,
-                                    'user_id' => $latestID
-        
-                                ];
-                                $companionsModel->save($dataCompanion);
-                            }
-                        
+                    if ($filteredCompanions) {
+
+                        foreach ($filteredCompanions as $c) {
+                            $dataCompanion = [
+                                'name' => $c,
+                                'table_number' => $table_kid,
+                                'user_id' => $latestID
+
+                            ];
+                            $companionsSave = $companionsModel->save($dataCompanion);
+                        }
+
                     }
+                    if ($companionsSave) {
+                        // Set up Pusher configuration
+                        $options = [
+                            'cluster' => 'ap3',  // Replace with your Pusher cluster
+                            'useTLS' => true,
+                        ];
+
+                        $pusher = new \Pusher\Pusher(
+                            '8d7fa0a5863f106e689f',    // Replace with your Pusher app key
+                            '05c55ef62e5add42180d', // Replace with your Pusher app secret
+                            '1852485',     // Replace with your Pusher app ID
+                            $options
+                        );
+
+                        $pusherData = [
+                            'message' => 'Graph Updated',
+                        ];
+                        $pusher->trigger('graph-channel', 'graph-updated', $pusherData);
+                    }
+
                 }
-                
+
                 return $this->response->setJSON(['status' => 'success', 'message' => 'Data saved successfully!']);
             } else {
                 return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to save data.']);
@@ -521,6 +555,6 @@ class AdminController extends BaseController
             // Handle invalid request
             return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request.']);
         }
-
     }
+
 }

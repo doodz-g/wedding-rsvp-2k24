@@ -4,17 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class CompanionsModel extends Model
+class ExportModel extends Model
 {
-    protected $table            = 'tbl_companions';
+    protected $table            = 'tbl_export_data';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'object';
+    protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-
-        'id','user_id','name','date' ,'table_number', 'will_attend'
+        'id','name','table_number','will_attend'
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -46,12 +45,4 @@ class CompanionsModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-    public function get_totals() {
-        $builder = $this->db->table('tbl_companions');
-        $total_companions = $builder->countAllResults();
-        return [
-            'total_companions' => $total_companions,
-        ];
-    }
-    
 }

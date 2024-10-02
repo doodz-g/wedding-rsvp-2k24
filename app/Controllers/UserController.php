@@ -18,11 +18,11 @@ class UserController extends BaseController
         $google_map_key2 = "https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ5fHDdqTHlzMRP8lnCcMPMok&key=AIzaSyAc-QXWB4_dbvPDqQU3acosp8InF45vhVs";
 
         $data = [
-            'google_map_key1'=> $google_map_key1,
-            'google_map_key2'=> $google_map_key2
+            'google_map_key1' => $google_map_key1,
+            'google_map_key2' => $google_map_key2
         ];
         $dataObject = json_decode(json_encode($data));
-    
+
         return view('pages/home', ['data' => $dataObject]);
     }
 
@@ -81,7 +81,6 @@ class UserController extends BaseController
     {
         $qrCodeService = new QrCodeService();
 
-
         // Handle preflight request
         if ($this->request->getMethod() === 'options') {
             return $this->response
@@ -106,26 +105,35 @@ class UserController extends BaseController
 
 
             if ($getUser) {
+
                 $dataUpdated = [
                     'will_attend' => $confirm == 1 ? 'Yes' : 'No',
                 ];
 
-                $userModel->update($getUser->id, $dataUpdated);
+                $userUpdate = $userModel->update($getUser->id, $dataUpdated);
+                //update companion attend status
+                if ($userUpdate) {
 
-                $text = base_url('qr/') . $getUser->invite_id;
+                    foreach ($getCompanions as $companion) {
+                        $companionsModel->set('will_attend', $confirm == 1 ? 'Yes' : 'No');
+                        $companionsModel->where('id', $companion->id);
+                        $companionsModel->update();
+                    }
 
-                $qrCodeUri = $qrCodeService->generateQrCode($text);
+                    $text = base_url('qr/') . $getUser->invite_id;
+                    $qrCodeUri = $qrCodeService->generateQrCode($text);
 
-                $userModelQR = new UserModel();
-
-                if ($userModelQR) {
-                    $userModelQR->set('qr_code', $qrCodeUri);
-                    $userModelQR->where('will_attend', 'Yes');
-                    $userModelQR->where('invite_id', $rsvp_id);
-                    $userModelQR->update();
-
+                    if ($userModel) {
+                        $userModel->set('qr_code', $qrCodeUri);
+                        $userModel->where('will_attend', 'Yes');
+                        $userModel->where('invite_id', $rsvp_id);
+                        $userModel->update();
+                    }
                 }
 
+                if($confirm == 0){
+                    $this->sendNotif();
+                }
             }
 
             $data = [
@@ -172,52 +180,55 @@ class UserController extends BaseController
         $userModel = model(UserModel::class);
         $companionsModel = model(CompanionsModel::class);
         $settingsModel = model(name: SettingsModel::class);
-        $getSettingsQR= $settingsModel->where('id','5')->first();
-        if((int) $getSettingsQR['quantity'] == 1){
+        $getSettingsQR = $settingsModel->where('id', '5')->first();
+        if ((int) $getSettingsQR['quantity'] == 1) {
             if (isset($rsvp_id)) {
                 $getUser = $userModel->where('invite_id', $rsvp_id)->first();
                 $getCompanions = $companionsModel->where('user_id', $getUser->id)->findAll();
                 if ($getUser && $getUser->will_attend == "Yes") {
-    
+
                     $userModel->where('invite_id', $rsvp_id);
                     $userModel->set('qr_code_status', 1);
                     $userModel->update();
-    
-                    // Set up Pusher configuration
-                    $options = [
-                        'cluster' => 'ap3',  // Replace with your Pusher cluster
-                        'useTLS' => true,
-                    ];
-    
-                    $pusher = new \Pusher\Pusher(
-                        'b012177f6ee3695e54b9',    // Replace with your Pusher app key
-                        '4904ff2acd898d494475', // Replace with your Pusher app secret
-                        '1852485',     // Replace with your Pusher app ID
-                        $options
-                    );
-                    $pusherData = [
-                        'message' => 'User RSVP status updated',
-                        'user_id' => $getUser->id,
-                    ];
-                    $pusher->trigger('rsvp-channel', 'rsvp-updated', $pusherData);
+
+                    $this->sendNotif();
                 }
-    
+
                 $data = [
                     'companions' => $getCompanions,
                     'qrSetting' => (int) $getSettingsQR['quantity'],
                     'main_invitee' => $getUser->name,
                     'table_number' => $getUser->table_number,
-    
+
                 ];
             }
-    
+
             $dataObject = json_decode(json_encode($data));
-    
+
             return view('pages/qr', ['data' => $dataObject]);
-        }else{
+        } else {
             return view('pages/unathorized');
         }
-       
 
+
+    }
+    private function sendNotif(){
+        // Set up Pusher configuration
+        $options = [
+            'cluster' => 'ap3',  // Replace with your Pusher cluster
+            'useTLS' => true,
+        ];
+
+        $pusher = new \Pusher\Pusher(
+            'b012177f6ee3695e54b9',    // Replace with your Pusher app key
+            '4904ff2acd898d494475', // Replace with your Pusher app secret
+            '1852485',     // Replace with your Pusher app ID
+            $options
+        );
+        
+        $pusherData = [
+            'message' => 'User RSVP status updated',
+        ];
+        $pusher->trigger('rsvp-channel', 'rsvp-updated', $pusherData);
     }
 }

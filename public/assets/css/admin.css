@@ -12,6 +12,9 @@ body {
 .bg-success {
     background-color: #c2e9cb !important;
 }
+.bg-warn {
+    background-color: #e9b2b2 !important;
+}
 
 ul.horizontal-list {
     display: list-item;

@@ -200,13 +200,13 @@
                             companionContainer.html('');
                             var ctr = 0;
                             $.each(response.user, function (index, item) {
-                                var tb_num = (item.table_number !== null ? item.table_number == 11 ? 'Kids Table' : item.table_number == 12 ? 'Sponsors Table' : 'Table #' + item.table_number : '');
+                                var tb_num = (item.table_number !== null ? item.table_number == 11 ? 'Kids Table' : item.table_number == 12 ? 'Sponsors Table' : 'Table #' + item.table_number : 'No table yet');
                                 companionContainer.append('<div class="row form-check"><input type="checkbox" class="form-check-input c-box" value="' + (item.id ? item.id : '') + '" name="guest_id"><label class="form-check-label" for="guest">' + item.name + '<span style="float:right;font-weight:600;">(Main Guest)</span></label>' +
                                     '<span style="float:right;font-weight:600;">' + tb_num + '</span></div>');
                                 ctr++;
                             });
                             $.each(response.companions, function (index, item) {
-                                var tb_num = (item.table_number !== null ? item.table_number == 11 ? 'Kids Table' : item.table_number == 12 ? 'Sponsors Table' : 'Table #' + item.table_number : '');
+                                var tb_num = (item.table_number !== null ? item.table_number == 11 ? 'Kids Table' : item.table_number == 12 ? 'Sponsors Table' : 'Table #' + item.table_number : 'No table yet');
                                 companionContainer.append('<div class="row form-check"><input type="checkbox" class="form-check-input c-box" value="' + (item.name ? item.name : '') + '" name="companion_name[' + ctr + '][name]"><label class="form-check-label" for="guest">' + item.name + '</label>' +
                                     '<input type="hidden" value="' + (item.id ? item.id : '') + '" name="companion_name[' + ctr + '][id]" style="width: 90%; height: 38px; border: 2px solid #ced4da;"><span style="float:right;font-weight:600;">' + tb_num + '</span></div>');
                                 ctr++;
@@ -351,12 +351,19 @@
                         html += '<table class="table table-striped table-hover">';
                         html += '<th style="background-color: lightgray;border-color:lightgray;" class="text-center">Companion Name</th>';
                         html += '<th style="background-color: lightgray;border-color:lightgray;" class="text-center">Table #</th>';
-                        $.each(response.companions, function (index, item) {
+                        if(response.companions.length > 0){
+                            $.each(response.companions, function (index, item) {
+                                html += '<tr style="background-color: lightgray;">'+
+                                        '<td class="text-center" style="border-color:lightgray;">' + item.name + '</td>'+
+                                        '<td style="text-align:center;border-color:lightgray;">' + (item.table_number !== null ? item.table_number == 11 ? 'Kids' : item.table_number : 'N/A') + '</td>'+
+                                        '</tr>';
+                            
+                            });
+                        }else {
                             html += '<tr style="background-color: lightgray;">'+
-                                    '<td class="text-center" style="border-color:lightgray;">' + item.name + '</td>'+
-                                    '<td style="text-align:center;border-color:lightgray;">' + (item.table_number !== null ? item.table_number == 11 ? 'Kids' : item.table_number : 'N/A') + '</td>'+
+                                    '<td colspan="4" class="text-center" style="border-color:lightgray;">No Companions found.</td>'+
                                     '</tr>';
-                        });
+                        }
                         html += '</table>';
                     }
                     $("#companions_" + user_id).html(html);
@@ -415,45 +422,24 @@
                 }
             });
         });
-      
-        // Initialize Pusher
-        var pusher = new Pusher('b012177f6ee3695e54b9', {
-            cluster: 'ap3',
-            forceTLS: true
-        });
-
-        // Subscribe to a channel
-        var channel = pusher.subscribe('rsvp-channel');
-
-        // Bind to an event
-        channel.bind('rsvp-updated', function (data) {
-
-            console.log('Received data:', data);
-            // You can update the UI or show a notification based on the data received
-            toastr.info(data.will_attend, 'Notification', {
-                closeButton: true,
-                progressBar: true,
-                positionClass: 'toast-top-right',
-                timeOut: 5000
-            });
-            refreshTable();
-        });
-
-        function refreshTable() {
+        $(document).on('click', '.page-link', function () {
             var rsvpURL = '<?php echo site_url('rsvp') ?>';
-            var page = $("#current_p").val();
+            var page = $(this).data('id');
+            var sort = $("#sort").val() ?? 'id';
+            var order = $("#order").val() ?? 'DESC';
             var search = $("#search").val();
+            $("#current_p").val(page)
             $(".overlay-spinner").removeClass('d-none');
             $.ajax({
                 url: '<?php echo site_url('admin/refresh') ?>',
                 type: 'POST',
-                data: { page: page, search: search },
+                data: { page: page, search: search , sort: sort , order: order },
                 success: function (response2) {
                     console.log(response2);
                     var html = '';
                     $.each(response2.users, function (index, item) {
                         var tb_num = (item.table_number !== null ? item.table_number == 11 ? 'Kids' : (item.table_number == 12 ? 'Sponsors' : item.table_number) : 'N/A');
-                        html += '<tr class="' + (item.qr_code_status == 1 ? 'bg-success' : '') + '" data-id="' + item.id + '">' +
+                        html += '<tr class="' + (item.qr_code_status == 1 ? 'bg-success' : '') +  (item.will_attend == 'No' ? 'bg-warn' : '')+'" data-id="' + item.id + '">' +
                             '<td><button class="fc-red btn-expand btn btn-xs"><i class="fa fa-expand"></button></td>' +
                             '<td>' + item.invite_id + '</td>' +
                             '<td>' + item.name + '</td>' +
@@ -462,7 +448,7 @@
                             '<td>' + tb_num + '</td>' +
                             '<td style="width:158px;" class="<?php echo session()->get('usertype') == 'admin' ? 'd-none' : '' ?>">' +
                             '<a href="#" type="button" data-id="' + item.id + '" class="settings btn-edit-guest-modal" data-id= "' + item.id + '" data-name="' + item.name + '" title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>' +
-                            '<a href="#" type="button" data-id="' + item.id + '" data-name="' + item.name + '" class="settings btn-assign-guest-modal" data-table="' + item.table_number + '"title="Assign table slot" data-toggle="tooltip"><i class="fa fa-table"></i></a>' +
+                            (item.will_attend === 'No' ? '<a href="#" type="button" class="settings" title="Cannot Assign" data-toggle="tooltip"><i style="color:gray !important;" class="fa fa-table"></i></a>':'<a href="#" type="button" data-id="' + item.id + '" data-name="' + item.name + '" class="settings btn-assign-guest-modal" data-table="' + item.table_number + '"title="Assign table slot" data-toggle="tooltip"><i class="fa fa-table"></i></a>') +
                             (item.will_attend === null ? '<a class="invite-link settings" title="Copy Invite link" data-toggle="tooltip" type="button" href="' + rsvpURL + '/' + item.invite_id + '"><i class="fa fa-link"></i></a>' : '<a class="settings" disabled title="Copy Invite link" data-toggle="tooltip" type="button" href="#"><i class="fa fa-link" style="color:gray !important;"></i></a>') +
                             '<a href="#" type="button" data-id="' + item.id + '" class="delete btn-delete-guest-modal" data-name="' + item.name + '" title="Delete" data-toggle="tooltip"><i class="fa fa-trash"></i></a>' +
                             '</td>' +
@@ -489,19 +475,127 @@
                     // Check if previous page link should be displayed
                     if (currentPage > 1) {
                         var previous = currentPage - 1;
-                        pagination += '<li class="page-item"><a class="page-link" href="?page=' + previous + '">Previous</a></li>';
+                        pagination += '<li class="page-item"><a class="page-link" data-id="' + previous + '">Previous</a></li>';
                     }
 
                     // Generate pagination links for each page
                     for (var p = 1; p <= response2.pager.totalPages; p++) {
                         var isActive = (p === currentPage) ? 'active' : '';
-                        pagination += '<li class="page-item ' + isActive + '"><a class="page-link" href="?page=' + p + '">' + p + '</a></li>';
+                        pagination += '<li class="page-item ' + isActive + '"><a class="page-link" data-id="' + p + '">' + p + '</a></li>';
                     }
 
                     // Check if next page link should be displayed
                     if (currentPage < response2.pager.totalPages) {
                         var next = currentPage + 1;
-                        pagination += '<li class="page-item"><a class="page-link" href="?page=' + next + '">Next</a></li>';
+                        pagination += '<li class="page-item"><a class="page-link" data-id="' + next + '">Next</a></li>';
+                    }
+                    var stats = '';
+                    stats += 'Showing <b>' + response2.pager.currentPageUsers + '</b> out of <b>' + response2.pager.totalUsers + '</b> entries';
+
+                    var tableNum = '';
+                    tableNum = '<option value="0" disabled="" selected="">Select Table #</option>';
+                    for (var ctr = 1; ctr <= 12; ctr++) {
+                        var remS = parseInt(response2['total_for_' + ctr], 10);
+                        tableNum += '<option value="' + ctr + '" ' + (remS == 0 ? 'disabled' : '') + ' style="' + (remS == 0 ? 'color:red !important;' : '') + '">' + (ctr == 11 ? 'Kids' : (ctr==12 ? 'Sponsors': ctr)) + '(Slots: ' + (remS == 0 ? 'Full' : remS) + ')</option>';
+                    }
+                    $("#table_number").html(tableNum);
+                    $('.hint-text').html(stats);
+                    $(".pagination").html(pagination);
+                    setTimeout(function () {
+                        $(".overlay-spinner").addClass('d-none');
+                    }, 1000);
+
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error in second request:', error);
+                }
+            });
+        });
+        // Initialize Pusher
+        var pusher = new Pusher('b012177f6ee3695e54b9', {
+            cluster: 'ap3',
+            forceTLS: true
+        });
+
+        // Subscribe to a channel
+        var channel = pusher.subscribe('rsvp-channel');
+
+        // Bind to an event
+        channel.bind('rsvp-updated', function (data) {
+
+            console.log('Received data:', data);
+            // You can update the UI or show a notification based on the data received
+            toastr.success(data.message);
+            updateGraphStats();
+            refreshTable();
+        });
+
+    
+        function refreshTable() {
+            var rsvpURL = '<?php echo site_url('rsvp') ?>';
+            var page = $("#current_p").val();
+            var sort = $("#sort").val() ?? 'id';
+            var order = $("#order").val() ?? 'DESC';
+            var search = $("#search").val();
+            $(".overlay-spinner").removeClass('d-none');
+            $.ajax({
+                url: '<?php echo site_url('admin/refresh') ?>',
+                type: 'POST',
+                data: { page: page, search: search , sort: sort , order: order },
+                success: function (response2) {
+                    console.log(response2);
+                    var html = '';
+                    $.each(response2.users, function (index, item) {
+                        var tb_num = (item.table_number !== null ? item.table_number == 11 ? 'Kids' : (item.table_number == 12 ? 'Sponsors' : item.table_number) : 'N/A');
+                        html += '<tr class="' + (item.qr_code_status == 1 ? 'bg-success' : '') +  (item.will_attend == 'No' ? 'bg-warn' : '')+'" data-id="' + item.id + '">' +
+                            '<td><button class="fc-red btn-expand btn btn-xs"><i class="fa fa-expand"></button></td>' +
+                            '<td>' + item.invite_id + '</td>' +
+                            '<td>' + item.name + '</td>' +
+                            '<td>' + item.date + '</td>' +
+                            '<td>' + (item.will_attend === null ? 'Invitation not yet sent' : (item.will_attend === 'Yes' ? 'Will attend' : 'Will not attend')) + '</td>' +
+                            '<td>' + tb_num + '</td>' +
+                            '<td style="width:158px;" class="<?php echo session()->get('usertype') == 'admin' ? 'd-none' : '' ?>">' +
+                            '<a href="#" type="button" data-id="' + item.id + '" class="settings btn-edit-guest-modal" data-id= "' + item.id + '" data-name="' + item.name + '" title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>' +
+                            (item.will_attend === 'No' ? '<a href="#" type="button" class="settings" title="Cannot Assign" data-toggle="tooltip"><i style="color:gray !important;" class="fa fa-table"></i></a>':'<a href="#" type="button" data-id="' + item.id + '" data-name="' + item.name + '" class="settings btn-assign-guest-modal" data-table="' + item.table_number + '"title="Assign table slot" data-toggle="tooltip"><i class="fa fa-table"></i></a>') +
+                            (item.will_attend === null ? '<a class="invite-link settings" title="Copy Invite link" data-toggle="tooltip" type="button" href="' + rsvpURL + '/' + item.invite_id + '"><i class="fa fa-link"></i></a>' : '<a class="settings" disabled title="Copy Invite link" data-toggle="tooltip" type="button" href="#"><i class="fa fa-link" style="color:gray !important;"></i></a>') +
+                            '<a href="#" type="button" data-id="' + item.id + '" class="delete btn-delete-guest-modal" data-name="' + item.name + '" title="Delete" data-toggle="tooltip"><i class="fa fa-trash"></i></a>' +
+                            '</td>' +
+                            '</tr>' +
+                            '<tr class="fold d-none">' +
+                            '<td colspan="7">' +
+                            '<div class="overlay_' + item.id + '">' +
+                            '</div>' +
+                            '<div class="fold-content" id="companions_' + item.id + '">' +
+                            '</div>' +
+                            '</td>' +
+                            '</tr>';
+                    });
+                    $("#users-tbody").html(html);
+                    // Ensure pagination variable is initialized
+                    var pagination = '';
+
+                    // Log currentPage to check its value and type
+                    console.log('Current Page:', response2.pager.currentPage);
+
+                    // Ensure currentPage is a number
+                    var currentPage = parseInt(response2.pager.currentPage, 10);
+
+                    // Check if previous page link should be displayed
+                    if (currentPage > 1) {
+                        var previous = currentPage - 1;
+                        pagination += '<li class="page-item"><a class="page-link" data-id="' + previous + '">Previous</a></li>';
+                    }
+
+                    // Generate pagination links for each page
+                    for (var p = 1; p <= response2.pager.totalPages; p++) {
+                        var isActive = (p === currentPage) ? 'active' : '';
+                        pagination += '<li class="page-item ' + isActive + '"><a class="page-link" data-id="' + p + '">' + p + '</a></li>';
+                    }
+
+                    // Check if next page link should be displayed
+                    if (currentPage < response2.pager.totalPages) {
+                        var next = currentPage + 1;
+                        pagination += '<li class="page-item"><a class="page-link" data-id="' + next + '">Next</a></li>';
                     }
                     var stats = '';
                     stats += 'Showing <b>' + response2.pager.currentPageUsers + '</b> out of <b>' + response2.pager.totalUsers + '</b> entries';
@@ -589,10 +683,9 @@
             },
             labels: ["Total"]
         };
-        function updateChart() {
-
-        }
-        var ch1 = new ApexCharts(document.querySelector("#chart"), options1).render();
+        
+        const ch1 = new ApexCharts(document.querySelector("#chart"), options1);
+        ch1.render();
 
         var options2 = {
             chart: {
@@ -636,6 +729,50 @@
             labels: ["Total"]
         };
 
-        new ApexCharts(document.querySelector("#chart2"), options2).render();
+        const ch2 = new ApexCharts(document.querySelector("#chart2"), options2);
+        ch2.render();
+         // Initialize Pusher
+         var pusher = new Pusher('8d7fa0a5863f106e689f', {
+            cluster: 'ap3',
+            forceTLS: true
+        });
 
+        // Subscribe to a channel
+        var channel = pusher.subscribe('graph-channel');
+
+        // Bind to an event
+        channel.bind('graph-updated', function (data) {
+         
+            updateGraphStats();
+        });
+
+        function updateGraphStats(){
+            $.ajax({
+                url: '<?php echo base_url('admin/update-graph'); ?>', // Replace with your API endpoint
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response);
+
+                        const totalGuestPercentage = response.totalGuestPercentage; // This is a single number
+                        const totalGuestWillAttend = response.totalGuestWillAttend; // This is also a single number
+                        // console.log(response);
+                        // Update the chart with new data
+                        ch1.updateOptions({
+                            series: [totalGuestPercentage] // Update with new data
+        
+                        });
+                        ch2.updateOptions({
+                            series: [totalGuestWillAttend] // Update with new data
+                        });
+                        var totalGuest = response.totalGuest+' of '+response.totalCap+' guests'; 
+                        var totalGuestThatWillAttend = response.totalGuestConfirm+' of '+response.totalCap+' will attend'; 
+                        $("#total_guest_container").html(totalGuest);
+                        $("#total_guest_will_attend_container").html(totalGuestThatWillAttend);
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error:', status, error);
+                }
+            });
+        }
     </script>
