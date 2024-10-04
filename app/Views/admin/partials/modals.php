@@ -140,3 +140,50 @@
             </div>
         </div>
     </div>
+     <!-- QR Settings Modal -->
+     <div class="modal fade" id="qr-settings-modal" tabindex="-1" role="dialog" aria-labelledby="#" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-black">
+                    <h5 class="modal-title text-white" id="exampleModalLongTitle">QR Setting</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="text-white">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="qr-settings-form-update">
+                        <label for="name">Enter your number for the OTP:</label>
+                        <input type="text" class="form-control" id="phone_number" name="phone_number" style="text-align:center;">
+                        <input type="hidden" class="form-control" id="qr_setting" name="qr_setting">
+                        <div class="modal-footer">
+                            <button type="button" value="submit" class="btn btn-primary bg-black btn-send-sms">Send</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+     <!-- OTP Modal -->
+     <div class="modal fade" id="otp-modal" tabindex="-1" role="dialog" aria-labelledby="#" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-black">
+                    <h5 class="modal-title text-white" id="exampleModalLongTitle">Confirm OTP</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="text-white">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="qr-settings-form-update">
+                        <label for="name">Enter your OTP:</label>
+                        <input type="text" class="form-control" id="otp" name="otp" maxlength="5" style="text-align:center;">
+                        <div class="modal-footer">
+                            <button type="button" value="submit" class="btn btn-primary bg-black btn-validate-otp">Validate</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

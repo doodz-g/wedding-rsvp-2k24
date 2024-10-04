@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\OtpModel;
 use App\Models\CompanionsModel;
 use App\Models\SettingsModel;
 use App\Models\ExportModel;
@@ -444,8 +445,8 @@ class AdminController extends BaseController
                 'will_not_attend' => NULL,
                 'invite_id' => rand(10, 99999999999),
             ];
-
-            if ($userModel->save($data)) {
+            $guestSave = $userModel->save($data);
+            if ($guestSave) {
                 $latestID = $userModel->insertID();
                 if (!empty($companion_name)) {
                     $companionsModel = model(CompanionsModel::class);
@@ -463,32 +464,12 @@ class AdminController extends BaseController
                                 'user_id' => $latestID
 
                             ];
-                            $companionsSave = $companionsModel->save($dataCompanion);
+                           $companionsModel->save($dataCompanion);
                         }
 
                     }
-                    if ($companionsSave) {
-                        // Set up Pusher configuration
-                        $options = [
-                            'cluster' => 'ap3',  // Replace with your Pusher cluster
-                            'useTLS' => true,
-                        ];
-
-                        $pusher = new \Pusher\Pusher(
-                            '8d7fa0a5863f106e689f',    // Replace with your Pusher app key
-                            '05c55ef62e5add42180d', // Replace with your Pusher app secret
-                            '1852485',     // Replace with your Pusher app ID
-                            $options
-                        );
-
-                        $pusherData = [
-                            'message' => 'Graph Updated',
-                        ];
-                        $pusher->trigger('graph-channel', 'graph-updated', $pusherData);
-                    }
-
                 }
-
+                   $this->sendNotif();
                 return $this->response->setJSON(['status' => 'success', 'message' => 'Data saved successfully!']);
             } else {
                 return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to save data.']);
@@ -497,6 +478,25 @@ class AdminController extends BaseController
             // Handle invalid request
             return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request.']);
         }
+    }
+    private function sendNotif(){
+         // Set up Pusher configuration
+         $options = [
+            'cluster' => 'ap3',  // Replace with your Pusher cluster
+            'useTLS' => true,
+        ];
+
+        $pusher = new \Pusher\Pusher(
+            '8d7fa0a5863f106e689f',    // Replace with your Pusher app key
+            '05c55ef62e5add42180d', // Replace with your Pusher app secret
+            '1852485',     // Replace with your Pusher app ID
+            $options
+        );
+
+        $pusherData = [
+            'message' => 'Graph Updated',
+        ];
+        $pusher->trigger('graph-channel', 'graph-updated', $pusherData);
     }
     public function editInvitee()
     {
@@ -555,6 +555,41 @@ class AdminController extends BaseController
             // Handle invalid request
             return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request.']);
         }
+    }
+    public function validateOTP(){
+        $otp = $this->request->getPost('otp'); 
+        $otpModel = model(OtpModel::class); 
+        $settingsModel = model(SettingsModel::class); 
+        
+        if (!empty($otp)) {
+            $checkOTP = $otpModel->where('otp', $otp)->first(); 
+        
+            if ($checkOTP) { 
+                $updateStatus = $otpModel->set('status', 0)
+                    ->where('otp', $otp)
+                    ->update();
+        
+                if ($updateStatus) { 
+                    $updateQRSetting = $settingsModel->set('quantity', $checkOTP['qr_setting'])
+                        ->where('id', 5)
+                        ->update();
+                        $otpModel->truncate();
+                    if ($updateQRSetting) {
+                        return $this->response->setJSON(['status' => 'success', 'message' => 'QR Settings updated successfully']);
+                    } else {
+                        return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to update QR Settings']);
+                    }        
+                } else {
+                    return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to update OTP status']);
+                }
+        
+            } else {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid OTP.']);
+            }
+        } else {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'OTP cannot be empty.']);
+        }
+        
     }
 
 }

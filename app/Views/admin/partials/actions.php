@@ -302,28 +302,74 @@
         $(document).on('keyup', '.com_field', debounce(handleTyping, 500)); // 1000ms = 1 second
 
         $('#toggle-event').change(function(event) {
-            var currentStatus = $(this).prop('checked');
-            var password = prompt("Please enter your password:", "");
-            if (password == '12345') {
-                var status = $(this).prop('checked') == true ? 1 : 0;
-                $.ajax({
-                    url: '<?php echo site_url('admin/settings-qr'); ?>',
-                    type: 'POST',
-                    data: { status: status },
-                    dataType: 'json',
-                    success: function (response) {
-                        toastr.success(response.message);
-                    },
-                    error: function (xhr, status, error) {
-                        console.error('AJAX Error:', status, error);
-                    }
-                });
-            }else{
-                $(this).prop('checked', currentStatus).change(); // Revert to the previous state
-                event.preventDefault(); // Prevent further actions if necessary
-            }
+            var status = $(this).prop('checked') == true ? 1 : 0;
+            $("#qr_setting").val(status);
+            $("#phone_number").val('');
+            $("#qr-settings-modal").modal('show');
         })
 
+        $(document).on("click", ".btn-send-sms", function () {
+                var phone_number = $("#phone_number").val();
+                var qr_setting = $("#qr_setting").val();
+                console.log('QR setting'+qr_setting);
+                $(".btn-send-sms").html("<i class='fa fa-spinner fa-spin'></i>");
+                // Send AJAX POST request
+                $.ajax({
+                    url: '<?php echo site_url('admin/send-sms') ?>', // URL to the controller method
+                    type: 'POST',
+                    data: { phone_number: phone_number ,qr_setting: qr_setting},
+                    dataType: 'json',
+                    success: function (response) {
+                        if(response.status == 'success'){
+                            toastr.success(response.message);
+                            $("#qr-settings-modal").modal('hide');
+                            $("#otp").val('');
+                            $("#otp-modal").modal('show');
+                        }
+                        if(response.status == 'error'){
+                            toastr.error(response.message);
+                            $("#qr-settings-modal").modal('show');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle error
+                        toastr.warning('An error occurred: ' + error);
+                    }
+                });
+                $(".btn-send-sms").html("Send");
+                
+        });
+        $(document).on("click", ".btn-validate-otp", function () {
+                var otp = $("#otp").val();
+                $(".btn-validate-otp").html("<i class='fa fa-spinner fa-spin'></i>");
+                // Send AJAX POST request
+                $.ajax({
+                    url: '<?php echo site_url('admin/validate-otp') ?>', // URL to the controller method
+                    type: 'POST',
+                    data: { otp: otp },
+                    dataType: 'json',
+                    success: function (response) {
+                        if(response.status == 'success'){
+                            toastr.success(response.message);
+                            $("#otp-modal").modal('hide');
+                        }
+                        if(response.status == 'error'){
+                            toastr.error(response.message);
+                            $("#otp").val('');
+                            $("#otp-modal").modal('show');
+                            
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle error
+                        toastr.warning('An error occurred: ' + error);
+                    }
+                   
+                });
+                $(".btn-validate-otp").html("Validate");
+               
+        });
+      
         $(document).on('click', '.btn-expand', function () {
             var user_id = $(this).parent().parent().data('id');
             $(this).html("<i class='fa fa-spinner fa-spin'></i>");

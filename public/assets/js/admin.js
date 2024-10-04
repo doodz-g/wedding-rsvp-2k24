@@ -79,7 +79,7 @@
     $(document).on('click', '.c-box', function () {
         cboxEnabler();
     });
-   
+    $("#phone_number").inputmask("+63 999 999 9999");
     function cboxEnabler() {
         var cboxChecker = $('#ga-table-container').find('.c-box').is(":checked");
         console.log(cboxChecker);

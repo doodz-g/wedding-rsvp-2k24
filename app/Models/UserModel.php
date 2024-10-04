@@ -56,9 +56,10 @@ class UserModel extends Model
     public function getCompanionsWithUserNames()
     {
         // Join tbl_users with tbl_companions
-        return $this->select('tbl_users.id, tbl_users.name, tbl_users.will_attend, tbl_users.will_not_attend, tbl_users.date, tbl_users.name as user_name', 'tbl_users.invite_id')
+        return $this->select('tbl_users.id, tbl_users.name, tbl_users.will_attend, tbl_users.will_not_attend, tbl_users.date, tbl_users.table_number as user_table_number, tbl_users.invite_id, tbl_companions.name as companion_name,tbl_companions.table_number as companion_table_number')
             ->join('tbl_companions', 'tbl_users.id = tbl_companions.user_id', 'inner')
             ->findAll();
+
     }
     public function get_totals()
     {

@@ -15,6 +15,7 @@ $routes->get('qr/(:any)', 'UserController::qrLanding/$1');
 
 //admin // superadmin
 $routes->post('/admin/companions', 'AdminController::getCompanions');
+$routes->post('/admin/validate-otp', 'AdminController::validateOTP');
 $routes->get('/admin/table', 'AdminController::tableView');
 $routes->get('/admin/settings', 'AdminController::getSettings');
 $routes->post('/admin/settings-qr', 'AdminController::updateQRSettings');
@@ -34,5 +35,7 @@ $routes->post('/login/authenticate', 'LoginController::authenticate');
 $routes->get('/logout', 'LoginController::logout');
 $routes->get('upload-image', 'ImageController::uploadImage');
 $routes->get('optimized-image/(:any)', 'ImageController::getOptimizedImage/$1');
+
+$routes->post('admin/send-sms', 'TwilioController::sendSms');
 
 
