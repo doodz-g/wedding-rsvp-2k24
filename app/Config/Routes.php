@@ -38,4 +38,6 @@ $routes->get('optimized-image/(:any)', 'ImageController::getOptimizedImage/$1');
 
 $routes->post('admin/send-sms', 'TwilioController::sendSms');
 
+$routes->get('admin/send-email', 'EmailController::sendEmail');
+
 
