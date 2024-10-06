@@ -323,17 +323,15 @@
                 </div>
                 <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
                     <div class="col-md-12 text-center font-secondary fw-light text-primary">
-                        <h2>Our Maids and Men of Honor</h2>
+                        <h2>Our Maids of Honor</h2>
                     </div>
                     <div class="col-6 p-0 text-md-right p-4 ml-container mf-size">
                         <p>Ms. Mary Anne Monteverde</p>
                         <p>Ms. Marie Bianca Monteverde</p>
-                        <p>Mr. Andrew Jay B. Santos</p>
                     </div>
                     <div class="col-6 p-0 text-md-left p-4 mr-container mf-size">
                         <p>Ms. Marie Joyce Monteverde</p>
                         <p>Ms. Marie Katrina Monteverde</p>
-                        <p>Mr. Dom Villegas</p>
                     </div>
                 </div>
                 <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
@@ -341,10 +339,10 @@
                         <h2>Our Principal Sponsors</h2>
                     </div>
                     <div class="col-6 p-0 text-md-right p-4 ml-container mf-size">
-                        <p>Mr. Juan dela Cruz</p>
+                        <p>Mr. Edmundo Cabading</p>
                         <p>Mr. Eduardo Leonor</p>
                         <p>Mr. Arman Almirez</p>
-                        <p>Mr. Dhon Conwi</p>
+                        <p>Mr. Gregory Conwi</p>
                         <p>Mr. Allan Dela Rosa</p>
                         <p>Mr. Philippe Mateo</p>
                         <p>Mr. Rogelio Almirez</p>
@@ -357,8 +355,13 @@
                         <p>Ms. Bernadeth Beliganio</p>
                         <p>Mrs. Erlyn Conwi</p>
                         <p>Mrs. Lucette Dela Rosa</p>
+                        <p>Mrs. Ivanne Colleen Parilla- Mateo</p>
                         <p>Mrs. Minerva Almirez</p>
-                        <p>Mrs. Inday Felizarta</p>
+                        <p>Mrs. Maria Lita Felizarta</p>
+                        <p>Mrs. Elenita Wheeler</p>
+                        <p>Ms. Caroline Ofilanda</p>
+                        <p>Ms. Maria Lea Almirez</p>
+                        <p>Mrs. Placida  Nishiya</p>
                     </div>
                 </div>
                 <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
@@ -387,10 +390,10 @@
                         <h3>Cord</h3>
                     </div>
                     <div class="col-6 p-0 text-center text-md-right p-4 ml-container mf-size">
-                        <p>Mr. Frank Oliver Monteverde</p>
+                        <p>Mr. Royward Castillo</p>
                     </div>
                     <div class="col-6 p-0 text-center text-md-left p-4 mr-container mf-size">
-                        <p>Mrs. Richelle Monteverde</p>
+                        <p>Ms. Danica Barquilla</p>
                     </div>
                 </div>
                 <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
@@ -398,18 +401,30 @@
                         <h2>Our Groomsmen & Bridesmaid</h2>
                     </div>
                     <div class="col-6 p-0 text-center text-md-right ml-container mf-size p-4">
+                        <p>Mr. Frank Oliver Monteverde</p>
+                        <p>Mr. Andrew Jay Santos</p>
+                        <p>Mr. Dominic Lorenzo Villegas</p>
                         <p>Mr. Rachelle-Ann Ducay</p>
-                        <p>Mr. Royward Castillo</p>
                         <p>Mr. Jayson Anthony Batac</p>
                         <p>Mr. Jerico Russell Mungcal</p>
-                        <p>Mr. Alvin Vinluan</p>
+                        <p>Mr. Royward Castillo</p>
+                        <p>Mr. Kaisuke Azuma</p>
+                        <p>Mr. Ahmed Moustafa Abouelela</p>
+                        <p>Mr. Yuya Kanda </p>
                     </div>
                     <div class="col-6 p-0 text-center text-md-left mr-container mf-size p-4">
-                        <p>Ms. Mary Jane Cambaya</p>
+                        <p>Ms. Annie Vie Mañago</p>
                         <p>Ms. Daphne Ochoa</p>
-                        <p>Ms. Cherry Mae Cabrera</p>
-                        <p>Ms. Dolly Jill Carmona</p>
+                        <p>Ms. Lovely Ocampo</p>
+                        <p>Ms. Mary Jane Cambaya</p>
                         <p>Ms. Richelda Belza</p>
+                        <p>Ms. Dolly Jill Carmona</p>
+                        <p>Ms. Danielle Ann Quitan</p>
+                        <p>Ms. Anjanette Paalisbo</p>
+                        <p>Mrs. Erika Azuma</p>
+                        <p>Mrs. Marie Grace Domingo</p>
+                        <p>Ms. Michelle Anclote</p>
+                        <p>Ms. Kristine Marie Jamboy</p>
                     </div>
                 </div>
                 <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
