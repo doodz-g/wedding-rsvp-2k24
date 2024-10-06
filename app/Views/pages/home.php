@@ -615,27 +615,31 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-md-6 text-center">
-                    <h5 class="font-weight-normal text-muted mb-3 pb-3">Where Timeless Elegance Meets the Promise of
-                        Forever, Every Stitch Tells a Story of Love.</h5>
+                    <h5 class="font-weight-normal text-muted mb-3 pb-3">We warmly invite our cherished guests to join us in wearing our wedding colors.</h5>
                 </div>
             </div>
-            <div class="row no-gutters">
-                <div class="col-lg-6 col-md-6 col-sm-6 text-center">
+            <div class="row no-gutters pb-4">
+                <div class="col-lg-6 col-md-6 col-sm-6 text-center d-50">
                     <img src="<?php echo base_url('public/assets/img/boy_attire_green.png'); ?>" id="boy-attire"
-                        class="img-fluid" style="max-width: 50%; max-height:80%;" alt="Responsive image">
+                        class="img-fluid" style="max-width: 50%;" alt="Responsive image">
                     <div class="color-swatch d-flex justify-content-center" style="margin-top: 10px;">
                         <div class="swatch bc" style="background-color: #d9ba9e;" data-color="#d9ba9e"></div>
                         <div class="swatch bc" style="background-color: #90a680;" data-color="#90a680"></div>
                         <div class="swatch bc" style="background-color: #000000;" data-color="#000000"></div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 text-center">
+                <div class="col-lg-6 col-md-6 col-sm-6 text-center d-50">
                     <img src="<?php echo base_url('public/assets/img/girl_attire_nude.png'); ?>" id="girl-attire"
-                        class="img-fluid" style="max-width: 50%; max-height:80%;" alt="Responsive image">
+                        class="img-fluid" style="max-width: 50%;" alt="Responsive image">
                     <div class="color-swatch d-flex justify-content-center" style="margin-top: 10px;">
                         <div class="swatch gc" style="background-color: #d9ba9e;" data-color="#d9ba9e"></div>
                         <div class="swatch gc" style="background-color: #90a680;" data-color="#90a680"></div>
                     </div>
+                </div>
+            </div>
+            <div class="row justify-content-center s-container">
+                <div class="col-md-6 text-center text-muted">
+                        <p><strong>Principal sponsors</strong> are requested to wear a <strong>black suit and black pants for males</strong>, and <strong>champagne or rich gold for females.</strong></p>
                 </div>
             </div>
             <div class="section-title position-relative text-center">

@@ -10399,12 +10399,23 @@ audio {
   padding: 45% 0 0;
 }
 
-@media (min-width: 1768px) {
+@media only screen and (min-width: 1768px) and (max-width: 1200px) {
   .parallax-mirror img {
     width: 100% !important;
   }
 }
 
+.parallax-mirror img {
+  width: 100% !important;
+}
+
+.s-container{
+  padding-bottom:25px !important;
+  font-style:italic;
+}
+.d-50{
+  max-height:50%;
+}
 .noPaddingBottom {
   padding-bottom: 0 !important;
 }
