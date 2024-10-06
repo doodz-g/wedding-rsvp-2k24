@@ -347,6 +347,7 @@
                         <p>Mr. Philippe Mateo</p>
                         <p>Mr. Rogelio Almirez</p>
                         <p>Mr. Dante Felizarta</p>
+                        <p>Mr. Ken Wheeler</p>
                         <p>Mr. Rene Superio</p>
                         <p>Mr. Fernando Sadsad</p>
                         <p>Mr. Susumu Nishiya</p>
