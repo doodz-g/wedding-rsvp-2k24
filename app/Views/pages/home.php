@@ -643,17 +643,22 @@
                 <i class="far fa-heart text-dark"></i>
             </div>
             <div class="row justify-content-center">
-                <div class="col-md-6 text-center">
+                <div class="row col-md-6 text-center">
                     <h5 class="font-weight-normal text-muted mb-3 pb-3">With all that we have, we've been truly
                         blessed.
                         Your presence and prayers are all that we request.
                         But if your desired to give nonetheless,
                         monetary gift is one we suggest.</h5>
-                    <img src="<?php echo base_url('public/assets/img/qrcode.png'); ?>" class="img-fluid"
+                    <div class="col-md-6">
+                        <img src="<?php echo base_url('public/assets/img/bdo.jpg'); ?>" class="img-fluid"
                         alt="Responsive image">
-                </div>
-                <div class="col-md-12 text-center">
-                    <h4>Dummy QR</h4>
+                        <label class="text-center">BDO Bank</label>
+                    </div>
+                    <div class="col-md-6">    
+                        <img src="<?php echo base_url('public/assets/img/gcash.jpeg'); ?>" class="img-fluid"
+                        alt="Responsive image">
+                        <label class="text-center">Gcash</label> 
+                    </div>   
                 </div>
             </div>
         </div>
