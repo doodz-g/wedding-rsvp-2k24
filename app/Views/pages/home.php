@@ -326,7 +326,7 @@
                         <h2>Our Maids of Honor</h2>
                     </div>
                     <div class="col-6 p-0 text-md-right p-4 ml-container mf-size">
-                        <p>Ms. Mary Anne Monteverde</p>
+                        <p>Ms. Marie Anne Monteverde</p>
                         <p>Ms. Marie Bianca Monteverde</p>
                     </div>
                     <div class="col-6 p-0 text-md-left p-4 mr-container mf-size">
@@ -403,19 +403,21 @@
                         <h2>Our Groomsmen & Bridesmaid</h2>
                     </div>
                     <div class="col-6 p-0 text-center text-md-right ml-container mf-size p-4">
-                        <p>Mr. Frank Oliver Monteverde</p>
                         <p>Mr. Andrew Jay Santos</p>
                         <p>Mr. Dominic Lorenzo Villegas</p>
-                        <p>Mr. Rachelle-Ann Ducay</p>
+                        <p>Ms. Rachelle-Ann Ducay</p>
                         <p>Mr. Jayson Anthony Batac</p>
+                        <p>Mr. Alvin Vinluan</p>
                         <p>Mr. Jerico Russell Mungcal</p>
                         <p>Mr. Royward Castillo</p>
                         <p>Mr. Kaisuke Azuma</p>
                         <p>Mr. Ahmed Moustafa Abouelela</p>
-                        <p>Mr. Yuya Kanda </p>
+                        <p>Mr. Yuya Kanda</p>
+                        <p>Mr. Dexter Ocampo</p>
+                        <p>Mr. Sean Cristopher Garcia</p>
+                        <p>Mr. Frank Oliver Monteverde</p>
                     </div>
                     <div class="col-6 p-0 text-center text-md-left mr-container mf-size p-4">
-                        <p>Ms. Annie Vie Mañago</p>
                         <p>Ms. Daphne Ochoa</p>
                         <p>Ms. Lovely Ocampo</p>
                         <p>Ms. Mary Jane Cambaya</p>
@@ -427,6 +429,8 @@
                         <p>Mrs. Marie Grace Domingo</p>
                         <p>Ms. Michelle Anclote</p>
                         <p>Ms. Kristine Marie Jamboy</p>
+                        <p>Ms. Shane Garcia</p>
+                        <p>Ms. Annie Vie Mañago</p>
                     </div>
                 </div>
                 <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
