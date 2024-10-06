@@ -434,14 +434,17 @@
                         <p>Ms. Annie Vie Mañago</p>
                     </div>
                 </div>
-                <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
-                    <div class="col-md-12 text-center font-secondary fw-light text-primary">
+                <div class="row m-0 mb-4 pb-2 text-center">
+                    <div class="col-md-12 text-center pb-2 font-secondary fw-light text-primary">
                         <h2>Our Lovely Flower Girls</h2>
                     </div>
-                    <div class="col-6 p-0 text-center text-md-right p-4 ml-container mf-size">
+                    <div class="col-md-4 p-0 text-center mf-size pb-md-0 pb-xl-0">
+                        <p>Ms. Miela Zekina B. Almacen</p>
+                    </div>
+                    <div class="col-md-4 p-0 text-center text-center ml-container pb-xl-0 mf-size">
                         <p>Mrs. Lydia Monteverde</p>
                     </div>
-                    <div class="col-6 p-0 text-center text-md-left p-4 mr-container mf-size">
+                    <div class="col-md-4 p-0 text-center text-center mr-container pb-xl-0 mf-size">
                         <p>Mrs. Victoria Almacen</p>
                     </div>
                 </div>
@@ -924,7 +927,7 @@
                 <div class="col-md-12 text-center">
                     <h5 class="font-weight-normal mb-3 pb-3 text-white">Help us capture the moments!
                         Share your photos with our wedding hashtag.</h5>
-                    <h5 class="text-white"><strong>#EDUSealedItWithAkiss</strong></h5>
+                    <h5 class="text-white"><strong>#EDUsealeditwithAKISS</strong></h5>
                 </div>
             </div>
             <div class="d-flex justify-content-center mb-4">
