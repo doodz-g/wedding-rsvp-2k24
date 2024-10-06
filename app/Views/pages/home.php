@@ -180,7 +180,7 @@
         <!-- Story Start -->
         <div class="container-fluid parallax-window-even" data-parallax="scroll"
             data-image-src="<?php echo base_url('public/assets/img/even.png'); ?>" id="story">
-            <div class="container-fluid pt-6 c-pb-3 ">
+            <div class="container-fluid pt-6 c-pb-3">
                 <div class="section-title position-relative text-center">
                     <h6 class="text-uppercase text-primary mb-3 ls-3">Story</h6>
                     <h1 class="font-secondary display-4 scroll-up-content">Our Love Story</h1>
@@ -346,8 +346,10 @@
                         <p>Mr. Allan Dela Rosa</p>
                         <p>Mr. Philippe Mateo</p>
                         <p>Mr. Rogelio Almirez</p>
+                        <p>Mr. Dante Felizarta</p>
                         <p>Mr. Rene Superio</p>
-                        <p>Mr. Nanding Sadsad</p>
+                        <p>Mr. Fernando Sadsad</p>
+                        <p>Mr. Susumu Nishiya</p>
                     </div>
                     <div class="col-6 p-0 text-md-left p-4 mr-container mf-size">
                         <p>Mrs. Marilou A. Kanda</p>
@@ -361,7 +363,7 @@
                         <p>Mrs. Elenita Wheeler</p>
                         <p>Ms. Caroline Ofilanda</p>
                         <p>Ms. Maria Lea Almirez</p>
-                        <p>Mrs. Placida  Nishiya</p>
+                        <p>Mrs. Placida Nishiya</p>
                     </div>
                 </div>
                 <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
@@ -661,11 +663,11 @@
             </div>
             <div class="container py-5 bg-secondary pl-4 pr-4">
                 <ul class="list-unstyled lh-36">
-                    <li><b>What time do I need to be at the venue?</b></li>
-                    <li class="mb-2">Help us get the party started as scheduled! We recommend that you arrive 30
-                        minutes
-                        before the
-                        start of the ceremony to make sure everyone is seated on time.</li>
+                    <li><b>What time do I need to be at the church?</b></li>
+                    <li class="mb-2">Help us get started as scheduled. For the Entourage and specially our Principal
+                        sponsors may we request you to arrived <strong>1 hour before</strong> the ceremony proper. For
+                        the guest we also recommend you come <strong>30 mins before</strong> to make everyone is seated
+                        on time.</li>
 
                     <li><b>Can I bring a plus one?</b></li>
                     <li class="mb-2">Unfortunately, we have a strict guest list to stay on budget. We are sadly
@@ -702,11 +704,11 @@
                     list and
                     arrangements</li>
 
-                    <li><b>Arrival Time:</b></li>
-                    <li class="mb-2">Aim to arrive a little early to avoid any last-minute rush and to ensure you
-                        don't
-                        miss any part
-                        of the ceremony.</li>
+                    <li><b>Reception upon arrival Time:</b></li>
+                    <li class="mb-2">We appreciate if you'll arrived on time. Our registration will be open at exactly
+                        6pm. Kindly present your <strong>QR CODE</strong> to our friendly coordinators for your table
+                        assignment. while waiting for the program proper to start please enjoy our pica-pica and fun
+                        activities we've prepared for you. </li>
 
                     <li><b>Have Fun!:</b></li>
                     <li>Most importantly, relax, have fun, and celebrate with us! We can't wait to share this
@@ -910,7 +912,7 @@
     <div class="container-fluid bg-dark text-white py-5 cp-0" id="contact">
         <div class="container text-center py-5">
             <div class="section-title position-relative text-center">
-                <h1 class="font-secondary display-3 text-white">Thank You</h1>
+                <h1 class="font-secondary display-3 text-white">Thank You!</h1>
                 <i class="far fa-heart text-white"></i>
             </div>
             <div class="row justify-content-center pb-3">
