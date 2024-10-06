@@ -46,7 +46,7 @@
                         <ul id="update_companion_container" style="line-height:3.5;list-style:none;padding-left:0;">
 
                         </ul>
-                        <button type="button" class="update_companion"><i class="fa fa-plus"></i> Add
+                        <button type="button" class="update_companion <?php echo $data->totalGNow == 120 ? 'd-none':''?>"><i class="fa fa-plus"></i> Add
                             companion</button>
                         <div class="modal-footer">
                             <button type="button" value="submit" class="btn btn-primary bg-black updateButton">Save</button>

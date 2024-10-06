@@ -66,7 +66,7 @@
                                             class="material-icons">&#xE24D;</i>
                                         <span>Export to
                                             Excel</span></a></li>
-                                <li class="<?php echo session()->get('usertype') === 'admin' ? 'd-none' : '' ?>"><a
+                                <li class="<?php echo session()->get('usertype') === 'admin' || $data->totalGNow  == 120 ? 'd-none' : '' ?>"><a
                                         href="#" class="btn btn-secondary" id="btn-add-guest" data-toggle="modal"
                                         data-target="#"><i class="material-icons">&#xE147;</i> <span>Add New
                                             User</span></a></li>
