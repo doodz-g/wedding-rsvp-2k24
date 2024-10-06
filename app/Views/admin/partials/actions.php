@@ -66,9 +66,6 @@
                                 $(".updateButton").text("Save");
                                 $("#edit-user-modal").modal('show');
                             }
-
-
-
                         },
                         error: function (xhr, status, error) {
                             toastr.warning('An error occurred: ' + error);
@@ -369,7 +366,30 @@
                 $(".btn-validate-otp").html("Validate");
                
         });
-      
+        $(document).on("click", "#btn-sync", function () {
+            $("#btn-sync").html("<i class='fa fa-sync fa-spin'></i> Sync data to Export Table");
+            $.ajax({
+                url: '<?php echo site_url('admin/sync') ?>',
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if(response.status === 'success') {
+                        toastr.success(response.message);
+                    setTimeout(function() {$("#export-container").html("<a class='btn btn-secondary' id='btn-export' href='<?php echo base_url('admin/export');?>'><i class='fa fa-download'></i><span>Export as XLS</span></a>");}, 2000);
+                    } else {
+                        toastr.error(response.message);
+                        $("#btn-sync").html("<i class='fa fa-sync'></i> Sync data to Export Table");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error:', xhr.responseText);
+                    toastr.warning('An error occurred: ' + xhr.status + ' ' + xhr.statusText);
+                }
+            });
+        });
+        $(document).on("click", "#btn-export", function () {
+            $("#export-container").html("<a id='btn-sync' class='btn btn-secondary'><i class='fa fa-sync'></i><span>Sync data to Export Table</span></a>");
+        });
         $(document).on('click', '.btn-expand', function () {
             var user_id = $(this).parent().parent().data('id');
             $(this).html("<i class='fa fa-spinner fa-spin'></i>");

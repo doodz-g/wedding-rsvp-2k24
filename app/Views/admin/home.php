@@ -62,16 +62,14 @@
                         </div>
                         <div class="col-md-7" style="padding-right:0;">
                             <ul class="horizontal-list">
-                                <li><a href="<?php echo base_url('admin/export'); ?>" class="btn btn-secondary"><i
-                                            class="material-icons">&#xE24D;</i>
-                                        <span>Export to
-                                            Excel</span></a></li>
+                                <li id="export-container"><a id="btn-sync" class="btn btn-secondary"><i class="fa fa-sync"></i>
+                                        <span>Sync data to Export Table</span></a></li>
                                 <li class="<?php echo session()->get('usertype') === 'admin' || $data->totalGNow  == 120 ? 'd-none' : '' ?>"><a
                                         href="#" class="btn btn-secondary" id="btn-add-guest" data-toggle="modal"
                                         data-target="#"><i class="material-icons">&#xE147;</i> <span>Add New
                                             User</span></a></li>
                                 <li><a href="#" onClick="refreshTable();" class="btn btn-secondary" data-target="#"><i
-                                            class="fa fa-refresh"></i>
+                                            class="fa fa-spinner"></i>
                                         <span>Refresh</span></a></li>
                             </ul>
                         </div>
@@ -199,6 +197,9 @@
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     <!-- Template Javascript -->
     <script src="<?php echo base_url('public/assets/js/admin.js'); ?>"></script>
+    <?php if (session()->getFlashdata('error')): ?>
+            toastr.error('<?= session()->getFlashdata('error') ?>');
+    <?php endif; ?>
     <?php echo view('admin/partials/actions'); ?>
     <?php echo view('admin/partials/footer'); ?>
 </body>
