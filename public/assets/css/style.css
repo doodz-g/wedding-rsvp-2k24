@@ -10392,7 +10392,6 @@ audio {
   background: transparent;
 }
 
-
 .parallax-mirror,
 #vurtUnderlay {
   width: 100% !important;
@@ -10416,9 +10415,58 @@ audio {
 .d-50{
   max-height:50%;
 }
+/* Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 12px;  /* Width of the scrollbar */
+}
+
+/* Track (background of the scrollbar) */
+::-webkit-scrollbar-track {
+  background: black;  /* Light grey */
+}
+
+/* Handle (scrollbar itself) */
+::-webkit-scrollbar-thumb {
+  background-color: #046307;  /* Dark grey */
+  border-radius: 10px;  /* Rounded edges */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #046307;  /* Darker grey when hovered */
+}
+
+summary::marker{
+  color: darkgreen;
+}
+
+/* Overlay styles */
+.overlay-rsvp {
+  position: fixed;            /* Fixed position */
+  top: 0;                     /* Align to the top */
+  left: 0;                    /* Align to the left */
+  width: 100%;                /* Full width */
+  height: 100%;               /* Full height */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;              /* Use flexbox for centering */
+  align-items: center;        /* Center vertically */
+  justify-content: center;     /* Center horizontally */
+  z-index: 2000;              /* Ensure it stays on top */
+}
+
+/* Alert box styles */
+.alert {
+  position: relative;         /* Relative positioning for the alert */
+  margin: 0;                 /* Remove default margin */
+  background-color: white;
+  color: darkgreen;
+  border: none;
+}
+
 .noPaddingBottom {
   padding-bottom: 0 !important;
 }
+
 .gallery-carousel .owl-nav {
   position: absolute;
   width: 135px;
