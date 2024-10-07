@@ -20,6 +20,8 @@
         showMethod: "fadeIn",
         hideMethod: "fadeOut"
     };
+    $("#fullOverlay").addClass("active");
+    $("body").addClass("no-scroll");
     $('.parallax-window').parallax({
         imageSrc: baseURL+'/public/assets/img/entourage.png'
     });
@@ -57,7 +59,7 @@
                     $("#invitee-body").html(html);
                 }
                 $("#rsvp-container").html('');
-                $("#rsvp-container").html('<a href="#rsvp-confirm" id="rsvp-confirm-nav" class="nav-item nav-link">RSVP</a>'); // button
+                $("#rsvp-container").html('<a href="#rsvp-confirm" id="rsvp-confirm-nav" class="nav-item nav-link">Get QR PASS</a>'); // button
                 $("#rsvp-confirm").show(); // panel
                 $("#rsvp").hide();  // panel  
             }
@@ -106,7 +108,11 @@
 
         });
     });
-
+    $(document).on("click", "#btn-overlay-close", function () {
+        $("#overlay-rsvp").remove();
+        $("#confirmationModal").modal('show');
+        $("body").removeClass("no-scroll");
+    });
     $('.bc').on('click', function () {
         // Get the color from the swatch's data attribute
         var selectedColor = $(this).data('color');
@@ -137,20 +143,6 @@
 
         }
     });
-
-    $("#fullOverlay").addClass("active");
-    $("body").addClass("no-scroll");
-
-    $("#openBtn").click(function () {
-        setTimeout(function () {
-            $("#fullOverlay").removeClass("active");
-        }, 3000);
-
-        $("#fullOverlay").addClass("animate__animated animate__fadeOutUpBig");
-        $("body").removeClass("no-scroll");
-        $(".custom-container").addClass("loaded");
-    });
-
     $("#carousel-container").find(".btn-play-music").click(function () {
         if ($(this).hasClass("btn-play")) {
             e.play();

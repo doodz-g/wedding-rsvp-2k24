@@ -111,7 +111,7 @@ class AdminController extends BaseController
 
         $totalGuestConfirmAttendance = $userModel->where('will_attend', 'Yes')->countAllResults();
         $totalCompanionsConfirmAttendance = $companionsModel->where('will_attend', 'Yes')->countAllResults();
-       
+
         // Access numeric values from the results
         $maxCap = $getSettingsMaxGuest['quantity'];
         $totalGuestWillAttend = $totalGuestConfirmAttendance + $totalCompanionsConfirmAttendance ?? 0;
@@ -232,10 +232,9 @@ class AdminController extends BaseController
                 foreach ($companions as $companion => $c) {
                     $companionsModel->delete($c->id);
                 }
-                return $this->response->setJSON(['status' => 'success', 'message' => 'Record deleted successfully.']);
-            } else {
-                return $this->response->setJSON(['status' => 'warning', 'message' => 'Record not found.']);
             }
+          $this->sendNotif();  
+          return $this->response->setJSON(['status' => 'success', 'message' => 'Record deleted successfully.']);
         }
     }
     public function assignGuestTable()
@@ -385,6 +384,7 @@ class AdminController extends BaseController
         // Check if the user_id exists before attempting to delete
         if ($companionsModel->where('id', $id)) {
             $companionsModel->delete($id);
+            $this->sendNotif();
             return $this->response->setJSON(['status' => 'success', 'message' => 'Record deleted successfully.']);
         } else {
             return $this->response->setJSON(['status' => 'warning', 'message' => 'Record not found.']);
@@ -464,13 +464,13 @@ class AdminController extends BaseController
                                 'user_id' => $latestID
 
                             ];
-                           $companionsModel->save($dataCompanion);
+                            $companionsModel->save($dataCompanion);
                         }
 
                     }
                 }
-                   $this->sendNotif();
-                return $this->response->setJSON(['status' => 'success', 'message' => 'Data saved successfully!']);
+                $this->sendNotif();
+                return $this->response->setJSON(['status' => 'success', 'message' => 'New guest added']);
             } else {
                 return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to save data.']);
             }
@@ -479,9 +479,10 @@ class AdminController extends BaseController
             return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request.']);
         }
     }
-    private function sendNotif(){
-         // Set up Pusher configuration
-         $options = [
+    private function sendNotif()
+    {
+        // Set up Pusher configuration
+        $options = [
             'cluster' => 'ap3',  // Replace with your Pusher cluster
             'useTLS' => true,
         ];
@@ -556,40 +557,41 @@ class AdminController extends BaseController
             return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request.']);
         }
     }
-    public function validateOTP(){
-        $otp = $this->request->getPost('otp'); 
-        $otpModel = model(OtpModel::class); 
-        $settingsModel = model(SettingsModel::class); 
-        
+    public function validateOTP()
+    {
+        $otp = $this->request->getPost('otp');
+        $otpModel = model(OtpModel::class);
+        $settingsModel = model(SettingsModel::class);
+
         if (!empty($otp)) {
-            $checkOTP = $otpModel->where('otp', $otp)->first(); 
-        
-            if ($checkOTP) { 
+            $checkOTP = $otpModel->where('otp', $otp)->first();
+
+            if ($checkOTP) {
                 $updateStatus = $otpModel->set('status', 0)
                     ->where('otp', $otp)
                     ->update();
-        
-                if ($updateStatus) { 
+
+                if ($updateStatus) {
                     $updateQRSetting = $settingsModel->set('quantity', $checkOTP['qr_setting'])
                         ->where('id', 5)
                         ->update();
-                        $otpModel->truncate();
+                    $otpModel->truncate();
                     if ($updateQRSetting) {
                         return $this->response->setJSON(['status' => 'success', 'message' => 'QR Settings updated successfully']);
                     } else {
                         return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to update QR Settings']);
-                    }        
+                    }
                 } else {
                     return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to update OTP status']);
                 }
-        
+
             } else {
                 return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid OTP.']);
             }
         } else {
             return $this->response->setJSON(['status' => 'error', 'message' => 'OTP cannot be empty.']);
         }
-        
+
     }
 
 }

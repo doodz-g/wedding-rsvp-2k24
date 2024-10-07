@@ -219,6 +219,7 @@
             $(document).on('click', '.btn-edit-guest-modal', function () {
                 var user_id = $(this).data('id');
                 var name = $(this).data('name');
+                var guest_status = $(this).data('status');
                 $(this).html("<i class='fa fa-spinner fa-spin'></i>");
                 $(".modal-title").text('Edit Guest[' + name + ']');
                 $("#update_name").val(name);
@@ -247,10 +248,14 @@
                             $.each(response.companions, function (index, item) {
                                 companionContainer.append('<li> <input type="text" oninput="checkDuplicateCompanionNames()" id="companion_name" value="' + (item.name ? item.name : '') + '" name="companion_name[' + ctr + '][name]" style="width: 90%; height: 38px; border: 2px solid #ced4da;">' +
                                     '<input type="hidden" value="' + (item.id ? item.id : '') + '" name="companion_name[' + ctr + '][id]" style="width: 90%; height: 38px; border: 2px solid #ced4da;">' +
-                                    '<span type="button" class="delete_companion" data-id="' + (item.id ? item.id : '') + '" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
+                                    '<span type="button" class="delete_companion '+(guest_status == 'Yes' || guest_status == 'No' ? 'd-none':'')+'" data-id="' + (item.id ? item.id : '') + '" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
                                 ctr++;
                             });
-
+                            if(guest_status == "Yes" || guest_status == 'No'){
+                                $(".update_companion").addClass('d-none');
+                            }else{
+                                $(".update_companion").removeClass('d-none');
+                            }
 
                         }
                     },
@@ -509,11 +514,11 @@
                             '<td><button class="fc-red btn-expand btn btn-xs"><i class="fa fa-expand"></button></td>' +
                             '<td>' + item.invite_id + '</td>' +
                             '<td>' + item.name + '</td>' +
-                            '<td>' + item.date + '</td>' +
                             '<td>' + (item.will_attend === null ? 'Invitation not yet sent' : (item.will_attend === 'Yes' ? 'Will attend' : 'Will not attend')) + '</td>' +
                             '<td>' + tb_num + '</td>' +
+                            '<td>' + item.date + '</td>' +
                             '<td style="width:158px;" class="<?php echo session()->get('usertype') == 'admin' ? 'd-none' : '' ?>">' +
-                            '<a href="#" type="button" data-id="' + item.id + '" class="settings btn-edit-guest-modal" data-id= "' + item.id + '" data-name="' + item.name + '" title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>' +
+                            '<a href="#" type="button" data-status="'+item.will_attend+'" data-id="' + item.id + '" class="settings btn-edit-guest-modal" data-id= "' + item.id + '" data-name="' + item.name + '" title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>' +
                             (item.will_attend === 'No' ? '<a href="#" type="button" class="settings" title="Cannot Assign" data-toggle="tooltip"><i style="color:gray !important;" class="fa fa-table"></i></a>':'<a href="#" type="button" data-id="' + item.id + '" data-name="' + item.name + '" class="settings btn-assign-guest-modal" data-table="' + item.table_number + '"title="Assign table slot" data-toggle="tooltip"><i class="fa fa-table"></i></a>') +
                             (item.will_attend === null ? '<a class="invite-link settings" title="Copy Invite link" data-toggle="tooltip" type="button" href="' + rsvpURL + '/' + item.invite_id + '"><i class="fa fa-link"></i></a>' : '<a class="settings" disabled title="Copy Invite link" data-toggle="tooltip" type="button" href="#"><i class="fa fa-link" style="color:gray !important;"></i></a>') +
                             '<a href="#" type="button" data-id="' + item.id + '" class="delete btn-delete-guest-modal" data-name="' + item.name + '" title="Delete" data-toggle="tooltip"><i class="fa fa-trash"></i></a>' +
@@ -617,11 +622,11 @@
                             '<td><button class="fc-red btn-expand btn btn-xs"><i class="fa fa-expand"></button></td>' +
                             '<td>' + item.invite_id + '</td>' +
                             '<td>' + item.name + '</td>' +
-                            '<td>' + item.date + '</td>' +
                             '<td>' + (item.will_attend === null ? 'Invitation not yet sent' : (item.will_attend === 'Yes' ? 'Will attend' : 'Will not attend')) + '</td>' +
                             '<td>' + tb_num + '</td>' +
+                            '<td>' + item.date + '</td>' +
                             '<td style="width:158px;" class="<?php echo session()->get('usertype') == 'admin' ? 'd-none' : '' ?>">' +
-                            '<a href="#" type="button" data-id="' + item.id + '" class="settings btn-edit-guest-modal" data-id= "' + item.id + '" data-name="' + item.name + '" title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>' +
+                            '<a href="#" type="button" data-status="'+item.will_attend+'" data-id="' + item.id + '" class="settings btn-edit-guest-modal" data-id= "' + item.id + '" data-name="' + item.name + '" title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>' +
                             (item.will_attend === 'No' ? '<a href="#" type="button" class="settings" title="Cannot Assign" data-toggle="tooltip"><i style="color:gray !important;" class="fa fa-table"></i></a>':'<a href="#" type="button" data-id="' + item.id + '" data-name="' + item.name + '" class="settings btn-assign-guest-modal" data-table="' + item.table_number + '"title="Assign table slot" data-toggle="tooltip"><i class="fa fa-table"></i></a>') +
                             (item.will_attend === null ? '<a class="invite-link settings" title="Copy Invite link" data-toggle="tooltip" type="button" href="' + rsvpURL + '/' + item.invite_id + '"><i class="fa fa-link"></i></a>' : '<a class="settings" disabled title="Copy Invite link" data-toggle="tooltip" type="button" href="#"><i class="fa fa-link" style="color:gray !important;"></i></a>') +
                             '<a href="#" type="button" data-id="' + item.id + '" class="delete btn-delete-guest-modal" data-name="' + item.name + '" title="Delete" data-toggle="tooltip"><i class="fa fa-trash"></i></a>' +

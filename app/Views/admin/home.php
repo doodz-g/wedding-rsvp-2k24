@@ -86,9 +86,9 @@
                                 <th></th>
                                 <th>Invite ID</th>
                                 <th>Name</th>
-                                <th>Date Created</th>
                                 <th>RSVP</th>
                                 <th>Table #</th>
+                                <th>Date Created</th>
                                 <th class="<?php echo session()->get('usertype') == 'admin' ? 'd-none' : '' ?>">Action
                                 </th>
                             </tr>
@@ -104,14 +104,14 @@
                                                     class="fa fa-expand"></button></td>
                                         <td><?php echo $c->invite_id ?></td>
                                         <td><?php echo $c->name ?></td>
-                                        <td><?php echo $c->date ?></td>
                                         <td><?php echo ($c->will_attend === NULL) ? 'Invitation not yet sent ' : (($c->will_attend == 'Yes') ? 'Will attend' : 'Will not attend') ?>
                                         <td><?php echo ($c->table_number != NULL ? $c->table_number == 11 ? 'Kids' : ($c->table_number == 12 ? 'Sponsors' : $c->table_number) : 'N/A') ?>
                                         </td>
+                                        <td><?php echo $c->date ?></td>
                                         </td>
                                         <td style="width:158px;"
                                             class="<?php echo session()->get('usertype') == 'admin' ? 'd-none' : '' ?>">
-                                            <a href="#" type="button" data-id="<?php echo $c->id; ?>"
+                                            <a href="#" type="button" data-status="<?php echo $c->will_attend;?>" data-id="<?php echo $c->id; ?>"
                                                 data-name="<?php echo $c->name; ?>" class="settings btn-edit-guest-modal"
                                                 title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>
                                             <?php echo $c->will_attend == 'No' ? '<a href="#" type="button" class="settings" title="Cannot Assign" data-toggle="tooltip"><i style="color:gray !important;" class="fa fa-table"></i></a>' : '<a href="#" type="button" data-id="' . $c->id . '" data-name="' . $c->name . '" data-table="' . $c->table_number . '"

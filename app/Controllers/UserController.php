@@ -130,10 +130,8 @@ class UserController extends BaseController
                         $userModel->update();
                     }
                 }
-
-                if($confirm == 0){
-                    $this->sendNotif();
-                }
+                $this->sendNotif();
+                $this->refreshGraph();
             }
 
             $data = [
@@ -227,8 +225,28 @@ class UserController extends BaseController
         );
         
         $pusherData = [
-            'message' => 'User RSVP status updated',
+            'message' => 'Guest status updated',
         ];
         $pusher->trigger('rsvp-channel', 'rsvp-updated', $pusherData);
+    }
+    private function refreshGraph()
+    {
+        // Set up Pusher configuration
+        $options = [
+            'cluster' => 'ap3',  // Replace with your Pusher cluster
+            'useTLS' => true,
+        ];
+
+        $pusher = new \Pusher\Pusher(
+            '8d7fa0a5863f106e689f',    // Replace with your Pusher app key
+            '05c55ef62e5add42180d', // Replace with your Pusher app secret
+            '1852485',     // Replace with your Pusher app ID
+            $options
+        );
+
+        $pusherData = [
+            'message' => 'Graph Updated',
+        ];
+        $pusher->trigger('graph-channel', 'graph-updated', $pusherData);
     }
 }

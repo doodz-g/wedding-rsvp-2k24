@@ -68,7 +68,7 @@
                         <?php if (isset($data->show_modal) && $data->show_modal == 'true') { ?>
                             <a href="#rsvp" id="rsvp-nav" class="nav-item nav-link ">RSVP</a>
                         <?php } else { ?>
-                            <a href="#rsvp-confirm" id="rsvp-confirm-nav" class="nav-item nav-link">RSVP</a>
+                            <a href="#rsvp-confirm" id="rsvp-confirm-nav" class="nav-item nav-link">Get QR PASS</a>
                         <?php }
                     } ?>
                 </div>
@@ -177,6 +177,16 @@
             </div>
         </div>
         <!-- Carousel End -->
+        <div class="overlay-rsvp d-none" id="overlay-rsvp">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <p><strong>Heads-up!</strong></br>The deadline to submit your RSVP is set for October 30, 2024. We
+                    kindly request that you confirm your attendance by this date to ensure proper arrangements for our
+                    gathering.</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="btn-overlay-close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
         <!-- Story Start -->
         <div class="container-fluid parallax-window-even" data-parallax="scroll"
             data-image-src="<?php echo base_url('public/assets/img/even.png'); ?>" id="story">
@@ -594,7 +604,7 @@
                             src="<?php echo $data->google_map_key2 ?>"></iframe>
                         <h4 class="mb-3">The Wedding Venue</h4>
                         <p class="mb-2">St Joseph The Worker Parish</p>
-                        <p class="mb-0">4:00 PM - 5:00PM</p>
+                        <p class="mb-0">3:00 PM - 5:00PM</p>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -615,7 +625,8 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-md-6 text-center">
-                    <h5 class="font-weight-normal text-muted mb-3 pb-3">We warmly invite our cherished guests to join us in wearing our wedding colors.</h5>
+                    <h5 class="font-weight-normal text-muted mb-3 pb-3">We warmly invite our cherished guests to join us
+                        in wearing our wedding colors.</h5>
                 </div>
             </div>
             <div class="row no-gutters pb-4">
@@ -639,7 +650,8 @@
             </div>
             <div class="row justify-content-center s-container">
                 <div class="col-md-6 text-center text-muted">
-                        <p><strong>Principal sponsors</strong> are requested to wear a <strong>black suit and black pants for males</strong>, and <strong>champagne or rich gold for females.</strong></p>
+                    <p><strong>Principal sponsors</strong> are requested to wear a <strong>black suit and black pants
+                            for males</strong>, and <strong>champagne or rich gold for females.</strong></p>
                 </div>
             </div>
             <div class="section-title position-relative text-center">
@@ -655,14 +667,14 @@
                         monetary gift is one we suggest.</h5>
                     <div class="col-md-6">
                         <img src="<?php echo base_url('public/assets/img/bdo.jpg'); ?>" class="img-fluid"
-                        alt="Responsive image">
+                            alt="Responsive image">
                         <label class="text-center">BDO Bank</label>
                     </div>
-                    <div class="col-md-6">    
+                    <div class="col-md-6">
                         <img src="<?php echo base_url('public/assets/img/gcash.jpeg'); ?>" class="img-fluid"
-                        alt="Responsive image">
-                        <label class="text-center">Gcash</label> 
-                    </div>   
+                            alt="Responsive image">
+                        <label class="text-center">Gcash</label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -679,59 +691,106 @@
                 <Ul>
             </div>
             <div class="container py-5 bg-secondary pl-4 pr-4">
-                <ul class="list-unstyled lh-36">
-                    <li><b>What time do I need to be at the church?</b></li>
-                    <li class="mb-2">Help us get started as scheduled. For the Entourage and specially our Principal
-                        sponsors may we request you to arrived <strong>1 hour before</strong> the ceremony proper. For
-                        the guest we also recommend you come <strong>30 mins before</strong> to make everyone is seated
-                        on time.</li>
-
-                    <li><b>Can I bring a plus one?</b></li>
-                    <li class="mb-2">Unfortunately, we have a strict guest list to stay on budget. We are sadly
-                        unable
-                        to accomodate
-                        additional guests. We appreciate your understanding!</li>
-
-                    <li><b>Can I sit anywhere at the reception?</b></li>
-                    <li class="mb-2">No, please. It took us a lot of effort to finalize the seating arrangement
-                        which is
-                        meant for
-                        everyone’s convenience. Group familiarity and network preference were taken into
-                        consideration
-                        to make sure you will be comfortable, so no need to worry.</li>
-
-                    <li><b>If you reserved us two seats and only one can make it, can I bring someone else along
-                            with
-                            me?</b></li>
-                    <li class="mb-2">No, unless we have personally confirmed this. We wanted to be surrounded by our
-                        families,
-                        friends, and super familiar faces, meaning we can only take in those who are invited.</li>
-                    <li><b>What happens between ceremony and reception?</b></li>
-
-                    <li class="mb-2">After the ceremony, the wedding party will be taking pictures nearby for around
-                        an
+                <details>
+                    <summary class="mt-3"><strong>What time do I need to be at the church?</strong></summary>
+                    <p class="mt-3">To help us start on schedule, the ceremony will begin at 4:00 PM. We kindly request
+                        the entourage
+                        and our principal sponsors to arrive one hour early for a briefing and line-up. Guests are
+                        encouraged to arrive 30 minutes prior to ensure everyone is seated on time. Please note that
+                        late comers should use the side entrance of the church to minimize disruptions during the
+                        processional and ceremony.
+                        Thank you for your cooperation!</p>
+                </details>
+                <details>
+                    <summary class="mt-3"><strong>Can I take photos and video during the ceremony?</strong></summary>
+                    <p class="mt-3">Our ceremony is unplugged & we plan to keep it solemn. Please <strong>“Put your
+                            phone down and in silent
+                            mode”</strong> during the processional & ceremony. Once we are pronounced as husband and
+                        wife. You’re
+                        free to take photos and videos.</p>
+                </details>
+                <details>
+                    <summary class="mt-3"><strong>Will there be transportation provided to the venue?</strong></summary>
+                    <p class="mt-3">Transportation to the venue will not be provided. However, there is ample parking
+                        available for
+                        those who prefer to drive.</p>
+                </details>
+                <details>
+                    <summary class="mt-3"><strong>What happens between ceremony and reception?</strong></summary>
+                    <p class="mt-3">After the ceremony, the wedding party will be taking pictures nearby for around an
                         hour or so.
-                        Guests can head straight to the reception where we will be serving pastries and drinks
-                        during
-                        cocktail hour.</li>
-
-                    <li><b>RSVP Deadline:</b></li>
-                    <li class="mb-2"></li>Please remember to RSVP by the specified deadline so we can finalize our
-                    guest
-                    list and
-                    arrangements</li>
-
-                    <li><b>Reception upon arrival Time:</b></li>
-                    <li class="mb-2">We appreciate if you'll arrived on time. Our registration will be open at exactly
-                        6pm. Kindly present your <strong>QR CODE</strong> to our friendly coordinators for your table
-                        assignment. while waiting for the program proper to start please enjoy our pica-pica and fun
-                        activities we've prepared for you. </li>
-
-                    <li><b>Have Fun!:</b></li>
-                    <li>Most importantly, relax, have fun, and celebrate with us! We can't wait to share this
-                        special
-                        day with all of our loved ones.</li>
-                </ul>
+                        Guests can head straight to the reception where we will be serving pastries and drinks during
+                        cocktail hour.</p>
+                </details>
+                <details>
+                    <summary class="mt-3"><strong>What time is the reception upon arrival?</strong></summary>
+                    <p class="mt-3">We appreciate if you'll arrive on time. Our registration will be open at exactly
+                        6pm. kindly
+                        present your <strong>QR CODE</strong> to our friendly coordinators for your table assignment.
+                        While waiting for
+                        the program proper to start please enjoy our pica-pica and fun activities we've prepared for
+                        you.</p>
+                </details>
+                <details>
+                    <summary class="mt-3"><strong>Can I sit anywhere at the reception?</strong></summary>
+                    <p class="mt-3">No, please. It took us a lot of effort to finalize the seating arrangement which is
+                        meant for
+                        everyone’s convenience. Group familiarity and network preference were taken into consideration
+                        to make sure you will be comfortable, so no need to worry.</p>
+                </details>
+                <details>
+                    <summary class="mt-3"><strong>When is the RSVP deadline?</strong></summary>
+                    <p class="mt-3">Please remember to RSVP by <strong>OCTOBER 30, 2024</strong> so we can finalize our
+                        guest list and arrangements.
+                    </p>
+                </details>
+                <details>
+                    <summary class="mt-3"><strong>What if I still go even if I did not confirmed my RSVP?</strong>
+                    </summary>
+                    <p class="mt-3">Since your name is not listed, unfortunately there will be <strong>NO SEAT & NO
+                            FOOD</strong> available for you.
+                    </p>
+                </details>
+                <details>
+                    <summary class="mt-3"><strong>I replied “NO” on RSVP yet I changed my mind, can I go?</strong>
+                    </summary>
+                    <p class="mt-3">It depends on the available slots. If you say <strong>“NO”</strong>, it means your
+                        slot will be given to another
+                        guest.</p>
+                </details>
+                <details>
+                    <summary class="mt-3"><strong>Can I bring a plus one in your wedding?</strong></summary>
+                    <p class="mt-3">Unfortunately, No! Our guests are limited and handpicked on purpose. We kindly
+                        request to NOT
+                        bring <strong>UNINVITED GUEST or TAG-ALONG companies whether adult or kids.</strong></p>
+                </details>
+                <details>
+                    <summary class="mt-3"><strong>Are children allowed at the wedding?</strong></summary>
+                    <p class="mt-3">We love your little ones! However, we have decided to keep our wedding and reception
+                        of immediate
+                        family & those requested. We encourage you to use this evening as a date night!.</p>
+                </details>
+                <details>
+                    <summary class="mt-3"><strong>If you reserved us two seats and only one can make it, can I bring
+                            someone else
+                            along with
+                            me?</strong></summary>
+                    <p class="mt-3">No, unless we have personally confirmed this. We wanted to be surrounded by our
+                        families,
+                        friends, and super familiar faces, meaning we can only take in those who are invited.</p>
+                </details>
+                <details>
+                    <summary class="mt-3"><strong>How can we help the couple the best time during their
+                            wedding?</strong></summary>
+                    <p class="mt-3">Pray with us for favours and provisions. Confirm your attendance now. Wear
+                        appropriate attire. Be
+                        there on time. Stay until the end of the program. Participate, enjoy and have fun!</p>
+                </details>
+                <details>
+                    <summary class="mt-3"><strong>Are you prepared for an enjoyable time?</strong></summary>
+                    <p class="mt-3">Above all, take a moment to relax, enjoy, and celebrate alongside us! We eagerly
+                        anticipate sharing this special day with all our cherished ones.</p>
+                </details>
             </div>
         </div>
     </div>
@@ -917,6 +976,7 @@
                             entrance.</p>
                         <img src="<?php echo !empty($data->invitee_qr) ? $data->invitee_qr : '' ?>" id="qr-code-image"
                             class="img-thumbnail">
+                        <p><small>If the save button doesn't work, please take a screenshot of the QR code.</small></p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="btn-save-qr">Save QR</button>
@@ -983,13 +1043,26 @@
     <script src="<?php echo base_url('public/assets/js/counter.js'); ?>"></script>
     <script> var baseURL = "<?php echo base_url(); ?>"; </script>
     <script src="<?php echo base_url('public/assets/js/main.js') . '?v=' . rand(); ?>"></script>
+
     <script>
         $(document).ready(function () {
-            <?php if (!empty($data->show_modal) && !is_null($data->show_modal) && $data->show_modal == true) { ?>
-                $("#confirmationModal").modal('show');
-            <?php } ?>
+            $("#openBtn").click(function () {
+                setTimeout(function () {
+                    $("#fullOverlay").removeClass("active");
+                }, 3000);
+                $("#fullOverlay").addClass("animate__animated animate__fadeOutUpBig");
+                $(".custom-container").addClass("loaded");
+                <?php if (!empty($data->show_modal) && !is_null($data->show_modal) && $data->show_modal == true) { ?>
+                $("body").addClass("no-scroll");
+                $("#overlay-rsvp").removeClass('d-none');
+                <?php }else{ ?>
+                $("body").removeClass("no-scroll");
+                <?php } ?>
+            });
         });
     </script>
+
+
 </body>
 
 </html>
