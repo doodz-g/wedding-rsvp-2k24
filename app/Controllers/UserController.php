@@ -8,6 +8,7 @@ use App\Models\SettingsModel;
 use App\Controllers\BaseController;
 use App\Services\QrCodeService;
 use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\Email\Email;
 
 class UserController extends BaseController
 {
@@ -131,6 +132,7 @@ class UserController extends BaseController
                     }
                 }
                 $this->sendNotif();
+                $this->sendEmailNotif($getUser->name, $confirm);
                 $this->refreshGraph();
             }
 
@@ -210,7 +212,25 @@ class UserController extends BaseController
 
 
     }
-    private function sendNotif(){
+    private function sendEmailNotif($name, $response)
+    {
+            $email = new Email();
+            $ans = $response == 1 ? 'will attend' : 'will not attend';
+            // Enable debugging
+            $email->setFrom('admin@celebratewithus.site', 'admin'); // Sender's email and name
+            $email->setTo('admin@celebratewithus.site'); // Recipient's email
+
+            $email->setSubject('RSVP STATUS NOTIFICATION');
+            $email->setMessage('Guest:' . $name. ' ' .$ans);
+
+            if ($email->send()) {
+                log_message('info', 'Email sent successfully.');
+            } else {
+                log_message('error',$email->printDebugger(['headers']));
+            } 
+    }
+    private function sendNotif()
+    {
         // Set up Pusher configuration
         $options = [
             'cluster' => 'ap3',  // Replace with your Pusher cluster
@@ -223,7 +243,7 @@ class UserController extends BaseController
             '1852485',     // Replace with your Pusher app ID
             $options
         );
-        
+
         $pusherData = [
             'message' => 'Guest status updated',
         ];
