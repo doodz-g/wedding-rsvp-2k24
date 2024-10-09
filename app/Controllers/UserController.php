@@ -221,7 +221,77 @@ class UserController extends BaseController
             $email->setTo('admin@celebratewithus.site'); // Recipient's email
 
             $email->setSubject('RSVP STATUS NOTIFICATION');
-            $email->setMessage('Guest:' . $name. ' ' .$ans);
+            $message='<!DOCTYPE html>
+            <html>
+            <head>
+                <style>
+                    body {
+                        font-family: "Helvetica Neue", Arial, sans-serif;
+                        background-color: #e9ecef;
+                        margin: 0;
+                        padding: 20px;
+                        color: #333;
+                    }
+                    .container {
+                        background-color: #ffffff;
+                        padding: 30px;
+                        border-radius: 12px;
+                        max-width: 600px;
+                        margin: auto;
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                        border: 1px solid #ddd;
+                    }
+                    h2 {
+                        color: #2d3e50;
+                        font-size: 24px;
+                        margin-bottom: 20px;
+                        border-bottom: 2px solid #f4f4f4;
+                        padding-bottom: 10px;
+                    }
+                    p {
+                        font-size: 16px;
+                        line-height: 1.8;
+                        color: #4f4f4f;
+                    }
+                    .footer {
+                        margin-top: 30px;
+                        font-size: 14px;
+                        color: #999;
+                        text-align: center;
+                    }
+                    .guest-info {
+                        font-weight: bold;
+                        color: #2d3e50;
+                    }
+                    .response {
+                        color: #007bff;
+                        font-weight: bold;
+                    }
+                    .highlight {
+                        color: #007bff;
+                        background-color: #f1f9ff;
+                        padding: 10px;
+                        border-radius: 6px;
+                        display: inline-block;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <h2>RSVP Status Notification</h2>
+                    <p>Hello,</p>
+                    <p>We would like to notify you about the RSVP status:</p>
+                    <p class="guest-info"><strong>Guest:</strong>'.$name.'</p>
+                    <p class="response"><strong>Response:</strong>'.$ans.'</p>
+                    <p>If you have any questions, feel free to contact us.</p>
+                    <p class="footer">This is an automated notification from <strong>Celebrate With Us</strong>.</p>
+                </div>
+            </body>
+            </html>
+            ';
+
+            $email->setMessage($message);
+            $email->setMailType('html');
 
             if ($email->send()) {
                 log_message('info', 'Email sent successfully.');
