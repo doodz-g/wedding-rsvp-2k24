@@ -36,7 +36,7 @@
                     <div id="chart"></div>
                     <div class="chart-label">
                         <span id="total_guest_container"><?php echo $data->totalGNow . ' of ' . $data->maxCap; ?>
-                            guests</span>
+                        </br>total guests</span>
                     </div>
                 </div>
                 <div class="col-md-4 chart-wrapper text-center">
@@ -44,7 +44,7 @@
                     <div class="chart-label">
                         <span
                             id="total_guest_will_attend_container"><?php echo $data->totalGuestThatConfirm . ' of ' . $data->maxCap; ?>
-                            will attend</span>
+                           guests</br>confirmed attendance</span>
                     </div>
                 </div>
             </div>
@@ -104,7 +104,7 @@
                                                     class="fa fa-expand"></button></td>
                                         <td><?php echo $c->invite_id ?></td>
                                         <td><?php echo $c->name ?></td>
-                                        <td><?php echo ($c->will_attend === NULL) ? 'Invitation not yet sent ' : (($c->will_attend == 'Yes') ? 'Will attend' : 'Will not attend') ?>
+                                        <td><?php echo ($c->will_attend === NULL) ? 'No Response yet' : (($c->will_attend == 'Yes') ? 'Confirmed Attendance' : 'Not Attending') ?>
                                         <td><?php echo ($c->table_number != NULL ? $c->table_number == 11 ? 'Kids' : ($c->table_number == 12 ? 'Sponsors' : $c->table_number) : 'N/A') ?>
                                         </td>
                                         <td><?php echo $c->date ?></td>

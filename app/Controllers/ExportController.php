@@ -27,7 +27,7 @@ class ExportController extends BaseController
         $sheet->setCellValue('A1', 'ID');
         $sheet->setCellValue('B1', 'Name');
         $sheet->setCellValue('C1', 'Table Number');
-        $sheet->setCellValue('D1', 'Will Attend');
+        $sheet->setCellValue('D1', 'Confirmed Attendance');
 
         // Populate rows
         $rowNumber = 2;

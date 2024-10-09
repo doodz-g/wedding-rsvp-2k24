@@ -514,7 +514,7 @@
                             '<td><button class="fc-red btn-expand btn btn-xs"><i class="fa fa-expand"></button></td>' +
                             '<td>' + item.invite_id + '</td>' +
                             '<td>' + item.name + '</td>' +
-                            '<td>' + (item.will_attend === null ? 'Invitation not yet sent' : (item.will_attend === 'Yes' ? 'Will attend' : 'Will not attend')) + '</td>' +
+                            '<td>' + (item.will_attend === null ? 'No Response yet' : (item.will_attend === 'Yes' ? 'Confirmed Attendance' : 'Not Attending')) + '</td>' +
                             '<td>' + tb_num + '</td>' +
                             '<td>' + item.date + '</td>' +
                             '<td style="width:158px;" class="<?php echo session()->get('usertype') == 'admin' ? 'd-none' : '' ?>">' +
@@ -622,7 +622,7 @@
                             '<td><button class="fc-red btn-expand btn btn-xs"><i class="fa fa-expand"></button></td>' +
                             '<td>' + item.invite_id + '</td>' +
                             '<td>' + item.name + '</td>' +
-                            '<td>' + (item.will_attend === null ? 'Invitation not yet sent' : (item.will_attend === 'Yes' ? 'Will attend' : 'Will not attend')) + '</td>' +
+                            '<td>' + (item.will_attend === null ? 'No Response yet' : (item.will_attend === 'Yes' ? 'Confirmed Attendance' : 'Not Attending')) + '</td>' +
                             '<td>' + tb_num + '</td>' +
                             '<td>' + item.date + '</td>' +
                             '<td style="width:158px;" class="<?php echo session()->get('usertype') == 'admin' ? 'd-none' : '' ?>">' +
@@ -836,8 +836,8 @@
                         ch2.updateOptions({
                             series: [totalGuestWillAttend] // Update with new data
                         });
-                        var totalGuest = response.totalGuest+' of '+response.totalCap+' guests'; 
-                        var totalGuestThatWillAttend = response.totalGuestConfirm+' of '+response.totalCap+' will attend'; 
+                        var totalGuest = response.totalGuest+' of '+response.totalCap+' </br>total guests'; 
+                        var totalGuestThatWillAttend = response.totalGuestConfirm+' of '+response.totalCap+' guests</br>confirmed attendance'; 
                         $("#total_guest_container").html(totalGuest);
                         $("#total_guest_will_attend_container").html(totalGuestThatWillAttend);
                 },
