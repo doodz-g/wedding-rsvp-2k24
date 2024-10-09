@@ -32,11 +32,9 @@ class ExportController extends BaseController
         // Populate rows
         $rowNumber = 2;
         foreach ($data as $row) {
-            $table_number = $row['table_number'] !== null ? ($row['table_number'] == 11 ? 'Kids' : ($row['table_number'] == 12 ? 'Sponsors' : $row['table_number'])) : 'N/A';
-
             $sheet->setCellValue('A' . $rowNumber, $row['id']);
             $sheet->setCellValue('B' . $rowNumber, $row['name']);
-            $sheet->setCellValue('C' . $rowNumber, $table_number);
+            $sheet->setCellValue('C' . $rowNumber, $row['table_number']);
             $sheet->setCellValue('D' . $rowNumber, $row['will_attend']);
             $rowNumber++;
         }
@@ -72,7 +70,7 @@ class ExportController extends BaseController
                 foreach ($getUsers as $users) {
                     $dataToExport[] = [
                         'name' => $users->name,
-                        'table_number' => ($users->table_number === null) ? 'N/A' : ($users->table_number == 11 ? 'Kids' : ($users->table_number == 12 ? 'Sponsors' : $users->table_number)),
+                        'table_number' => ($users->table_number === null)  ? 'N/A' : ( $users->table_number == 11  ? 'Kids' : ($users->table_number == 12 ? 'Sponsors A' : ( $users->table_number == 13 ? 'Sponsors B' : $users->table_number))),
                         'will_attend' => $users->will_attend,
                     ];
                 }
@@ -82,7 +80,7 @@ class ExportController extends BaseController
                 foreach ($getCompanions as $companions) {
                     $dataToExport[] = [
                         'name' => $companions->name,
-                        'table_number' => ($companions->table_number === null) ? 'N/A' : ($companions->table_number == 11 ? 'Kids' : ($companions->table_number == 12 ? 'Sponsors' : $companions->table_number)),
+                        'table_number' => ($companions->table_number === null)  ? 'N/A' : ( $companions->table_number == 11  ? 'Kids' : ($companions->table_number == 12 ? 'Sponsors A' : ( $companions->table_number == 13 ? 'Sponsors B' : $companions->table_number))),
                         'will_attend' => $companions->will_attend,
                     ];
                 }

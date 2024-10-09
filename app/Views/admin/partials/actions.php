@@ -197,13 +197,13 @@
                             companionContainer.html('');
                             var ctr = 0;
                             $.each(response.user, function (index, item) {
-                                var tb_num = (item.table_number !== null ? item.table_number == 11 ? 'Kids Table' : item.table_number == 12 ? 'Sponsors Table' : 'Table #' + item.table_number : 'No table yet');
+                                var tb_num = (item.table_number !== null ? item.table_number == 11 ? 'Kids Table' : item.table_number == 12 ? 'Sponsors A Table' : item.table_number == 13 ? 'Sponsors B Table' : 'Table #' + item.table_number : 'No table yet');
                                 companionContainer.append('<div class="row form-check"><input type="checkbox" class="form-check-input c-box" value="' + (item.id ? item.id : '') + '" name="guest_id"><label class="form-check-label" for="guest">' + item.name + '<span style="float:right;font-weight:600;">(Main Guest)</span></label>' +
                                     '<span style="float:right;font-weight:600;">' + tb_num + '</span></div>');
                                 ctr++;
                             });
                             $.each(response.companions, function (index, item) {
-                                var tb_num = (item.table_number !== null ? item.table_number == 11 ? 'Kids Table' : item.table_number == 12 ? 'Sponsors Table' : 'Table #' + item.table_number : 'No table yet');
+                                var tb_num = (item.table_number !== null ? item.table_number == 11 ? 'Kids Table' : item.table_number == 12 ? 'Sponsors A Table' : item.table_number == 13 ? 'Sponsors B Table' : 'Table #' + item.table_number : 'No table yet');
                                 companionContainer.append('<div class="row form-check"><input type="checkbox" class="form-check-input c-box" value="' + (item.name ? item.name : '') + '" name="companion_name[' + ctr + '][name]"><label class="form-check-label" for="guest">' + item.name + '</label>' +
                                     '<input type="hidden" value="' + (item.id ? item.id : '') + '" name="companion_name[' + ctr + '][id]" style="width: 90%; height: 38px; border: 2px solid #ced4da;"><span style="float:right;font-weight:600;">' + tb_num + '</span></div>');
                                 ctr++;
@@ -509,7 +509,7 @@
                     console.log(response2);
                     var html = '';
                     $.each(response2.users, function (index, item) {
-                        var tb_num = (item.table_number !== null ? item.table_number == 11 ? 'Kids' : (item.table_number == 12 ? 'Sponsors' : item.table_number) : 'N/A');
+                        var tb_num = (item.table_number !== null ? item.table_number == 11 ? 'Kids' : (item.table_number == 12 ? 'Sponsors A' : (item.table_number == 13 ? 'Sponsors B' : item.table_number)) : 'N/A');
                         html += '<tr class="' + (item.qr_code_status == 1 ? 'bg-success' : '') +  (item.will_attend == 'No' ? 'bg-warn' : '')+'" data-id="' + item.id + '">' +
                             '<td><button class="fc-red btn-expand btn btn-xs"><i class="fa fa-expand"></button></td>' +
                             '<td>' + item.invite_id + '</td>' +
@@ -519,7 +519,7 @@
                             '<td>' + item.date + '</td>' +
                             '<td style="width:158px;" class="<?php echo session()->get('usertype') == 'admin' ? 'd-none' : '' ?>">' +
                             '<a href="#" type="button" data-status="'+item.will_attend+'" data-id="' + item.id + '" class="settings btn-edit-guest-modal" data-id= "' + item.id + '" data-name="' + item.name + '" title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>' +
-                            (item.will_attend === 'No' ? '<a href="#" type="button" class="settings" title="Cannot Assign" data-toggle="tooltip"><i style="color:gray !important;" class="fa fa-table"></i></a>':'<a href="#" type="button" data-id="' + item.id + '" data-name="' + item.name + '" class="settings btn-assign-guest-modal" data-table="' + item.table_number + '"title="Assign table slot" data-toggle="tooltip"><i class="fa fa-table"></i></a>') +
+                            (item.will_attend === 'Yes' ? '<a href="#" type="button" data-id="' + item.id + '" data-name="' + item.name + '" class="settings btn-assign-guest-modal" data-table="' + item.table_number + '"title="Assign table slot" data-toggle="tooltip"><i class="fa fa-table"></i></a>':'<a href="#" type="button" class="settings" title="Cannot Assign" data-toggle="tooltip"><i style="color:gray !important;" class="fa fa-table"></i></a>') +
                             (item.will_attend === null ? '<a class="invite-link settings" title="Copy Invite link" data-toggle="tooltip" type="button" href="' + rsvpURL + '/' + item.invite_id + '"><i class="fa fa-link"></i></a>' : '<a class="settings" disabled title="Copy Invite link" data-toggle="tooltip" type="button" href="#"><i class="fa fa-link" style="color:gray !important;"></i></a>') +
                             '<a href="#" type="button" data-id="' + item.id + '" class="delete btn-delete-guest-modal" data-name="' + item.name + '" title="Delete" data-toggle="tooltip"><i class="fa fa-trash"></i></a>' +
                             '</td>' +
@@ -565,9 +565,9 @@
 
                     var tableNum = '';
                     tableNum = '<option value="0" disabled="" selected="">Select Table #</option>';
-                    for (var ctr = 1; ctr <= 12; ctr++) {
+                    for (var ctr = 1; ctr <= 13; ctr++) {
                         var remS = parseInt(response2['total_for_' + ctr], 10);
-                        tableNum += '<option value="' + ctr + '" ' + (remS == 0 ? 'disabled' : '') + ' style="' + (remS == 0 ? 'color:red !important;' : '') + '">' + (ctr == 11 ? 'Kids' : (ctr==12 ? 'Sponsors': ctr)) + '(Slots: ' + (remS == 0 ? 'Full' : remS) + ')</option>';
+                        tableNum += '<option value="' + ctr + '" ' + (remS == 0 ? 'disabled' : '') + ' style="' + (remS == 0 ? 'color:red !important;' : '') + '">' + (ctr == 11 ? 'Kids' : (ctr==12 ? 'Sponsors A': (ctr==13 ? 'Sponsors B':ctr))) + '(Slots: ' + (remS == 0 ? 'Full' : remS) + ')</option>';
                     }
                     $("#table_number").html(tableNum);
                     $('.hint-text').html(stats);
@@ -617,7 +617,7 @@
                     console.log(response2);
                     var html = '';
                     $.each(response2.users, function (index, item) {
-                        var tb_num = (item.table_number !== null ? item.table_number == 11 ? 'Kids' : (item.table_number == 12 ? 'Sponsors' : item.table_number) : 'N/A');
+                        var tb_num = (item.table_number !== null ? item.table_number == 11 ? 'Kids' : (item.table_number == 12 ? 'Sponsors A' : (item.table_number == 13 ? 'Sponsors B' : item.table_number)) : 'N/A');
                         html += '<tr class="' + (item.qr_code_status == 1 ? 'bg-success' : '') +  (item.will_attend == 'No' ? 'bg-warn' : '')+'" data-id="' + item.id + '">' +
                             '<td><button class="fc-red btn-expand btn btn-xs"><i class="fa fa-expand"></button></td>' +
                             '<td>' + item.invite_id + '</td>' +
@@ -627,7 +627,7 @@
                             '<td>' + item.date + '</td>' +
                             '<td style="width:158px;" class="<?php echo session()->get('usertype') == 'admin' ? 'd-none' : '' ?>">' +
                             '<a href="#" type="button" data-status="'+item.will_attend+'" data-id="' + item.id + '" class="settings btn-edit-guest-modal" data-id= "' + item.id + '" data-name="' + item.name + '" title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>' +
-                            (item.will_attend === 'No' ? '<a href="#" type="button" class="settings" title="Cannot Assign" data-toggle="tooltip"><i style="color:gray !important;" class="fa fa-table"></i></a>':'<a href="#" type="button" data-id="' + item.id + '" data-name="' + item.name + '" class="settings btn-assign-guest-modal" data-table="' + item.table_number + '"title="Assign table slot" data-toggle="tooltip"><i class="fa fa-table"></i></a>') +
+                            (item.will_attend === 'Yes' ? '<a href="#" type="button" data-id="' + item.id + '" data-name="' + item.name + '" class="settings btn-assign-guest-modal" data-table="' + item.table_number + '"title="Assign table slot" data-toggle="tooltip"><i class="fa fa-table"></i></a>':'<a href="#" type="button" class="settings" title="Cannot Assign" data-toggle="tooltip"><i style="color:gray !important;" class="fa fa-table"></i></a>') +
                             (item.will_attend === null ? '<a class="invite-link settings" title="Copy Invite link" data-toggle="tooltip" type="button" href="' + rsvpURL + '/' + item.invite_id + '"><i class="fa fa-link"></i></a>' : '<a class="settings" disabled title="Copy Invite link" data-toggle="tooltip" type="button" href="#"><i class="fa fa-link" style="color:gray !important;"></i></a>') +
                             '<a href="#" type="button" data-id="' + item.id + '" class="delete btn-delete-guest-modal" data-name="' + item.name + '" title="Delete" data-toggle="tooltip"><i class="fa fa-trash"></i></a>' +
                             '</td>' +
@@ -673,9 +673,9 @@
 
                     var tableNum = '';
                     tableNum = '<option value="0" disabled="" selected="">Select Table #</option>';
-                    for (var ctr = 1; ctr <= 12; ctr++) {
+                    for (var ctr = 1; ctr <= 13; ctr++) {
                         var remS = parseInt(response2['total_for_' + ctr], 10);
-                        tableNum += '<option value="' + ctr + '" ' + (remS == 0 ? 'disabled' : '') + ' style="' + (remS == 0 ? 'color:red !important;' : '') + '">' + (ctr == 11 ? 'Kids' : (ctr==12 ? 'Sponsors': ctr)) + '(Slots: ' + (remS == 0 ? 'Full' : remS) + ')</option>';
+                        tableNum += '<option value="' + ctr + '" ' + (remS == 0 ? 'disabled' : '') + ' style="' + (remS == 0 ? 'color:red !important;' : '') + '">' + (ctr == 11 ? 'Kids' : (ctr==12 ? 'Sponsors A': (ctr==13 ? 'Sponsors B':ctr))) + '(Slots: ' + (remS == 0 ? 'Full' : remS) + ')</option>';
                     }
                     $("#table_number").html(tableNum);
                     $('.hint-text').html(stats);

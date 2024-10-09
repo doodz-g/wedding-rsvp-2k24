@@ -9,6 +9,7 @@ use App\Models\SettingsModel;
 use App\Models\ExportModel;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\Email\Email;
 
 class AdminController extends BaseController
 {
@@ -22,7 +23,8 @@ class AdminController extends BaseController
             $settingsModel = model(name: SettingsModel::class);
             $getSettingsTableAdult = $settingsModel->where('id', '1')->first();
             $getSettingsTableKids = $settingsModel->where('id', '3')->first();
-            $getSettingsTableSponsors = $settingsModel->where('id', '4')->first();
+            $getSettingsTableSponsorsA = $settingsModel->where('id', '4')->first();
+            $getSettingsTableSponsorsB = $settingsModel->where('id', '6')->first();
             $getSettingsMaxGuest = $settingsModel->where('id', '2')->first();
             $getSettingsQR = $settingsModel->where('id', '5')->first();
 
@@ -90,7 +92,8 @@ class AdminController extends BaseController
                 'total_for_9' => ($userModel->getRemSlotsForEachTable(9)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(9) : $getSettingsTableAdult['quantity'],
                 'total_for_10' => ($userModel->getRemSlotsForEachTable(10)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(10) : $getSettingsTableAdult['quantity'],
                 'total_for_11' => ($userModel->getRemSlotsForEachTable(11)) ? $getSettingsTableKids['quantity'] - (int) $userModel->getRemSlotsForEachTable(11) : $getSettingsTableKids['quantity'],
-                'total_for_12' => ($userModel->getRemSlotsForEachTable(12)) ? $getSettingsTableSponsors['quantity'] - (int) $userModel->getRemSlotsForEachTable(12) : $getSettingsTableSponsors['quantity'],
+                'total_for_12' => ($userModel->getRemSlotsForEachTable(12)) ? $getSettingsTableSponsorsA['quantity'] - (int) $userModel->getRemSlotsForEachTable(12) : $getSettingsTableSponsorsA['quantity'],
+                'total_for_13' => ($userModel->getRemSlotsForEachTable(13)) ? $getSettingsTableSponsorsB['quantity'] - (int) $userModel->getRemSlotsForEachTable(13) : $getSettingsTableSponsorsB['quantity'],
             ];
 
             $dataObject = json_decode(json_encode($data));
@@ -128,42 +131,15 @@ class AdminController extends BaseController
         ];
         return $this->response->setJSON($data);
     }
-    public function tableView()
-    {
-        $session = session();
-        if ($session->has('logged_in') || $session->get('logged_in') == true) {
-
-            $userModel = model(UserModel::class);
-            $companionsModel = model(name: CompanionsModel::class);
-            $allUsers = $userModel->findAll();
-            $get_companions = $companionsModel->findAll();
-            $totalGuest = $userModel->get_totals();
-            $totalCompanions = $companionsModel->get_totals();
-            // Access numeric values from the results
-            $totalGuestCount = $totalGuest['total_users'] ?? 0;
-            $totalCompanionCount = $totalCompanions['total_companions'] ?? 0;
-            // Prepare response data
-            $data = [
-                'users' => $allUsers,
-                'companions' => $get_companions,
-                'total_guests' => $totalGuestCount + $totalCompanionCount,
-            ];
-            $dataObject = json_decode(json_encode($data));
-            return view('admin/table', ['data' => $dataObject]);
-
-        } else {
-            return redirect()->to('/login');
-        }
-
-    }
-
+    
     public function refresh()
     {
         $userModel = model(UserModel::class);
         $settingsModel = model(SettingsModel::class);
         $getSettingsTableAdult = $settingsModel->where('id', '1')->first();
         $getSettingsTableKids = $settingsModel->where('id', '3')->first();
-        $getSettingsTableSponsors = $settingsModel->where('id', '4')->first();
+        $getSettingsTableSponsorsA = $settingsModel->where('id', '4')->first();
+        $getSettingsTableSponsorsB = $settingsModel->where('id', '6')->first();
         // Get the current page number from the query string or default to 1
         $currentPage = $this->request->getVar('page') ?? 1;
         $sort = $this->request->getVar('sort') ?? 'id';
@@ -211,7 +187,8 @@ class AdminController extends BaseController
             'total_for_9' => ($userModel->getRemSlotsForEachTable(9)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(9) : $getSettingsTableAdult['quantity'],
             'total_for_10' => ($userModel->getRemSlotsForEachTable(10)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(10) : $getSettingsTableAdult['quantity'],
             'total_for_11' => ($userModel->getRemSlotsForEachTable(11)) ? $getSettingsTableKids['quantity'] - (int) $userModel->getRemSlotsForEachTable(11) : $getSettingsTableKids['quantity'],
-            'total_for_12' => ($userModel->getRemSlotsForEachTable(12)) ? $getSettingsTableSponsors['quantity'] - (int) $userModel->getRemSlotsForEachTable(12) : $getSettingsTableSponsors['quantity'],
+            'total_for_12' => ($userModel->getRemSlotsForEachTable(12)) ? $getSettingsTableSponsorsA['quantity'] - (int) $userModel->getRemSlotsForEachTable(12) : $getSettingsTableSponsorsA['quantity'],
+            'total_for_13' => ($userModel->getRemSlotsForEachTable(13)) ? $getSettingsTableSponsorsB['quantity'] - (int) $userModel->getRemSlotsForEachTable(13) : $getSettingsTableSponsorsB['quantity'],
         ];
 
         // Return JSON response
@@ -247,7 +224,8 @@ class AdminController extends BaseController
         $settingsModel = model(SettingsModel::class);
         $getSettingsTableAdult = $settingsModel->where('id', '1')->first();
         $getSettingsTableKids = $settingsModel->where('id', '3')->first();
-        $getSettingsTableSponsors = $settingsModel->where('id', '4')->first();
+        $getSettingsTableSponsorsA = $settingsModel->where('id', '4')->first();
+        $getSettingsTableSponsorsB = $settingsModel->where('id', '6')->first();
         $newAssignees = 0;
 
         if (empty($table_number)) {
@@ -271,7 +249,9 @@ class AdminController extends BaseController
         if ($table_number == 11) {
             $rem_slots = $getSettingsTableKids['quantity'] - (int) $userModel->getRemSlotsForEachTable(11);
         } else if ($table_number == 12) {
-            $rem_slots = $getSettingsTableSponsors['quantity'] - (int) $userModel->getRemSlotsForEachTable(12);
+            $rem_slots = $getSettingsTableSponsorsA['quantity'] - (int) $userModel->getRemSlotsForEachTable(12);
+        } else if ($table_number == 13) {
+            $rem_slots = $getSettingsTableSponsorsB['quantity'] - (int) $userModel->getRemSlotsForEachTable(13);
         } else {
             $rem_slots = $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable($table_number);
         }
@@ -282,13 +262,16 @@ class AdminController extends BaseController
                 if ($userModel->update($guest_id, ['table_number' => $table_number])) {
                     if ($companion_names) {
                         $this->assignCompanionsToTable($companion_names, $table_number, $companionModel);
+                        $this->updateTable();
                         return $this->response->setJSON(['status' => 'success', 'message' => 'Table assigned successfully.']);
+                       
                     }
                 } else {
                     return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to update user table number.']);
                 }
             } else if ($companion_names) {
                 $this->assignCompanionsToTable($companion_names, $table_number, $companionModel);
+                $this->updateTable();
                 return $this->response->setJSON(['status' => 'success', 'message' => 'Table assigned successfully.']);
             } else {
                 return $this->response->setJSON(['status' => 'error', 'message' => 'User not found.']);
@@ -499,6 +482,27 @@ class AdminController extends BaseController
         ];
         $pusher->trigger('graph-channel', 'graph-updated', $pusherData);
     }
+    private function updateTable()
+    {
+        // Set up Pusher configuration
+        $options = [
+            'cluster' => 'ap3',  // Replace with your Pusher cluster
+            'useTLS' => true,
+        ];
+
+        $pusher = new \Pusher\Pusher(
+            '43c7f87c078e85dc3242',    // Replace with your Pusher app key
+            '637a47098511344943f2', // Replace with your Pusher app secret
+            '1877993',     // Replace with your Pusher app ID
+            $options
+        );
+
+        $pusherData = [
+            'message' => 'Table Updated',
+        ];
+        $pusher->trigger('table-channel', 'table-updated', $pusherData);
+    }
+
     public function editInvitee()
     {
         // Check if the request is AJAX and POST

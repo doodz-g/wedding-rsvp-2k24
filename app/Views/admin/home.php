@@ -105,7 +105,7 @@
                                         <td><?php echo $c->invite_id ?></td>
                                         <td><?php echo $c->name ?></td>
                                         <td><?php echo ($c->will_attend === NULL) ? 'No Response yet' : (($c->will_attend == 'Yes') ? 'Confirmed Attendance' : 'Not Attending') ?>
-                                        <td><?php echo ($c->table_number != NULL ? $c->table_number == 11 ? 'Kids' : ($c->table_number == 12 ? 'Sponsors' : $c->table_number) : 'N/A') ?>
+                                        <td><?php echo ($c->table_number != NULL ? $c->table_number == 11 ? 'Kids' : ($c->table_number == 12 ? 'Sponsors A' : ($c->table_number == 13 ? 'Sponsors B': $c->table_number)) : 'N/A') ?>
                                         </td>
                                         <td><?php echo $c->date ?></td>
                                         </td>
@@ -114,9 +114,9 @@
                                             <a href="#" type="button" data-status="<?php echo $c->will_attend;?>" data-id="<?php echo $c->id; ?>"
                                                 data-name="<?php echo $c->name; ?>" class="settings btn-edit-guest-modal"
                                                 title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>
-                                            <?php echo $c->will_attend == 'No' ? '<a href="#" type="button" class="settings" title="Cannot Assign" data-toggle="tooltip"><i style="color:gray !important;" class="fa fa-table"></i></a>' : '<a href="#" type="button" data-id="' . $c->id . '" data-name="' . $c->name . '" data-table="' . $c->table_number . '"
+                                            <?php echo $c->will_attend == 'Yes' ? '<a href="#" type="button" data-id="' . $c->id . '" data-name="' . $c->name . '" data-table="' . $c->table_number . '"
                                                 class="settings btn-assign-guest-modal" title="Assign table slot"
-                                                data-toggle="tooltip"><i class="fa fa-table"></i></a>'; ?>
+                                                data-toggle="tooltip"><i class="fa fa-table"></i></a>': '<a href="#" type="button" class="settings" title="Cannot Assign" data-toggle="tooltip"><i style="color:gray !important;" class="fa fa-table"></i></a>'; ?>
                                             <?php echo $c->will_attend === NULL ? '<a class="invite-link settings" title="Copy Invite link" data-toggle="tooltip" type="button" href="' . base_url('rsvp/' . $c->invite_id . '') . '"><i class="fa fa-link"></i></a>' : '<a class="settings" disabled title="Link already sent." data-toggle="tooltip" type="button" href="#"><i class="fa fa-link" style="color:gray !important;"></i></a>' ?>
 
                                             <a href="#" type="button" data-id="<?php echo $c->id; ?>"
