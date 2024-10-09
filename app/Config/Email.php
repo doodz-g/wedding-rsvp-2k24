@@ -6,8 +6,8 @@ use CodeIgniter\Config\BaseConfig;
 
 class Email extends BaseConfig
 {
-    public string $fromEmail  = '';
-    public string $fromName   = '';
+    public string $fromEmail  = 'admin@celebratewithus.site';
+    public string $fromName   = 'Admin';
     public string $recipients = '';
 
     /**
@@ -118,4 +118,16 @@ class Email extends BaseConfig
      * Enable notify message from server
      */
     public bool $DSN = false;
+
+    public $default = [
+        'protocol'    => 'smtp',
+        'smtpHost'    => 'mail.privateemail.com',
+        'smtpUser'    => 'admin@celebratewithus.site', // Your email address
+        'smtpPass'    => 'P@55w0rd1', // Your email password
+        'smtpPort'    => 587, // TLS/STARTTLS uses 587
+        'smtpCrypto'  => 'tls', // Use 'tls' for TLS/STARTTLS
+        'mailType'    => 'html',
+        'charset'     => 'utf-8',
+        'wordWrap'    => true,
+    ];
 }
