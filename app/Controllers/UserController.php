@@ -215,7 +215,7 @@ class UserController extends BaseController
     private function sendEmailNotif($name, $response)
     {
             $email = new Email();
-            $ans = $response == 1 ? 'will attend' : 'will not attend';
+            $ans = $response == 1 ? '<span style="color:green">Will attend</span>' : '<span style="color:red">Will not attend</span>';
             // Enable debugging
             $email->setFrom('admin@celebratewithus.site', 'admin'); // Sender's email and name
             $email->setTo('admin@celebratewithus.site'); // Recipient's email
