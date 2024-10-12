@@ -27,6 +27,7 @@ $routes->post('admin/submit', 'AdminController::addInvitee');
 $routes->post('admin/update', 'AdminController::editInvitee');
 $routes->post('admin/refresh', 'AdminController::refresh');
 $routes->post('admin/delete', 'AdminController::deleteGuest');
+$routes->post('admin/send-otp', 'AdminController::sendOTP');
 $routes->post('admin/table-assignment', 'AdminController::assignGuestTable');
 $routes->get('/dashboard', 'AdminController::index', ['filter' => 'auth']);
 $routes->post('admin/delete/companion', 'AdminController::deleteGuestCompanion');
@@ -39,7 +40,7 @@ $routes->get('optimized-image/(:any)', 'ImageController::getOptimizedImage/$1');
 $routes->get('admin/table', 'TableController::index');
 $routes->get('admin/table-refresh', 'TableController::refresh');
 
-$routes->post('admin/send-sms', 'TwilioController::sendSms');
+
 
 $routes->get('admin/send-email', 'EmailController::sendEmail');
 

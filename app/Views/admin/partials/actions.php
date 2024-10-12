@@ -306,20 +306,20 @@
         $('#toggle-event').change(function(event) {
             var status = $(this).prop('checked') == true ? 1 : 0;
             $("#qr_setting").val(status);
-            $("#phone_number").val('');
+            $("#email").val('');
             $("#qr-settings-modal").modal('show');
         })
 
-        $(document).on("click", ".btn-send-sms", function () {
-                var phone_number = $("#phone_number").val();
+        $(document).on("click", ".btn-send-email", function () {
+                var email = $("#email").val()+'@celebratewithus.site';
                 var qr_setting = $("#qr_setting").val();
                 console.log('QR setting'+qr_setting);
-                $(".btn-send-sms").html("<i class='fa fa-spinner fa-spin'></i>");
+                $(".btn-send-email").html("<i class='fa fa-spinner fa-spin'></i>");
                 // Send AJAX POST request
                 $.ajax({
-                    url: '<?php echo site_url('admin/send-sms') ?>', // URL to the controller method
+                    url: '<?php echo site_url('admin/send-otp') ?>', // URL to the controller method
                     type: 'POST',
-                    data: { phone_number: phone_number ,qr_setting: qr_setting},
+                    data: { email: email ,qr_setting: qr_setting},
                     dataType: 'json',
                     success: function (response) {
                         if(response.status == 'success'){
@@ -338,7 +338,7 @@
                         toastr.warning('An error occurred: ' + error);
                     }
                 });
-                $(".btn-send-sms").html("Send");
+                $(".btn-send-email").html("Send");
                 
         });
         $(document).on("click", ".btn-validate-otp", function () {

@@ -561,6 +561,27 @@ class AdminController extends BaseController
             return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request.']);
         }
     }
+    public function sendOTP(){
+        $qr_setting = $this->request->getPost('qr_setting');  
+        $recipient = $this->request->getPost('email');  
+        $otpModel = new OtpModel();
+        $otpModel->truncate();
+        $data = [
+            'status' => 1,
+            'qr_setting' => $qr_setting,
+            'otp' => rand(10000, 99999),
+        ];
+
+        if ($otpModel->save($data)) {
+            $lastInsertedID = $otpModel->insertID();
+            $latestOTP = $otpModel->find($lastInsertedID);
+            $this->sendEmail($latestOTP['otp'],$recipient);
+            return $this->response->setJSON(['status' => 'success', 'message' => 'OTP was sent to '.$recipient.'.']);
+        }else{
+            return $this->response->setJSON(['status' => 'error', 'message' => 'OTP was not generated.']);
+        }
+    }
+        
     public function validateOTP()
     {
         $otp = $this->request->getPost('otp');
@@ -597,5 +618,46 @@ class AdminController extends BaseController
         }
 
     }
+    private function sendEmail($otp,$recipient)
+    {
+            $email = new Email();
+            // Enable debugging
+            $email->setFrom('admin@celebratewithus.site', 'admin'); // Sender's email and name
+            $email->setTo($recipient); // Recipient's email
+
+            $email->setSubject('OTP');
+            $message='<!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>OTP</title>
+                        </head>
+                        <body style="font-family: "Helvetica Neue", Arial, sans-serif; background-color: #f4f6f8; margin: 0; padding: 20px;">
+                            <div style="background-color: #ffffff; padding: 40px; border-radius: 12px; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
+                                <h2 style="color: #2c3e50; font-size: 26px; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid #e9ecef;">One-Time Password (OTP)</h2>
+                                <p style="font-size: 16px; line-height: 1.7; color: #4a4a4a; margin: 0 0 15px;">Hello,</p>
+                                <p style="font-size: 16px; line-height: 1.7; color: #4a4a4a; margin: 0 0 15px;">Here is your OTP to complete the verification process:</p>
+                                <div style="font-size: 30px; color: green; font-weight: bold; text-align: center; padding: 15px; background-color: #f9fafb; border-radius: 8px; margin-top: 20px;">
+                                    <strong>'.$otp.'</strong>
+                                </div>
+                                <p style="font-size: 16px; line-height: 1.7; color: #4a4a4a; margin: 0 0 15px;">If you have any questions, feel free to contact us.</p>
+                                <div style="margin-top: 40px; font-size: 13px; color: #999; text-align: center;">
+                                    This is an automated notification from <strong style="color: #2c3e50;">Celebrate With Us</strong>.
+                                </div>
+                            </div>
+                        </body>
+                        </html> ';
+
+            $email->setMessage($message);
+            $email->setMailType('html');
+
+            if ($email->send()) {
+                log_message('info', 'Email sent successfully.');
+            } else {
+                log_message('error',$email->printDebugger(['headers']));
+            } 
+    }
+
 
 }
