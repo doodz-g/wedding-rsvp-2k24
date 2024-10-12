@@ -218,6 +218,7 @@ class UserController extends BaseController
             $ans = $response == 1 ? '<span style="color:green">Confirmed Attendance</span>' : '<span style="color:red">Not Attending</span>';
             // Enable debugging
             $email->setFrom('admin@celebratewithus.site', 'admin'); // Sender's email and name
+            $email->setCC('akiss@celebratewithus.site'); // CC recipient
             $email->setTo('admin@celebratewithus.site'); // Recipient's email
 
             $email->setSubject('RSVP STATUS NOTIFICATION');
