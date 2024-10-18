@@ -3,17 +3,26 @@ body {
     font-size: 13px;
     z-index: 1;
 }
+
 .toast{
     min-width: 90%;
 }
+
 .toast-message{
     text-align: center;
 }
+
 .bg-success {
     background-color: #c2e9cb !important;
 }
+
 .bg-warn {
     background-color: #e9b2b2 !important;
+}
+
+.dropdown-menu{
+    left:auto !important;
+    right: 12px !important;
 }
 
 ul.horizontal-list {

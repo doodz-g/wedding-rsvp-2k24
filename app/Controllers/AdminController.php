@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\NotificationModel;
 use App\Models\UserModel;
 use App\Models\OtpModel;
 use App\Models\CompanionsModel;
@@ -21,6 +22,9 @@ class AdminController extends BaseController
             $userModel = model(UserModel::class);
             $companionsModel = model(name: CompanionsModel::class);
             $settingsModel = model(name: SettingsModel::class);
+            $notificationsModel = model(name: NotificationModel::class);
+            $getNotifications = $notificationsModel->findAll();
+            $getNotificationsCount = $notificationsModel->where('is_read', 0)->countAllResults();
             $getSettingsTableAdult = $settingsModel->where('id', '1')->first();
             $getSettingsTableKids = $settingsModel->where('id', '3')->first();
             $getSettingsTableSponsorsA = $settingsModel->where('id', '4')->first();
@@ -78,6 +82,8 @@ class AdminController extends BaseController
                 ],
                 'guest_percentage' => ceil($gPercentage),
                 'maxCap' => $maxCap,
+                'notifications' => $getNotifications,
+                'notificationsCount' => $getNotificationsCount ?? 0,
                 'totalGuestWillAttend' => ceil($gWPercentage),
                 'totalGuestThatConfirm' => $totalGuestWillAttend,
                 'totalGNow' => $totalGNow,
@@ -131,7 +137,27 @@ class AdminController extends BaseController
         ];
         return $this->response->setJSON($data);
     }
-    
+    public function updateNotification(){
+        $id = $this->request->getPost('id');
+        $notificationModel = model(name: NotificationModel::class);
+        $getNotification = $notificationModel->find($id);
+        if($getNotification){
+           $notificationReadStatus = $notificationModel->set('is_read', 1)
+            ->where('id', $id)
+            ->update();
+            if($notificationReadStatus){
+                $getNotificationsCount = $notificationModel->where('is_read', 0)->countAllResults();
+                $data = [
+                    'notification_count' => $getNotificationsCount
+                ];
+                return $this->response->setJSON($data);
+            }else{
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Notification status not updated.']);
+            }
+        }
+       
+        
+    }
     public function refresh()
     {
         $userModel = model(UserModel::class);
@@ -309,6 +335,22 @@ class AdminController extends BaseController
         // Return the response as JSON
         return $this->response->setJSON($responseData);
     }
+    public function getNotifications()
+    {
+        $notificationsModel = model(NotificationModel::class);
+        // Fetch companions where user_id matches
+        $getNotifications = $notificationsModel->orderBy('created_at', 'DESC')->findAll();
+        $getNotificationsCount = $notificationsModel->where('is_read', 0)->countAllResults();
+
+        $responseData = [
+            'notifications' => $getNotifications,
+            'notificationsCount' => $getNotificationsCount
+        ];
+
+        // Return the response as JSON
+        return $this->response->setJSON($responseData);
+    }
+
     public function updateSettings()
     {
         $settings = $this->request->getPost('setting');

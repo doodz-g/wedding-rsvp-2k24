@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\CompanionsModel;
+use App\Models\NotificationModel;
 use App\Models\SettingsModel;
 use App\Controllers\BaseController;
 use App\Services\QrCodeService;
@@ -132,6 +133,7 @@ class UserController extends BaseController
                     }
                 }
                 $this->sendNotif();
+                $this->panelNotif($getUser->name, $confirm, 'info');
                 $this->sendEmailNotif($getUser->name, $confirm);
                 $this->refreshGraph();
             }
@@ -214,15 +216,15 @@ class UserController extends BaseController
     }
     private function sendEmailNotif($name, $response)
     {
-            $email = new Email();
-            $ans = $response == 1 ? '<span style="color:green">Confirmed Attendance</span>' : '<span style="color:red">Not Attending</span>';
-            // Enable debugging
-            $email->setFrom('admin@celebratewithus.site', 'admin'); // Sender's email and name
-            $email->setCC('akiss@celebratewithus.site'); // CC recipient
-            $email->setTo('admin@celebratewithus.site'); // Recipient's email
+        $email = new Email();
+        $ans = $response == 1 ? '<span style="color:green">Confirmed Attendance</span>' : '<span style="color:red">Not Attending</span>';
+        // Enable debugging
+        $email->setFrom('admin@celebratewithus.site', 'admin'); // Sender's email and name
+        $email->setCC('akiss@celebratewithus.site'); // CC recipient
+        $email->setTo('admin@celebratewithus.site'); // Recipient's email
 
-            $email->setSubject('RSVP STATUS NOTIFICATION');
-            $message='<!DOCTYPE html>
+        $email->setSubject('RSVP STATUS NOTIFICATION');
+        $message = '<!DOCTYPE html>
                             <html>
                             <head>
                                 <title>RSVP Status Notification</title>
@@ -232,8 +234,8 @@ class UserController extends BaseController
                                     <h2 style="color: #2d3e50; font-size: 24px; margin-bottom: 20px; border-bottom: 2px solid #f4f4f4; padding-bottom: 10px;">RSVP Status Notification</h2>
                                     <p style="font-size: 16px; line-height: 1.8; color: #4f4f4f;">Hello,</p>
                                     <p style="font-size: 16px; line-height: 1.8; color: #4f4f4f;">We would like to notify you about the RSVP status:</p>
-                                    <p style="font-size: 16px; line-height: 1.8; color: #2d3e50; font-weight: bold;"><strong>Guest:</strong> '.$name.'</p>
-                                    <p style="font-size: 16px; line-height: 1.8; color: #007bff; font-weight: bold;"><strong>Response:</strong> '.$ans.'</p>
+                                    <p style="font-size: 16px; line-height: 1.8; color: #2d3e50; font-weight: bold;"><strong>Guest:</strong> ' . $name . '</p>
+                                    <p style="font-size: 16px; line-height: 1.8; color: #007bff; font-weight: bold;"><strong>Response:</strong> ' . $ans . '</p>
                                     <p style="font-size: 16px; line-height: 1.8; color: #4f4f4f;">If you have any questions, feel free to contact us.</p>
                                     <p style="margin-top: 30px; font-size: 14px; color: #999; text-align: center;">This is an automated notification from <strong>Celebrate With Us</strong>.</p>
                                 </div>
@@ -241,14 +243,38 @@ class UserController extends BaseController
                             </html>
                             ';
 
-            $email->setMessage($message);
-            $email->setMailType('html');
+        $email->setMessage($message);
+        $email->setMailType('html');
 
-            if ($email->send()) {
-                log_message('info', 'Email sent successfully.');
+        if ($email->send()) {
+            log_message('info', 'Email sent successfully.');
+        } else {
+            log_message('error', $email->printDebugger(['headers']));
+        }
+    }
+    private function panelNotif($guest, $confirm, $type)
+    {
+        // Load the Notification model
+        if ($guest) {
+            $message = 'RSVP Confirmation:'.$guest.($confirm == 1 ? ' will be attending':' will not attend.');
+            $notificationModel = new NotificationModel();
+
+            // Data to insert into the notifications table
+            $data = [
+                'message' => $message,
+                'type' => $type,
+                'is_read' => 0,  // Default value for new notifications
+            ];
+
+            // Insert the notification
+            if ($notificationModel->insert($data)) {
+                log_message('info', 'Notification insert successfully.');
             } else {
-                log_message('error',$email->printDebugger(['headers']));
-            } 
+                log_message('info', 'Notification insert failed.');
+            }
+        }
+
+
     }
     private function sendNotif()
     {

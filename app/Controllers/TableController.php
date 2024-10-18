@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\UserModel;
 use App\Models\CompanionsModel;
 use App\Models\SettingsModel;
+use App\Models\NotificationModel;
 use App\Models\TableModel;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -19,6 +20,9 @@ class TableController extends BaseController
             $this->syncDataforTableDesignation();
             $tableModel = model(TableModel::class);
             $settingsModel = model(name: SettingsModel::class);
+            $notificationsModel = model(name: NotificationModel::class);
+            $getNotifications = $notificationsModel->findAll();
+            $getNotificationsCount = $notificationsModel->where('is_read', 0)->countAllResults();
             $guestForTable1 = $tableModel->where('table_number', 1)->findAll();
             $guestForTable2 = $tableModel->where('table_number', 2)->findAll();
             $guestForTable3 = $tableModel->where('table_number', 3)->findAll();
@@ -52,6 +56,8 @@ class TableController extends BaseController
                 'table_11' => $guestForTable11,
                 'table_12' => $guestForTable12,
                 'table_13' => $guestForTable13,
+                'notifications' => $getNotifications,
+                'notificationsCount' => $getNotificationsCount ?? 0,
             ];
 
             $datacaps = [
