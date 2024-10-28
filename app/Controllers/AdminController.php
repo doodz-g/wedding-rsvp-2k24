@@ -25,6 +25,7 @@ class AdminController extends BaseController
             $notificationsModel = model(name: NotificationModel::class);
             $getNotifications = $notificationsModel->findAll();
             $getNotificationsCount = $notificationsModel->where('is_read', 0)->countAllResults();
+            $getNotificationsCountAll = $notificationsModel->countAllResults();
             $getSettingsTableAdult = $settingsModel->where('id', '1')->first();
             $getSettingsTableKids = $settingsModel->where('id', '3')->first();
             $getSettingsTableSponsorsA = $settingsModel->where('id', '4')->first();
@@ -80,11 +81,12 @@ class AdminController extends BaseController
                     'totalUsers' => $totalUsers,
                     'currentPageUsers' => $currentPageUsers,
                 ],
-                'guest_percentage' => ceil($gPercentage),
+                'guest_percentage' => floor($gPercentage),
                 'maxCap' => $maxCap,
                 'notifications' => $getNotifications,
                 'notificationsCount' => $getNotificationsCount ?? 0,
-                'totalGuestWillAttend' => ceil($gWPercentage),
+                'notificationsCountAll' => $getNotificationsCountAll ?? 0,
+                'totalGuestWillAttend' => floor($gWPercentage),
                 'totalGuestThatConfirm' => $totalGuestWillAttend,
                 'totalGNow' => $totalGNow,
                 'total_for_1' => ($userModel->getRemSlotsForEachTable(1)) ? $getSettingsTableAdult['quantity'] - (int) $userModel->getRemSlotsForEachTable(1) : $getSettingsTableAdult['quantity'],
@@ -129,8 +131,8 @@ class AdminController extends BaseController
         $gWPercentage = ($totalGuestWillAttend / $maxCap) * 100 ?? 0;
 
         $data = [
-            'totalGuestPercentage' => ceil($gPercentage),
-            'totalGuestWillAttend' => ceil($gWPercentage),
+            'totalGuestPercentage' => floor($gPercentage),
+            'totalGuestWillAttend' => floor($gWPercentage),
             'totalGuest' => $totalGNow,
             'totalGuestConfirm' => $totalGuestWillAttend,
             'totalCap' => $maxCap
@@ -337,9 +339,10 @@ class AdminController extends BaseController
     }
     public function getNotifications()
     {
+        $limit = (int) $this->request->getPost(index: 'limit') ?? 10;
         $notificationsModel = model(NotificationModel::class);
         // Fetch companions where user_id matches
-        $getNotifications = $notificationsModel->orderBy('created_at', 'DESC')->findAll();
+        $getNotifications = $notificationsModel->limit($limit)->orderBy('created_at', 'DESC')->findAll();
         $getNotificationsCount = $notificationsModel->where('is_read', 0)->countAllResults();
 
         $responseData = [

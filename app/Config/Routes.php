@@ -20,7 +20,7 @@ $routes->get('/admin/settings', 'AdminController::getSettings');
 $routes->post('/admin/settings-qr', 'AdminController::updateQRSettings');
 $routes->post('/admin/update-settings', 'AdminController::updateSettings');
 $routes->get('/admin/update-graph', 'AdminController::updateGraph');
-$routes->get('/admin/get-notifications', 'AdminController::getNotifications');
+$routes->post('/admin/get-notifications', 'AdminController::getNotifications');
 $routes->post('/admin/update-notification', 'AdminController::updateNotification');
 $routes->post('/admin/check-companions', 'AdminController::checkDuplicateCompanions');
 $routes->get('/admin/sync', 'ExportController::syncDataToExportTable');

@@ -23,6 +23,7 @@ class TableController extends BaseController
             $notificationsModel = model(name: NotificationModel::class);
             $getNotifications = $notificationsModel->findAll();
             $getNotificationsCount = $notificationsModel->where('is_read', 0)->countAllResults();
+            $getNotificationsCountAll = $notificationsModel->countAllResults();
             $guestForTable1 = $tableModel->where('table_number', 1)->findAll();
             $guestForTable2 = $tableModel->where('table_number', 2)->findAll();
             $guestForTable3 = $tableModel->where('table_number', 3)->findAll();
@@ -58,6 +59,7 @@ class TableController extends BaseController
                 'table_13' => $guestForTable13,
                 'notifications' => $getNotifications,
                 'notificationsCount' => $getNotificationsCount ?? 0,
+                'notificationsCountAll' => $getNotificationsCountAll ?? 0,
             ];
 
             $datacaps = [

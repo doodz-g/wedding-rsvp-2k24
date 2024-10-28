@@ -1,4 +1,4 @@
-<?php
+<b?php
 date_default_timezone_set('Asia/Manila');
 function timeAgo($timestamp)
 {
@@ -59,23 +59,17 @@ function timeAgo($timestamp)
                         style="border-radius:50px;background: transparent;border: none;">Log out</a>
                 </div>
             </li>
-            <li class="nav-item dropdown">
-                <button id="btn-notifications" style="border: none;background-color: black;" class="nav-link dropdown-toggle" href="#"
+            <li class="nav-item dropdown nav-notif">
+                <a id="btn-notifications" style="border: none;background-color: black;" class="nav-link dropdown-toggle" href="#"
                     id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-bell" style="color:white;font-size:18px;"></i><span style="position: absolute;z-index: 2000;left: 18px;bottom: 19px;" class="badge bg-success" id="notification-count"><?= $data->notificationsCount; ?></span>
-                </button>   
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="notificationContainer">
-                    <?php
-                    if ($data->notificationsCount > 0) {
-                        foreach ($data->notifications as $notifications) {
-                            ?>
-                            <a style="border-bottom: 1px solid gray;" class="dropdown-item" href="#"
-                                data-id="<?= $notifications->id; ?>"><small><?= $notifications->message; ?> <sup
-                                        class="text-primary" style="text-align:right;padding-left: 30px;"> <?= timeAgo($notifications->created_at); ?></sup></small></a>
-                        <?php }
-                    } else {
-                        echo "<small style='padding:9px;'>Notifications empty.</small>";
-                    } ?>
+                    <i class="fa fa-bell" style="color:white;font-size:18px;"></i><span style="position: absolute;z-index: 2000;left: 18px;bottom: 19px;color:black;" class="badge bg-success" id="notification-count"><?= $data->notificationsCount; ?></span>
+                </a>   
+                <div class="dropdown-menu nav-notif" aria-labelledby="navbarDropdown">
+                    <div id="notificationContainer">
+                    </div>
+                    <div class="view-more-container text-center <?php echo ($data->notificationsCountAll > 10 ? '':'d-none') ?>">
+                        <button role="button" style="width:100%;" class="btn-primary btn-xs" data-limit= "10" id="btn-view-more"><small>View More</small></button>
+                    </div>
                 </div>
             </li>
         </ul>

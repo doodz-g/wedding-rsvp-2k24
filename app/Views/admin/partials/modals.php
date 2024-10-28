@@ -122,29 +122,6 @@
         </div>
     </div>
 </div>
-<!-- Settings Modal -->
-<div class="modal fade" id="settings-modal" tabindex="-1" role="dialog" aria-labelledby="#" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-black">
-                <h5 class="modal-title text-white" id="exampleModalLongTitle">Settings</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class="text-white">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form class="settings-form-update">
-                    <div id="settings-container"></div>
-                    <div class="modal-footer">
-                        <button type="button" value="submit"
-                            class="btn btn-primary bg-black updateSettings">Save</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- QR Settings Modal -->
 <div class="modal fade" id="qr-settings-modal" tabindex="-1" role="dialog" aria-labelledby="#" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
