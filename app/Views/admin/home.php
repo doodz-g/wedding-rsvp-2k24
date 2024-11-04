@@ -57,7 +57,7 @@
                     <div id="chart4"></div>
                     <div class="chart-label text-center">
                         <span id="total_scanned_guest" style="font-weight: 600;font-size: 12px;"><?php echo $data->totalScannedGuest . ' of ' . $data->maxCap; ?>
-                        <br>Scanned Guest</span>
+                        <br>QR Guest Scanned</span>
                     </div>
                 </div>
             </div>

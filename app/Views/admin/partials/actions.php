@@ -958,7 +958,7 @@
                 var totalGuest = response.totalGuest + ' of ' + response.totalCap + ' </br>Max Capacity';
                 var totalGuestThatWillAttend = response.totalGuestConfirm + ' of ' + response.totalCap + ' </br>RSVP Confirmation Rate';
                 var kidsCount = response.totalKids + ' of ' + response.kidsCap + ' </br>Kids Count';
-                var totalScannedGuest = response.totalScannedGuest + ' of ' + response.totalCap + ' </br>Scanned QR';
+                var totalScannedGuest = response.totalScannedGuest + ' of ' + response.totalCap + ' </br>QR Guest Scanned';
                 $("#total_guest_container").html(totalGuest);
                 $("#total_guest_will_attend_container").html(totalGuestThatWillAttend);
                 $("#total_kids_container").html(kidsCount);
