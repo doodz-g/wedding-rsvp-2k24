@@ -37,16 +37,21 @@
 
     //add companions
     var companionContainer = $("#companion-container");
-    companionContainer.html('<li> <input type="text" id="companion_name" required name="companion_name[]" oninput="checkDuplicateCompanionNames()" style="width: 90%; height: 38px; border: 2px solid #ced4da;"><span type="button" class="delete_companion" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
+    companionContainer.html('<li> <input type="text" id="companion_name" required name="companion_name[]" oninput="checkDuplicateCompanionNames()" style="width: 70%; height: 38px; border: 2px solid #ced4da;"><label for="exampleDropdown" style="padding-left: 10px;padding-right:10px;">KID?</label><select id="exampleDropdown" name="is_kid[]" style="height: 38px; border: 2px solid #ced4da;"><option value="No">No</option><option value="Yes">Yes</option></select><span type="button" class="delete_companion" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
 
     function addCompanion() {
-        companionContainer.append('<li> <input type="text" id="companion_name" required name="companion_name[]" oninput="checkDuplicateCompanionNames()" style="width: 90%; height: 38px; border: 2px solid #ced4da;"><span type="button" class="delete_companion" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
+        companionContainer.append('<li> <input type="text" id="companion_name" required name="companion_name[]" oninput="checkDuplicateCompanionNames()" style="width: 70%; height: 38px; border: 2px solid #ced4da;"><label for="exampleDropdown" style="padding-left: 10px;padding-right:10px;">KID?</label><select disabled id="exampleDropdown" class="is_kid_dropdown" data-id="" name="is_kid[]" style="height: 38px; border: 2px solid #ced4da;"><option value="No">No</option><option value="Yes">Yes</option></select><span type="button" class="delete_companion" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
     }
+    
     var update_companion_container = $("#update_companion_container");
-    update_companion_container.html('<li> <input type="text" id="companion_name" class="com_field" name="companion_name[][name]" style="width: 90%; height: 38px; border: 2px solid #ced4da;"><span type="button" class="delete_companion" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
+    update_companion_container.html('<li> <input type="text" id="companion_name" class="com_field" name="companion_name[][name]" style="width: 70%; height: 38px; border: 2px solid #ced4da;"><label for="exampleDropdown" style="padding-left: 10px;padding-right:10px;">KID?</label><select id="exampleDropdown" name="companion_name[][kid]" style="height: 38px; border: 2px solid #ced4da;"><option value="No" selected>No</option><option value="Yes">Yes</option></select><span type="button" class="delete_companion" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
 
     function updateCompanion() {
-        update_companion_container.append('<li> <input type="text" id="companion_name" class="com_field" name="companion_name[][name]" style="width: 90%; height: 38px; border: 2px solid #ced4da;"><span type="button" class="delete_companion" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
+        var li_length = $("#update_companion_container").find('li').length-1;
+        update_companion_container.append('<li><input type="text" oninput="checkDuplicateCompanionNames()" id="companion_name" name="companion_name[' +(li_length+1)+ '][name]" style="width: 70%; height: 38px; border: 2px solid #ced4da;">' +
+                                '<input type="hidden" name="companion_name['+(li_length+1)+ '][id]" style="width: 70%; height: 38px; border: 2px solid #ced4da;">' +
+                                '<label for="exampleDropdown" style="padding-left: 10px;padding-right:10px;">KID?</label><select id="exampleDropdown" class="is_kid_dropdown" data-id="" name="companion_name['+(li_length+1)+'][kid]" style="height: 38px; border: 2px solid #ced4da;"><option value="No">No</option><option value="Yes">Yes</option></select>'+
+                                '<span type="button" class="delete_companion" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
     }
     // modals and action buttons
     $(document).on('click', '.add_companion', function () {

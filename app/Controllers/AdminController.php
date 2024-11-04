@@ -23,6 +23,8 @@ class AdminController extends BaseController
             $companionsModel = model(name: CompanionsModel::class);
             $settingsModel = model(name: SettingsModel::class);
             $notificationsModel = model(name: NotificationModel::class);
+            $getScannedGuest = $userModel->where('qr_code_status',1)->countAllResults();
+            $getScannedGuestCompanions = $companionsModel->where('qr_code_status',1)->countAllResults();
             $getNotifications = $notificationsModel->findAll();
             $getNotificationsCount = $notificationsModel->where('is_read', 0)->countAllResults();
             $getNotificationsCountAll = $notificationsModel->countAllResults();
@@ -61,15 +63,20 @@ class AdminController extends BaseController
             $currentPageUsers = count($allUsers);
 
             // Fetch totals from models
-            $totalGuest = $userModel->where('will_attend', 'Yes')->orWhere('will_attend', NULL)->countAllResults();
-            $totalCompanions = $companionsModel->where('will_attend', 'Yes')->orWhere('will_attend', NULL)->countAllResults();
+            $totalGuest = $userModel->groupStart()->where('will_attend', 'Yes')->orWhere('will_attend', NULL)->groupEnd()->countAllResults();
+            $totalKids = $companionsModel->where('is_kid', 'Yes')->countAllResults();
+            $totalCompanions = $companionsModel->where('is_kid', 'No')->groupStart()->where('will_attend', 'Yes')->orWhere('will_attend', NULL)->groupEnd()->countAllResults();
             $totalGuestConfirmAttendance = $userModel->where('will_attend', 'Yes')->countAllResults();
             $totalCompanionsConfirmAttendance = $companionsModel->where('will_attend', 'Yes')->countAllResults();
             $totalGuestWillAttend = $totalGuestConfirmAttendance + $totalCompanionsConfirmAttendance ?? 0;
             // Access numeric values from the results
             $maxCap = $getSettingsMaxGuest['quantity'];
+            $maxCapKids = $getSettingsTableKids['quantity'];
             $totalGNow = $totalGuest + $totalCompanions ?? 0;
+            $totalScannedG = $getScannedGuest + $getScannedGuestCompanions ?? 0;
+            $gsPercentage = ($totalScannedG / $maxCap) * 100 ?? 0;
             $gPercentage = ($totalGNow / $maxCap) * 100 ?? 0;
+            $kPercentage = ($totalKids / $maxCapKids) * 100 ?? 0;
             $gWPercentage = ($totalGuestWillAttend / $maxCap) * 100 ?? 0;
             // Prepare response data
             $data = [
@@ -81,8 +88,13 @@ class AdminController extends BaseController
                     'totalUsers' => $totalUsers,
                     'currentPageUsers' => $currentPageUsers,
                 ],
+                'scanned_percentage' => floor($gsPercentage),
                 'guest_percentage' => floor($gPercentage),
+                'kids_percentage' => floor($kPercentage),
+                'totalScannedGuest' => $totalScannedG,
+                'totalKids' => $totalKids,
                 'maxCap' => $maxCap,
+                'kidsCap' => $maxCapKids,
                 'notifications' => $getNotifications,
                 'notificationsCount' => $getNotificationsCount ?? 0,
                 'notificationsCountAll' => $getNotificationsCountAll ?? 0,
@@ -116,49 +128,63 @@ class AdminController extends BaseController
         $userModel = model(UserModel::class);
         $companionsModel = model(name: CompanionsModel::class);
         $settingsModel = model(name: SettingsModel::class);
+        $getScannedGuest = $userModel->where('qr_code_status',1)->countAllResults();
+        $getScannedGuestCompanions = $companionsModel->where('qr_code_status',1)->countAllResults();
         $getSettingsMaxGuest = $settingsModel->where('id', '2')->first();
-        $totalGuest = $userModel->where('will_attend', 'Yes')->orWhere('will_attend', NULL)->countAllResults();
-        $totalCompanions = $companionsModel->where('will_attend', 'Yes')->orWhere('will_attend', NULL)->countAllResults();
-
+        $getSettingsTableKids = $settingsModel->where('id', '3')->first();
+        $totalGuest = $userModel->groupStart()->where('will_attend', 'Yes')->orWhere('will_attend', NULL)->groupEnd()->countAllResults();
+        $totalKids = $companionsModel->where('is_kid', 'Yes')->countAllResults();
+        $totalCompanions = $companionsModel->where('is_kid', 'No')->groupStart()->where('will_attend', 'Yes')->orWhere('will_attend', NULL)->groupEnd()->countAllResults();
         $totalGuestConfirmAttendance = $userModel->where('will_attend', 'Yes')->countAllResults();
         $totalCompanionsConfirmAttendance = $companionsModel->where('will_attend', 'Yes')->countAllResults();
-
+        $totalScannedG = $getScannedGuest + $getScannedGuestCompanions ?? 0;
+       
         // Access numeric values from the results
         $maxCap = $getSettingsMaxGuest['quantity'];
+        $maxCapKids = $getSettingsTableKids['quantity'];
         $totalGuestWillAttend = $totalGuestConfirmAttendance + $totalCompanionsConfirmAttendance ?? 0;
+        $gsPercentage = ($totalScannedG / $maxCap) * 100 ?? 0;
         $totalGNow = $totalGuest + $totalCompanions ?? 0;
         $gPercentage = ($totalGNow / $maxCap) * 100 ?? 0;
         $gWPercentage = ($totalGuestWillAttend / $maxCap) * 100 ?? 0;
+        $kPercentage = ($totalKids / $maxCapKids) * 100 ?? 0;
 
         $data = [
             'totalGuestPercentage' => floor($gPercentage),
             'totalGuestWillAttend' => floor($gWPercentage),
+            'scanned_percentage' => floor($gsPercentage),
+            'kids_percentage' => floor($kPercentage),
+            'totalScannedGuest' => $totalScannedG,
             'totalGuest' => $totalGNow,
             'totalGuestConfirm' => $totalGuestWillAttend,
-            'totalCap' => $maxCap
+            'totalCap' => $maxCap,
+            'totalKids' => $totalKids,
+            'maxCap' => $maxCap,
+            'kidsCap' => $maxCapKids,
         ];
         return $this->response->setJSON($data);
     }
-    public function updateNotification(){
+    public function updateNotification()
+    {
         $id = $this->request->getPost('id');
         $notificationModel = model(name: NotificationModel::class);
         $getNotification = $notificationModel->find($id);
-        if($getNotification){
-           $notificationReadStatus = $notificationModel->set('is_read', 1)
-            ->where('id', $id)
-            ->update();
-            if($notificationReadStatus){
+        if ($getNotification) {
+            $notificationReadStatus = $notificationModel->set('is_read', 1)
+                ->where('id', $id)
+                ->update();
+            if ($notificationReadStatus) {
                 $getNotificationsCount = $notificationModel->where('is_read', 0)->countAllResults();
                 $data = [
                     'notification_count' => $getNotificationsCount
                 ];
                 return $this->response->setJSON($data);
-            }else{
+            } else {
                 return $this->response->setJSON(['status' => 'error', 'message' => 'Notification status not updated.']);
             }
         }
-       
-        
+
+
     }
     public function refresh()
     {
@@ -238,8 +264,8 @@ class AdminController extends BaseController
                     $companionsModel->delete($c->id);
                 }
             }
-          $this->sendNotif();  
-          return $this->response->setJSON(['status' => 'success', 'message' => 'Record deleted successfully.']);
+            $this->sendNotif();
+            return $this->response->setJSON(['status' => 'success', 'message' => 'Record deleted successfully.']);
         }
     }
     public function assignGuestTable()
@@ -292,7 +318,7 @@ class AdminController extends BaseController
                         $this->assignCompanionsToTable($companion_names, $table_number, $companionModel);
                         $this->updateTable();
                         return $this->response->setJSON(['status' => 'success', 'message' => 'Table assigned successfully.']);
-                       
+
                     }
                 } else {
                     return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to update user table number.']);
@@ -462,8 +488,7 @@ class AdminController extends BaseController
         if ($this->request->isAJAX() && $this->request->getMethod() === 'POST') {
             $name = $this->request->getPost('name');
             $companion_name = $this->request->getPost('companion_name');
-            $table_kid = $this->request->getPost('kid');
-
+            $is_kid = $this->request->getPost('is_kid');
             // You can now validate and save the data
             $userModel = new UserModel();
 
@@ -478,23 +503,18 @@ class AdminController extends BaseController
                 $latestID = $userModel->insertID();
                 if (!empty($companion_name)) {
                     $companionsModel = model(CompanionsModel::class);
-
                     $filteredCompanions = array_filter($companion_name, function ($value) {
                         return trim($value) !== '';
                     });
-
                     if ($filteredCompanions) {
-
-                        foreach ($filteredCompanions as $c) {
+                        foreach ($filteredCompanions as $index => $c) {
                             $dataCompanion = [
                                 'name' => $c,
-                                'table_number' => $table_kid,
+                                'is_kid' => $is_kid[$index],
                                 'user_id' => $latestID
-
                             ];
                             $companionsModel->save($dataCompanion);
                         }
-
                     }
                 }
                 $this->sendNotif();
@@ -550,65 +570,108 @@ class AdminController extends BaseController
 
     public function editInvitee()
     {
-        // Check if the request is AJAX and POST
         if ($this->request->isAJAX() && $this->request->getMethod() === 'POST') {
             $user_id = $this->request->getPost('user_id');
             $name = $this->request->getPost('name');
-            $companion_names = $this->request->getPost('companion_name'); // Expecting an array of companions with id and name
+            $companion_names = $this->request->getPost('companion_name'); // Expecting an array of companions with id, name, and kid
 
             // Initialize the models
             $userModel = model(UserModel::class);
             $companionsModel = model(CompanionsModel::class);
+            // $settingsModel = model(SettingsModel::class);
+
+            // Fetch the maximum allowed kids from settings
+            // $getSettingsTableKids = $settingsModel->where('id', '3')->first();
+            // $maxKidsAllowed = (int) ($getSettingsTableKids['quantity'] ?? 0);
 
             // Update user details
             if ($user_id && $name) {
-                $userModel->set('name', $name);
-                $userModel->where('id', $user_id);
-
+                $userModel->set('name', $name)->where('id', $user_id);
                 if ($userModel->update($user_id)) {
                     // If the user update was successful, proceed with companions update
-                    if ($companion_names) {
-                        // Iterate over each companion provided in the POST request
+                    if (!empty($companion_names) && is_array($companion_names)) {
                         foreach ($companion_names as $companion) {
+                            // Count current kids in the companions table
                             $companion_id = $companion['id'] ?? null;
-                            $companion_name = $companion['name'];
-
-                            if ($companion_id) {
-                                // If companion ID exists, update the companion
+                            $companion_name = $companion['name'] ?? '';
+                            $is_kid = $companion['kid'] ?? 'No';
+                            if (!empty($companion_id)) {
+                                // Update existing companion if ID is present
                                 $companionsModel->set('name', $companion_name);
+                                $companionsModel->set('is_kid', $is_kid);
                                 $companionsModel->where('id', $companion_id);
-                                $companionsModel->update();
+                                $companionsModel->update($companion_id);
                             } else {
-                                // Insert a new companion if it doesn't exist
-                                if (!empty($companion_name)) {
-                                    $dataCompanion = [
-                                        'name' => $companion_name,
-                                        'user_id' => $user_id
-                                    ];
-                                    $companionsModel->save($dataCompanion);
-                                } else {
-                                    return $this->response->setJSON(['status' => 'error', 'message' => 'Companion was empty.']);
-
-                                }
-
+                                // Insert new companion if no ID is present
+                                $dataCompanion = [
+                                    'name' => $companion_name,
+                                    'user_id' => $user_id,
+                                    'is_kid' => $is_kid,
+                                ];
+                                $companionsModel->save($dataCompanion);
                             }
                         }
                     }
+                    $this->sendNotif();
+                    return $this->response->setJSON(['status' => 'success', 'message' => 'Data saved successfully!']);
+                } else {
+                    return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to update user data.']);
                 }
-
-                return $this->response->setJSON(['status' => 'success', 'message' => 'Data saved successfully!']);
             } else {
-                return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to save data.']);
+                return $this->response->setJSON(['status' => 'error', 'message' => 'User ID or name is missing.']);
             }
-
         } else {
             // Handle invalid request
             return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request.']);
         }
     }
-    public function sendOTP(){
-        $qr_setting = $this->request->getPost('qr_setting');  
-        $recipient = $this->request->getPost('email');  
+    public function updateKidStatus()
+    {
+        $id = $this->request->getPost('id');
+        $countYes = $this->request->getPost('countYes');
+        $is_kid = $this->request->getPost('is_kid');
+        $settingsModel = model(SettingsModel::class);
+        $companionsModel = model(CompanionsModel::class);
+        // Fetch the maximum allowed kids from settings
+        $getSettingsTableKids = $settingsModel->where('id', '3')->first();
+        $currentKidsCount = (int) $companionsModel->where('is_kid', 'Yes')->countAllResults();
+        $maxKidsAllowed = (int) ($getSettingsTableKids['quantity'] ?? 0);
+        if (isset($id) && $id !== "") {
+            $companionsModel->set('is_kid', $is_kid);
+            $companionsModel->where('id', $id);
+            if($is_kid == "Yes"){
+                if ($currentKidsCount < $maxKidsAllowed) {
+                    $companionsModel->update($id);
+                    $this->sendNotif();
+                    return $this->response->setJSON(['status' => 'success', 'message' => 'Flagged as kid']);
+                } else {
+                    return $this->response->setJSON(['status' => 'error', 'message' => 'No more slot for kids']);
+                }
+            }else{
+                $companionsModel->update($id);
+                $this->sendNotif();
+                return $this->response->setJSON(['status' => 'success', 'message' => 'Flagged as Adult']);
+            }
+           
+        } 
+        if(empty($id)) {
+            if($is_kid == "Yes"){
+                // var_dump($is_kid);
+                if ($currentKidsCount + 1 > $maxKidsAllowed) {
+                    return $this->response->setJSON(['status' => 'error', 'message' => 'No more slot for kids']);
+                }else{
+                    return $this->response->setJSON(['status' => 'success', 'message' => 'Flagged as kid']);
+                }
+            }
+            if($is_kid == "No"){
+                return $this->response->setJSON(['status' => 'success', 'message' => 'Flagged as Adult']);
+            }
+        }
+    }
+    public function sendOTP()
+    {
+        $qr_setting = $this->request->getPost('qr_setting');
+        $recipient = $this->request->getPost('email');
         $otpModel = new OtpModel();
         $otpModel->truncate();
         $data = [
@@ -620,13 +683,13 @@ class AdminController extends BaseController
         if ($otpModel->save($data)) {
             $lastInsertedID = $otpModel->insertID();
             $latestOTP = $otpModel->find($lastInsertedID);
-            $this->sendEmail($latestOTP['otp'],$recipient);
-            return $this->response->setJSON(['status' => 'success', 'message' => 'OTP was sent to '.$recipient.'.']);
-        }else{
+            $this->sendEmail($latestOTP['otp'], $recipient);
+            return $this->response->setJSON(['status' => 'success', 'message' => 'OTP was sent to ' . $recipient . '.']);
+        } else {
             return $this->response->setJSON(['status' => 'error', 'message' => 'OTP was not generated.']);
         }
     }
-        
+
     public function validateOTP()
     {
         $otp = $this->request->getPost('otp');
@@ -663,15 +726,15 @@ class AdminController extends BaseController
         }
 
     }
-    private function sendEmail($otp,$recipient)
+    private function sendEmail($otp, $recipient)
     {
-            $email = new Email();
-            // Enable debugging
-            $email->setFrom('admin@celebratewithus.site', 'admin'); // Sender's email and name
-            $email->setTo($recipient); // Recipient's email
+        $email = new Email();
+        // Enable debugging
+        $email->setFrom('admin@celebratewithus.site', 'admin'); // Sender's email and name
+        $email->setTo($recipient); // Recipient's email
 
-            $email->setSubject('OTP');
-            $message='<!DOCTYPE html>
+        $email->setSubject('OTP');
+        $message = '<!DOCTYPE html>
                         <html lang="en">
                         <head>
                             <meta charset="UTF-8">
@@ -684,7 +747,7 @@ class AdminController extends BaseController
                                 <p style="font-size: 16px; line-height: 1.7; color: #4a4a4a; margin: 0 0 15px;">Hello,</p>
                                 <p style="font-size: 16px; line-height: 1.7; color: #4a4a4a; margin: 0 0 15px;">Here is your OTP to complete the verification process:</p>
                                 <div style="font-size: 30px; color: green; font-weight: bold; text-align: center; padding: 15px; background-color: #f9fafb; border-radius: 8px; margin-top: 20px;">
-                                    <strong>'.$otp.'</strong>
+                                    <strong>' . $otp . '</strong>
                                 </div>
                                 <p style="font-size: 16px; line-height: 1.7; color: #4a4a4a; margin: 0 0 15px;">If you have any questions, feel free to contact us.</p>
                                 <div style="margin-top: 40px; font-size: 13px; color: #999; text-align: center;">
@@ -694,14 +757,14 @@ class AdminController extends BaseController
                         </body>
                         </html> ';
 
-            $email->setMessage($message);
-            $email->setMailType('html');
+        $email->setMessage($message);
+        $email->setMailType('html');
 
-            if ($email->send()) {
-                log_message('info', 'Email sent successfully.');
-            } else {
-                log_message('error',$email->printDebugger(['headers']));
-            } 
+        if ($email->send()) {
+            log_message('info', 'Email sent successfully.');
+        } else {
+            log_message('error', $email->printDebugger(['headers']));
+        }
     }
 
 

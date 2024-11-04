@@ -3,10 +3,14 @@
         $('[data-toggle="tooltip"]').tooltip();
         let rsvpURL = '<?php echo base_url('rsvp') ?>';
         $(document).on('click', '.submitButton', function () {
-            var formData = $(".guest-form-add").serialize();
+            var formData = $(".guest-form-add").serialize(); // Get serialized data
             $(".submitButton").html("<i class='fa fa-spinner fa-spin'></i>");
             if ($("#name").val().length > 0) {
                 console.log(formData);
+                // Check the checkbox state
+                // if (!$('.check_kid').is(':checked')) {
+                //     formData += '&is_kid[]=No'; // Append unchecked state as a query string
+                // }
                 // Send AJAX POST request
                 $.ajax({
                     url: '<?php echo site_url('admin/submit') ?>', // URL to the controller method
@@ -96,6 +100,35 @@
             });
             $(this).closest("li").remove();
         });
+
+        $(document).on("change", ".is_kid_dropdown", function () {
+            var id = $(this).data('id');
+            var is_kid = $(this).val();
+            // Send AJAX POST request\
+            $.ajax({
+                url: '<?php echo site_url('admin/update-kid-status') ?>', // URL to the controller method
+                type: 'POST',
+                data: { id: id , is_kid: is_kid},
+                dataType: 'json',
+                success: function (response) {
+                    // Handle success
+                    if(response.status == "error"){
+                        $(".updateButton").attr('disabled',true);
+                        toastr.error(response.message);
+                      
+                    }
+                    if(response.status == "success"){
+                        $(".updateButton").attr('disabled',false);
+                        toastr.success(response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // Handle error
+                    toastr.warning('An error occurred: ' + error);
+                }
+            });
+        });
+
         $(document).on('click', '#btn-delete-guest', function () {
             $(this).html("<i class='fa fa-spinner fa-spin'></i>");
             var user_id = $("#d_user_id").val();
@@ -246,8 +279,9 @@
                         companionContainer.html('');
                         var ctr = 0;
                         $.each(response.companions, function (index, item) {
-                            companionContainer.append('<li> <input type="text" oninput="checkDuplicateCompanionNames()" id="companion_name" value="' + (item.name ? item.name : '') + '" name="companion_name[' + ctr + '][name]" style="width: 90%; height: 38px; border: 2px solid #ced4da;">' +
-                                '<input type="hidden" value="' + (item.id ? item.id : '') + '" name="companion_name[' + ctr + '][id]" style="width: 90%; height: 38px; border: 2px solid #ced4da;">' +
+                            companionContainer.append('<li><input type="text" oninput="checkDuplicateCompanionNames()" id="companion_name" value="' + (item.name ? item.name : '') + '" name="companion_name[' + ctr + '][name]" style="width: 70%; height: 38px; border: 2px solid #ced4da;">' +
+                                '<input type="hidden" value="' + (item.id ? item.id : '') + '" name="companion_name[' + ctr + '][id]" style="width: 70%; height: 38px; border: 2px solid #ced4da;">' +
+                                '<label for="exampleDropdown" style="padding-left: 10px;padding-right:10px;">KID?</label><select id="exampleDropdown" data-id = "'+item.id+'" class="is_kid_dropdown" name="companion_name['+ ctr +'][kid]" style="height: 38px; border: 2px solid #ced4da;"><option '+(item.is_kid == 'No' ? 'selected':'')+' value="No">No</option><option '+(item.is_kid == 'Yes' ? 'selected':'')+' value="Yes">Yes</option></select>'+
                                 '<span type="button" class="delete_companion ' + (guest_status == 'Yes' || guest_status == 'No' ? 'd-none' : '') + '" data-id="' + (item.id ? item.id : '') + '" style="padding-left: 11px;color: red;"><i class="fa fa-minus"></i></span></li>');
                             ctr++;
                         });
@@ -788,6 +822,97 @@
 
     const ch2 = new ApexCharts(document.querySelector("#chart2"), options2);
     ch2.render();
+
+    var options3 = {
+        chart: {
+            height: 280,
+            type: "radialBar",
+        },
+        series: [<?php echo $data->kids_percentage; ?>],
+        colors: ["#20E647"],
+        plotOptions: {
+            radialBar: {
+                startAngle: -135,
+                endAngle: 135,
+                track: {
+                    background: '#333',
+                    startAngle: -135,
+                    endAngle: 135,
+                },
+                dataLabels: {
+                    name: {
+                        show: false,
+                    },
+                    value: {
+                        fontSize: "30px",
+                        show: true
+                    }
+                }
+            }
+        },
+        fill: {
+            type: "gradient",
+            gradient: {
+                shade: "dark",
+                type: "horizontal",
+                gradientToColors: ["#87D4F9"],
+                stops: [0, 100]
+            }
+        },
+        stroke: {
+            lineCap: "butt"
+        },
+        labels: ["Total"]
+    };
+
+    const ch3 = new ApexCharts(document.querySelector("#chart3"), options3);
+    ch3.render();
+
+
+    var options4 = {
+        chart: {
+            height: 280,
+            type: "radialBar",
+        },
+        series: [<?php echo $data->scanned_percentage; ?>],
+        colors: ["#20E647"],
+        plotOptions: {
+            radialBar: {
+                startAngle: -135,
+                endAngle: 135,
+                track: {
+                    background: '#333',
+                    startAngle: -135,
+                    endAngle: 135,
+                },
+                dataLabels: {
+                    name: {
+                        show: false,
+                    },
+                    value: {
+                        fontSize: "30px",
+                        show: true
+                    }
+                }
+            }
+        },
+        fill: {
+            type: "gradient",
+            gradient: {
+                shade: "dark",
+                type: "horizontal",
+                gradientToColors: ["#87D4F9"],
+                stops: [0, 100]
+            }
+        },
+        stroke: {
+            lineCap: "butt"
+        },
+        labels: ["Total"]
+    };
+
+    const ch4 = new ApexCharts(document.querySelector("#chart4"), options4);
+    ch4.render();
     // Initialize Pusher
     var pusher = new Pusher('8d7fa0a5863f106e689f', {
         cluster: 'ap3',
@@ -813,6 +938,8 @@
 
                 const totalGuestPercentage = response.totalGuestPercentage; // This is a single number
                 const totalGuestWillAttend = response.totalGuestWillAttend; // This is also a single number
+                const totalKids = response.kids_percentage; // This is also a single numbe
+                const totalScannedPercentage = response.scanned_percentage; // This is also a single number
                 // console.log(response);
                 // Update the chart with new data
                 ch1.updateOptions({
@@ -822,10 +949,20 @@
                 ch2.updateOptions({
                     series: [totalGuestWillAttend] // Update with new data
                 });
-                var totalGuest = response.totalGuest + ' of ' + response.totalCap + ' </br>total guests';
-                var totalGuestThatWillAttend = response.totalGuestConfirm + ' of ' + response.totalCap + ' guests</br>confirmed attendance';
+                ch3.updateOptions({
+                    series: [totalKids] // Update with new data
+                });
+                ch4.updateOptions({
+                    series: [totalScannedPercentage] // Update with new data
+                });
+                var totalGuest = response.totalGuest + ' of ' + response.totalCap + ' </br>Max Capacity';
+                var totalGuestThatWillAttend = response.totalGuestConfirm + ' of ' + response.totalCap + ' </br>RSVP Confirmation Rate';
+                var kidsCount = response.totalKids + ' of ' + response.kidsCap + ' </br>Kids Count';
+                var totalScannedGuest = response.totalScannedGuest + ' of ' + response.totalCap + ' </br>Scanned QR';
                 $("#total_guest_container").html(totalGuest);
                 $("#total_guest_will_attend_container").html(totalGuestThatWillAttend);
+                $("#total_kids_container").html(kidsCount);
+                $("#total_scanned_guest").html(totalScannedGuest);
             },
             error: function (xhr, status, error) {
                 console.error('AJAX Error:', status, error);

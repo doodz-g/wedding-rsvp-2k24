@@ -192,7 +192,11 @@ class UserController extends BaseController
                     $userModel->where('invite_id', $rsvp_id);
                     $userModel->set('qr_code_status', 1);
                     $userModel->update();
-
+                    foreach ($getCompanions as $companion){
+                        $companionsModel->where('id', $companion->id);
+                        $companionsModel->set('qr_code_status', 1);
+                        $companionsModel->update();
+                    }
                     $this->sendNotif();
                 }
 
