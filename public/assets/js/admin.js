@@ -72,9 +72,10 @@
     });
     $(document).on('click', '.btn-delete-guest-modal', function () {
         var delete_user_id = $(this).data('id');
+        var name = $(this).data('name');
         $("#d_user_id").val(delete_user_id);
         $(".overlay").fadeOut(300);
-        $("#delete-user-modal").find(".modal-title").text("Delete Guest");
+        $("#delete-user-modal").find(".modal-title").text('Delete Guest[' + name + ']');
         $("#delete-user-modal").modal("show");
     });
     $(document).on('click', '#selectAll', function () {

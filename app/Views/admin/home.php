@@ -132,7 +132,7 @@
                                                 data-toggle="tooltip"><i class="fa fa-table"></i></a>': '<a href="#" type="button" class="settings" title="Cannot Assign" data-toggle="tooltip"><i style="color:gray !important;" class="fa fa-table"></i></a>'; ?>
                                             <?php echo $c->will_attend === NULL ? '<a class="invite-link settings" title="Copy Invite link" data-toggle="tooltip" type="button" href="' . base_url('rsvp/' . $c->invite_id . '') . '"><i class="fa fa-link"></i></a>' : '<a class="settings" disabled title="Link already sent." data-toggle="tooltip" type="button" href="#"><i class="fa fa-link" style="color:gray !important;"></i></a>' ?>
 
-                                            <a href="#" type="button" data-id="<?php echo $c->id; ?>"
+                                            <a href="#" type="button" data-name ="<?php echo $c->name;?>" data-id="<?php echo $c->id; ?>"
                                                 class="delete btn-delete-guest-modal" title="Delete" data-toggle="tooltip"><i
                                                     class="fa fa-trash"></i></a>
                                         </td>
