@@ -35,28 +35,28 @@
                 <div class="col-md-2 chart-wrapper">
                     <div id="chart"></div>
                     <div class="chart-label text-center">
-                        <span id="total_guest_container"><?php echo $data->totalGNow . ' of ' . $data->maxCap; ?>
+                        <span id="total_guest_container" style="font-weight: 600;font-size: 12px;"><?php echo $data->totalGNow . ' of ' . $data->maxCap; ?>
                         <br>Max Capacity</span>
                     </div>
                 </div>
                 <div class="col-md-2 chart-wrapper">
                     <div id="chart2"></div>
                     <div class="chart-label text-center">
-                        <span id="total_guest_will_attend_container"><?php echo $data->totalGuestThatConfirm . ' of ' . $data->maxCap; ?>
+                        <span id="total_guest_will_attend_container" style="font-weight: 600;font-size: 12px;"><?php echo $data->totalGuestThatConfirm . ' of ' . $data->maxCap; ?>
                         <br>RSVP Confirmation Rate</span>
                     </div>
                 </div>
                 <div class="col-md-2 chart-wrapper">
                     <div id="chart3"></div>
                     <div class="chart-label text-center">
-                        <span id="total_kids_container"><?php echo $data->totalKids . ' of ' . $data->kidsCap; ?>
+                        <span id="total_kids_container" style="font-weight: 600;font-size: 12px;"><?php echo $data->totalKids . ' of ' . $data->kidsCap; ?>
                         <br>Kids Count</span>
                     </div>
                 </div>
                 <div class="col-md-2 chart-wrapper">
                     <div id="chart4"></div>
                     <div class="chart-label text-center">
-                        <span id="total_scanned_guest"><?php echo $data->totalScannedGuest . ' of ' . $data->maxCap; ?>
+                        <span id="total_scanned_guest" style="font-weight: 600;font-size: 12px;"><?php echo $data->totalScannedGuest . ' of ' . $data->maxCap; ?>
                         <br>Scanned Guest</span>
                     </div>
                 </div>
