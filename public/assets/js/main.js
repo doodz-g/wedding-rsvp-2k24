@@ -193,6 +193,7 @@
         console.log("The song has finished playing");
         $(".btn-play").removeClass("d-none");
         $(".btn-pause").addClass("d-none");
+        $(".float-music").find('i').removeClass('fa-pause').addClass('fa-play');
     });
 
     $(document).ajaxSend(function () {
@@ -263,19 +264,6 @@
         } else {
             $(".scroll-to-bottom").fadeIn("slow");
         }
-    });
-
-    var a = $(".portfolio-container").isotope({
-        itemSelector: ".portfolio-item",
-        layoutMode: "fitRows"
-    });
-
-    $("#portfolio-flters li").on("click", function () {
-        $("#portfolio-flters li").removeClass("active");
-        $(this).addClass("active");
-        a.isotope({
-            filter: $(this).data("filter")
-        });
     });
 
     $(window).scroll(function () {
