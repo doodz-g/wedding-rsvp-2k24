@@ -10,12 +10,22 @@
             </div>
             <div class="modal-body">
                 <form class="guest-form-add">
-                    <label for="name">Name:</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
-                    <label class="d-none comp_label" for="name">Companions:</label>
-                    <ul id="companion-container" style="line-height:3.5;list-style:none;padding-left:0;">
+                    <div class="form" style="display:ruby-text;">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" required style="width:57%;">
+                        <label for="exampleDropdown" style="padding-left: 10px;padding-right:10px;">Entourage?</label>
+                        <select id="exampleDropdown" class="is_entourage_dropdown" name="is_entourage"
+                            style="height: 38px; border: 2px solid #ced4da;">
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="d-none comp_label" for="name">Companions:</label>
+                        <ul id="companion-container" style="line-height:3.5;list-style:none;padding-left:0;">
 
-                    </ul>
+                        </ul>
+                    </div>
                     <button type="button" class="add_companion"><i class="fa fa-plus"></i> Add
                         companion</button>
                     <div class="modal-footer">
@@ -39,13 +49,23 @@
             </div>
             <div class="modal-body">
                 <form class="guest-form-update">
-                    <label for="name">Name:</label>
-                    <input type="text" class="form-control" id="update_name" name="name">
-                    <input type="hidden" class="form-control" id="update_user_id" name="user_id">
-                    <label for="name" class="d-none comp_label">Companions:</label>
-                    <ul id="update_companion_container" style="line-height:3.5;list-style:none;padding-left:0;">
+                    <div class="form" style="display:ruby-text;">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" id="update_name" name="name" style="width:57%;">
+                        <input type="hidden" class="form-control" id="update_user_id" name="user_id">
+                        <label for="exampleDropdown" style="padding-left: 10px;padding-right:10px;">Entourage?</label>
+                        <select id="is_entourage" class="is_entourage_dropdown" name="is_entourage"
+                            style="height: 38px; border: 2px solid #ced4da;">
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="name" class="d-none comp_label">Companions:</label>
+                        <ul id="update_companion_container" style="line-height:3.5;list-style:none;padding-left:0;">
 
-                    </ul>
+                        </ul>
+                    </div>
                     <button type="button"
                         class="update_companion <?php echo $data->totalGNow == 120 ? 'd-none' : '' ?>"><i
                             class="fa fa-plus"></i> Add
@@ -136,13 +156,13 @@
                 <form class="qr-settings-form-update">
                     <label for="name">Enter your email for the OTP:</label>
                     <div style="display: flex; align-items: center;">
-                        <input type="text" class="form-control" id="email" name="email"
-                            style="width: 200px;">
+                        <input type="text" class="form-control" id="email" name="email" style="width: 200px;">
                         <span style="margin-left: 5px;">@celebratewithus.site</span>
                     </div>
                     <input type="hidden" class="form-control" id="qr_setting" name="qr_setting">
                     <div class="modal-footer">
-                        <button type="button" value="submit" class="btn btn-primary bg-black btn-send-email">Send</button>
+                        <button type="button" value="submit"
+                            class="btn btn-primary bg-black btn-send-email">Send</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </form>

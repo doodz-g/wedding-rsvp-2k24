@@ -143,18 +143,40 @@
 
         }
     });
-    $("#carousel-container").find(".btn-play-music").click(function () {
+    $("body").find(".btn-play-music").click(function () {
         if ($(this).hasClass("btn-play")) {
             e.play();
             $(".btn-play").addClass("d-none");
             $(".btn-pause").removeClass("d-none");
+            $(".float-music").find('i').removeClass('fa-play').addClass('fa-pause');
         } else {
             e.pause();
             $(".btn-play").removeClass("d-none");
             $(".btn-pause").addClass("d-none");
+            $(".float-music").find('i').removeClass('fa-pause').addClass('fa-play');
         }
     });
 
+    $(".float-music").click(function () {
+        var audioElement = $("audio")[0];  // Assuming you have an <audio> element
+    
+        if (audioElement.paused) {
+            audioElement.play().then(() => {
+                $(".btn-play").addClass("d-none");  // Hide the play button
+                $(".btn-pause").removeClass("d-none");  // Show the pause button
+                $(".float-music").find('i').removeClass('fa-play').addClass('fa-pause');
+            }).catch(error => {
+                console.error("Error playing audio: ", error);
+            });
+        } else {
+            audioElement.pause();
+            $(".float-music").find('i').removeClass('fa-pause').addClass('fa-play');
+            $(".btn-play").removeClass("d-none");  // Show the play button
+            $(".btn-pause").addClass("d-none");  // Hide the pause button
+        }
+    });
+    
+    
     $("#entourage-link").on("click", function () {
         $('h2').each(function () {
             $(this).addClass('animate__fadeInDown animate__animated').css('--animate-duration', '1s');
@@ -194,6 +216,18 @@
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
+        });
+        $("#btn-prep").click(function () {
+            $(this).css('text-decoration','underline');
+            $("#btn-ceremoni").css('text-decoration','none');
+            $("#prep-area").removeClass("d-none");
+            $("#ceremonireception").addClass("d-none");
+        });
+        $("#btn-ceremoni").click(function () {
+            $(this).css('text-decoration','underline');
+            $("#btn-prep").css('text-decoration','none');
+            $("#prep-area").addClass("d-none");
+            $("#ceremonireception").removeClass("d-none");
         });
     });
     $(document).on("click", '.navbar-nav a, .navbar-collapse a', function (e) {
@@ -246,12 +280,20 @@
 
     $(window).scroll(function () {
         if ($(this).scrollTop() > 200) {
+            $(".float-music").fadeIn("slow");
+        } else {
+            $(".float-music").fadeOut("slow");
+        }
+    });
+
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 200) {
             $(".back-to-top").fadeIn("slow");
         } else {
             $(".back-to-top").fadeOut("slow");
         }
     });
-
+    
     $(".back-to-top").click(function () {
         $("html, body").animate({
             scrollTop: 0
@@ -260,7 +302,7 @@
     });
 
     $(".gallery-carousel").owlCarousel({
-        autoplay: false,
+        autoplay: true,
         smartSpeed: 1500,
         dots: false,
         loop: true,

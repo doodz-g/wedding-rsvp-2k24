@@ -252,10 +252,12 @@
         $(document).on('click', '.btn-edit-guest-modal', function () {
             var user_id = $(this).data('id');
             var name = $(this).data('name');
+            var is_entourage = $(this).data('entourage');
             var guest_status = $(this).data('status');
             $(this).html("<i class='fa fa-spinner fa-spin'></i>");
             $(".modal-title").text('Edit Guest[' + name + ']');
             $("#update_name").val(name);
+            $("#is_entourage").val(is_entourage);
             $("#update_user_id").val(user_id);
             $(".comp_label").removeClass("d-none");
             $.ajax({
@@ -506,7 +508,7 @@
                         '<td>' + tb_num + '</td>' +
                         '<td>' + item.date + '</td>' +
                         '<td style="width:158px;" class="<?php echo session()->get('usertype') == 'admin' ? 'd-none' : '' ?>">' +
-                        '<a href="#" type="button" data-status="' + item.will_attend + '" data-id="' + item.id + '" class="settings btn-edit-guest-modal" data-id= "' + item.id + '" data-name="' + item.name + '" title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>' +
+                        '<a href="#" type="button" data-status="' + item.will_attend + '" data-id="' + item.id + '" class="settings btn-edit-guest-modal" data-entourage= "' + item.is_entourage + '" data-id= "' + item.id + '" data-name="' + item.name + '" title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>' +
                         (item.will_attend === 'Yes' ? '<a href="#" type="button" data-id="' + item.id + '" data-name="' + item.name + '" class="settings btn-assign-guest-modal" data-table="' + item.table_number + '"title="Assign table slot" data-toggle="tooltip"><i class="fa fa-table"></i></a>' : '<a href="#" type="button" class="settings" title="Cannot Assign" data-toggle="tooltip"><i style="color:gray !important;" class="fa fa-table"></i></a>') +
                         (item.will_attend === null ? '<a class="invite-link settings" title="Copy Invite link" data-toggle="tooltip" type="button" href="' + rsvpURL + '/' + item.invite_id + '"><i class="fa fa-link"></i></a>' : '<a class="settings" disabled title="Copy Invite link" data-toggle="tooltip" type="button" href="#"><i class="fa fa-link" style="color:gray !important;"></i></a>') +
                         '<a href="#" type="button" data-id="' + item.id + '" class="delete btn-delete-guest-modal" data-name="' + item.name + '" title="Delete" data-toggle="tooltip"><i class="fa fa-trash"></i></a>' +
@@ -646,7 +648,7 @@
                         '<td>' + tb_num + '</td>' +
                         '<td>' + item.date + '</td>' +
                         '<td style="width:158px;" class="<?php echo session()->get('usertype') == 'admin' ? 'd-none' : '' ?>">' +
-                        '<a href="#" type="button" data-status="' + item.will_attend + '" data-id="' + item.id + '" class="settings btn-edit-guest-modal" data-id= "' + item.id + '" data-name="' + item.name + '" title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>' +
+                        '<a href="#" type="button" data-status="' + item.will_attend + '" data-id="' + item.id + '" class="settings btn-edit-guest-modal" data-entourage= "' + item.is_entourage + '" data-id= "' + item.id + '" data-name="' + item.name + '" title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>' +
                         (item.will_attend === 'Yes' ? '<a href="#" type="button" data-id="' + item.id + '" data-name="' + item.name + '" class="settings btn-assign-guest-modal" data-table="' + item.table_number + '"title="Assign table slot" data-toggle="tooltip"><i class="fa fa-table"></i></a>' : '<a href="#" type="button" class="settings" title="Cannot Assign" data-toggle="tooltip"><i style="color:gray !important;" class="fa fa-table"></i></a>') +
                         (item.will_attend === null ? '<a class="invite-link settings" title="Copy Invite link" data-toggle="tooltip" type="button" href="' + rsvpURL + '/' + item.invite_id + '"><i class="fa fa-link"></i></a>' : '<a class="settings" disabled title="Copy Invite link" data-toggle="tooltip" type="button" href="#"><i class="fa fa-link" style="color:gray !important;"></i></a>') +
                         '<a href="#" type="button" data-id="' + item.id + '" class="delete btn-delete-guest-modal" data-name="' + item.name + '" title="Delete" data-toggle="tooltip"><i class="fa fa-trash"></i></a>' +
@@ -957,7 +959,7 @@
                 });
                 var totalGuest = response.totalGuest + ' of ' + response.totalCap + ' </br>Max Capacity';
                 var totalGuestThatWillAttend = response.totalGuestConfirm + ' of ' + response.totalCap + ' </br>RSVP Confirmation Rate';
-                var kidsCount = response.totalKids + ' of ' + response.kidsCap + ' </br>Kids Count';
+                var kidsCount = response.totalKids + ' of ' + response.kidsCap + ' </br>Kids Total';
                 var totalScannedGuest = response.totalScannedGuest + ' of ' + response.totalCap + ' </br>QR Guest Scanned';
                 $("#total_guest_container").html(totalGuest);
                 $("#total_guest_will_attend_container").html(totalGuestThatWillAttend);

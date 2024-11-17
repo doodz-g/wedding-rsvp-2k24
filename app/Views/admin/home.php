@@ -124,7 +124,7 @@
                                         </td>
                                         <td style="width:158px;"
                                             class="<?php echo session()->get('usertype') == 'admin' ? 'd-none' : '' ?>">
-                                            <a href="#" type="button" data-status="<?php echo $c->will_attend;?>" data-id="<?php echo $c->id; ?>"
+                                            <a href="#" type="button" data-status="<?php echo $c->will_attend;?>" data-entourage="<?php echo $c->is_entourage;?>" data-id="<?php echo $c->id; ?>"
                                                 data-name="<?php echo $c->name; ?>" class="settings btn-edit-guest-modal"
                                                 title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>
                                             <?php echo $c->will_attend == 'Yes' ? '<a href="#" type="button" data-id="' . $c->id . '" data-name="' . $c->name . '" data-table="' . $c->table_number . '"

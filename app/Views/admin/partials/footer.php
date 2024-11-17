@@ -149,7 +149,7 @@
         console.log('Current limit updated to: ' + newLimit);
     });
 
-    $(document).on('mouseleave', '.notif', function () {
+    $(document).on('mouseleave', '.notif', function (e) {
         e.stopPropagation();
         var id = $(this).data('id');
         $(this).removeClass('bg-success');

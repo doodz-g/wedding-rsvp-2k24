@@ -18,7 +18,8 @@ class UserModel extends Model
         'invite_id',
         'will_attend',
         'will_not_attend',
-        'qr_code_status'
+        'qr_code_status',
+        'is_entourage'
 
     ];
 

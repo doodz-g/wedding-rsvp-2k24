@@ -489,11 +489,13 @@ class AdminController extends BaseController
             $name = $this->request->getPost('name');
             $companion_name = $this->request->getPost('companion_name');
             $is_kid = $this->request->getPost('is_kid');
+            $is_entourage = $this->request->getPost('is_entourage');
             // You can now validate and save the data
             $userModel = new UserModel();
 
             $data = [
                 'name' => $name,
+                'is_entourage' => $is_entourage,
                 'will_attend' => NULL,
                 'will_not_attend' => NULL,
                 'invite_id' => rand(10, 99999999999),
@@ -573,36 +575,27 @@ class AdminController extends BaseController
         if ($this->request->isAJAX() && $this->request->getMethod() === 'POST') {
             $user_id = $this->request->getPost('user_id');
             $name = $this->request->getPost('name');
-            $companion_names = $this->request->getPost('companion_name'); // Expecting an array of companions with id, name, and kid
+            $is_entourage = $this->request->getPost('is_entourage');
+            $companion_names = $this->request->getPost('companion_name');
 
             // Initialize the models
             $userModel = model(UserModel::class);
             $companionsModel = model(CompanionsModel::class);
-            // $settingsModel = model(SettingsModel::class);
-
-            // Fetch the maximum allowed kids from settings
-            // $getSettingsTableKids = $settingsModel->where('id', '3')->first();
-            // $maxKidsAllowed = (int) ($getSettingsTableKids['quantity'] ?? 0);
-
             // Update user details
             if ($user_id && $name) {
-                $userModel->set('name', $name)->where('id', $user_id);
+                $userModel->set('name', $name)->set('is_entourage', $is_entourage)->where('id', $user_id);
                 if ($userModel->update($user_id)) {
-                    // If the user update was successful, proceed with companions update
                     if (!empty($companion_names) && is_array($companion_names)) {
                         foreach ($companion_names as $companion) {
-                            // Count current kids in the companions table
                             $companion_id = $companion['id'] ?? null;
                             $companion_name = $companion['name'] ?? '';
                             $is_kid = $companion['kid'] ?? 'No';
                             if (!empty($companion_id)) {
-                                // Update existing companion if ID is present
                                 $companionsModel->set('name', $companion_name);
                                 $companionsModel->set('is_kid', $is_kid);
                                 $companionsModel->where('id', $companion_id);
                                 $companionsModel->update($companion_id);
                             } else {
-                                // Insert new companion if no ID is present
                                 $dataCompanion = [
                                     'name' => $companion_name,
                                     'user_id' => $user_id,
@@ -621,7 +614,6 @@ class AdminController extends BaseController
                 return $this->response->setJSON(['status' => 'error', 'message' => 'User ID or name is missing.']);
             }
         } else {
-            // Handle invalid request
             return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request.']);
         }
     }

@@ -188,7 +188,7 @@
             </div>
         </div>
         <!-- Story Start -->
-        <div class="container-fluid parallax-window-even" data-parallax="scroll"
+        <div class="container-fluid parallax-window-even paddingZero" data-parallax="scroll"
             data-image-src="<?php echo base_url('public/assets/img/even.png'); ?>" id="story">
             <div class="container-fluid pt-6 c-pb-3">
                 <div class="section-title position-relative text-center">
@@ -284,7 +284,7 @@
         </div>
         <!-- Story End -->
         <!-- Entourage Start -->
-        <div class="container-fluid bg-entourage parallax-window" data-parallax="scroll"
+        <div class="container-fluid bg-entourage parallax-window paddingZero" data-parallax="scroll"
             data-image-src="<?php echo base_url('public/assets/img/entourage.png'); ?>" id="entourage">
             <div class="container pt-6">
                 <div class="section-title position-relative text-center">
@@ -294,7 +294,7 @@
                 </div>
                 <div class="row m-0 mb-4 mb-md-0 pb-2 pb-md-0 text-center">
                     <div class="col-md-12 text-center font-secondary fw-light text-primary">
-                        <h2>Groom's Parents</h2>
+                        <h2>Will Represent as Groom's Parents</h2>
                     </div>
                     <div class="col-6 p-0 text-md-right p-4 ml-container mf-size">
                         <p>Mr. Edmundo G. Garcia</p>
@@ -352,9 +352,9 @@
                         <p>Mr. Edmundo Cabading</p>
                         <p>Mr. Eduardo Leonor</p>
                         <p>Mr. Arman Almirez</p>
-                        <p>Mr. Gregory Conwi</p>
+                        <p>Mr. Noe Beliganio</p>
                         <p>Mr. Allan Dela Rosa</p>
-                        <p>Mr. Philippe Mateo</p>
+                        <p>Mr. Philippe Conrado Mateo</p>
                         <p>Mr. Rogelio Almirez</p>
                         <p>Mr. Dante Felizarta</p>
                         <p>Mr. Ken Wheeler</p>
@@ -368,7 +368,7 @@
                         <p>Ms. Bernadeth Beliganio</p>
                         <p>Mrs. Erlyn Conwi</p>
                         <p>Mrs. Lucette Dela Rosa</p>
-                        <p>Mrs. Ivanne Colleen Parilla- Mateo</p>
+                        <p>Mrs. Ivanne Colleen Mateo</p>
                         <p>Mrs. Minerva Almirez</p>
                         <p>Mrs. Maria Lita Felizarta</p>
                         <p>Mrs. Elenita Wheeler</p>
@@ -580,7 +580,7 @@
     </div>
     <!-- Gallery End -->
     <!-- Event Start -->
-    <div class="container-fluid parallax-window" data-parallax="scroll"
+    <div class="container-fluid parallax-window paddingZero" data-parallax="scroll"
         data-image-src="<?php echo base_url('public/assets/img/entourage.png'); ?>" id="event">
         <div class="container pt-6">
             <div class="section-title position-relative text-center">
@@ -597,9 +597,13 @@
                         will be filled with love, laughter, and endless joy.</h5>
                 </div>
             </div>
-            <div class="row">
+            <div class="row button-container <?php echo !isset($data->is_entourage) || $data->is_entourage == "No" ? 'd-none':''?>" style="display: flex;justify-content: center;align-items: center;">
+                <button type="button" id="btn-prep" class="btn btn-primary btn-lg" style="background-color:black;color: white;border-bottom: none;border: 1px solid lightgray;border-radius: 10px 10px 0 0;">Prep</button>
+                <button type="button" id="btn-ceremoni" class="btn btn-primary btn-lg" style="background-color:black;color: white;border-bottom: none;border: 1px solid lightgray;border-radius: 10px 10px 0 0;text-decoration:underline;">Ceremonireception</button>
+            </div>
+            <div class="row" id="ceremonireception">
                 <div class="col-md-6 border-right border-primary">
-                    <div class="text-center text-md-right mr-md-3 mb-4 mb-md-0">
+                    <div class="text-center mr-md-3 mb-4 mb-md-0">
                         <iframe class="pb-3" width="100%" height="300px" style="border:0" loading="lazy" allowfullscreen
                             src="<?php echo $data->google_map_key2 ?>"></iframe>
                         <h4 class="mb-3">The Wedding Venue</h4>
@@ -608,12 +612,22 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="text-center text-md-left ml-md-3">
+                    <div class="text-center ml-md-3">
                         <iframe class="pb-3" width="100%" height="300px" style="border:0" loading="lazy" allowfullscreen
                             src="<?php echo $data->google_map_key1 ?>"></iframe>
                         <h4 class="mb-3">The Reception</h4>
                         <p class="mb-2">El Circulo Events Place</p>
                         <p class="mb-0">6:00 PM - 10:00 PM</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-none" id="prep-area">
+                <div class="col-md-12">
+                    <div class="text-center mr-md-3 mb-4 mb-md-0">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3860.877962707105!2d121.16294477574131!3d14.606027076942498!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397b8ca26381acf%3A0x71d2a0e4414ff586!2sCASA%20RITA%20Overlooking%20Vacation%20House!5e0!3m2!1sen!2sph!4v1731841992072!5m2!1sen!2sph" width="60%" height="300px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <h4 class="mb-3">The Prep Venue</h4>
+                        <p class="mb-2">CASA RITA Overlooking Vacation House</p>
+                        <p class="mb-0">8:00 AM - 2:00PM</p>
                     </div>
                 </div>
             </div>
@@ -681,7 +695,7 @@
     </div>
     <!-- Event End -->
     <!-- Faqs Start -->
-    <div class="container-fluid parallax-window-even" data-parallax="scroll"
+    <div class="container-fluid parallax-window-even paddingZero" data-parallax="scroll"
         data-image-src="<?php echo base_url('public/assets/img/even.png'); ?>" id="faqs">
         <div class="container-fluid c-pb-3 pt-6 scroll-up-content" data-aos="fade-up">
             <div class="section-title position-relative text-center">
@@ -797,7 +811,7 @@
     <!-- Faqs End -->
     <?php if (isset($data->show_modal)) { ?>
         <!-- RSVP Start -->
-        <div class="container-fluid py-5 parallax-window" data-parallax="scroll"
+        <div class="container-fluid py-5 parallax-window paddingZero" data-parallax="scroll"
             data-image-src="<?php echo base_url('public/assets/img/entourage.png'); ?>" id="rsvp"
             style="<?php echo $data->show_modal == 'true' ? 'display:block;' : 'display:none;' ?>">
             <div class="container py-5 bg-secondary">
@@ -840,7 +854,7 @@
         </div>
         <!-- RSVP End -->
         <!-- RSVP Confirm Start -->
-        <div class="container-fluid py-5 parallax-window" data-parallax="scroll"
+        <div class="container-fluid py-5 parallax-window paddingZero" data-parallax="scroll"
             data-image-src="<?php echo base_url('public/assets/img/entourage.png'); ?>" id="rsvp-confirm"
             style="<?php echo $data->show_modal == 'false' ? 'display:none;' : 'display:block;' ?>">
             <div class="container py-5 bg-secondary">
@@ -1021,6 +1035,8 @@
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-outline-primary btn-lg-square back-to-top"><i
             class="fa fa-angle-double-up"></i></a>
+    <button class="btn btn-lg btn-outline-primary btn-lg-square float-music" style="margin-bottom:3em;"><i
+            class="fa fa-play"></i></button>
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax.js/1.0/parallax.min.js"
@@ -1052,11 +1068,12 @@
                 }, 3000);
                 $("#fullOverlay").addClass("animate__animated animate__fadeOutUpBig");
                 $(".custom-container").addClass("loaded");
+                $(".btn-play").click();
                 <?php if (!empty($data->show_modal) && !is_null($data->show_modal) && $data->show_modal == true) { ?>
-                $("body").addClass("no-scroll");
-                $("#overlay-rsvp").removeClass('d-none');
-                <?php }else{ ?>
-                $("body").removeClass("no-scroll");
+                    $("body").addClass("no-scroll");
+                    $("#overlay-rsvp").removeClass('d-none');
+                <?php } else { ?>
+                    $("body").removeClass("no-scroll");
                 <?php } ?>
             });
         });

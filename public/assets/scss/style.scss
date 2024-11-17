@@ -74,6 +74,16 @@ $border-width: 2px;
     -webkit-animation: action 1s infinite alternate;
     animation: action 1s infinite alternate;
 }
+.float-music {
+    position: fixed;
+    display: none;
+    text-align: center;
+    right: 30px;
+    bottom: 30px;
+    z-index: 11;
+    -webkit-animation: action 1s infinite alternate;
+    animation: action 1s infinite alternate;
+}
 
 @-webkit-keyframes action {
     0% {

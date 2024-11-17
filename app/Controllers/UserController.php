@@ -50,6 +50,7 @@ class UserController extends BaseController
                     'invitee_qr' => $getUserDetailsConfirmRSVP->qr_code,
                     'main_invitee' => $getUserDetailsConfirmRSVP->name,
                     'invite_id' => $getUserDetailsConfirmRSVP->invite_id,
+                    'is_entourage' => $getUserDetailsConfirmRSVP->is_entourage,
                     'companions_count' => $countCompanions,
                 ];
             } else if (!empty($getUserDetails)) {
@@ -63,6 +64,7 @@ class UserController extends BaseController
                     'confirm_rsvp' => 0,
                     'main_invitee' => $getUserDetails->name,
                     'invite_id' => $getUserDetails->invite_id,
+                    'is_entourage' => $getUserDetails->is_entourage,
                     'companions_count' => $countCompanions,
                 ];
             } else {
